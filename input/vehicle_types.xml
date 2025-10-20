@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vehicleDefinitions xmlns="http://www.matsim.org/files/dtd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.matsim.org/files/dtd http://www.matsim.org/files/dtd/vehicleDefinitions_v1.0.xsd">
+
+    <vehicleType id="car">
+        <description>Conventional Car</description>
+        <length meter="7.5"/>
+        <width meter="1.0"/>
+        <maximumVelocity meterPerSecond="33.33"/>
+        <accessTime secondsPerPerson="1.0"/>
+        <egressTime secondsPerPerson="1.0"/>
+        <doorOperation mode="serial"/>
+        <passengerCarEquivalents pce="1.0"/>
+    </vehicleType>
+
+    <vehicleType id="electric_car">
+        <description>Electric Car</description>
+        <length meter="7.5"/>
+        <width meter="1.0"/>
+        <maximumVelocity meterPerSecond="33.33"/>
+        <accessTime secondsPerPerson="1.0"/>
+        <egressTime secondsPerPerson="1.0"/>
+        <doorOperation mode="serial"/>
+        <passengerCarEquivalents pce="1.0"/>
+    </vehicleType>
+
+    <!-- Example vehicle instances referencing the defined vehicle types -->
+    <vehicle id="vehicle_1" type="car"/>
+    <vehicle id="vehicle_2" type="electric_car"/>
+
+</vehicleDefinitions>

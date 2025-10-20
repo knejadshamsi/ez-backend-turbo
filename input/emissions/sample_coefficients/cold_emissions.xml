@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<averageColdEmissionFactorFile>
+    <pollutant name="CO">
+        <segment type="PASSENGER_CAR" fuel="PETROL">
+            <parkingTime value="0.0" unit="h" amount="20.0" unit="g/start"/>
+            <parkingTime value="1.0" unit="h" amount="25.0" unit="g/start"/>
+            <parkingTime value="2.0" unit="h" amount="30.0" unit="g/start"/>
+        </segment>
+        <segment type="PASSENGER_CAR" fuel="DIESEL">
+            <parkingTime value="0.0" unit="h" amount="15.0" unit="g/start"/>
+            <parkingTime value="1.0" unit="h" amount="20.0" unit="g/start"/>
+            <parkingTime value="2.0" unit="h" amount="25.0" unit="g/start"/>
+        </segment>
+    </pollutant>
+</averageColdEmissionFactorFile>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE population SYSTEM "http://www.matsim.org/files/dtd/population_v6.dtd">
+<population>
+    <person id="1">
+        <attributes>
+            <attribute name="carAvail" class="java.lang.String">always</attribute>
+        </attributes>
+        <plan selected="yes">
+            <activity type="home" link="1" end_time="08:00:00" />
+            <leg mode="car">
+                <attributes>
+                    <attribute name="vehicleId" class="java.lang.String">conventional_car</attribute>
+                </attributes>
+            </leg>
+            <activity type="work" link="3" end_time="17:00:00" />
+            <leg mode="car">
+                <attributes>
+                    <attribute name="vehicleId" class="java.lang.String">conventional_car</attribute>
+                </attributes>
+            </leg>
+            <activity type="home" link="1" />
+        </plan>
+    </person>
+
+    <person id="2">
+        <attributes>
+            <attribute name="carAvail" class="java.lang.String">always</attribute>
+        </attributes>
+        <plan selected="yes">
+            <activity type="home" link="1" end_time="09:00:00" />
+            <!-- Change mode from electric_car to car -->
+            <leg mode="car">
+                <attributes>
+                    <attribute name="vehicleId" class="java.lang.String">electric_car</attribute>
+                </attributes>
+            </leg>
+            <activity type="work" link="3" end_time="16:00:00" />
+            <!-- Change mode from electric_car to car -->
+            <leg mode="car">
+                <attributes>
+                    <attribute name="vehicleId" class="java.lang.String">electric_car</attribute>
+                </attributes>
+            </leg>
+            <activity type="home" link="1" />
+        </plan>
+    </person>
+</population>

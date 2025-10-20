@@ -1,0 +1,121 @@
+<?xml version="1.0" ?>
+<!DOCTYPE config SYSTEM "http://www.matsim.org/files/dtd/config_v2.dtd">
+<config>
+    <module name="global">
+        <param name="randomSeed" value="4711" />
+        <param name="coordinateSystem" value="Atlantis" />
+    </module>
+
+    <module name="network">
+        <param name="inputNetworkFile" value="./input/network.xml" />
+    </module>
+
+    <module name="plans">
+        <param name="inputPlansFile" value="./input/population.xml" />
+    </module>
+
+    <module name="vehicles">
+        <param name="vehiclesFile" value="./input/vehicle_types.xml" />
+    </module>
+
+    <module name="qsim">
+        <param name="startTime" value="00:00:00" />
+        <param name="endTime" value="24:00:00" />
+        <param name="flowCapacityFactor" value="0.1" />
+        <param name="storageCapacityFactor" value="0.1" />
+        <param name="numberOfThreads" value="1" />
+        <param name="mainMode" value="car"/>
+        <param name="vehiclesSource" value="modeVehicleTypesFromVehiclesData"/>
+        <param name="usePersonIdForMissingVehicleId" value="false"/>
+    </module>
+
+    <module name="controler">
+        <param name="outputDirectory" value="./output/zero-emission-test" />
+        <param name="firstIteration" value="0" />
+        <param name="lastIteration" value="10" />
+        <param name="writeEventsInterval" value="1" />
+        <param name="writePlansInterval" value="1" />
+        <param name="overwriteFiles" value="deleteDirectoryIfExists" />
+        <param name="mobsim" value="qsim" />
+    </module>
+
+    <module name="planCalcScore">
+        <!-- Activities -->
+        <parameterset type="activityParams">
+            <param name="activityType" value="home" />
+            <param name="typicalDuration" value="12:00:00" />
+            <param name="openingTime" value="06:00:00" />
+            <param name="closingTime" value="22:00:00" />
+        </parameterset>
+        <parameterset type="activityParams">
+            <param name="activityType" value="work" />
+            <param name="typicalDuration" value="08:00:00" />
+            <param name="openingTime" value="08:00:00" />
+            <param name="closingTime" value="18:00:00" />
+        </parameterset>
+
+        <!-- Modes -->
+        <parameterset type="modeParams">
+            <param name="mode" value="car" />
+            <param name="constant" value="0.0" />
+            <param name="marginalUtilityOfTraveling_util_hr" value="-10.0" />
+            <param name="marginalUtilityOfDistance_util_m" value="-0.0002" />
+            <param name="monetaryDistanceRate" value="0.0" />
+        </parameterset>
+
+        <!-- Walk mode -->
+        <parameterset type="modeParams">
+            <param name="mode" value="walk" />
+            <param name="constant" value="0.0" />
+            <param name="marginalUtilityOfTraveling_util_hr" value="-6.0" />
+            <param name="marginalUtilityOfDistance_util_m" value="-0.0" />
+        </parameterset>
+
+        <!-- Scoring parameters -->
+        <param name="performing" value="+6.0" />
+        <param name="lateArrival" value="-18.0" />
+        <param name="earlyDeparture" value="-0.0" />
+        <param name="waiting" value="-0.0" />
+
+        <!-- Money scoring parameters -->
+        <param name="marginalUtilityOfMoney" value="1.0" />
+        <param name="utilityOfLineSwitch" value="-1.0" />
+    </module>
+
+    <module name="planscalcroute">
+        <param name="networkModes" value="car"/>
+        <param name="accessEgressType" value="none" />
+        <param name="clearDefaultTeleportedModeParams" value="false" />
+        <param name="routingRandomness" value="3.0" />
+
+        <parameterset type="teleportedModeParameters">
+            <param name="beelineDistanceFactor" value="1.3" />
+            <param name="mode" value="walk" />
+            <param name="teleportedModeSpeed" value="1.4" />
+        </parameterset>
+
+        <parameterset type="teleportedModeParameters">
+            <param name="beelineDistanceFactor" value="1.3" />
+            <param name="mode" value="non_network_walk" />
+            <param name="teleportedModeSpeed" value="1.4" />
+        </parameterset>
+    </module>
+
+    <module name="strategy">
+        <param name="maxAgentPlanMemorySize" value="5" />
+        <parameterset type="strategysettings">
+            <param name="strategyName" value="ChangeExpBeta"/>
+            <param name="weight" value="0.7"/>
+        </parameterset>
+        <parameterset type="strategysettings">
+            <param name="strategyName" value="ReRoute"/>
+            <param name="weight" value="0.3"/>
+            <param name="disableAfterIteration" value="8"/>
+        </parameterset>
+    </module>
+
+    <module name="vspExperimental">
+        <param name="vspDefaultsCheckingLevel" value="ignore" />
+        <param name="writingOutputEvents" value="true" />
+    </module>
+</config>
