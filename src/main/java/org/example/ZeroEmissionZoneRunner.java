@@ -1,73 +1,68 @@
 package org.example;
 
-import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.Scenario;
-import org.matsim.api.core.v01.network.Link;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
-import org.matsim.core.controler.AbstractModule;
 import org.matsim.core.controler.Controler;
-import org.matsim.core.config.groups.QSimConfigGroup;
 import org.matsim.core.scenario.ScenarioUtils;
-import org.matsim.core.scoring.ScoringFunctionFactory;
-import com.google.inject.name.Names;
-
-import java.nio.file.Paths;
-import java.util.HashSet;
-import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ZeroEmissionZoneRunner {
+    private static final Logger logger = LoggerFactory.getLogger(ZeroEmissionZoneRunner.class);
 
     public static void main(String[] args) {
-        // Get the current working directory
-        String currentPath = System.getProperty("user.dir");
-        System.out.println("Current working directory: " + currentPath);
+        logger.info("Starting Zero Emission Zone simulation...");
 
-        // Step 1: Load config with absolute path
-        String configPath = Paths.get(currentPath, "input", "config.xml").toString();
-        System.out.println("Loading config from: " + configPath);
+        if (args.length == 0) {
+            throw new RuntimeException("No config file specified. Please provide a config file path as an argument.");
+        }
 
-        Config config = ConfigUtils.loadConfig(configPath);
+        try {
+            // Load MATSim configuration from config.xml
+            Config config = ConfigUtils.loadConfig(args[0]);
 
-        // Step 2: Set absolute paths for input files
-        config.network().setInputFile(Paths.get(currentPath, "input", "network.xml").toString());
-        config.plans().setInputFile(Paths.get(currentPath, "input", "population.xml").toString());
-        config.vehicles().setVehiclesFile(Paths.get(currentPath, "input", "vehicle_types.xml").toString());
-        config.controler().setOutputDirectory(Paths.get(currentPath, "output", "zero-emission-test").toString());
+            // Create and load scenario
+            Scenario scenario = ScenarioUtils.loadScenario(config);
+            logger.info("Scenario loaded with configuration from {}", args[0]);
 
-        // Configure QSim for vehicle handling
-        config.qsim().setVehiclesSource(QSimConfigGroup.VehiclesSource.modeVehicleTypesFromVehiclesData);
-        Set<String> mainModes = new HashSet<>();
-        mainModes.add("car");
-        config.qsim().setMainModes(mainModes);
+            // Initialize statistics collector
+            StatisticsCollector statsCollector = new StatisticsCollector();
 
-        // Step 3: Create the scenario
-        final Scenario scenario = ScenarioUtils.loadScenario(config);
+            // Create a MATSim controller
+            Controler controler = new Controler(scenario);
 
-        // Step 4: Configure zero emission zone link ID
-        final Link zezLink = scenario.getNetwork().getLinks().get(Id.createLinkId("2"));
-        System.out.println("\nConfiguring zero emission zone on link: " + zezLink.getId());
+            // Initialize ZeroEmissionZoneScoring and add as event handler
+            ZeroEmissionZoneScoring scoringHandler = new ZeroEmissionZoneScoring(scenario, statsCollector);
+            controler.getEvents().addHandler(scoringHandler);
 
-        // Step 5: Set up the controller
-        Controler controler = new Controler(scenario);
+            // Set scoring function factory
+            controler.setScoringFunctionFactory(scoringHandler);
 
-        // Add our custom scoring module
-        controler.addOverridingModule(new AbstractModule() {
-            @Override
-            public void install() {
-                // Bind the link ID as a String
-                bind(String.class)
-                    .annotatedWith(Names.named("zezLinkId"))
-                    .toInstance("2");
-                
-                // Bind our custom scoring class
-                bind(ScoringFunctionFactory.class).to(ZeroEmissionZoneScoring.class);
-                
-                // Add as event handler
-                addEventHandlerBinding().to(ZeroEmissionZoneScoring.class);
+            logger.info("Zero Emission Zone setup completed.");
+
+            // Run the simulation
+            try {
+                logger.info("Running the MATSim simulation...");
+                controler.run();
+                logger.info("Simulation completed successfully.");
+            } catch (Exception e) {
+                logger.error("Error during simulation execution", e);
+                throw new RuntimeException("Simulation failed", e);
             }
-        });
 
-        controler.run();
+            // Generate final statistics report
+            try {
+                String outputPath = controler.getControlerIO().getOutputPath();
+                statsCollector.generateFinalReport(outputPath);
+                logger.info("Final statistics report generated at {}", outputPath);
+            } catch (Exception e) {
+                logger.error("Error generating final report", e);
+            }
+
+        } catch (Exception e) {
+            logger.error("Fatal error during simulation setup", e);
+            throw new RuntimeException("Failed to initialize simulation", e);
+        }
     }
 }

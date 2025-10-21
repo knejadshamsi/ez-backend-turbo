@@ -3,30 +3,31 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.matsim.org/files/dtd http://www.matsim.org/files/dtd/vehicleDefinitions_v1.0.xsd">
 
+    <!-- Base car type required by MATSim -->
     <vehicleType id="car">
-        <description>Conventional Car</description>
-        <length meter="7.5"/>
-        <width meter="1.0"/>
+        <description>Default Car</description>
+        <length meter="4.5"/>
         <maximumVelocity meterPerSecond="33.33"/>
-        <accessTime secondsPerPerson="1.0"/>
-        <egressTime secondsPerPerson="1.0"/>
-        <doorOperation mode="serial"/>
         <passengerCarEquivalents pce="1.0"/>
     </vehicleType>
 
-    <vehicleType id="electric_car">
-        <description>Electric Car</description>
-        <length meter="7.5"/>
-        <width meter="1.0"/>
+    <vehicleType id="conv_veh">
+        <description>Conventional Vehicle</description>
+        <length meter="4.5"/>
         <maximumVelocity meterPerSecond="33.33"/>
-        <accessTime secondsPerPerson="1.0"/>
-        <egressTime secondsPerPerson="1.0"/>
-        <doorOperation mode="serial"/>
         <passengerCarEquivalents pce="1.0"/>
     </vehicleType>
 
-    <!-- Example vehicle instances referencing the defined vehicle types -->
-    <vehicle id="vehicle_1" type="car"/>
-    <vehicle id="vehicle_2" type="electric_car"/>
+    <vehicleType id="zev">
+        <description>Zero Emission Vehicle</description>
+        <length meter="4.8"/>
+        <maximumVelocity meterPerSecond="33.33"/>
+        <passengerCarEquivalents pce="1.0"/>
+    </vehicleType>
 
+    <!-- Vehicle instances -->
+    <vehicle id="conv_commuter_1_car" type="conv_veh"/>
+    <vehicle id="conv_multiple_1_car" type="conv_veh"/>
+    <vehicle id="conv_offpeak_1_car" type="conv_veh"/>
+    <vehicle id="ev_commuter_1_car" type="zev"/>
 </vehicleDefinitions>

@@ -1,44 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE population SYSTEM "http://www.matsim.org/files/dtd/population_v6.dtd">
 <population>
-    <person id="1">
+    <!-- Regular commuter with conventional car -->
+    <person id="conv_commuter_1">
         <attributes>
             <attribute name="carAvail" class="java.lang.String">always</attribute>
+            <attribute name="income" class="java.lang.Double">50000.0</attribute>
         </attributes>
         <plan selected="yes">
-            <activity type="home" link="1" end_time="08:00:00" />
+            <activity type="home" link="1" end_time="07:30:00" />
             <leg mode="car">
                 <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">conventional_car</attribute>
+                    <attribute name="vehicleId" class="java.lang.String">conv_car_1</attribute>
                 </attributes>
             </leg>
-            <activity type="work" link="3" end_time="17:00:00" />
+            <activity type="work" link="4" end_time="17:00:00" />
             <leg mode="car">
                 <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">conventional_car</attribute>
+                    <attribute name="vehicleId" class="java.lang.String">conv_car_1</attribute>
                 </attributes>
             </leg>
             <activity type="home" link="1" />
         </plan>
     </person>
 
-    <person id="2">
+    <!-- Electric car user -->
+    <person id="ev_commuter_1">
         <attributes>
             <attribute name="carAvail" class="java.lang.String">always</attribute>
+            <attribute name="income" class="java.lang.Double">60000.0</attribute>
         </attributes>
         <plan selected="yes">
-            <activity type="home" link="1" end_time="09:00:00" />
-            <!-- Change mode from electric_car to car -->
+            <activity type="home" link="1" end_time="08:00:00" />
             <leg mode="car">
                 <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">electric_car</attribute>
+                    <attribute name="vehicleId" class="java.lang.String">ev_car_1</attribute>
                 </attributes>
             </leg>
-            <activity type="work" link="3" end_time="16:00:00" />
-            <!-- Change mode from electric_car to car -->
+            <activity type="work" link="4" end_time="16:30:00" />
             <leg mode="car">
                 <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">electric_car</attribute>
+                    <attribute name="vehicleId" class="java.lang.String">ev_car_1</attribute>
+                </attributes>
+            </leg>
+            <activity type="home" link="1" />
+        </plan>
+    </person>
+
+    <!-- Off-peak conventional car user -->
+    <person id="conv_offpeak_1">
+        <attributes>
+            <attribute name="carAvail" class="java.lang.String">always</attribute>
+            <attribute name="income" class="java.lang.Double">45000.0</attribute>
+        </attributes>
+        <plan selected="yes">
+            <activity type="home" link="1" end_time="19:30:00" />
+            <leg mode="car">
+                <attributes>
+                    <attribute name="vehicleId" class="java.lang.String">conv_car_2</attribute>
+                </attributes>
+            </leg>
+            <activity type="leisure" link="4" end_time="22:00:00" />
+            <leg mode="car">
+                <attributes>
+                    <attribute name="vehicleId" class="java.lang.String">conv_car_2</attribute>
+                </attributes>
+            </leg>
+            <activity type="home" link="1" />
+        </plan>
+    </person>
+
+    <!-- Multiple trips through ZEZ -->
+    <person id="conv_multiple_1">
+        <attributes>
+            <attribute name="carAvail" class="java.lang.String">always</attribute>
+            <attribute name="income" class="java.lang.Double">55000.0</attribute>
+        </attributes>
+        <plan selected="yes">
+            <activity type="home" link="1" end_time="08:30:00" />
+            <leg mode="car">
+                <attributes>
+                    <attribute name="vehicleId" class="java.lang.String">conv_car_3</attribute>
+                </attributes>
+            </leg>
+            <activity type="work" link="4" end_time="12:00:00" />
+            <leg mode="car">
+                <attributes>
+                    <attribute name="vehicleId" class="java.lang.String">conv_car_3</attribute>
+                </attributes>
+            </leg>
+            <activity type="leisure" link="1" end_time="14:00:00" />
+            <leg mode="car">
+                <attributes>
+                    <attribute name="vehicleId" class="java.lang.String">conv_car_3</attribute>
+                </attributes>
+            </leg>
+            <activity type="work" link="4" end_time="17:30:00" />
+            <leg mode="car">
+                <attributes>
+                    <attribute name="vehicleId" class="java.lang.String">conv_car_3</attribute>
                 </attributes>
             </leg>
             <activity type="home" link="1" />

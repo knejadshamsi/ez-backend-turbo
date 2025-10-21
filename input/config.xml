@@ -7,15 +7,15 @@
     </module>
 
     <module name="network">
-        <param name="inputNetworkFile" value="./input/network.xml" />
+        <param name="inputNetworkFile" value="network.xml" />
     </module>
 
     <module name="plans">
-        <param name="inputPlansFile" value="./input/population.xml" />
+        <param name="inputPlansFile" value="population.xml" />
     </module>
 
     <module name="vehicles">
-        <param name="vehiclesFile" value="./input/vehicle_types.xml" />
+        <param name="vehiclesFile" value="vehicle_types.xml" />
     </module>
 
     <module name="qsim">
@@ -32,11 +32,14 @@
     <module name="controler">
         <param name="outputDirectory" value="./output/zero-emission-test" />
         <param name="firstIteration" value="0" />
-        <param name="lastIteration" value="10" />
+        <param name="lastIteration" value="20" />
         <param name="writeEventsInterval" value="1" />
         <param name="writePlansInterval" value="1" />
         <param name="overwriteFiles" value="deleteDirectoryIfExists" />
         <param name="mobsim" value="qsim" />
+        <param name="outputDirectory" value="./output/zero-emission-zone"/>
+        <param name="overwriteFiles" value="deleteDirectoryIfExists"/>
+        <param name="createGraphs" value="false"/>
     </module>
 
     <module name="planCalcScore">
@@ -73,8 +76,8 @@
 
         <!-- Scoring parameters -->
         <param name="performing" value="+6.0" />
-        <param name="lateArrival" value="-18.0" />
-        <param name="earlyDeparture" value="-0.0" />
+        <param name="lateArrival" value="-25.0" />
+        <param name="earlyDeparture" value="-5.0" />
         <param name="waiting" value="-0.0" />
 
         <!-- Money scoring parameters -->
@@ -118,4 +121,22 @@
         <param name="vspDefaultsCheckingLevel" value="ignore" />
         <param name="writingOutputEvents" value="true" />
     </module>
+
+    <module name="zeroEmissionZone">
+        <!-- The link ID that represents the zero emission zone -->
+        <param name="linkId" value="2" />
+
+        <!-- Penalty score for violations -->
+        <param name="penaltyScore" value="-200.0" />
+
+        <!-- Operating hours of the zone -->
+        <param name="startTime" value="07:00:00" />
+        <param name="endTime" value="19:00:00" />
+
+        <!-- Output configuration -->
+        <param name="outputDirectory" value="./output/zez-analysis" />
+        <param name="generateViolationReport" value="false" />
+        <param name="generateStatsSummary" value="false" />
+    </module>
 </config>
+
