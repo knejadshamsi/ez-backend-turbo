@@ -56,6 +56,12 @@
             <param name="openingTime" value="08:00:00" />
             <param name="closingTime" value="18:00:00" />
         </parameterset>
+        <parameterset type="activityParams">
+            <param name="activityType" value="leisure" />
+            <param name="typicalDuration" value="02:00:00" />
+            <param name="openingTime" value="10:00:00" />
+            <param name="closingTime" value="23:00:00" />
+        </parameterset>
 
         <!-- Modes -->
         <parameterset type="modeParams">
@@ -139,4 +145,3 @@
         <param name="generateStatsSummary" value="false" />
     </module>
 </config>
-
