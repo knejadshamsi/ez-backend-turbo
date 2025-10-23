@@ -14,157 +14,215 @@ import java.util.*;
 
 public class ZeroEmissionZone {
     private static final Logger logger = LoggerFactory.getLogger(ZeroEmissionZone.class);
-    private static final double ZERO_EMISSION_ZONE_PENALTY = 50.0;
-    private static final double SEVERE_PENALTY_MULTIPLIER = 2.0;
-    private static final double CONSECUTIVE_VIOLATION_MULTIPLIER = 1.5;
+    private static final LocalTime PEAK_START = LocalTime.of(7, 0);
+    private static final LocalTime PEAK_END = LocalTime.of(9, 0);
+    private static final LocalTime EVENING_PEAK_START = LocalTime.of(16, 0);
+    private static final LocalTime EVENING_PEAK_END = LocalTime.of(18, 0);
 
-    // Configuration parameters from config group
     private final ZeroEmissionZoneConfigGroup config;
     private final Network network;
-    private final Set<Id<Link>> zeroEmissionZoneLinkIds;
-    private final Map<String, Integer> violationCounts = new HashMap<>();
-    private final Map<String, List<Id<Link>>> consecutiveViolations = new HashMap<>();
-    private final Map<String, Double> emissionPenalties = new HashMap<>();
+    private final Set<Id<Link>> zoneLinks;
+    private final Set<Id<Link>> alternativeRouteLinks;
+    private final LocalTime startTime;
+    private final LocalTime endTime;
+
+    public enum VehicleCategory {
+        ELECTRIC("ev", true, 50.0),
+        LOW_EMISSION("lev", true, -100.0),
+        HEAVY_EMISSION("hev", false, -500.0);
+
+        private final String typePrefix;
+        private final boolean zoneAccess;
+        private final double defaultPenalty;
+
+        VehicleCategory(String typePrefix, boolean zoneAccess, double defaultPenalty) {
+            this.typePrefix = typePrefix;
+            this.zoneAccess = zoneAccess;
+            this.defaultPenalty = defaultPenalty;
+        }
+
+        public static VehicleCategory fromVehicleType(String vehicleType) {
+            for (VehicleCategory category : values()) {
+                if (vehicleType.startsWith(category.typePrefix)) {
+                    return category;
+                }
+            }
+            return LOW_EMISSION;
+        }
+    }
 
     public ZeroEmissionZone(Network network, ZeroEmissionZoneConfigGroup config) {
         this.network = network;
         this.config = config;
-        this.zeroEmissionZoneLinkIds = findZeroEmissionZoneLinks();
+        this.zoneLinks = parseLinks(config.getZoneLinks());
+        this.alternativeRouteLinks = parseLinks(config.getAlternativeRoutes());
+        
+        try {
+            this.startTime = LocalTime.parse(config.getStartTime());
+            this.endTime = LocalTime.parse(config.getEndTime());
+        } catch (DateTimeParseException e) {
+            logger.error("Invalid time format in configuration");
+            throw new IllegalArgumentException("Invalid time format", e);
+        }
+        
         validateConfiguration();
     }
 
+    private Set<Id<Link>> parseLinks(String linkString) {
+        Set<Id<Link>> links = new HashSet<>();
+        for (String linkId : linkString.split(",")) {
+            links.add(Id.createLinkId(linkId.trim()));
+        }
+        return links;
+    }
+
     private void validateConfiguration() {
-        try {
-            LocalTime.parse(config.getStartTime());
-            LocalTime.parse(config.getEndTime());
-        } catch (DateTimeParseException e) {
-            logger.error("Invalid time format. Use HH:mm:ss format.");
-            throw new IllegalArgumentException("Invalid time format for Zero Emission Zone", e);
+        if (zoneLinks.isEmpty()) {
+            logger.error("No zone links defined in configuration");
+            throw new IllegalArgumentException("Zone links must be defined");
         }
-
-        if (config.getPenaltyScore() >= 0) {
-            logger.warn("Penalty score should be negative. Current value: {}", config.getPenaltyScore());
-        }
-
-        if (config.getMaxViolationsBeforeSeverePenalty() <= 0) {
-            logger.error("Max violations must be a positive number");
-            throw new IllegalArgumentException("Max violations must be positive");
+        if (alternativeRouteLinks.isEmpty()) {
+            logger.error("No alternative route links defined in configuration");
+            throw new IllegalArgumentException("Alternative route links must be defined");
         }
     }
 
-    private Set<Id<Link>> findZeroEmissionZoneLinks() {
-        Set<Id<Link>> zezLinks = new HashSet<>();
-        for (Link link : network.getLinks().values()) {
-            Object type = link.getAttributes().getAttribute("type");
-            if (type != null && "zero_emission_zone".equals(type.toString())) {
-                zezLinks.add(link.getId());
-            }
-        }
-        logger.info("Identified {} zero emission zone links.", zezLinks.size());
-        return zezLinks;
-    }
-
-    public double calculatePenalty(Leg leg) {
+    public double calculateScore(Leg leg, String vehicleId, LocalTime currentTime) {
         if (!(leg.getRoute() instanceof NetworkRoute)) {
             return 0.0;
         }
 
+        VehicleCategory category = VehicleCategory.fromVehicleType(vehicleId);
         NetworkRoute route = (NetworkRoute) leg.getRoute();
-        double penalty = 0.0;
-        String vehicleId = leg.getAttributes().getAttribute("vehicleId").toString();
-        List<Id<Link>> currentViolations = new ArrayList<>();
-
-        // Check start link
-        penalty += checkLinkPenalty(route.getStartLinkId(), vehicleId, currentViolations);
         
-        // Check intermediate links
+        return calculateRouteScore(route, category, currentTime);
+    }
+
+    private double calculateRouteScore(NetworkRoute route, VehicleCategory category, LocalTime currentTime) {
+        double score = 0.0;
+        boolean usesZone = false;
+        boolean usesAlternative = false;
+
+        // Check if route uses zone or alternative links
         for (Id<Link> linkId : route.getLinkIds()) {
-            penalty += checkLinkPenalty(linkId, vehicleId, currentViolations);
+            if (zoneLinks.contains(linkId)) {
+                usesZone = true;
+            }
+            if (alternativeRouteLinks.contains(linkId)) {
+                usesAlternative = true;
+            }
         }
-        
-        // Check end link
-        penalty += checkLinkPenalty(route.getEndLinkId(), vehicleId, currentViolations);
 
-        // Update consecutive violations
-        if (!currentViolations.isEmpty()) {
-            consecutiveViolations.put(vehicleId, currentViolations);
+        // Calculate time-based multiplier
+        double timeMultiplier = calculateTimeMultiplier(currentTime);
+
+        // Calculate score based on vehicle category and route choice
+        if (isOperatingHours(currentTime)) {
+            switch (category) {
+                case ELECTRIC:
+                    if (usesZone) {
+                        // EVs get consistent rewards, slightly higher during peak hours
+                        score += config.getEvRewardValue() * timeMultiplier;
+                    }
+                    break;
+                    
+                case LOW_EMISSION:
+                    if (usesZone) {
+                        // LEVs get higher penalties during peak hours
+                        score += config.getLevPenaltyValue() * timeMultiplier;
+                    }
+                    if (usesAlternative) {
+                        // Increased reward for using alternative routes during peak hours
+                        score += config.getLevAlternativeRewardValue() * timeMultiplier * 1.5;
+                    }
+                    break;
+                    
+                case HEAVY_EMISSION:
+                    if (usesZone) {
+                        // Severe penalties for HEVs during operating hours
+                        score += config.getHevViolationPenaltyValue() * timeMultiplier * 2.0;
+                        logger.warn("HEV violation detected during operating hours: {}", currentTime);
+                    }
+                    if (usesAlternative) {
+                        // Strong incentive for using alternative routes
+                        score += config.getLevAlternativeRewardValue() * timeMultiplier * 2.0;
+                    }
+                    break;
+            }
         } else {
-            consecutiveViolations.remove(vehicleId);
-        }
-
-        return penalty;
-    }
-
-    private double checkLinkPenalty(Id<Link> linkId, String vehicleId, List<Id<Link>> currentViolations) {
-        if (zeroEmissionZoneLinkIds.contains(linkId)) {
-            currentViolations.add(linkId);
-            int violations = violationCounts.getOrDefault(vehicleId, 0) + 1;
-            violationCounts.put(vehicleId, violations);
-
-            double penalty = ZERO_EMISSION_ZONE_PENALTY;
-
-            // Apply severe penalty if over maximum violations
-            if (violations > config.getMaxViolationsBeforeSeverePenalty()) {
-                penalty *= SEVERE_PENALTY_MULTIPLIER;
-            }
-
-            // Apply consecutive violation multiplier
-            List<Id<Link>> previousViolations = consecutiveViolations.get(vehicleId);
-            if (previousViolations != null && !previousViolations.isEmpty()) {
-                penalty *= CONSECUTIVE_VIOLATION_MULTIPLIER;
-            }
-
-            return penalty;
-        }
-        return 0.0;
-    }
-
-    public double calculateRouteCost(NetworkRoute route) {
-        double cost = 0.0;
-        
-        // Check start link
-        if (isInZeroEmissionZone(route.getStartLinkId())) {
-            cost += ZERO_EMISSION_ZONE_PENALTY;
-        }
-        
-        // Check intermediate links
-        for (Id<Link> linkId : route.getLinkIds()) {
-            if (isInZeroEmissionZone(linkId)) {
-                cost += ZERO_EMISSION_ZONE_PENALTY;
+            // Outside operating hours, more lenient scoring
+            if (usesZone) {
+                switch (category) {
+                    case ELECTRIC:
+                        score += config.getEvRewardValue() * 0.5; // Reduced reward outside operating hours
+                        break;
+                    case LOW_EMISSION:
+                        score += config.getLevPenaltyValue() * 0.3; // Minimal penalty outside operating hours
+                        break;
+                    case HEAVY_EMISSION:
+                        score += config.getHevViolationPenaltyValue() * 0.5; // Reduced penalty outside operating hours
+                        break;
+                }
             }
         }
-        
-        // Check end link
-        if (isInZeroEmissionZone(route.getEndLinkId())) {
-            cost += ZERO_EMISSION_ZONE_PENALTY;
+
+        return score;
+    }
+
+    private double calculateTimeMultiplier(LocalTime currentTime) {
+        // Higher multiplier during peak hours
+        if ((currentTime.isAfter(PEAK_START) && currentTime.isBefore(PEAK_END)) ||
+            (currentTime.isAfter(EVENING_PEAK_START) && currentTime.isBefore(EVENING_PEAK_END))) {
+            return 1.5; // Peak hour multiplier
         }
-        
-        return cost;
+        // Regular operating hours
+        else if (isOperatingHours(currentTime)) {
+            return 1.0; // Standard multiplier
+        }
+        // Outside operating hours
+        else {
+            return 0.5; // Reduced multiplier
+        }
     }
 
-    public boolean isInZeroEmissionZone(Id<Link> linkId) {
-        return zeroEmissionZoneLinkIds.contains(linkId);
+    public boolean isOperatingHours(LocalTime currentTime) {
+        return !currentTime.isBefore(startTime) && !currentTime.isAfter(endTime);
     }
 
-    public void resetViolations() {
-        violationCounts.clear();
-        consecutiveViolations.clear();
+    public boolean isZoneLink(Id<Link> linkId) {
+        return zoneLinks.contains(linkId);
     }
 
-    public void addEmissionPenalty(String emissionType, double penalty) {
-        emissionPenalties.put(emissionType, penalty);
-    }
-    
-    public Map<String, Double> getEmissionPenalties() {
-        return new HashMap<>(emissionPenalties);
+    public boolean isAlternativeLink(Id<Link> linkId) {
+        return alternativeRouteLinks.contains(linkId);
     }
 
-    public Set<Id<Link>> getZeroEmissionZoneLinkIds() {
-        return new HashSet<>(zeroEmissionZoneLinkIds);
+    public boolean isAccessAllowed(String vehicleId, LocalTime currentTime) {
+        VehicleCategory category = VehicleCategory.fromVehicleType(vehicleId);
+
+        // HEVs are strictly forbidden during operating hours
+        if (category == VehicleCategory.HEAVY_EMISSION && isOperatingHours(currentTime)) {
+            return false;
+        }
+
+        // Outside operating hours or other vehicle categories
+        return !isOperatingHours(currentTime) || category.zoneAccess;
     }
 
-    public Map<String, Integer> getViolationCounts() {
-        return new HashMap<>(violationCounts);
+    public Set<Id<Link>> getZoneLinks() {
+        return Collections.unmodifiableSet(zoneLinks);
+    }
+
+    public Set<Id<Link>> getAlternativeRouteLinks() {
+        return Collections.unmodifiableSet(alternativeRouteLinks);
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
     }
 
     public ZeroEmissionZoneConfigGroup getConfig() {

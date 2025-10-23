@@ -11,23 +11,40 @@
         <passengerCarEquivalents pce="1.0"/>
     </vehicleType>
 
-    <vehicleType id="conv_veh">
-        <description>Conventional Vehicle</description>
-        <length meter="4.5"/>
-        <maximumVelocity meterPerSecond="33.33"/>
-        <passengerCarEquivalents pce="1.0"/>
-    </vehicleType>
-
-    <vehicleType id="zev">
-        <description>Zero Emission Vehicle</description>
+    <!-- Electric Vehicles - Unrestricted Access -->
+    <vehicleType id="ev">
+        <description>Electric Vehicle</description>
         <length meter="4.8"/>
         <maximumVelocity meterPerSecond="33.33"/>
         <passengerCarEquivalents pce="1.0"/>
     </vehicleType>
 
+    <!-- Low Emission Vehicles - Restricted Access with Penalties -->
+    <vehicleType id="lev">
+        <description>Low Emission Vehicle</description>
+        <length meter="4.5"/>
+        <maximumVelocity meterPerSecond="33.33"/>
+        <passengerCarEquivalents pce="1.0"/>
+    </vehicleType>
+
+    <!-- Heavy Emission Vehicles - No Access During Operation Hours -->
+    <vehicleType id="hev">
+        <description>Heavy Emission Vehicle</description>
+        <length meter="5.0"/>
+        <maximumVelocity meterPerSecond="30.56"/>
+        <passengerCarEquivalents pce="1.5"/>
+    </vehicleType>
+
     <!-- Vehicle instances -->
-    <vehicle id="conv_commuter_1_car" type="conv_veh"/>
-    <vehicle id="conv_multiple_1_car" type="conv_veh"/>
-    <vehicle id="conv_offpeak_1_car" type="conv_veh"/>
-    <vehicle id="ev_commuter_1_car" type="zev"/>
+    <vehicle id="ev_commuter_1_car" type="ev"/>
+    <vehicle id="ev_commuter_2_car" type="ev"/>
+    <vehicle id="ev_multiple_1_car" type="ev"/>
+    
+    <vehicle id="lev_commuter_1_car" type="lev"/>
+    <vehicle id="lev_multiple_1_car" type="lev"/>
+    <vehicle id="lev_offpeak_1_car" type="lev"/>
+    
+    <vehicle id="hev_commuter_1_car" type="hev"/>
+    <vehicle id="hev_offpeak_1_car" type="hev"/>
+    <vehicle id="hev_multiple_1_car" type="hev"/>
 </vehicleDefinitions>

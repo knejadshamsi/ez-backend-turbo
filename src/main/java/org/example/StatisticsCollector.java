@@ -10,6 +10,7 @@ import org.matsim.api.core.v01.population.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,151 +18,172 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class StatisticsCollector implements LinkEnterEventHandler, PersonEntersVehicleEventHandler {
     private static final Logger logger = LoggerFactory.getLogger(StatisticsCollector.class);
-    private static final DateTimeFormatter FILE_TIMESTAMP = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     private final ZeroEmissionZone zeroEmissionZone;
-    private final Map<Integer, Map<Id<Person>, Integer>> iterationViolations = new ConcurrentHashMap<>();
-    private final Map<Id<Person>, List<ZeroEmissionEntry>> individualEntries = new ConcurrentHashMap<>();
-    private final Map<String, Integer> zoneEntryStatistics = new ConcurrentHashMap<>();
-    private final Map<String, Integer> linkEntryStats = new ConcurrentHashMap<>();
-    private final Map<String, Integer> vehicleEntryStats = new ConcurrentHashMap<>();
-    private final Map<Id<Person>, Integer> reroutingStats = new ConcurrentHashMap<>();
+    private final Map<String, Map<Id<Person>, List<ZoneEntry>>> categoryEntries = new ConcurrentHashMap<>();
+    private final Map<String, AtomicInteger> zoneEntryStats = new ConcurrentHashMap<>();
+    private final Map<String, AtomicInteger> alternativeRouteStats = new ConcurrentHashMap<>();
+    private final Map<Id<Person>, String> personVehicleCategory = new ConcurrentHashMap<>();
     private final AtomicInteger totalReroutedPlans = new AtomicInteger(0);
 
-    private static class ZeroEmissionEntry {
+    private static class ZoneEntry {
         final double timestamp;
         final Id<Link> linkId;
-        final boolean isZeroEmission;
+        final boolean isZoneLink;
+        final boolean isAlternativeRoute;
+        final LocalTime entryTime;
 
-        ZeroEmissionEntry(double timestamp, Id<Link> linkId, boolean isZeroEmission) {
+        ZoneEntry(double timestamp, Id<Link> linkId, boolean isZoneLink, boolean isAlternativeRoute, LocalTime entryTime) {
             this.timestamp = timestamp;
             this.linkId = linkId;
-            this.isZeroEmission = isZeroEmission;
+            this.isZoneLink = isZoneLink;
+            this.isAlternativeRoute = isAlternativeRoute;
+            this.entryTime = entryTime;
         }
     }
 
     public StatisticsCollector(ZeroEmissionZone zeroEmissionZone) {
         this.zeroEmissionZone = zeroEmissionZone;
-        logger.info("Initializing StatisticsCollector");
+        initializeStats();
+        logger.info("Initialized StatisticsCollector with three-tier vehicle classification");
+    }
+
+    private void initializeStats() {
+        // Initialize counters for each vehicle category
+        for (ZeroEmissionZone.VehicleCategory category : ZeroEmissionZone.VehicleCategory.values()) {
+            categoryEntries.put(category.name(), new ConcurrentHashMap<>());
+            zoneEntryStats.put(category.name() + "_entries", new AtomicInteger(0));
+            alternativeRouteStats.put(category.name() + "_alternative_usage", new AtomicInteger(0));
+        }
     }
 
     @Override
     public void reset(int iteration) {
-        iterationViolations.clear();
-        individualEntries.clear();
-        zoneEntryStatistics.clear();
-        linkEntryStats.clear();
-        vehicleEntryStats.clear();
-        reroutingStats.clear();
+        categoryEntries.clear();
+        zoneEntryStats.clear();
+        alternativeRouteStats.clear();
+        personVehicleCategory.clear();
         totalReroutedPlans.set(0);
-        zeroEmissionZone.resetViolations();
+        initializeStats();
     }
 
     @Override
     public void handleEvent(LinkEnterEvent event) {
         if (event == null) return;
-        recordLinkEntry(event);
+        
+        String vehicleId = event.getVehicleId().toString();
+        Id<Person> personId = Id.createPersonId(vehicleId.split("_")[0]);
+        String category = personVehicleCategory.get(personId);
+        
+        if (category == null) {
+            logger.warn("No vehicle category found for person {}", personId);
+            return;
+        }
+
+        // Convert event time to LocalTime
+        double timeInSeconds = event.getTime();
+        int hours = (int) (timeInSeconds / 3600) % 24;
+        int minutes = (int) ((timeInSeconds % 3600) / 60);
+        LocalTime entryTime = LocalTime.of(hours, minutes);
+
+        boolean isZoneLink = zeroEmissionZone.isZoneLink(event.getLinkId());
+        boolean isAlternativeLink = zeroEmissionZone.isAlternativeLink(event.getLinkId());
+
+        // Record entry
+        ZoneEntry entry = new ZoneEntry(
+            event.getTime(),
+            event.getLinkId(),
+            isZoneLink,
+            isAlternativeLink,
+            entryTime
+        );
+
+        // Update category-specific statistics
+        categoryEntries.get(category).computeIfAbsent(personId, k -> new ArrayList<>()).add(entry);
+
+        if (isZoneLink) {
+            zoneEntryStats.get(category + "_entries").incrementAndGet();
+            logger.info("{} entered zone link {} at {}", category, event.getLinkId(), entryTime);
+        }
+
+        if (isAlternativeLink) {
+            alternativeRouteStats.get(category + "_alternative_usage").incrementAndGet();
+            logger.info("{} used alternative route {} at {}", category, event.getLinkId(), entryTime);
+        }
     }
 
     @Override
     public void handleEvent(PersonEntersVehicleEvent event) {
         if (event == null) return;
-        recordPersonVehicleEntry(event);
+        
+        String vehicleId = event.getVehicleId().toString();
+        String vehicleType = vehicleId.split("_")[0]; // Assuming format: type_number
+        
+        // Map vehicle type to category
+        String category = null;
+        if (vehicleType.startsWith("ev")) {
+            category = ZeroEmissionZone.VehicleCategory.ELECTRIC.name();
+        } else if (vehicleType.startsWith("lev")) {
+            category = ZeroEmissionZone.VehicleCategory.LOW_EMISSION.name();
+        } else if (vehicleType.startsWith("hev")) {
+            category = ZeroEmissionZone.VehicleCategory.HEAVY_EMISSION.name();
+        }
+
+        if (category != null) {
+            personVehicleCategory.put(event.getPersonId(), category);
+            logger.info("Recorded vehicle category {} for person {}", category, event.getPersonId());
+        }
     }
 
     public void recordReroutingEvent(Id<Person> personId) {
-        reroutingStats.merge(personId, 1, Integer::sum);
         totalReroutedPlans.incrementAndGet();
         logger.info("Recorded rerouting for person {}", personId);
     }
 
-    private void recordLinkEntry(LinkEnterEvent event) {
-        boolean isZeroEmission = !zeroEmissionZone.isInZeroEmissionZone(event.getLinkId());
-        recordEntry(event, isZeroEmission);
-    }
-
-    private void recordEntry(LinkEnterEvent event, boolean isZeroEmission) {
-        String entryType = isZeroEmission ? "ZeroEmission" : "NonZeroEmission";
-        linkEntryStats.merge(entryType, 1, Integer::sum);
-
-        Id<Person> personId = extractPersonId(event.getVehicleId().toString());
-
-        ZeroEmissionEntry entry = new ZeroEmissionEntry(
-            event.getTime(), 
-            event.getLinkId(), 
-            isZeroEmission
-        );
-
-        individualEntries.compute(personId, (key, existingEntries) -> {
-            if (existingEntries == null) {
-                existingEntries = new ArrayList<>();
-            }
-            existingEntries.add(entry);
-            return existingEntries;
-        });
-
-        zoneEntryStatistics.merge(
-            isZeroEmission ? "zero_emission_entries" : "non_zero_emission_entries", 
-            1, 
-            Integer::sum
-        );
-
-        logger.info("Recorded {} entry for vehicle {} on link {}", 
-                   entryType, event.getVehicleId(), event.getLinkId());
-    }
-
-    private void recordPersonVehicleEntry(PersonEntersVehicleEvent event) {
-        vehicleEntryStats.merge(event.getVehicleId().toString(), 1, Integer::sum);
-        logger.info("Person {} entered vehicle {}", 
-                   event.getPersonId(), event.getVehicleId());
-    }
-
-    private Id<Person> extractPersonId(String vehicleId) {
-        String[] parts = vehicleId.split("_");
-        return Id.createPersonId(parts[0]);
-    }
-
     public Map<String, Integer> getZoneEntryStatistics() {
-        return new HashMap<>(zoneEntryStatistics);
+        Map<String, Integer> stats = new HashMap<>();
+        zoneEntryStats.forEach((key, value) -> stats.put(key, value.get()));
+        alternativeRouteStats.forEach((key, value) -> stats.put(key, value.get()));
+        return stats;
     }
 
-    public Map<String, Integer> getLinkEntryStats() {
-        return new HashMap<>(linkEntryStats);
-    }
-
-    public Map<String, Integer> getVehicleEntryStats() {
-        return new HashMap<>(vehicleEntryStats);
-    }
-
-    public Map<Id<Person>, List<ZeroEmissionEntry>> getIndividualEntries() {
-        return new HashMap<>(individualEntries);
-    }
-
-    public Map<Id<Person>, Integer> getReroutingStats() {
-        return new HashMap<>(reroutingStats);
+    public Map<String, List<ZoneEntry>> getCategoryEntries(String category) {
+        Map<Id<Person>, List<ZoneEntry>> entries = categoryEntries.get(category);
+        if (entries == null) {
+            return Collections.emptyMap();
+        }
+        return entries.entrySet().stream()
+            .collect(HashMap::new,
+                    (m, e) -> m.put(e.getKey().toString(), e.getValue()),
+                    HashMap::putAll);
     }
 
     public int getTotalReroutedPlans() {
         return totalReroutedPlans.get();
     }
 
-    public double getAverageReroutesPerPerson() {
-        if (reroutingStats.isEmpty()) return 0.0;
-        return reroutingStats.values().stream()
-            .mapToInt(Integer::intValue)
-            .average()
-            .orElse(0.0);
-    }
-
     public Map<String, Object> generateSummaryStatistics() {
         Map<String, Object> summary = new HashMap<>();
+        
+        // Zone entry statistics by vehicle category
+        summary.put("zoneEntries", getZoneEntryStatistics());
+        
+        // Alternative route usage
+        Map<String, Integer> alternativeUsage = new HashMap<>();
+        alternativeRouteStats.forEach((key, value) -> alternativeUsage.put(key, value.get()));
+        summary.put("alternativeRouteUsage", alternativeUsage);
+        
+        // Total statistics
         summary.put("totalReroutedPlans", getTotalReroutedPlans());
-        summary.put("averageReroutesPerPerson", getAverageReroutesPerPerson());
-        summary.put("zoneEntryStats", getZoneEntryStatistics());
-        summary.put("uniqueVehicles", vehicleEntryStats.size());
-        summary.put("totalZoneEntries", zoneEntryStatistics.values().stream()
-            .mapToInt(Integer::intValue)
-            .sum());
+        summary.put("uniqueVehicles", personVehicleCategory.size());
+        
+        // Category-specific statistics
+        Map<String, Integer> categoryStats = new HashMap<>();
+        categoryEntries.forEach((category, entries) -> 
+            categoryStats.put(category, entries.size()));
+        summary.put("vehiclesByCategory", categoryStats);
+
         return summary;
     }
 }

@@ -1,5 +1,6 @@
 package org.example;
 
+import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.core.config.Config;
@@ -13,12 +14,16 @@ import org.matsim.api.core.v01.population.Person;
 import org.matsim.core.scoring.functions.CharyparNagelScoringFunctionFactory;
 import org.matsim.api.core.v01.events.Event;
 import org.matsim.core.controler.listener.StartupListener;
+import org.matsim.api.core.v01.population.Leg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 public class ZeroEmissionZoneRunner {
     private static final Logger logger = LoggerFactory.getLogger(ZeroEmissionZoneRunner.class);
-    private static final double SCORE_THRESHOLD = -100.0;
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     private final Network network;
     private final Scenario scenario;
@@ -30,17 +35,17 @@ public class ZeroEmissionZoneRunner {
 
     public ZeroEmissionZoneRunner(String configFilePath) {
         // Load configuration and register custom config group
-        this.config = ConfigUtils.loadConfig(configFilePath);
-        this.zezConfig = new ZeroEmissionZoneConfigGroup();
-        this.config.addModule(zezConfig);
+        this.config = ConfigUtils.loadConfig(configFilePath, new ZeroEmissionZoneConfigGroup());
+        this.zezConfig = (ZeroEmissionZoneConfigGroup) config.getModules().get(ZeroEmissionZoneConfigGroup.GROUP_NAME);
 
-        // Load scenario
-        this.scenario = ScenarioUtils.loadScenario(config);
+        // Create scenario using ScenarioUtils with the config
+        this.scenario = ScenarioUtils.createScenario(config);
+        ScenarioUtils.loadScenario(scenario);
+
         this.network = scenario.getNetwork();
         
-        // Initialize components with config
         this.zeroEmissionZone = new ZeroEmissionZone(network, zezConfig);
-        this.reroutingStrategy = new ReroutingStrategy(network, SCORE_THRESHOLD);
+        this.reroutingStrategy = new ReroutingStrategy(network, zezConfig);
         this.statisticsCollector = new StatisticsCollector(zeroEmissionZone);
         
         validateConfiguration();
@@ -51,85 +56,61 @@ public class ZeroEmissionZoneRunner {
             throw new IllegalStateException("Network is empty or invalid");
         }
 
-        if (zeroEmissionZone.getZeroEmissionZoneLinkIds().isEmpty()) {
-            throw new IllegalStateException("No zero emission zone links found in the network");
+        if (zeroEmissionZone.getZoneLinks().isEmpty()) {
+            throw new IllegalStateException("No zero emission zone links defined");
+        }
+
+        if (zeroEmissionZone.getAlternativeRouteLinks().isEmpty()) {
+            throw new IllegalStateException("No alternative route links defined");
         }
     }
 
     public void runSimulation() {
         try {
-            logger.info("Starting Zero Emission Zone Simulation");
+            logger.info("Starting Zero Emission Zone Simulation with Three-Tier Vehicle Classification");
             logger.info("Network configuration: {} nodes, {} links", 
                 network.getNodes().size(), 
                 network.getLinks().size());
-            logger.info("Zero emission zone contains {} links", 
-                zeroEmissionZone.getZeroEmissionZoneLinkIds().size());
 
-            // Create and configure the controller
+            // Initialize Controler with the scenario
             Controler controler = new Controler(scenario);
-            
-            // Configure output directory
+            controler.addControlerListener((StartupListener) event -> 
+                logger.info("Simulation startup at {}", TIME_FORMATTER.format(LocalTime.now()))
+            );
+
+            // Create scoring function factory using scenario
+            ScoringFunctionFactory scoringFunctionFactory = new CharyparNagelScoringFunctionFactory(scenario);
+            controler.setScoringFunctionFactory(person -> 
+                new CategoryBasedScoringFunction(scoringFunctionFactory.createNewScoringFunction(person))
+            );
+
             controler.getConfig().controler().setOverwriteFileSetting(
-                OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists);
-
-            // Set up scoring function factory without dependency injection
-            controler.setScoringFunctionFactory(new SimpleScoringFunctionFactory(
-                scenario, zeroEmissionZone));
-
-            // Add startup listener to initialize components
-            controler.addControlerListener((StartupListener) event -> {
-                event.getServices().getEvents().addHandler(statisticsCollector);
-            });
-
-            // Run the simulation
+                OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists
+            );
             controler.run();
-
-            // Log final statistics
-            logFinalStatistics();
-
         } catch (Exception e) {
-            logger.error("Simulation failed", e);
+            logger.error("Failed to run simulation", e);
             throw new RuntimeException("Simulation execution failed", e);
         }
     }
 
-    private void logFinalStatistics() {
-        logger.info("Simulation completed successfully");
-        logger.info("Total rerouted plans: {}", reroutingStrategy.getReroutedPlansCount());
-        
-        var zoneStats = statisticsCollector.getZoneEntryStatistics();
-        logger.info("Zero emission zone entries: {}", 
-            zoneStats.getOrDefault("zero_emission_entries", 0));
-        logger.info("Non-zero emission zone entries: {}", 
-            zoneStats.getOrDefault("non_zero_emission_entries", 0));
-    }
-
-    private static class SimpleScoringFunctionFactory implements ScoringFunctionFactory {
-        private final CharyparNagelScoringFunctionFactory defaultFactory;
-        private final ZeroEmissionZone zeroEmissionZone;
-
-        public SimpleScoringFunctionFactory(Scenario scenario, ZeroEmissionZone zez) {
-            this.defaultFactory = new CharyparNagelScoringFunctionFactory(scenario);
-            this.zeroEmissionZone = zez;
+    public static void main(String[] args) {
+        if (args.length != 1) {
+            logger.error("Usage: ZeroEmissionZoneRunner <config-file>");
+            return;
         }
 
-        @Override
-        public ScoringFunction createNewScoringFunction(Person person) {
-            return new SimpleScoringFunction(
-                defaultFactory.createNewScoringFunction(person),
-                zeroEmissionZone
-            );
-        }
+        String configFilePath = args[0];
+        ZeroEmissionZoneRunner runner = new ZeroEmissionZoneRunner(configFilePath);
+        runner.runSimulation();
     }
 
-    private static class SimpleScoringFunction implements ScoringFunction {
+    private class CategoryBasedScoringFunction implements ScoringFunction {
         private final ScoringFunction delegate;
-        private final ZeroEmissionZone zeroEmissionZone;
         private double additionalScore = 0.0;
 
-        public SimpleScoringFunction(ScoringFunction delegate, ZeroEmissionZone zez) {
+        public CategoryBasedScoringFunction(ScoringFunction delegate) {
             this.delegate = delegate;
-            this.zeroEmissionZone = zez;
         }
 
         @Override
@@ -138,9 +119,25 @@ public class ZeroEmissionZoneRunner {
         }
 
         @Override
-        public void handleLeg(org.matsim.api.core.v01.population.Leg leg) {
+        public void handleLeg(Leg leg) {
             delegate.handleLeg(leg);
-            additionalScore += zeroEmissionZone.calculatePenalty(leg);
+            
+            Object vehicleIdAttribute = leg.getAttributes().getAttribute("vehicleId");
+            String vehicleId = vehicleIdAttribute != null ? vehicleIdAttribute.toString() : null;
+            
+            if (vehicleId != null) {
+                double departureTime = leg.getDepartureTime().seconds();
+                int hours = (int) (departureTime / 3600) % 24;
+                int minutes = (int) ((departureTime % 3600) / 60);
+                LocalTime time = LocalTime.of(hours, minutes);
+                
+                additionalScore += zeroEmissionZone.calculateScore(leg, vehicleId, time);
+            }
+        }
+
+        @Override
+        public void addMoney(double amount) {
+            delegate.addMoney(amount);
         }
 
         @Override
@@ -149,8 +146,14 @@ public class ZeroEmissionZoneRunner {
         }
 
         @Override
-        public void addMoney(double amount) {
-            delegate.addMoney(amount);
+        public void finish() {
+            delegate.finish();
+            delegate.addMoney(additionalScore);
+        }
+
+        @Override
+        public double getScore() {
+            return delegate.getScore() + additionalScore;
         }
 
         @Override
@@ -160,53 +163,7 @@ public class ZeroEmissionZoneRunner {
 
         @Override
         public void handleEvent(Event event) {
-            delegate.handleEvent(event);
+            // Optional event handling logic
         }
-
-        @Override
-        public void finish() {
-            delegate.finish();
-        }
-
-        @Override
-        public double getScore() {
-            return delegate.getScore() + additionalScore;
-        }
-    }
-
-    public static void main(String[] args) {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("Config file path must be provided as argument");
-        }
-        
-        String configFilePath = args[0];
-        try {
-            ZeroEmissionZoneRunner runner = new ZeroEmissionZoneRunner(configFilePath);
-            runner.runSimulation();
-        } catch (Exception e) {
-            logger.error("Failed to run simulation", e);
-            System.exit(1);
-        }
-    }
-
-    // Getters for testing and monitoring
-    public Network getNetwork() {
-        return network;
-    }
-
-    public ZeroEmissionZone getZeroEmissionZone() {
-        return zeroEmissionZone;
-    }
-
-    public ReroutingStrategy getReroutingStrategy() {
-        return reroutingStrategy;
-    }
-
-    public StatisticsCollector getStatisticsCollector() {
-        return statisticsCollector;
-    }
-
-    public ZeroEmissionZoneConfigGroup getZeroEmissionZoneConfig() {
-        return zezConfig;
     }
 }

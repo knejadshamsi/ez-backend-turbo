@@ -11,60 +11,89 @@ import org.matsim.core.population.PopulationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class ReroutingStrategy {
     private static final Logger logger = LoggerFactory.getLogger(ReroutingStrategy.class);
-    private static final double EMISSION_ZONE_COST_MULTIPLIER = 2.0;
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
     
     private final Network network;
-    private final double scoreThreshold;
-    private final Map<Link, Double> linkCosts = new HashMap<>();
     private final ZeroEmissionZone zeroEmissionZone;
+    private final Map<Link, Map<ZeroEmissionZone.VehicleCategory, Double>> linkCosts = new HashMap<>();
     
     private int reroutedPlansCount = 0;
 
-    public ReroutingStrategy(Network network, double scoreThreshold) {
+    public ReroutingStrategy(Network network, ZeroEmissionZoneConfigGroup config) {
         this.network = network;
-        this.scoreThreshold = scoreThreshold;
-        ZeroEmissionZoneConfigGroup configGroup = new ZeroEmissionZoneConfigGroup();
-        this.zeroEmissionZone = new ZeroEmissionZone(network, configGroup);
+        this.zeroEmissionZone = new ZeroEmissionZone(network, config);
         initializeLinkCosts();
-        logger.info("Initialized ReroutingStrategy with score threshold: {}", scoreThreshold);
     }
 
     private void initializeLinkCosts() {
         for (Link link : network.getLinks().values()) {
-            // Basic cost based on travel time
-            double baseCost = link.getLength() / link.getFreespeed();
-            
-            // Apply penalty for zero emission zone links
-            if (zeroEmissionZone.isInZeroEmissionZone(link.getId())) {
-                baseCost *= EMISSION_ZONE_COST_MULTIPLIER;
+            Map<ZeroEmissionZone.VehicleCategory, Double> categoryCosts = new HashMap<>();
+            double baseCost = calculateBaseCost(link);
+
+            for (ZeroEmissionZone.VehicleCategory category : ZeroEmissionZone.VehicleCategory.values()) {
+                double categoryCost = baseCost;
+                
+                if (zeroEmissionZone.isZoneLink(link.getId())) {
+                    switch (category) {
+                        case ELECTRIC:
+                            // EVs get a benefit for using the zone
+                            categoryCost *= 0.8;
+                            break;
+                        case LOW_EMISSION:
+                            // LEVs get a moderate penalty
+                            categoryCost *= 1.2;
+                            break;
+                        case HEAVY_EMISSION:
+                            // HEVs get effectively infinite cost during operating hours
+                            categoryCost = Double.POSITIVE_INFINITY;
+                            break;
+                    }
+                } else if (zeroEmissionZone.isAlternativeLink(link.getId())) {
+                    // Make alternative routes more attractive for non-EVs
+                    switch (category) {
+                        case LOW_EMISSION:
+                            // Significant incentive for LEVs to use alternative routes
+                            categoryCost *= 0.6;
+                            break;
+                        case HEAVY_EMISSION:
+                            // Strong incentive for HEVs to use alternative routes
+                            categoryCost *= 0.5;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                
+                categoryCosts.put(category, categoryCost);
             }
             
-            linkCosts.put(link, baseCost);
+            linkCosts.put(link, categoryCosts);
         }
+    }
+
+    private double calculateBaseCost(Link link) {
+        // Base cost considers travel time and distance with preference for faster routes
+        return link.getLength() / Math.max(link.getFreespeed(), 1.0);
     }
 
     public void processAgent(Person person) {
         Plan selectedPlan = person.getSelectedPlan();
-        
-        if (selectedPlan == null || selectedPlan.getScore() == null) {
+        if (selectedPlan == null) {
             return;
         }
-        
-        // Only reroute if the score is below threshold
-        if (selectedPlan.getScore() < scoreThreshold) {
-            Plan newPlan = createNewPlan(person);
-            if (newPlan != null) {
-                person.addPlan(newPlan);
-                person.setSelectedPlan(newPlan);
-                reroutedPlansCount++;
-                logger.info("Rerouted plan for person {} with score {}", 
-                    person.getId(), selectedPlan.getScore());
-            }
+
+        Plan newPlan = createNewPlan(person);
+        if (newPlan != null) {
+            person.addPlan(newPlan);
+            person.setSelectedPlan(newPlan);
+            reroutedPlansCount++;
         }
     }
 
@@ -72,38 +101,64 @@ public class ReroutingStrategy {
         Plan oldPlan = person.getSelectedPlan();
         Plan newPlan = PopulationUtils.createPlan(person);
         
+        Activity previousActivity = null;
+        
         for (PlanElement pe : oldPlan.getPlanElements()) {
             if (pe instanceof Activity) {
-                newPlan.addActivity((Activity) pe);
+                Activity activity = (Activity) pe;
+                newPlan.addActivity(activity);
+                previousActivity = activity;
             } else if (pe instanceof Leg) {
                 Leg oldLeg = (Leg) pe;
                 if (oldLeg.getMode().equals("car") && oldLeg.getRoute() instanceof NetworkRoute) {
-                    NetworkRoute oldRoute = (NetworkRoute) oldLeg.getRoute();
-                    NetworkRoute newRoute = generateAlternativeRoute(oldRoute);
+                    String vehicleId = (String) oldLeg.getAttributes().getAttribute("vehicleId");
+                    ZeroEmissionZone.VehicleCategory category = 
+                        ZeroEmissionZone.VehicleCategory.fromVehicleType(vehicleId);
                     
-                    if (newRoute != null && validateRoute(newRoute)) {
-                        Leg newLeg = PopulationUtils.createLeg(oldLeg.getMode());
-                        newLeg.setRoute(newRoute);
-                        newPlan.addLeg(newLeg);
-                    } else {
-                        newPlan.addLeg(oldLeg); // Keep original leg if new route is invalid
+                    if (previousActivity != null) {
+                        LocalTime departureTime = extractDepartureTime(previousActivity);
+                        
+                        NetworkRoute newRoute = generateCategorySpecificRoute(
+                            (NetworkRoute) oldLeg.getRoute(),
+                            category,
+                            departureTime
+                        );
+                        
+                        if (newRoute != null) {
+                            Leg newLeg = PopulationUtils.createLeg(oldLeg.getMode());
+                            newLeg.setRoute(newRoute);
+                            newLeg.getAttributes().putAttribute("vehicleId", vehicleId);
+                            newPlan.addLeg(newLeg);
+                            continue;
+                        }
                     }
-                } else {
-                    newPlan.addLeg(oldLeg);
                 }
+                newPlan.addLeg(oldLeg);
             }
         }
         
         return newPlan;
     }
 
-    private NetworkRoute generateAlternativeRoute(NetworkRoute oldRoute) {
+    private LocalTime extractDepartureTime(Activity activity) {
+        double timeInSeconds = activity.getEndTime().seconds();
+        int hours = (int) (timeInSeconds / 3600) % 24;
+        int minutes = (int) ((timeInSeconds % 3600) / 60);
+        return LocalTime.of(hours, minutes);
+    }
+
+    private NetworkRoute generateCategorySpecificRoute(
+        NetworkRoute oldRoute,
+        ZeroEmissionZone.VehicleCategory category,
+        LocalTime departureTime
+    ) {
         Node startNode = network.getLinks().get(oldRoute.getStartLinkId()).getFromNode();
         Node endNode = network.getLinks().get(oldRoute.getEndLinkId()).getToNode();
 
-        List<Link> path = findShortestPath(startNode, endNode);
+        List<Link> path = findCategorySpecificPath(startNode, endNode, category, departureTime);
         
         if (path.isEmpty()) {
+            logger.warn("No valid route found for {} vehicle", category);
             return null;
         }
 
@@ -111,18 +166,23 @@ public class ReroutingStrategy {
             .map(Link::getId)
             .collect(Collectors.toList());
 
-        NetworkRoute route = RouteUtils.createNetworkRoute(linkIds, network);
-        route.setStartLinkId(oldRoute.getStartLinkId());
-        route.setEndLinkId(oldRoute.getEndLinkId());
+        NetworkRoute route = RouteUtils.createLinkNetworkRouteImpl(oldRoute.getStartLinkId(), oldRoute.getEndLinkId());
+        route.setLinkIds(oldRoute.getStartLinkId(), linkIds, oldRoute.getEndLinkId());
 
         return route;
     }
 
-    private List<Link> findShortestPath(Node start, Node end) {
+    private List<Link> findCategorySpecificPath(
+        Node start,
+        Node end,
+        ZeroEmissionZone.VehicleCategory category,
+        LocalTime departureTime
+    ) {
         Map<Node, Double> distances = new HashMap<>();
         Map<Node, Node> previousNodes = new HashMap<>();
         PriorityQueue<Node> queue = new PriorityQueue<>(
-            Comparator.comparingDouble(n -> distances.getOrDefault(n, Double.POSITIVE_INFINITY)));
+            Comparator.comparingDouble(n -> distances.getOrDefault(n, Double.POSITIVE_INFINITY))
+        );
         Set<Node> visited = new HashSet<>();
 
         distances.put(start, 0.0);
@@ -137,13 +197,15 @@ public class ReroutingStrategy {
 
             for (Link link : current.getOutLinks().values()) {
                 Node neighbor = link.getToNode();
-                double linkCost = linkCosts.get(link);
                 
-                // Add additional cost for zero emission zone links using the constant penalty
-                if (zeroEmissionZone.isInZeroEmissionZone(link.getId())) {
-                    linkCost += 50.0; // Using the ZERO_EMISSION_ZONE_PENALTY value directly
+                // Strict access control for HEVs during operating hours
+                if (zeroEmissionZone.isZoneLink(link.getId()) && 
+                    category == ZeroEmissionZone.VehicleCategory.HEAVY_EMISSION && 
+                    zeroEmissionZone.isOperatingHours(departureTime)) {
+                    continue;
                 }
-                
+
+                double linkCost = linkCosts.get(link).get(category);
                 double newDist = distances.get(current) + linkCost;
 
                 if (newDist < distances.getOrDefault(neighbor, Double.POSITIVE_INFINITY)) {
@@ -180,37 +242,6 @@ public class ReroutingStrategy {
         }
 
         return path;
-    }
-
-    private boolean validateRoute(NetworkRoute route) {
-        List<Link> routeLinks = route.getLinkIds().stream()
-            .map(network.getLinks()::get)
-            .collect(Collectors.toList());
-
-        if (routeLinks.isEmpty()) {
-            return false;
-        }
-
-        // Check consecutive link connectivity
-        for (int i = 0; i < routeLinks.size() - 1; i++) {
-            Link currentLink = routeLinks.get(i);
-            Link nextLink = routeLinks.get(i + 1);
-
-            Node fromLinkToNode = currentLink.getToNode();
-            Node toLinkFromNode = nextLink.getFromNode();
-
-            if (!fromLinkToNode.equals(toLinkFromNode)) {
-                return false;
-            }
-        }
-
-        // Check if route avoids zero emission zones when possible
-        int zezLinkCount = (int) routeLinks.stream()
-            .filter(link -> zeroEmissionZone.isInZeroEmissionZone(link.getId()))
-            .count();
-
-        // If more than half the links are in zero emission zones, try to find a better route
-        return zezLinkCount <= routeLinks.size() / 2;
     }
 
     public void reset() {
