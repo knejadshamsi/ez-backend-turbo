@@ -1,179 +1,268 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE population SYSTEM "http://www.matsim.org/files/dtd/population_v6.dtd">
 <population>
-    <!-- Electric Vehicle (EV) Scenarios -->
-    <!-- EV Commuter with Standard Route -->
-    <person id="ev_commuter_1">
+    <person id="ev_agent_0">
         <attributes>
-            <attribute name="carAvail" class="java.lang.String">always</attribute>
-            <attribute name="income" class="java.lang.Double">75000.0</attribute>
+            <attribute name="vehicleType" class="java.lang.String">ev_car</attribute>
         </attributes>
         <plan selected="yes">
-            <activity type="home" link="1" end_time="07:15:00" />
-            <leg mode="car">
-                <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">ev_1</attribute>
-                </attributes>
-            </leg>
-            <activity type="work" link="4" end_time="17:00:00" />
-            <leg mode="car">
-                <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">ev_1</attribute>
-                </attributes>
-            </leg>
-            <activity type="home" link="1" />
+            <activity type="home" link="1" end_time="10:00:07"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="10:30:07"/>
+            <activity type="work" link="6" end_time="10:11:14"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="10:41:14"/>
+            <activity type="home" link="1" end_time="10:23:54"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="10:53:54"/>
+            <activity type="work" link="6" end_time="10:36:05"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="11:06:05"/>
+            <activity type="home" link="1" end_time="10:47:51"/>
+            <leg mode="car"/>
+            <activity type="work" link="6"/>
         </plan>
     </person>
-
-    <!-- EV Multiple Zone Crossings -->
-    <person id="ev_multiple_1">
+    <person id="lev_agent_1">
         <attributes>
-            <attribute name="carAvail" class="java.lang.String">always</attribute>
-            <attribute name="income" class="java.lang.Double">80000.0</attribute>
+            <attribute name="vehicleType" class="java.lang.String">lev_car</attribute>
         </attributes>
         <plan selected="yes">
-            <activity type="home" link="1" end_time="08:00:00" />
-            <leg mode="car">
-                <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">ev_2</attribute>
-                </attributes>
-            </leg>
-            <activity type="work" link="4" end_time="12:00:00" />
-            <leg mode="car">
-                <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">ev_2</attribute>
-                </attributes>
-            </leg>
-            <activity type="leisure" link="1" end_time="14:00:00" />
-            <leg mode="car">
-                <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">ev_2</attribute>
-                </attributes>
-            </leg>
-            <activity type="work" link="4" end_time="17:30:00" />
-            <leg mode="car">
-                <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">ev_2</attribute>
-                </attributes>
-            </leg>
-            <activity type="home" link="1" />
+            <activity type="home" link="1" end_time="11:00:45"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="11:30:45"/>
+            <activity type="work" link="6" end_time="11:12:37"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="11:42:37"/>
+            <activity type="home" link="1" end_time="11:24:21"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="11:54:21"/>
+            <activity type="work" link="6" end_time="11:35:21"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="12:05:21"/>
+            <activity type="home" link="1" end_time="11:47:46"/>
+            <leg mode="car"/>
+            <activity type="work" link="6"/>
         </plan>
     </person>
-
-    <!-- Low Emission Vehicle (LEV) Scenarios -->
-    <!-- LEV Commuter with Alternative Route -->
-    <person id="lev_commuter_1">
+    <person id="hev_agent_2">
         <attributes>
-            <attribute name="carAvail" class="java.lang.String">always</attribute>
-            <attribute name="income" class="java.lang.Double">60000.0</attribute>
+            <attribute name="vehicleType" class="java.lang.String">hev_car</attribute>
         </attributes>
         <plan selected="yes">
-            <activity type="home" link="1" end_time="07:45:00" />
-            <leg mode="car">
-                <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">lev_1</attribute>
-                </attributes>
-            </leg>
-            <activity type="work" link="4" end_time="16:30:00" />
-            <leg mode="car">
-                <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">lev_1</attribute>
-                </attributes>
-            </leg>
-            <activity type="home" link="1" />
+            <activity type="home" link="1" end_time="11:59:09"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="12:29:09"/>
+            <activity type="work" link="6" end_time="12:11:46"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="12:41:46"/>
+            <activity type="home" link="1" end_time="12:25:04"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="12:55:04"/>
+            <activity type="work" link="6" end_time="12:35:03"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="13:05:03"/>
+            <activity type="home" link="1" end_time="12:47:54"/>
+            <leg mode="car"/>
+            <activity type="work" link="6"/>
         </plan>
     </person>
-
-    <!-- LEV Off-Peak Travel -->
-    <person id="lev_offpeak_1">
+    <person id="ev_agent_3">
         <attributes>
-            <attribute name="carAvail" class="java.lang.String">always</attribute>
-            <attribute name="income" class="java.lang.Double">55000.0</attribute>
+            <attribute name="vehicleType" class="java.lang.String">ev_car</attribute>
         </attributes>
         <plan selected="yes">
-            <activity type="home" link="1" end_time="19:30:00" />
-            <leg mode="car">
-                <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">lev_2</attribute>
-                </attributes>
-            </leg>
-            <activity type="leisure" link="4" end_time="22:00:00" />
-            <leg mode="car">
-                <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">lev_2</attribute>
-                </attributes>
-            </leg>
-            <activity type="home" link="1" />
+            <activity type="home" link="1" end_time="12:58:49"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="13:28:49"/>
+            <activity type="work" link="6" end_time="13:11:12"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="13:41:12"/>
+            <activity type="home" link="1" end_time="13:24:28"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="13:54:28"/>
+            <activity type="work" link="6" end_time="13:37:08"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="14:07:08"/>
+            <activity type="home" link="1" end_time="13:47:24"/>
+            <leg mode="car"/>
+            <activity type="work" link="6"/>
         </plan>
     </person>
-
-    <!-- Heavy Emission Vehicle (HEV) Scenarios -->
-    <!-- HEV Attempting Zone Entry -->
-    <person id="hev_commuter_1">
+    <person id="lev_agent_4">
         <attributes>
-            <attribute name="carAvail" class="java.lang.String">always</attribute>
-            <attribute name="income" class="java.lang.Double">50000.0</attribute>
+            <attribute name="vehicleType" class="java.lang.String">lev_car</attribute>
         </attributes>
         <plan selected="yes">
-            <activity type="home" link="1" end_time="07:30:00" />
-            <leg mode="car">
-                <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">hev_1</attribute>
-                </attributes>
-            </leg>
-            <activity type="work" link="4" end_time="17:00:00" />
-            <leg mode="car">
-                <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">hev_1</attribute>
-                </attributes>
-            </leg>
-            <activity type="home" link="1" />
+            <activity type="home" link="1" end_time="13:59:26"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="14:29:26"/>
+            <activity type="work" link="6" end_time="14:12:28"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="14:42:28"/>
+            <activity type="home" link="1" end_time="14:24:31"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="14:54:31"/>
+            <activity type="work" link="6" end_time="14:35:08"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="15:05:08"/>
+            <activity type="home" link="1" end_time="14:48:44"/>
+            <leg mode="car"/>
+            <activity type="work" link="6"/>
         </plan>
     </person>
-
-    <!-- HEV Off-Peak Travel -->
-    <person id="hev_offpeak_1">
+    <person id="hev_agent_5">
         <attributes>
-            <attribute name="carAvail" class="java.lang.String">always</attribute>
-            <attribute name="income" class="java.lang.Double">45000.0</attribute>
+            <attribute name="vehicleType" class="java.lang.String">hev_car</attribute>
         </attributes>
         <plan selected="yes">
-            <activity type="home" link="1" end_time="19:30:00" />
-            <leg mode="car">
-                <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">hev_2</attribute>
-                </attributes>
-            </leg>
-            <activity type="leisure" link="4" end_time="22:00:00" />
-            <leg mode="car">
-                <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">hev_2</attribute>
-                </attributes>
-            </leg>
-            <activity type="home" link="1" />
+            <activity type="home" link="1" end_time="15:01:05"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="15:31:05"/>
+            <activity type="work" link="6" end_time="15:12:52"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="15:42:52"/>
+            <activity type="home" link="1" end_time="15:23:48"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="15:53:48"/>
+            <activity type="work" link="6" end_time="15:34:54"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="16:04:54"/>
+            <activity type="home" link="1" end_time="15:49:12"/>
+            <leg mode="car"/>
+            <activity type="work" link="6"/>
         </plan>
     </person>
-
-    <!-- Edge Case: Trip Spanning Restriction Boundary -->
-    <person id="lev_boundary_1">
+    <person id="ev_agent_6">
         <attributes>
-            <attribute name="carAvail" class="java.lang.String">always</attribute>
-            <attribute name="income" class="java.lang.Double">65000.0</attribute>
+            <attribute name="vehicleType" class="java.lang.String">ev_car</attribute>
         </attributes>
         <plan selected="yes">
-            <activity type="home" link="1" end_time="06:45:00" />
-            <leg mode="car">
-                <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">lev_3</attribute>
-                </attributes>
-            </leg>
-            <activity type="work" link="4" end_time="18:30:00" />
-            <leg mode="car">
-                <attributes>
-                    <attribute name="vehicleId" class="java.lang.String">lev_3</attribute>
-                </attributes>
-            </leg>
-            <activity type="home" link="1" />
+            <activity type="home" link="1" end_time="16:00:00"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="16:30:00"/>
+            <activity type="work" link="6" end_time="16:10:53"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="16:40:53"/>
+            <activity type="home" link="1" end_time="16:24:38"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="16:54:38"/>
+            <activity type="work" link="6" end_time="16:34:59"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="17:04:59"/>
+            <activity type="home" link="1" end_time="16:48:21"/>
+            <leg mode="car"/>
+            <activity type="work" link="6"/>
+        </plan>
+    </person>
+    <person id="lev_agent_7">
+        <attributes>
+            <attribute name="vehicleType" class="java.lang.String">lev_car</attribute>
+        </attributes>
+        <plan selected="yes">
+            <activity type="home" link="1" end_time="17:00:54"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="17:30:54"/>
+            <activity type="work" link="6" end_time="17:13:09"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="17:43:09"/>
+            <activity type="home" link="1" end_time="17:25:08"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="17:55:08"/>
+            <activity type="work" link="6" end_time="17:35:07"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="18:05:07"/>
+            <activity type="home" link="1" end_time="17:48:48"/>
+            <leg mode="car"/>
+            <activity type="work" link="6"/>
+        </plan>
+    </person>
+    <person id="hev_agent_8">
+        <attributes>
+            <attribute name="vehicleType" class="java.lang.String">hev_car</attribute>
+        </attributes>
+        <plan selected="yes">
+            <activity type="home" link="1" end_time="17:59:45"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="18:29:45"/>
+            <activity type="work" link="6" end_time="18:12:52"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="18:42:52"/>
+            <activity type="home" link="1" end_time="18:22:51"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="18:52:51"/>
+            <activity type="work" link="6" end_time="18:35:04"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="19:05:04"/>
+            <activity type="home" link="1" end_time="18:48:46"/>
+            <leg mode="car"/>
+            <activity type="work" link="6"/>
+        </plan>
+    </person>
+    <person id="ev_agent_9">
+        <attributes>
+            <attribute name="vehicleType" class="java.lang.String">ev_car</attribute>
+        </attributes>
+        <plan selected="yes">
+            <activity type="home" link="1" end_time="19:01:02"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="19:31:02"/>
+            <activity type="work" link="6" end_time="19:11:57"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="19:41:57"/>
+            <activity type="home" link="1" end_time="19:24:06"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="19:54:06"/>
+            <activity type="work" link="6" end_time="19:34:49"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="20:04:49"/>
+            <activity type="home" link="1" end_time="19:47:47"/>
+            <leg mode="car"/>
+            <activity type="work" link="6"/>
+        </plan>
+    </person>
+    <person id="lev_agent_10">
+        <attributes>
+            <attribute name="vehicleType" class="java.lang.String">lev_car</attribute>
+        </attributes>
+        <plan selected="yes">
+            <activity type="home" link="1" end_time="20:01:04"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="20:31:04"/>
+            <activity type="work" link="6" end_time="20:12:09"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="20:42:09"/>
+            <activity type="home" link="1" end_time="20:23:48"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="20:53:48"/>
+            <activity type="work" link="6" end_time="20:36:38"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="21:06:38"/>
+            <activity type="home" link="1" end_time="20:48:17"/>
+            <leg mode="car"/>
+            <activity type="work" link="6"/>
+        </plan>
+    </person>
+    <person id="hev_agent_11">
+        <attributes>
+            <attribute name="vehicleType" class="java.lang.String">hev_car</attribute>
+        </attributes>
+        <plan selected="yes">
+            <activity type="home" link="1" end_time="21:00:18"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="21:30:18"/>
+            <activity type="work" link="6" end_time="21:13:04"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="21:43:04"/>
+            <activity type="home" link="1" end_time="21:23:55"/>
+            <leg mode="car"/>
+            <activity type="work" link="6" end_time="21:53:55"/>
+            <activity type="work" link="6" end_time="21:36:37"/>
+            <leg mode="car"/>
+            <activity type="home" link="1" end_time="22:06:37"/>
+            <activity type="home" link="1" end_time="21:48:11"/>
+            <leg mode="car"/>
+            <activity type="work" link="6"/>
         </plan>
     </person>
 </population>

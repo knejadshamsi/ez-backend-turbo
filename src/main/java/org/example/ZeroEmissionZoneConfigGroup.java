@@ -1,359 +1,183 @@
 package org.example;
 
 import org.matsim.core.config.ReflectiveConfigGroup;
-import org.matsim.core.config.ReflectiveConfigGroup.StringGetter;
-import org.matsim.core.config.ReflectiveConfigGroup.StringSetter;
-
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Configuration group for Zero Emission Zone (ZEZ) simulation parameters.
+ * 
+ * This class defines and manages configuration settings specific to the Zero Emission Zone,
+ * including zone boundaries, vehicle type restrictions, charging policies, and routing alternatives.
+ * 
+ * Configuration parameters cover:
+ * - Zone link definitions
+ * - Alternative routing options
+ * - Vehicle type permissions
+ * - Economic incentives and penalties
+ * - Time-based charging mechanisms
+ */
 public class ZeroEmissionZoneConfigGroup extends ReflectiveConfigGroup {
     public static final String GROUP_NAME = "zeroEmissionZone";
     
-    // Zone configuration parameters
-    private double zoneRadius = 1000.0;
-    private String zoneCenterCoordinates = "0,0";
-    private boolean enablePenalties = true;
-    private double penaltyRate = 5.0;
-    private String exemptVehicleTypes = "electric";
+    // ZEZ Network Configuration
+    private String zoneLinks = "3,4";  // Links defining the Zero Emission Zone
+    private String alternativeRoutes = "7,8,9,10";  // Bypass route links
+    private double bypassRouteCapacityIncrease = 2.0;  // Capacity multiplier for bypass routes
+    private double bypassRouteTravelTimeReduction = 0.7;  // Travel time reduction factor
     
-    // Zone definition
-    private String zoneLinks = "";
-    private String alternativeRoutes = "";
+    // Temporal Constraints
+    private String startTime = "07:00:00";  // ZEZ operational start time
+    private String endTime = "19:00:00";  // ZEZ operational end time
     
-    // Category-specific scores with adjusted defaults
-    private double evReward = 75.0;  // Increased reward for EVs
-    private double levPenalty = -150.0;  // Increased penalty for LEVs
-    private double levAlternativeReward = 50.0;  // Increased reward for alternative routes
-    private double hevViolationPenalty = -1000.0;  // Severe penalty for HEV violations
+    // Vehicle Type Restrictions
+    private String allowedVehicleTypes = "ev_car,lev_car";  // Permitted vehicle types
     
-    // Time settings
-    private String startTime = "07:00:00";  // Changed to match new operating hours
-    private String endTime = "19:00:00";    // Changed to match new operating hours
+    // Charging and Economic Policies
+    private boolean enableGraduatedCharging = true;  // Time-based charging mechanism
+    private double baseCharge = 50.0;  // Base entry charge for ZEZ
+    private double peakHourSurcharge = 100.0;  // Additional charge during peak hours
     
-    // Peak hour settings
-    private String morningPeakStart = "07:00:00";
-    private String morningPeakEnd = "09:00:00";
-    private String eveningPeakStart = "16:00:00";
-    private String eveningPeakEnd = "18:00:00";
-    private double peakHourMultiplier = 1.5;
-    private double offPeakMultiplier = 0.5;
-    
-    // Output configuration
-    private String outputDirectory = "output/zero-emission-zone";
-    private boolean generateReports = true;
+    // Scoring and Incentive Parameters
+    private double evReward = 300.0;  // Bonus for electric vehicles
+    private double levPenalty = -200.0;  // Penalty for low emission vehicles
+    private double levAlternativeReward = 500.0;  // Reward for using alternative routes
+    private double hevViolationPenalty = Double.NEGATIVE_INFINITY;  // Severe penalty for hybrid vehicles
 
+    /**
+     * Constructor initializes the configuration group with the ZEZ group name.
+     */
     public ZeroEmissionZoneConfigGroup() {
         super(GROUP_NAME);
     }
 
+    /**
+     * Provides descriptive comments for each configuration parameter.
+     * These comments help users understand the purpose and impact of each setting.
+     * 
+     * @return Map of parameter names to their descriptive comments
+     */
     @Override
     public Map<String, String> getComments() {
-        Map<String, String> comments = super.getComments();
-        comments.put("zoneRadius", "Radius of the zero emission zone in meters");
-        comments.put("zoneCenterCoordinates", "Center coordinates of the zone (x,y)");
-        comments.put("enablePenalties", "Enable penalties for non-compliant vehicles");
-        comments.put("penaltyRate", "Penalty rate per kilometer for non-compliant vehicles");
-        comments.put("exemptVehicleTypes", "Comma-separated list of exempt vehicle types");
-        comments.put("zoneLinks", "Comma-separated list of link IDs in the zero emission zone");
-        comments.put("alternativeRoutes", "Comma-separated list of alternative route link IDs");
-        comments.put("startTime", "Start time of zone operation (HH:mm:ss)");
-        comments.put("endTime", "End time of zone operation (HH:mm:ss)");
-        comments.put("morningPeakStart", "Start time of morning peak hours (HH:mm:ss)");
-        comments.put("morningPeakEnd", "End time of morning peak hours (HH:mm:ss)");
-        comments.put("eveningPeakStart", "Start time of evening peak hours (HH:mm:ss)");
-        comments.put("eveningPeakEnd", "End time of evening peak hours (HH:mm:ss)");
-        comments.put("peakHourMultiplier", "Score multiplier during peak hours");
-        comments.put("offPeakMultiplier", "Score multiplier during off-peak hours");
-        comments.put("evReward", "Score reward for electric vehicles using the zone");
-        comments.put("levPenalty", "Score penalty for low emission vehicles in the zone");
-        comments.put("levAlternativeReward", "Score reward for using alternative routes");
-        comments.put("hevViolationPenalty", "Score penalty for heavy emission vehicles violating zone rules");
-        comments.put("outputDirectory", "Output directory for reports");
-        comments.put("generateReports", "Generate detailed reports");
+        Map<String, String> comments = new HashMap<>();
+        comments.put("zoneLinks", "Links in ZEZ (3,4)");
+        comments.put("alternativeRoutes", "Bypass route links (7,8,9,10)");
+        comments.put("bypassRouteCapacityIncrease", "Factor for bypass capacity (e.g., 2.0 doubles capacity)");
+        comments.put("bypassRouteTravelTimeReduction", "Factor for bypass travel time (e.g., 0.7 reduces by 30%)");
+        comments.put("startTime", "ZEZ start time (HH:mm:ss)");
+        comments.put("endTime", "ZEZ end time (HH:mm:ss)");
+        comments.put("allowedVehicleTypes", "Allowed vehicles (ev_car,lev_car)");
+        comments.put("enableGraduatedCharging", "Enable time-based charging");
+        comments.put("baseCharge", "Base ZEZ entry charge");
+        comments.put("peakHourSurcharge", "Extra charge during peak hours");
+        comments.put("evReward", "Score bonus for EVs");
+        comments.put("levPenalty", "Score penalty for LEVs");
+        comments.put("levAlternativeReward", "Score bonus for using bypass");
+        comments.put("hevViolationPenalty", "Penalty for HEV violations");
         return comments;
     }
 
-    // Existing getters and setters
-
-    @StringGetter("zoneRadius")
-    public double getZoneRadius() {
-        return zoneRadius;
-    }
-
-    @StringSetter("zoneRadius")
-    public void setZoneRadius(String value) {
-        this.zoneRadius = Double.parseDouble(value);
-    }
-
-    @StringGetter("zoneCenterCoordinates")
-    public String getZoneCenterCoordinates() {
-        return zoneCenterCoordinates;
-    }
-
-    @StringSetter("zoneCenterCoordinates")
-    public void setZoneCenterCoordinates(String value) {
-        this.zoneCenterCoordinates = value;
-    }
-
-    @StringGetter("enablePenalties")
-    public String getEnablePenalties() {
-        return Boolean.toString(enablePenalties);
-    }
-
-    @StringSetter("enablePenalties")
-    public void setEnablePenalties(String value) {
-        this.enablePenalties = Boolean.parseBoolean(value);
-    }
-
-    @StringGetter("penaltyRate")
-    public String getPenaltyRate() {
-        return Double.toString(penaltyRate);
-    }
-
-    @StringSetter("penaltyRate")
-    public void setPenaltyRate(String value) {
-        this.penaltyRate = Double.parseDouble(value);
-    }
-
-    @StringGetter("exemptVehicleTypes")
-    public String getExemptVehicleTypes() {
-        return exemptVehicleTypes;
-    }
-
-    @StringSetter("exemptVehicleTypes")
-    public void setExemptVehicleTypes(String value) {
-        this.exemptVehicleTypes = value;
-    }
-
-    @StringGetter("startTime")
-    public String getStartTime() {
-        return startTime;
-    }
-
-    @StringSetter("startTime")
-    public void setStartTime(String value) {
-        this.startTime = value;
-    }
-
-    @StringGetter("endTime")
-    public String getEndTime() {
-        return endTime;
-    }
-
-    @StringSetter("endTime")
-    public void setEndTime(String value) {
-        this.endTime = value;
-    }
-
-    // New peak hour getters and setters
-    @StringGetter("morningPeakStart")
-    public String getMorningPeakStart() {
-        return morningPeakStart;
-    }
-
-    @StringSetter("morningPeakStart")
-    public void setMorningPeakStart(String value) {
-        this.morningPeakStart = value;
-    }
-
-    @StringGetter("morningPeakEnd")
-    public String getMorningPeakEnd() {
-        return morningPeakEnd;
-    }
-
-    @StringSetter("morningPeakEnd")
-    public void setMorningPeakEnd(String value) {
-        this.morningPeakEnd = value;
-    }
-
-    @StringGetter("eveningPeakStart")
-    public String getEveningPeakStart() {
-        return eveningPeakStart;
-    }
-
-    @StringSetter("eveningPeakStart")
-    public void setEveningPeakStart(String value) {
-        this.eveningPeakStart = value;
-    }
-
-    @StringGetter("eveningPeakEnd")
-    public String getEveningPeakEnd() {
-        return eveningPeakEnd;
-    }
-
-    @StringSetter("eveningPeakEnd")
-    public void setEveningPeakEnd(String value) {
-        this.eveningPeakEnd = value;
-    }
-
-    @StringGetter("peakHourMultiplier")
-    public String getPeakHourMultiplier() {
-        return Double.toString(peakHourMultiplier);
-    }
-
-    @StringSetter("peakHourMultiplier")
-    public void setPeakHourMultiplier(String value) {
-        this.peakHourMultiplier = Double.parseDouble(value);
-    }
-
-    @StringGetter("offPeakMultiplier")
-    public String getOffPeakMultiplier() {
-        return Double.toString(offPeakMultiplier);
-    }
-
-    @StringSetter("offPeakMultiplier")
-    public void setOffPeakMultiplier(String value) {
-        this.offPeakMultiplier = Double.parseDouble(value);
-    }
-
-    // Zone links getters and setters
     @StringGetter("zoneLinks")
-    public String getZoneLinks() {
-        return zoneLinks;
-    }
+    public String getZoneLinks() { return zoneLinks; }
 
     @StringSetter("zoneLinks")
-    public void setZoneLinks(String value) {
-        this.zoneLinks = value;
-    }
+    public void setZoneLinks(String value) { this.zoneLinks = value; }
 
     @StringGetter("alternativeRoutes")
-    public String getAlternativeRoutes() {
-        return alternativeRoutes;
-    }
+    public String getAlternativeRoutes() { return alternativeRoutes; }
 
     @StringSetter("alternativeRoutes")
-    public void setAlternativeRoutes(String value) {
-        this.alternativeRoutes = value;
-    }
+    public void setAlternativeRoutes(String value) { this.alternativeRoutes = value; }
 
-    // Score getters and setters
+    @StringGetter("bypassRouteCapacityIncrease")
+    public String getBypassRouteCapacityIncrease() { return String.valueOf(bypassRouteCapacityIncrease); }
+
+    @StringSetter("bypassRouteCapacityIncrease")
+    public void setBypassRouteCapacityIncrease(String value) { this.bypassRouteCapacityIncrease = Double.parseDouble(value); }
+
+    @StringGetter("bypassRouteTravelTimeReduction")
+    public String getBypassRouteTravelTimeReduction() { return String.valueOf(bypassRouteTravelTimeReduction); }
+
+    @StringSetter("bypassRouteTravelTimeReduction")
+    public void setBypassRouteTravelTimeReduction(String value) { this.bypassRouteTravelTimeReduction = Double.parseDouble(value); }
+
+    @StringGetter("startTime")
+    public String getStartTime() { return startTime; }
+
+    @StringSetter("startTime")
+    public void setStartTime(String value) { this.startTime = value; }
+
+    @StringGetter("endTime")
+    public String getEndTime() { return endTime; }
+
+    @StringSetter("endTime")
+    public void setEndTime(String value) { this.endTime = value; }
+
+    @StringGetter("allowedVehicleTypes")
+    public String getAllowedVehicleTypes() { return allowedVehicleTypes; }
+
+    @StringSetter("allowedVehicleTypes")
+    public void setAllowedVehicleTypes(String value) { this.allowedVehicleTypes = value; }
+
+    @StringGetter("enableGraduatedCharging")
+    public String getEnableGraduatedCharging() { return String.valueOf(enableGraduatedCharging); }
+
+    @StringSetter("enableGraduatedCharging")
+    public void setEnableGraduatedCharging(String value) { this.enableGraduatedCharging = Boolean.parseBoolean(value); }
+
+    @StringGetter("baseCharge")
+    public String getBaseCharge() { return String.valueOf(baseCharge); }
+
+    @StringSetter("baseCharge")
+    public void setBaseCharge(String value) { this.baseCharge = Double.parseDouble(value); }
+
+    @StringGetter("peakHourSurcharge")
+    public String getPeakHourSurcharge() { return String.valueOf(peakHourSurcharge); }
+
+    @StringSetter("peakHourSurcharge")
+    public void setPeakHourSurcharge(String value) { this.peakHourSurcharge = Double.parseDouble(value); }
+
     @StringGetter("evReward")
-    public String getEvReward() {
-        return Double.toString(evReward);
-    }
+    public String getEvReward() { return String.valueOf(evReward); }
 
     @StringSetter("evReward")
-    public void setEvReward(String value) {
-        this.evReward = Double.parseDouble(value);
-    }
+    public void setEvReward(String value) { this.evReward = Double.parseDouble(value); }
 
     @StringGetter("levPenalty")
-    public String getLevPenalty() {
-        return Double.toString(levPenalty);
-    }
+    public String getLevPenalty() { return String.valueOf(levPenalty); }
 
     @StringSetter("levPenalty")
-    public void setLevPenalty(String value) {
-        this.levPenalty = Double.parseDouble(value);
-    }
+    public void setLevPenalty(String value) { this.levPenalty = Double.parseDouble(value); }
 
     @StringGetter("levAlternativeReward")
-    public String getLevAlternativeReward() {
-        return Double.toString(levAlternativeReward);
-    }
+    public String getLevAlternativeReward() { return String.valueOf(levAlternativeReward); }
 
     @StringSetter("levAlternativeReward")
-    public void setLevAlternativeReward(String value) {
-        this.levAlternativeReward = Double.parseDouble(value);
-    }
+    public void setLevAlternativeReward(String value) { this.levAlternativeReward = Double.parseDouble(value); }
 
     @StringGetter("hevViolationPenalty")
-    public String getHevViolationPenalty() {
-        return Double.toString(hevViolationPenalty);
-    }
+    public String getHevViolationPenalty() { return String.valueOf(hevViolationPenalty); }
 
     @StringSetter("hevViolationPenalty")
-    public void setHevViolationPenalty(String value) {
-        this.hevViolationPenalty = Double.parseDouble(value);
+    public void setHevViolationPenalty(String value) { this.hevViolationPenalty = Double.parseDouble(value); }
+
+    /**
+     * Converts the allowed vehicle types string to an array.
+     * 
+     * @return Array of allowed vehicle type strings
+     */
+    public String[] getAllowedVehicleTypesArray() {
+        return allowedVehicleTypes.split(",");
     }
 
-    @StringGetter("outputDirectory")
-    public String getOutputDirectory() {
-        return outputDirectory;
-    }
-
-    @StringSetter("outputDirectory")
-    public void setOutputDirectory(String value) {
-        this.outputDirectory = value;
-    }
-
-    @StringGetter("generateReports")
-    public String getGenerateReports() {
-        return Boolean.toString(generateReports);
-    }
-
-    @StringSetter("generateReports")
-    public void setGenerateReports(String value) {
-        this.generateReports = Boolean.parseBoolean(value);
-    }
-
-    // Utility methods
-    public Map<String, String> getZoneLinksMap() {
-        Map<String, String> map = new HashMap<>();
-        if (zoneLinks != null && !zoneLinks.isEmpty()) {
-            String[] links = zoneLinks.split(",");
-            for (String link : links) {
-                map.put(link.trim(), "ZONE");
-            }
-        }
-        return map;
-    }
-
-    public Map<String, String> getAlternativeRoutesMap() {
-        Map<String, String> map = new HashMap<>();
-        if (alternativeRoutes != null && !alternativeRoutes.isEmpty()) {
-            String[] routes = alternativeRoutes.split(",");
-            for (String route : routes) {
-                map.put(route.trim(), "ALTERNATIVE");
-            }
-        }
-        return map;
-    }
-
-    // Convenience methods for type-safe access
-    public boolean isEnablePenaltiesValue() {
-        return enablePenalties;
-    }
-
-    public double getZoneRadiusValue() {
-        return zoneRadius;
-    }
-
-    public double getPenaltyRateValue() {
-        return penaltyRate;
-    }
-
-    public double getEvRewardValue() {
-        return evReward;
-    }
-
-    public double getLevPenaltyValue() {
-        return levPenalty;
-    }
-
-    public double getLevAlternativeRewardValue() {
-        return levAlternativeReward;
-    }
-
-    public double getHevViolationPenaltyValue() {
-        return hevViolationPenalty;
-    }
-
-    public double getPeakHourMultiplierValue() {
-        return peakHourMultiplier;
-    }
-
-    public double getOffPeakMultiplierValue() {
-        return offPeakMultiplier;
-    }
-
-    public boolean isGenerateReportsValue() {
-        return generateReports;
-    }
-
-    public String[] getExemptVehicleTypesArray() {
-        return exemptVehicleTypes.split(",");
-    }
+    // Convenience methods to directly retrieve primitive values
+    public double getEvRewardValue() { return evReward; }
+    public double getLevPenaltyValue() { return levPenalty; }
+    public double getLevAlternativeRewardValue() { return levAlternativeReward; }
+    public double getHevViolationPenaltyValue() { return hevViolationPenalty; }
+    public double getBypassRouteCapacityIncreaseValue() { return bypassRouteCapacityIncrease; }
+    public double getBypassRouteTravelTimeReductionValue() { return bypassRouteTravelTimeReduction; }
+    public boolean isEnableGraduatedChargingValue() { return enableGraduatedCharging; }
+    public double getBaseChargeValue() { return baseCharge; }
+    public double getPeakHourSurchargeValue() { return peakHourSurcharge; }
 }

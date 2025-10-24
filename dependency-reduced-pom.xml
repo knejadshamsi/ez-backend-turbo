@@ -75,6 +75,11 @@
       <name>MATSim Maven repository</name>
       <url>https://repo.matsim.org/repository/matsim</url>
     </repository>
+    <repository>
+      <id>osgeo</id>
+      <name>OSGeo Release Repository</name>
+      <url>https://repo.osgeo.org/repository/release/</url>
+    </repository>
   </repositories>
   <dependencies>
     <dependency>

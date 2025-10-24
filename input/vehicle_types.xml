@@ -1,50 +1,108 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" ?>
 <vehicleDefinitions xmlns="http://www.matsim.org/files/dtd"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.matsim.org/files/dtd http://www.matsim.org/files/dtd/vehicleDefinitions_v1.0.xsd">
 
-    <!-- Base car type required by MATSim -->
+    <!-- Basic Car Type -->
     <vehicleType id="car">
-        <description>Default Car</description>
+        <description>Basic Car</description>
+        <capacity>
+            <seats persons="4"/>
+            <standingRoom persons="0"/>
+        </capacity>
         <length meter="4.5"/>
+        <width meter="1.8"/>
         <maximumVelocity meterPerSecond="33.33"/>
+        <engineInformation>
+            <fuelType>gasoline</fuelType>
+            <gasConsumption literPerMeter="0.06"/>
+        </engineInformation>
+        <accessTime secondsPerPerson="1.0"/>
+        <egressTime secondsPerPerson="1.0"/>
+        <doorOperation mode="serial"/>
         <passengerCarEquivalents pce="1.0"/>
     </vehicleType>
 
     <!-- Electric Vehicles - Unrestricted Access -->
-    <vehicleType id="ev">
+    <vehicleType id="ev_car">
         <description>Electric Vehicle</description>
+        <capacity>
+            <seats persons="4"/>
+            <standingRoom persons="0"/>
+        </capacity>
         <length meter="4.8"/>
+        <width meter="1.8"/>
         <maximumVelocity meterPerSecond="33.33"/>
+        <engineInformation>
+            <fuelType>electricity</fuelType>
+            <gasConsumption literPerMeter="0.0"/>
+        </engineInformation>
+        <accessTime secondsPerPerson="1.0"/>
+        <egressTime secondsPerPerson="1.0"/>
+        <doorOperation mode="serial"/>
         <passengerCarEquivalents pce="1.0"/>
     </vehicleType>
 
     <!-- Low Emission Vehicles - Restricted Access with Penalties -->
-    <vehicleType id="lev">
+    <vehicleType id="lev_car">
         <description>Low Emission Vehicle</description>
+        <capacity>
+            <seats persons="4"/>
+            <standingRoom persons="0"/>
+        </capacity>
         <length meter="4.5"/>
+        <width meter="1.8"/>
         <maximumVelocity meterPerSecond="33.33"/>
+        <engineInformation>
+            <fuelType>gasoline</fuelType>
+            <gasConsumption literPerMeter="0.04"/>
+        </engineInformation>
+        <accessTime secondsPerPerson="1.0"/>
+        <egressTime secondsPerPerson="1.0"/>
+        <doorOperation mode="serial"/>
         <passengerCarEquivalents pce="1.0"/>
     </vehicleType>
 
     <!-- Heavy Emission Vehicles - No Access During Operation Hours -->
-    <vehicleType id="hev">
+    <vehicleType id="hev_car">
         <description>Heavy Emission Vehicle</description>
+        <capacity>
+            <seats persons="4"/>
+            <standingRoom persons="0"/>
+        </capacity>
         <length meter="5.0"/>
+        <width meter="1.8"/>
         <maximumVelocity meterPerSecond="30.56"/>
+        <engineInformation>
+            <fuelType>diesel</fuelType>
+            <gasConsumption literPerMeter="0.08"/>
+        </engineInformation>
+        <accessTime secondsPerPerson="1.0"/>
+        <egressTime secondsPerPerson="1.0"/>
+        <doorOperation mode="serial"/>
         <passengerCarEquivalents pce="1.5"/>
     </vehicleType>
 
-    <!-- Vehicle instances -->
-    <vehicle id="ev_commuter_1_car" type="ev"/>
-    <vehicle id="ev_commuter_2_car" type="ev"/>
-    <vehicle id="ev_multiple_1_car" type="ev"/>
-    
-    <vehicle id="lev_commuter_1_car" type="lev"/>
-    <vehicle id="lev_multiple_1_car" type="lev"/>
-    <vehicle id="lev_offpeak_1_car" type="lev"/>
-    
-    <vehicle id="hev_commuter_1_car" type="hev"/>
-    <vehicle id="hev_offpeak_1_car" type="hev"/>
-    <vehicle id="hev_multiple_1_car" type="hev"/>
+    <!-- Vehicle instances with updated IDs to match network modes -->
+    <!-- Electric Vehicles -->
+    <vehicle id="ev_commuter_1" type="ev_car"/>
+    <vehicle id="ev_commuter_2" type="ev_car"/>
+    <vehicle id="ev_multiple_1" type="ev_car"/>
+    <vehicle id="ev_alternative_1" type="ev_car"/>
+    <vehicle id="ev_alternative_2" type="ev_car"/>
+
+    <!-- Low Emission Vehicles -->
+    <vehicle id="lev_commuter_1" type="lev_car"/>
+    <vehicle id="lev_multiple_1" type="lev_car"/>
+    <vehicle id="lev_offpeak_1" type="lev_car"/>
+    <vehicle id="lev_boundary_1" type="lev_car"/>
+    <vehicle id="lev_alternative_1" type="lev_car"/>
+    <vehicle id="lev_alternative_2" type="lev_car"/>
+
+    <!-- Heavy Emission Vehicles -->
+    <vehicle id="hev_commuter_1" type="hev_car"/>
+    <vehicle id="hev_offpeak_1" type="hev_car"/>
+    <vehicle id="hev_multiple_1" type="hev_car"/>
+    <vehicle id="hev_alternative_1" type="hev_car"/>
+    <vehicle id="hev_alternative_2" type="hev_car"/>
 </vehicleDefinitions>

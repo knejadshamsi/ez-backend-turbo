@@ -1,26 +1,33 @@
 package org.example;
 
-import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
+import org.matsim.core.config.groups.QSimConfigGroup;
+import org.matsim.core.config.groups.TravelTimeCalculatorConfigGroup;
+import org.matsim.core.controler.AbstractModule;
 import org.matsim.core.controler.Controler;
 import org.matsim.core.controler.OutputDirectoryHierarchy;
+import org.matsim.core.router.util.TravelTime;
 import org.matsim.core.scenario.ScenarioUtils;
-import org.matsim.core.scoring.ScoringFunction;
-import org.matsim.core.scoring.ScoringFunctionFactory;
-import org.matsim.api.core.v01.population.Person;
-import org.matsim.core.scoring.functions.CharyparNagelScoringFunctionFactory;
-import org.matsim.api.core.v01.events.Event;
-import org.matsim.core.controler.listener.StartupListener;
-import org.matsim.api.core.v01.population.Leg;
+import org.matsim.core.trafficmonitoring.FreeSpeedTravelTime;
+import org.matsim.core.trafficmonitoring.TravelTimeCalculator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Provider;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Arrays;
 
+/**
+ * Main runner for Zero Emission Zone simulation.
+ * Configures and executes a MATSim simulation with zero emission zone policies.
+ */
 public class ZeroEmissionZoneRunner {
     private static final Logger logger = LoggerFactory.getLogger(ZeroEmissionZoneRunner.class);
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -28,29 +35,93 @@ public class ZeroEmissionZoneRunner {
     private final Network network;
     private final Scenario scenario;
     private final ZeroEmissionZone zeroEmissionZone;
-    private final ReroutingStrategy reroutingStrategy;
-    private final StatisticsCollector statisticsCollector;
-    private final Config config;
     private final ZeroEmissionZoneConfigGroup zezConfig;
+    private final Config config;
+    private final StatisticsCollector statistics;
+    private Controler controler;
 
+    /**
+     * Constructor to initialize simulation configuration.
+     * Loads config, sets up simulation parameters, and prepares scenario.
+     * 
+     * @param configFilePath Path to the configuration XML file
+     */
     public ZeroEmissionZoneRunner(String configFilePath) {
-        // Load configuration and register custom config group
-        this.config = ConfigUtils.loadConfig(configFilePath, new ZeroEmissionZoneConfigGroup());
-        this.zezConfig = (ZeroEmissionZoneConfigGroup) config.getModules().get(ZeroEmissionZoneConfigGroup.GROUP_NAME);
+        try {
+            // Initialize configuration with custom Zero Emission Zone config group
+            this.config = ConfigUtils.loadConfig(configFilePath, new ZeroEmissionZoneConfigGroup());
+            this.zezConfig = (ZeroEmissionZoneConfigGroup) config.getModules().get(ZeroEmissionZoneConfigGroup.GROUP_NAME);
+            
+            // Configure simulation output and data management
+            configureOutputSettings();
+            
+            // Configure simulation runtime parameters
+            configureSimulationParameters();
 
-        // Create scenario using ScenarioUtils with the config
-        this.scenario = ScenarioUtils.createScenario(config);
-        ScenarioUtils.loadScenario(scenario);
+            // Create and load scenario with configured parameters
+            this.scenario = ScenarioUtils.createScenario(config);
+            ScenarioUtils.loadScenario(scenario);
 
-        this.network = scenario.getNetwork();
-        
-        this.zeroEmissionZone = new ZeroEmissionZone(network, zezConfig);
-        this.reroutingStrategy = new ReroutingStrategy(network, zezConfig);
-        this.statisticsCollector = new StatisticsCollector(zeroEmissionZone);
-        
-        validateConfiguration();
+            this.network = scenario.getNetwork();
+            this.zeroEmissionZone = new ZeroEmissionZone(network, zezConfig);
+            this.statistics = new StatisticsCollector(zeroEmissionZone);
+
+            validateConfiguration();
+        } catch (Exception e) {
+            logger.error("Configuration initialization failed", e);
+            throw new IllegalStateException("Failed to initialize simulation configuration", e);
+        }
     }
 
+    /**
+     * Configure output settings for simulation results and logging.
+     */
+    private void configureOutputSettings() {
+        config.controler().setCreateGraphs(false);
+        config.controler().setWriteEventsInterval(1);  // Write events every iteration
+        config.controler().setWritePlansInterval(1);   // Write plans every iteration
+        config.controler().setDumpDataAtEnd(true);
+        config.controler().setOverwriteFileSetting(OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists);
+        config.controler().setOutputDirectory("./output/zero-emission-test");
+    }
+
+    /**
+     * Configure detailed simulation parameters for traffic dynamics and performance.
+     */
+    private void configureSimulationParameters() {
+        // Global simulation settings
+        config.global().setNumberOfThreads(1);
+        config.global().setRandomSeed(4711L);
+
+        // Detailed queue simulation configuration
+        QSimConfigGroup qsimConfig = config.qsim();
+        qsimConfig.setTrafficDynamics(QSimConfigGroup.TrafficDynamics.kinematicWaves);
+        qsimConfig.setLinkDynamics(QSimConfigGroup.LinkDynamics.PassingQ);
+        qsimConfig.setVehiclesSource(QSimConfigGroup.VehiclesSource.modeVehicleTypesFromVehiclesData);
+        qsimConfig.setNumberOfThreads(1);
+        qsimConfig.setRemoveStuckVehicles(false);
+        qsimConfig.setInsertingWaitingVehiclesBeforeDrivingVehicles(true);
+        qsimConfig.setSnapshotStyle(QSimConfigGroup.SnapshotStyle.queue);
+
+        // Travel time calculation configuration
+        TravelTimeCalculatorConfigGroup ttcConfig = config.travelTimeCalculator();
+        ttcConfig.setTraveltimeBinSize(900); // 15-minute time bins
+        ttcConfig.setMaxTime(36 * 3600); // Maximum simulation time: 36 hours
+        ttcConfig.setCalculateLinkToLinkTravelTimes(false);
+        ttcConfig.setFilterModes(true);
+        
+        // Specify modes to analyze for travel times
+        Set<String> analyzedModes = new HashSet<>(Arrays.asList("car", "ev_car", "lev_car", "hev_car"));
+        ttcConfig.setAnalyzedModes(analyzedModes);
+
+        // Disable link statistics generation
+        config.linkStats().setWriteLinkStatsInterval(0);
+    }
+
+    /**
+     * Validate the configuration to ensure critical components are properly initialized.
+     * Throws an exception if network or zero emission zone is improperly configured.
+     */
     private void validateConfiguration() {
         if (network.getNodes().isEmpty() || network.getLinks().isEmpty()) {
             throw new IllegalStateException("Network is empty or invalid");
@@ -59,111 +130,91 @@ public class ZeroEmissionZoneRunner {
         if (zeroEmissionZone.getZoneLinks().isEmpty()) {
             throw new IllegalStateException("No zero emission zone links defined");
         }
-
-        if (zeroEmissionZone.getAlternativeRouteLinks().isEmpty()) {
-            throw new IllegalStateException("No alternative route links defined");
-        }
     }
 
+    /**
+     * Execute the simulation with Zero Emission Zone policies.
+     * Sets up the controller, configures modules, and runs the simulation.
+     */
     public void runSimulation() {
         try {
-            logger.info("Starting Zero Emission Zone Simulation with Three-Tier Vehicle Classification");
+            logger.info("Starting Zero Emission Zone Simulation");
             logger.info("Network configuration: {} nodes, {} links", 
                 network.getNodes().size(), 
                 network.getLinks().size());
 
-            // Initialize Controler with the scenario
-            Controler controler = new Controler(scenario);
-            controler.addControlerListener((StartupListener) event -> 
-                logger.info("Simulation startup at {}", TIME_FORMATTER.format(LocalTime.now()))
+            controler = new Controler(scenario);
+
+            // Create fallback travel time calculator using free speed
+            final FreeSpeedTravelTime freeSpeedTravelTime = new FreeSpeedTravelTime();
+
+            // Create travel time calculator for the network
+            final TravelTimeCalculator travelTimeCalculator = new TravelTimeCalculator(
+                network,
+                config.travelTimeCalculator()
             );
 
-            // Create scoring function factory using scenario
-            ScoringFunctionFactory scoringFunctionFactory = new CharyparNagelScoringFunctionFactory(scenario);
-            controler.setScoringFunctionFactory(person -> 
-                new CategoryBasedScoringFunction(scoringFunctionFactory.createNewScoringFunction(person))
+            // Create Zero Emission Zone policy implementation
+            ZeroEmissionZonePolicy zezPolicy = new ZeroEmissionZonePolicy(
+                zeroEmissionZone,
+                network,
+                statistics,
+                freeSpeedTravelTime
             );
 
-            controler.getConfig().controler().setOverwriteFileSetting(
-                OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists
-            );
+            // Configure simulation modules and bindings
+            controler.addOverridingModule(new AbstractModule() {
+                @Override
+                public void install() {
+                    // Bind core Zero Emission Zone components
+                    bind(ZeroEmissionZone.class).toInstance(zeroEmissionZone);
+                    bind(StatisticsCollector.class).toInstance(statistics);
+                    
+                    // Bind travel time and disutility components
+                    addEventHandlerBinding().toInstance(travelTimeCalculator);
+                    bind(TravelTime.class).toProvider(new Provider<TravelTime>() {
+                        @Override
+                        public TravelTime get() {
+                            return freeSpeedTravelTime;
+                        }
+                    });
+
+                    // Bind Zero Emission Zone policy for car travel
+                    addTravelDisutilityFactoryBinding("car").toInstance(zezPolicy);
+
+                    // Add mobility simulation listener for dynamic replanning
+                    addMobsimListenerBinding().toInstance(zezPolicy);
+                }
+            });
+
+            // Execute the simulation
             controler.run();
+
+            // Log final simulation statistics
+            Map<String, Object> summary = statistics.generateSummaryStatistics();
+            logger.info("Simulation completed at {} with statistics: {}", 
+                TIME_FORMATTER.format(LocalTime.now()),
+                summary);
+
         } catch (Exception e) {
             logger.error("Failed to run simulation", e);
             throw new RuntimeException("Simulation execution failed", e);
         }
     }
 
+    /**
+     * Main entry point for running the Zero Emission Zone simulation.
+     * Requires a configuration file path as a command-line argument.
+     * 
+     * @param args Command-line arguments (expects config file path)
+     */
     public static void main(String[] args) {
         if (args.length != 1) {
             logger.error("Usage: ZeroEmissionZoneRunner <config-file>");
-            return;
+            System.exit(1);
         }
 
         String configFilePath = args[0];
-        ZeroEmissionZoneRunner runner = new ZeroEmissionZoneRunner(configFilePath);
-        runner.runSimulation();
-    }
-
-    private class CategoryBasedScoringFunction implements ScoringFunction {
-        private final ScoringFunction delegate;
-        private double additionalScore = 0.0;
-
-        public CategoryBasedScoringFunction(ScoringFunction delegate) {
-            this.delegate = delegate;
-        }
-
-        @Override
-        public void handleActivity(org.matsim.api.core.v01.population.Activity activity) {
-            delegate.handleActivity(activity);
-        }
-
-        @Override
-        public void handleLeg(Leg leg) {
-            delegate.handleLeg(leg);
-            
-            Object vehicleIdAttribute = leg.getAttributes().getAttribute("vehicleId");
-            String vehicleId = vehicleIdAttribute != null ? vehicleIdAttribute.toString() : null;
-            
-            if (vehicleId != null) {
-                double departureTime = leg.getDepartureTime().seconds();
-                int hours = (int) (departureTime / 3600) % 24;
-                int minutes = (int) ((departureTime % 3600) / 60);
-                LocalTime time = LocalTime.of(hours, minutes);
-                
-                additionalScore += zeroEmissionZone.calculateScore(leg, vehicleId, time);
-            }
-        }
-
-        @Override
-        public void addMoney(double amount) {
-            delegate.addMoney(amount);
-        }
-
-        @Override
-        public void agentStuck(double time) {
-            delegate.agentStuck(time);
-        }
-
-        @Override
-        public void finish() {
-            delegate.finish();
-            delegate.addMoney(additionalScore);
-        }
-
-        @Override
-        public double getScore() {
-            return delegate.getScore() + additionalScore;
-        }
-
-        @Override
-        public void addScore(double amount) {
-            additionalScore += amount;
-        }
-
-        @Override
-        public void handleEvent(Event event) {
-            // Optional event handling logic
-        }
+        new ZeroEmissionZoneRunner(configFilePath).runSimulation();
     }
 }
