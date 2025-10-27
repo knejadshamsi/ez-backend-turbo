@@ -19,6 +19,8 @@
         <logback.version>1.4.11</logback.version>
         <junit.version>5.10.1</junit.version>
         <mockito.version>5.7.0</mockito.version>
+        <okhttp.version>4.12.0</okhttp.version>
+        <jackson.version>2.15.3</jackson.version>
     </properties>
 
     <repositories>
@@ -52,6 +54,25 @@
             <groupId>org.matsim.contrib</groupId>
             <artifactId>emissions</artifactId>
             <version>${matsim.version}</version>
+        </dependency>
+
+        <!-- HTTP Client -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp.version}</version>
+        </dependency>
+
+        <!-- JSON Processing -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
 
         <!-- Logging -->
