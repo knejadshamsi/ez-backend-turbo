@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transitSchedule>
+    <transitStops>
+        <!-- Metro Stops -->
+        <stopFacility id="metro_1" x="0" y="0" linkRefId="link_1" isBlocking="false">
+            <attributes>
+                <attribute name="type" class="java.lang.String">metro</attribute>
+            </attributes>
+        </stopFacility>
+        <stopFacility id="metro_2" x="1000" y="0" linkRefId="link_4" isBlocking="false">
+            <attributes>
+                <attribute name="type" class="java.lang.String">metro</attribute>
+            </attributes>
+        </stopFacility>
+        
+        <!-- Bus Stops -->
+        <stopFacility id="bus_1" x="0" y="500" linkRefId="link_7" isBlocking="true">
+            <attributes>
+                <attribute name="type" class="java.lang.String">bus</attribute>
+            </attributes>
+        </stopFacility>
+        <stopFacility id="bus_2" x="1000" y="500" linkRefId="link_10" isBlocking="true">
+            <attributes>
+                <attribute name="type" class="java.lang.String">bus</attribute>
+            </attributes>
+        </stopFacility>
+    </transitStops>
+
+    <transitLine id="metro_line_1">
+        <transitRoute id="metro_1">
+            <transportMode>metro</transportMode>
+            <routeProfile>
+                <stop refId="metro_1" departureOffset="00:00:00" awaitDeparture="true"/>
+                <stop refId="metro_2" arrivalOffset="00:05:00" departureOffset="00:05:30" awaitDeparture="true"/>
+            </routeProfile>
+            <departures>
+                <departure id="1" departureTime="07:00:00" vehicleRefId="metro_vehicle_1"/>
+                <departure id="2" departureTime="07:30:00" vehicleRefId="metro_vehicle_1"/>
+                <departure id="3" departureTime="08:00:00" vehicleRefId="metro_vehicle_1"/>
+                <departure id="4" departureTime="08:30:00" vehicleRefId="metro_vehicle_1"/>
+                <departure id="5" departureTime="09:00:00" vehicleRefId="metro_vehicle_1"/>
+            </departures>
+        </transitRoute>
+    </transitLine>
+
+    <transitLine id="bus_line_1">
+        <transitRoute id="bus_1">
+            <transportMode>bus</transportMode>
+            <routeProfile>
+                <stop refId="bus_1" departureOffset="00:00:00" awaitDeparture="true"/>
+                <stop refId="bus_2" arrivalOffset="00:10:00" departureOffset="00:10:30" awaitDeparture="true"/>
+            </routeProfile>
+            <departures>
+                <departure id="1" departureTime="07:00:00" vehicleRefId="bus_vehicle_1"/>
+                <departure id="2" departureTime="07:20:00" vehicleRefId="bus_vehicle_1"/>
+                <departure id="3" departureTime="07:40:00" vehicleRefId="bus_vehicle_1"/>
+                <departure id="4" departureTime="08:00:00" vehicleRefId="bus_vehicle_1"/>
+                <departure id="5" departureTime="08:20:00" vehicleRefId="bus_vehicle_1"/>
+            </departures>
+        </transitRoute>
+    </transitLine>
+</transitSchedule>
