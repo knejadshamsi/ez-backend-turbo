@@ -1,0 +1,47 @@
+<!-- MATSim Transit Schedule DTD -->
+
+<!ELEMENT transitSchedule (transitStops,transitLine*)>
+
+<!ELEMENT transitStops (stopFacility)*>
+
+<!ELEMENT stopFacility (attributes?)>
+<!ATTLIST stopFacility
+          id            CDATA                    #REQUIRED
+          x             CDATA                    #REQUIRED
+          y             CDATA                    #REQUIRED
+          linkRefId     CDATA                    #IMPLIED
+          isBlocking    (true|false)             #REQUIRED>
+
+<!ELEMENT transitLine (transitRoute)*>
+<!ATTLIST transitLine
+          id            CDATA                    #REQUIRED>
+
+<!ELEMENT transitRoute (transportMode,routeProfile,departures)>
+<!ATTLIST transitRoute
+          id            CDATA                    #REQUIRED>
+
+<!ELEMENT transportMode (#PCDATA)>
+
+<!ELEMENT routeProfile (stop)*>
+
+<!ELEMENT stop EMPTY>
+<!ATTLIST stop
+          refId            CDATA                    #REQUIRED
+          departureOffset  CDATA                    #IMPLIED
+          arrivalOffset    CDATA                    #IMPLIED
+          awaitDeparture  (true|false)             #IMPLIED>
+
+<!ELEMENT departures (departure)*>
+
+<!ELEMENT departure EMPTY>
+<!ATTLIST departure
+          id            CDATA                    #REQUIRED
+          departureTime CDATA                    #REQUIRED
+          vehicleRefId  CDATA                    #REQUIRED>
+
+<!ELEMENT attributes (attribute)*>
+
+<!ELEMENT attribute (#PCDATA)>
+<!ATTLIST attribute
+          name          CDATA                    #REQUIRED
+          class         CDATA                    #REQUIRED>

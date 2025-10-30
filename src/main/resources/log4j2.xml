@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %logger{1} - %msg%n"/>
+        </Console>
+        <RollingFile name="RollingFile" fileName="logs/matsim-zero-emission.log"
+                     filePattern="logs/$${date:yyyy-MM}/matsim-zero-emission-%d{MM-dd-yyyy}-%i.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %logger{1} - %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="WARN">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+        <Logger name="org.mobility" level="INFO"/>
+        <Logger name="org.springframework" level="WARN"/>
+        <Logger name="org.hibernate" level="ERROR"/>
+        <Logger name="org.matsim" level="WARN"/>
+        <Logger name="org.postgresql" level="ERROR"/>
+    </Loggers>
+</Configuration>

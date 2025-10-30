@@ -1,0 +1,44 @@
+<!-- MATSim Network DTD v2.0 -->
+
+<!ELEMENT network         (nodes,links)>
+<!ATTLIST network
+          name           CDATA                    #IMPLIED
+          xml:lang      NMTOKEN                  "de-CH">
+
+<!ELEMENT nodes          (node)*>
+
+<!ELEMENT node           (attributes?)>
+<!ATTLIST node
+          id            CDATA                    #REQUIRED
+          x             CDATA                    #REQUIRED
+          y             CDATA                    #REQUIRED
+          z            CDATA                    #IMPLIED
+          type          CDATA                    #IMPLIED>
+
+<!ELEMENT links          (link)*>
+<!ATTLIST links
+          capperiod     CDATA                    #IMPLIED
+          effectivecellsize    CDATA            #IMPLIED
+          effectivelanewidth   CDATA            #IMPLIED>
+
+<!ELEMENT link           (attributes?)>
+<!ATTLIST link
+          id            CDATA                    #REQUIRED
+          from          CDATA                    #REQUIRED
+          to            CDATA                    #REQUIRED
+          length        CDATA                    #REQUIRED
+          freespeed     CDATA                    #REQUIRED
+          capacity      CDATA                    #REQUIRED
+          permlanes     CDATA                    #REQUIRED
+          oneway        CDATA                    #IMPLIED
+          modes         CDATA                    #IMPLIED
+          volume        CDATA                    #IMPLIED
+          origid        CDATA                    #IMPLIED
+          type          CDATA                    #IMPLIED>
+
+<!ELEMENT attributes     (attribute)*>
+
+<!ELEMENT attribute      (#PCDATA)>
+<!ATTLIST attribute
+          name          CDATA                    #REQUIRED
+          class         CDATA                    #REQUIRED>

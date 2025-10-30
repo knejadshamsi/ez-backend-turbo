@@ -1,0 +1,16 @@
+<!-- MATSim Config DTD v2.0 -->
+
+<!ELEMENT config (module)*>
+
+<!ELEMENT module (param|parameterset)*>
+<!ATTLIST module
+    name CDATA #REQUIRED>
+
+<!ELEMENT param (#PCDATA)>
+<!ATTLIST param
+    name  CDATA #REQUIRED
+    value CDATA #IMPLIED>
+
+<!ELEMENT parameterset (param|parameterset)*>
+<!ATTLIST parameterset
+    type CDATA #REQUIRED>

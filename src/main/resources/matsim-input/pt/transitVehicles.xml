@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<vehicleDefinitions>
+<vehicleDefinitions xmlns="http://www.matsim.org/files/dtd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.matsim.org/files/dtd ../vehicleDefinitions_v1.0.xsd">
     <vehicleType id="metro_type">
         <description>Metro Train</description>
         <capacity>
@@ -12,7 +14,7 @@
         <egressTime secondsPerPerson="0.5"/>
         <doorOperation mode="serial"/>
         <passengerCarEquivalents pce="0.0"/>
-        <maximumVelocity meterPerSecond="22.22"/><!-- 80 km/h -->
+        <maximumVelocity meterPerSecond="22.22"/>
         <flowEfficiencyFactor factor="1.0"/>
         <attributes>
             <attribute name="energyConsumptionKWhPerKm" class="java.lang.Double">4.5</attribute>

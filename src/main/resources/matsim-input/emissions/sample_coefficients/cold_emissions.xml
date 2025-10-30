@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE averageColdEmissionFactorFile SYSTEM "../../dtd/emissions_v1.dtd">
 <averageColdEmissionFactorFile>
     <pollutant name="CO">
         <segment type="PASSENGER_CAR" fuel="PETROL">

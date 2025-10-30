@@ -11,189 +11,107 @@
         <relativePath/>
     </parent>
 
-    <groupId>org.example</groupId>
+    <groupId>org.mobility</groupId>
     <artifactId>matsim-zero-emission</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
+    <name>MATSim Zero Emission Zone</name>
+    <description>MATSim simulation for zero emission zone policy analysis</description>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <maven.compiler.release>21</maven.compiler.release>
+        <java.version>21</java.version>
         <matsim.version>15.0</matsim.version>
-        <jakarta.inject.version>2.0.1</jakarta.inject.version>
-        <okhttp.version>4.12.0</okhttp.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>matsim</id>
-            <name>MATSim Maven repository</name>
-            <url>https://repo.matsim.org/repository/matsim</url>
-        </repository>
-        <repository>
-            <id>osgeo</id>
-            <name>OSGeo Release Repository</name>
-            <url>https://repo.osgeo.org/repository/release/</url>
-        </repository>
-    </repositories>
-
     <dependencies>
-        <!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
-        
-        <!-- Database Dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
-
-        <!-- Jakarta Inject -->
         <dependency>
-            <groupId>jakarta.inject</groupId>
-            <artifactId>jakarta.inject-api</artifactId>
-            <version>${jakarta.inject.version}</version>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
         </dependency>
 
-        <!-- OkHttp -->
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>${okhttp.version}</version>
-        </dependency>
-
-        <!-- MATSim Core -->
         <dependency>
             <groupId>org.matsim</groupId>
             <artifactId>matsim</artifactId>
             <version>${matsim.version}</version>
             <exclusions>
                 <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-
-        <!-- MATSim Contrib Modules -->
-        <dependency>
-            <groupId>org.matsim.contrib</groupId>
-            <artifactId>roadpricing</artifactId>
-            <version>${matsim.version}</version>
         </dependency>
         <dependency>
             <groupId>org.matsim.contrib</groupId>
             <artifactId>emissions</artifactId>
             <version>${matsim.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.matsim.contrib</groupId>
-            <artifactId>common</artifactId>
-            <version>${matsim.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.matsim.contrib</groupId>
-            <artifactId>analysis</artifactId>
-            <version>${matsim.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
-        <!-- Testing -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>com.fasterxml.uuid</groupId>
+            <artifactId>java-uuid-generator</artifactId>
+            <version>4.3.0</version>
         </dependency>
     </dependencies>
 
     <build>
-        <!-- Resource Management -->
-        <resources>
-            <!-- Default Resources -->
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>**/*.properties</include>
-                    <include>**/*.xml</include>
-                    <include>**/*.yml</include>
-                </includes>
-            </resource>
-            <!-- MATSim Input Files -->
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>false</filtering>
-                <includes>
-                    <include>matsim-input/**</include>
-                </includes>
-            </resource>
-        </resources>
-
         <plugins>
-            <!-- Spring Boot Maven Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>org.example.MatsimApplication</mainClass>
-                    <layout>JAR</layout>
-                    <includeSystemScope>true</includeSystemScope>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Resources Plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.1</version>
-                <configuration>
-                    <propertiesEncoding>UTF-8</propertiesEncoding>
-                    <nonFilteredFileExtensions>
-                        <nonFilteredFileExtension>xml</nonFilteredFileExtension>
-                    </nonFilteredFileExtensions>
+                    <executable>true</executable>
                 </configuration>
             </plugin>
-
-            <!-- Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.12.1</version>
                 <configuration>
-                    <release>${maven.compiler.release}</release>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                     <compilerArgs>
-                        <arg>-parameters</arg>
+                        <arg>-proc:none</arg>
                     </compilerArgs>
-                </configuration>
-            </plugin>
-
-            <!-- Surefire Plugin for testing -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.2</version>
-                <configuration>
-                    <argLine>--enable-preview</argLine>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>matsim</id>
+            <name>MATSim Repository</name>
+            <url>https://repo.matsim.org/repository/matsim</url>
+        </repository>
+    </repositories>
 </project>
