@@ -1,0 +1,11 @@
+{
+  "db.connected": "Connectivité de la base de données vérifiée",
+  "db.connect.failed": "Échec de la vérification de connectivité : {}",
+  "db.connect.exception": "Impossible de se connecter à la base de données",
+  "db.tables.verified": "Toutes les tables requises vérifiées",
+  "db.table.created": "Table '{}' créée automatiquement",
+  "db.table.missing": "Table '{}' manquante, création automatique désactivée",
+  "db.tables.missing.exception": "Tables requises manquantes et la création automatique est désactivée",
+  "db.schema.failed": "Échec de l'exécution du schéma : {}",
+  "db.schema.exception": "Échec de la création du schéma"
+}

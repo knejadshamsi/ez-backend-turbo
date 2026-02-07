@@ -1,0 +1,72 @@
+# ============================================================
+# EZ Backend Turbo — Admin Configuration
+# ============================================================
+# Copy this file, fill in your values, and pass it when
+# starting the server:
+#
+#   java -jar ez-backend-turbo.jar my-config.yml
+#   java -jar ez-backend-turbo.jar --dev    (uses defaults, no config needed)
+#
+# Values here override the internal defaults baked into the JAR.
+# Only include the properties you need to change.
+# ============================================================
+
+spring:
+  datasource:
+    # PostgreSQL connection URL
+    # Format: jdbc:postgresql://<host>:<port>/<database>
+    url: jdbc:postgresql://localhost:5432/ezdb
+
+    # Database credentials
+    username: postgres
+    password: postgres
+
+# ============================================================
+# EZ Application Settings
+# ============================================================
+ez:
+  cors:
+    # Allowed origin for CORS requests (must include port)
+    # Example: http://localhost:3000, https://myapp.example.com:443
+    allowed-origin: http://localhost:3000
+
+  startup:
+    # If true, missing database tables are created automatically
+    # on startup. If false, the server refuses to start and logs
+    # which tables are missing.
+    auto-create-tables: true
+
+  log:
+    # Log message language. Reads from locale/{value}/*.json
+    # Supported: en, fr
+    locale: en
+
+    # Enable or disable console log output.
+    console: true
+
+    # Enable or disable file log output.
+    # Log files: logs/ez-backend.log (10 MB rotation, 5 archives).
+    file: true
+
+  ratelimit:
+    # Maximum requests per second from a single IP before ban
+    max-requests-per-second: 20
+
+    # How long (seconds) a banned IP stays blocked
+    ban-duration-seconds: 30
+
+  processes:
+    # Administrative operations (cancel, delete)
+    admin:
+      max: 50
+      timeout: 30000
+
+    # Read operations (data retrieval, metadata)
+    read:
+      max: 20
+      timeout: 60000
+
+    # Compute operations (simulation, retry)
+    compute:
+      max: 2
+      timeout: 300000

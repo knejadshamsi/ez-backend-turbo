@@ -1,0 +1,11 @@
+{
+  "db.connected": "Database connectivity verified",
+  "db.connect.failed": "Database connectivity check failed: {}",
+  "db.connect.exception": "Cannot connect to database",
+  "db.tables.verified": "All required tables verified",
+  "db.table.created": "Table '{}' auto-created",
+  "db.table.missing": "Required table '{}' missing, auto-create disabled",
+  "db.tables.missing.exception": "Required tables missing and auto-create is disabled",
+  "db.schema.failed": "Schema execution failed: {}",
+  "db.schema.exception": "Schema creation failed"
+}

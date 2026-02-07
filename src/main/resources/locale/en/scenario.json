@@ -1,0 +1,9 @@
+{
+  "scenario.created": "Scenario created",
+  "scenario.status.changed": "Status changed to {}",
+  "scenario.input.stored": "Input data stored",
+  "scenario.session.stored": "Session data stored",
+  "scenario.not.found": "Scenario not found",
+  "scenario.input.null": "Input data must not be null",
+  "scenario.session.null": "Session data must not be null"
+}

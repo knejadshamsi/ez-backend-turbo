@@ -1,0 +1,10 @@
+{
+  "process.timeout": "Le processus a expiré et a été annulé : {}",
+  "process.rejected": "Requête rejetée",
+  "process.endpoint": "Point de terminaison",
+  "process.already.registered": "ID de processus déjà enregistré",
+  "process.unregister.unknown": "Impossible de désenregistrer un processus inconnu",
+  "health.check.failed": "Vérification de santé échouée",
+  "ratelimit.blocked": "Limite de débit dépassée, IP bannie",
+  "ratelimit.ban.duration": "Durée du bannissement (secondes)"
+}

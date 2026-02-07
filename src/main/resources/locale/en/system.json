@@ -1,0 +1,10 @@
+{
+  "process.timeout": "Process timed out and was cancelled: {}",
+  "process.rejected": "Request rejected",
+  "process.endpoint": "Endpoint",
+  "process.already.registered": "Process ID already registered",
+  "process.unregister.unknown": "Cannot unregister unknown process",
+  "health.check.failed": "Health check failed",
+  "ratelimit.blocked": "Rate limit exceeded, IP banned",
+  "ratelimit.ban.duration": "Ban duration (seconds)"
+}
