@@ -1,0 +1,5 @@
+{
+  "sse.send.failed": "Failed to send SSE message",
+  "sse.heartbeat.failed": "Heartbeat failed, removing dead connection",
+  "exception.caught": "Exception caught"
+}

@@ -1,7 +1,7 @@
 package ez.backend.turbo.services;
 
-import ez.backend.turbo.L;
-import ez.backend.turbo.StartupValidator;
+import ez.backend.turbo.config.StartupValidator;
+import ez.backend.turbo.utils.L;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;

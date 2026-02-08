@@ -1,7 +1,7 @@
 package ez.backend.turbo.database;
 
-import ez.backend.turbo.L;
-import ez.backend.turbo.services.ScenarioStatus;
+import ez.backend.turbo.utils.L;
+import ez.backend.turbo.utils.ScenarioStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 

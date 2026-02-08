@@ -1,4 +1,4 @@
-package ez.backend.turbo.services;
+package ez.backend.turbo.utils;
 
 import com.fasterxml.uuid.Generators;
 import com.fasterxml.uuid.impl.RandomBasedGenerator;

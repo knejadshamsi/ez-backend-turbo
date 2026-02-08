@@ -1,4 +1,6 @@
-package ez.backend.turbo;
+package ez.backend.turbo.config;
+
+import ez.backend.turbo.utils.L;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;

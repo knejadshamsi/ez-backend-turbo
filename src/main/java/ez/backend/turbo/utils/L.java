@@ -1,4 +1,6 @@
-package ez.backend.turbo;
+package ez.backend.turbo.utils;
+
+import ez.backend.turbo.config.StartupValidator;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

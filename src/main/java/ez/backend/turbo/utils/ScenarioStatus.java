@@ -1,4 +1,4 @@
-package ez.backend.turbo.services;
+package ez.backend.turbo.utils;
 
 // Lifecycle states for a simulation scenario
 public enum ScenarioStatus {

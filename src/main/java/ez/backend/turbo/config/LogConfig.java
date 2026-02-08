@@ -1,4 +1,4 @@
-package ez.backend.turbo;
+package ez.backend.turbo.config;
 
 import jakarta.annotation.PostConstruct;
 import org.apache.logging.log4j.LogManager;

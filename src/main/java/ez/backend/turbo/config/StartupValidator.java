@@ -1,6 +1,7 @@
-package ez.backend.turbo;
+package ez.backend.turbo.config;
 
 import ez.backend.turbo.services.ProcessConfig;
+import ez.backend.turbo.utils.L;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.ApplicationArguments;
@@ -236,7 +237,7 @@ public class StartupValidator implements ApplicationRunner {
         }
     }
 
-    static void printErrors(List<String> errors) {
+    public static void printErrors(List<String> errors) {
         System.err.println(SEPARATOR);
         System.err.println("Configuration error | Erreur de configuration");
         System.err.println(SEPARATOR);

@@ -1,0 +1,5 @@
+{
+  "sse.send.failed": "Echec de l'envoi du message SSE",
+  "sse.heartbeat.failed": "Battement de coeur echoue, suppression de la connexion morte",
+  "exception.caught": "Exception interceptee"
+}
