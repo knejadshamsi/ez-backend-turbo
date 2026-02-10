@@ -1,0 +1,55 @@
+{
+  "validation.started": "Input validation started",
+  "validation.passed": "Input validation passed",
+
+  "validation.ctx.zone": "Zone '%s'",
+  "validation.ctx.zone.index": "Zone at index %d",
+  "validation.ctx.policy": "%s, policy %d",
+
+  "validation.required": "%s is required",
+
+  "validation.zones.empty": "zones must not be empty",
+  "validation.zone.id.required": "%s: id is required",
+  "validation.zone.id.format": "%s: id must be a valid UUID v4",
+  "validation.zone.coords.required": "%s: coords is required",
+  "validation.zone.policies.required": "%s: at least one policy is required",
+
+  "validation.polygon.min.points": "%s: ring %d must have at least 4 coordinate pairs",
+  "validation.polygon.point.size": "%s: ring %d, point %d must have exactly 2 values",
+  "validation.polygon.not.closed": "%s: ring %d is not closed (first and last point must match)",
+
+  "validation.policy.vehicle.type": "%s: vehicleType must be one of %s",
+  "validation.policy.tier": "%s: tier must be 1, 2, or 3",
+  "validation.policy.period.size": "%s: period must have exactly 2 entries",
+  "validation.policy.period.format": "%s: period entry '%s' is not valid HH:mm",
+  "validation.policy.period.order": "%s: period start must be before end",
+  "validation.policy.penalty": "%s: tier 2 requires penalty > 0",
+  "validation.policy.interval": "%s: tier 2 requires interval > 0",
+
+  "validation.ctx.custom.area": "Custom area at index %d",
+  "validation.ctx.scaled.area": "Scaled area at index %d",
+  "validation.area.id.required": "%s: id is required",
+  "validation.area.id.format": "%s: id must be a valid UUID v4",
+  "validation.area.coords.required": "%s: coords is required",
+  "validation.area.zoneid.required": "%s: zoneId is required",
+  "validation.area.zoneid.format": "%s: zoneId must be a valid UUID v4",
+  "validation.area.zoneid.ref": "%s: zoneId '%s' does not reference any zone",
+
+  "validation.geo.area.below": "%s: area %s km² is below minimum %s km²",
+  "validation.geo.area.above": "%s: area %s km² exceeds maximum %s km²",
+  "validation.geo.outside.boundary": "%s: polygon vertex at [%s, %s] is outside Montreal boundary",
+
+  "validation.source.year": "%s: year must be one of %s",
+  "validation.source.name": "%s: name '%s' is not valid for year %d (expected one of %s)",
+
+  "validation.options.iterations": "iterations must be between 1 and 10",
+  "validation.options.percentage": "percentage must be between 1 and 10",
+
+  "validation.car.negative": "carDistribution.%s must be >= 0",
+  "validation.car.sum": "Car distribution must sum to 100%% (got %s)",
+
+  "validation.zone.trip.required": "%s: trip is required",
+  "validation.zone.trip.invalid": "%s: trip entry '%s' must be one of %s",
+
+  "validation.mode.range": "modeUtilities.%s must be an integer between -10 and 10"
+}

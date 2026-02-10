@@ -8,8 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.NoSuchElementException;
-
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -21,15 +19,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(StandardResponse.error(400, e.getMessage()));
     }
 
-    @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<StandardResponse<?>> handleNotFound(NoSuchElementException e) {
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<StandardResponse<?>> handleServiceUnavailable(IllegalStateException e) {
         log.warn("{}: {}", L.msg("exception.caught"), e.getMessage());
-        return ResponseEntity.status(404).body(StandardResponse.error(404, e.getMessage()));
+        return ResponseEntity.status(503).body(StandardResponse.error(503, e.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<StandardResponse<?>> handleGeneric(Exception e) {
         log.error("{}: {}", L.msg("exception.caught"), e.getMessage(), e);
-        return ResponseEntity.status(500).body(StandardResponse.error(500, "Internal server error"));
+        return ResponseEntity.status(500).body(StandardResponse.error(500, L.msg("exception.internal")));
     }
 }

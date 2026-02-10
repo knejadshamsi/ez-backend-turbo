@@ -1,0 +1,55 @@
+{
+  "validation.started": "Validation des entrees demarree",
+  "validation.passed": "Validation des entrees reussie",
+
+  "validation.ctx.zone": "Zone '%s'",
+  "validation.ctx.zone.index": "Zone a l'index %d",
+  "validation.ctx.policy": "%s, politique %d",
+
+  "validation.required": "%s est requis",
+
+  "validation.zones.empty": "zones ne doit pas etre vide",
+  "validation.zone.id.required": "%s : id est requis",
+  "validation.zone.id.format": "%s : id doit etre un UUID v4 valide",
+  "validation.zone.coords.required": "%s : coords est requis",
+  "validation.zone.policies.required": "%s : au moins une politique est requise",
+
+  "validation.polygon.min.points": "%s : l'anneau %d doit avoir au moins 4 paires de coordonnees",
+  "validation.polygon.point.size": "%s : anneau %d, point %d doit avoir exactement 2 valeurs",
+  "validation.polygon.not.closed": "%s : l'anneau %d n'est pas ferme (premier et dernier point doivent correspondre)",
+
+  "validation.policy.vehicle.type": "%s : vehicleType doit etre l'un de %s",
+  "validation.policy.tier": "%s : tier doit etre 1, 2 ou 3",
+  "validation.policy.period.size": "%s : period doit avoir exactement 2 entrees",
+  "validation.policy.period.format": "%s : l'entree '%s' de period n'est pas un HH:mm valide",
+  "validation.policy.period.order": "%s : le debut de period doit etre avant la fin",
+  "validation.policy.penalty": "%s : tier 2 exige penalty > 0",
+  "validation.policy.interval": "%s : tier 2 exige interval > 0",
+
+  "validation.ctx.custom.area": "Zone personnalisee a l'index %d",
+  "validation.ctx.scaled.area": "Zone mise a l'echelle a l'index %d",
+  "validation.area.id.required": "%s : id est requis",
+  "validation.area.id.format": "%s : id doit etre un UUID v4 valide",
+  "validation.area.coords.required": "%s : coords est requis",
+  "validation.area.zoneid.required": "%s : zoneId est requis",
+  "validation.area.zoneid.format": "%s : zoneId doit etre un UUID v4 valide",
+  "validation.area.zoneid.ref": "%s : zoneId '%s' ne reference aucune zone",
+
+  "validation.geo.area.below": "%s : superficie %s km² est inferieure au minimum %s km²",
+  "validation.geo.area.above": "%s : superficie %s km² depasse le maximum %s km²",
+  "validation.geo.outside.boundary": "%s : sommet du polygone a [%s, %s] est hors des limites de Montreal",
+
+  "validation.source.year": "%s : year doit etre l'un de %s",
+  "validation.source.name": "%s : name '%s' n'est pas valide pour l'annee %d (attendu l'un de %s)",
+
+  "validation.options.iterations": "iterations doit etre entre 1 et 10",
+  "validation.options.percentage": "percentage doit etre entre 1 et 10",
+
+  "validation.car.negative": "carDistribution.%s doit etre >= 0",
+  "validation.car.sum": "La distribution automobile doit totaliser 100%% (obtenu %s)",
+
+  "validation.zone.trip.required": "%s : trip est requis",
+  "validation.zone.trip.invalid": "%s : l'entree '%s' de trip doit etre l'un de %s",
+
+  "validation.mode.range": "modeUtilities.%s doit etre un entier entre -10 et 10"
+}

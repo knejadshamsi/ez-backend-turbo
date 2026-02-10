@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum MessageType {
 
-    PA_CONNECTION("pa_connection"),
+    PA_REQUEST_ACCEPTED("pa_request_accepted"),
+    PA_SIMULATION_START("pa_simulation_start"),
     HEARTBEAT("heartbeat"),
     SUCCESS_PROCESS("success_process"),
     ERROR_GLOBAL("error_global"),

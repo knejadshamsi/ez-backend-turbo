@@ -4,6 +4,7 @@ package ez.backend.turbo.utils;
 public enum ScenarioStatus {
 
     CREATED,
+    QUEUED,
     VALIDATING,
     SIMULATING_BASELINE,
     SIMULATING_POLICY,

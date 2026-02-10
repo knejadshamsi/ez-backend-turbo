@@ -1,0 +1,13 @@
+{
+  "simulation.started": "Simulation pipeline started",
+  "simulation.completed": "Simulation completed",
+  "simulation.failed": "Simulation failed",
+  "simulation.rejected": "Simulation rejected, compute capacity full",
+  "simulation.stage.baseline": "Baseline simulation stage started",
+  "simulation.stage.policy": "Policy simulation stage started",
+  "simulation.stage.postprocess": "Post-processing stage started",
+  "simulation.queued": "Request queued, waiting for available slot",
+  "simulation.queue.full": "Request rejected, simulation queue full",
+  "simulation.queue.timeout": "Request expired while waiting in queue",
+  "simulation.queue.disconnected": "Queued request dropped, client disconnected"
+}

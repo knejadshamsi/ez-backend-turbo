@@ -1,0 +1,13 @@
+{
+  "simulation.started": "Pipeline de simulation demarre",
+  "simulation.completed": "Simulation terminee",
+  "simulation.failed": "Simulation echouee",
+  "simulation.rejected": "Simulation refusee, capacite de calcul pleine",
+  "simulation.stage.baseline": "Etape de simulation de reference demarree",
+  "simulation.stage.policy": "Etape de simulation de politique demarree",
+  "simulation.stage.postprocess": "Etape de post-traitement demarree",
+  "simulation.queued": "Requete en file d'attente, en attente d'un creneau disponible",
+  "simulation.queue.full": "Requete refusee, file d'attente de simulation pleine",
+  "simulation.queue.timeout": "Requete expiree en attente dans la file",
+  "simulation.queue.disconnected": "Requete en file abandonnee, client deconnecte"
+}

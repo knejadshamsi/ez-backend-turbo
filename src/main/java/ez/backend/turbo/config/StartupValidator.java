@@ -38,6 +38,9 @@ public class StartupValidator implements ApplicationRunner {
     private final ProcessConfig adminProcessConfig;
     private final ProcessConfig readProcessConfig;
     private final ProcessConfig computeProcessConfig;
+    private final boolean computeQueueEnabled;
+    private final long computeQueueTimeout;
+    private final int computeQueueMaxSize;
 
     public StartupValidator(Environment environment, JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -60,6 +63,22 @@ public class StartupValidator implements ApplicationRunner {
         this.adminProcessConfig = validateProcessConfig("admin", environment);
         this.readProcessConfig = validateProcessConfig("read", environment);
         this.computeProcessConfig = validateProcessConfig("compute", environment);
+
+        this.computeQueueEnabled = validateBoolean("ez.processes.compute.queue.enabled",
+                environment.getProperty("ez.processes.compute.queue.enabled"));
+        if (computeQueueEnabled) {
+            if (computeProcessConfig.max() < 1) {
+                throw new IllegalStateException("ez.processes.compute.max must be >= 1 when queue is enabled | "
+                        + "ez.processes.compute.max doit être >= 1 lorsque la file d'attente est activée");
+            }
+            this.computeQueueTimeout = validatePositiveLong("ez.processes.compute.queue.timeout",
+                    environment.getProperty("ez.processes.compute.queue.timeout"));
+            this.computeQueueMaxSize = validatePositiveInteger("ez.processes.compute.queue.max-size",
+                    environment.getProperty("ez.processes.compute.queue.max-size"));
+        } else {
+            this.computeQueueTimeout = 0;
+            this.computeQueueMaxSize = 0;
+        }
 
         if (adminProcessConfig.max() == 0 && readProcessConfig.max() == 0 && computeProcessConfig.max() == 0) {
             throw new IllegalStateException("At least one of {admin, read, compute} must have max > 0 | "
@@ -117,6 +136,18 @@ public class StartupValidator implements ApplicationRunner {
 
     public ProcessConfig getComputeProcessConfig() {
         return computeProcessConfig;
+    }
+
+    public boolean isComputeQueueEnabled() {
+        return computeQueueEnabled;
+    }
+
+    public long getComputeQueueTimeout() {
+        return computeQueueTimeout;
+    }
+
+    public int getComputeQueueMaxSize() {
+        return computeQueueMaxSize;
     }
 
     @Override
