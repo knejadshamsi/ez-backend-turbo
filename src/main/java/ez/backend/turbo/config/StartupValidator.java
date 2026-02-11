@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -38,6 +40,7 @@ public class StartupValidator implements ApplicationRunner {
     private final ProcessConfig adminProcessConfig;
     private final ProcessConfig readProcessConfig;
     private final ProcessConfig computeProcessConfig;
+    private final Path dataRoot;
     private final boolean computeQueueEnabled;
     private final long computeQueueTimeout;
     private final int computeQueueMaxSize;
@@ -45,6 +48,7 @@ public class StartupValidator implements ApplicationRunner {
     public StartupValidator(Environment environment, JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
 
+        this.dataRoot = validateDataRoot(environment.getProperty("ez.data.root"));
         this.locale = validateLocale(environment.getProperty("ez.log.locale"));
         this.consoleEnabled = validateBoolean("ez.log.console",
                 environment.getProperty("ez.log.console"));
@@ -150,11 +154,29 @@ public class StartupValidator implements ApplicationRunner {
         return computeQueueMaxSize;
     }
 
+    public Path getDataRoot() {
+        return dataRoot;
+    }
+
     @Override
     public void run(ApplicationArguments args) {
         verifyConnectivity();
         checkRequiredTables();
         log.info(L.msg("db.tables.verified"));
+    }
+
+    private Path validateDataRoot(String value) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalStateException("ez.data.root is missing | ez.data.root est manquant");
+        }
+        Path resolved = Path.of(value).toAbsolutePath().normalize();
+        try {
+            Files.createDirectories(resolved.resolve("db"));
+        } catch (Exception e) {
+            throw new IllegalStateException("Cannot create data directory: " + resolved
+                    + " | Impossible de créer le répertoire de données : " + resolved, e);
+        }
+        return resolved;
     }
 
     private String validateLocale(String value) {
@@ -313,9 +335,9 @@ public class StartupValidator implements ApplicationRunner {
 
     private boolean tableExists(String tableName) {
         Integer count = jdbcTemplate.queryForObject(
-                "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public' AND table_name = ?",
+                "SELECT COUNT(*) FROM information_schema.tables WHERE table_name = ?",
                 Integer.class,
-                tableName
+                tableName.toUpperCase()
         );
         return count != null && count > 0;
     }

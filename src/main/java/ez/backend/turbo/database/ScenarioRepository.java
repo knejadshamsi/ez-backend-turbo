@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-// JDBC operations for the scenarios table
 @Repository
 public class ScenarioRepository {
 
@@ -27,32 +26,32 @@ public class ScenarioRepository {
 
     public void create(UUID requestId, ScenarioStatus status, Instant now) {
         jdbcTemplate.update(
-                "INSERT INTO scenarios (request_id, status, created_at, updated_at) VALUES (?::uuid, ?, ?, ?)",
-                requestId.toString(), status.name(), Timestamp.from(now), Timestamp.from(now)
+                "INSERT INTO scenarios (request_id, status, created_at, updated_at) VALUES (?, ?, ?, ?)",
+                requestId, status.name(), Timestamp.from(now), Timestamp.from(now)
         );
     }
 
     public int updateStatus(UUID requestId, ScenarioStatus status, Instant now) {
         return jdbcTemplate.update(
-                "UPDATE scenarios SET status = ?, updated_at = ? WHERE request_id = ?::uuid",
-                status.name(), Timestamp.from(now), requestId.toString()
+                "UPDATE scenarios SET status = ?, updated_at = ? WHERE request_id = ?",
+                status.name(), Timestamp.from(now), requestId
         );
     }
 
     public Optional<Map<String, Object>> findById(UUID requestId) {
         var results = jdbcTemplate.query(
-                "SELECT request_id, status, input_data, session_data, created_at, updated_at FROM scenarios WHERE request_id = ?::uuid",
+                "SELECT request_id, status, input_data, session_data, created_at, updated_at FROM scenarios WHERE request_id = ?",
                 (rs, rowNum) -> mapRow(rs),
-                requestId.toString()
+                requestId
         );
         return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
     }
 
     public Optional<ScenarioStatus> findStatusById(UUID requestId) {
         var results = jdbcTemplate.query(
-                "SELECT status FROM scenarios WHERE request_id = ?::uuid",
+                "SELECT status FROM scenarios WHERE request_id = ?",
                 (rs, rowNum) -> ScenarioStatus.valueOf(rs.getString("status")),
-                requestId.toString()
+                requestId
         );
         return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
     }
@@ -62,8 +61,8 @@ public class ScenarioRepository {
             throw new IllegalArgumentException(L.msg("scenario.input.null"));
         }
         return jdbcTemplate.update(
-                "UPDATE scenarios SET input_data = ?::jsonb, updated_at = ? WHERE request_id = ?::uuid",
-                inputDataJson, Timestamp.from(now), requestId.toString()
+                "UPDATE scenarios SET input_data = ?, updated_at = ? WHERE request_id = ?",
+                inputDataJson, Timestamp.from(now), requestId
         );
     }
 
@@ -72,8 +71,8 @@ public class ScenarioRepository {
             throw new IllegalArgumentException(L.msg("scenario.session.null"));
         }
         return jdbcTemplate.update(
-                "UPDATE scenarios SET session_data = ?::jsonb, updated_at = ? WHERE request_id = ?::uuid",
-                sessionDataJson, Timestamp.from(now), requestId.toString()
+                "UPDATE scenarios SET session_data = ?, updated_at = ? WHERE request_id = ?",
+                sessionDataJson, Timestamp.from(now), requestId
         );
     }
 
