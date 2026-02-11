@@ -1,0 +1,15 @@
+{
+  "source.scan.started": "Scanning source files from {}",
+  "source.scan.type.found": "Registered {} source(s) for '{}'",
+  "source.scan.type.none": "No sources found for '{}'",
+  "source.scan.complete": "Source registry: {} total source(s) registered",
+  "source.scan.skipped.dir": "Skipping non-numeric directory: {}",
+  "source.scan.skipped.file": "Skipping invalid source file: {}",
+  "source.transit.incomplete": "Skipping transit source '{}' in {}: missing vehicles file",
+  "source.population.invalid": "Skipping population file with unexpected root element: {}",
+  "source.network.loaded": "Loaded network '{}' ({} nodes, {} links)",
+  "source.transit.loaded": "Loaded transit '{}' ({} stops, {} lines)",
+  "source.resolve.year": "year %d not available for %s (available: %s)",
+  "source.resolve.name": "'%s' not available for %s year %d (available: %s)",
+  "source.resolve.type": "unknown source type: %s"
+}

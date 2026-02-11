@@ -1,0 +1,15 @@
+{
+  "source.scan.started": "Analyse des fichiers source depuis {}",
+  "source.scan.type.found": "{} source(s) enregistree(s) pour '{}'",
+  "source.scan.type.none": "Aucune source trouvee pour '{}'",
+  "source.scan.complete": "Registre des sources : {} source(s) enregistree(s) au total",
+  "source.scan.skipped.dir": "Repertoire non numerique ignore : {}",
+  "source.scan.skipped.file": "Fichier source invalide ignore : {}",
+  "source.transit.incomplete": "Source transit '{}' dans {} ignoree : fichier vehicules manquant",
+  "source.population.invalid": "Fichier population avec element racine inattendu ignore : {}",
+  "source.network.loaded": "Reseau '{}' charge ({} noeuds, {} liens)",
+  "source.transit.loaded": "Transport en commun '{}' charge ({} arrets, {} lignes)",
+  "source.resolve.year": "annee %d non disponible pour %s (disponibles : %s)",
+  "source.resolve.name": "'%s' non disponible pour %s annee %d (disponibles : %s)",
+  "source.resolve.type": "type de source inconnu : %s"
+}

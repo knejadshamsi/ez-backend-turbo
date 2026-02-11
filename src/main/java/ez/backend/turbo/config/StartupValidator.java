@@ -172,6 +172,9 @@ public class StartupValidator implements ApplicationRunner {
         Path resolved = Path.of(value).toAbsolutePath().normalize();
         try {
             Files.createDirectories(resolved.resolve("db"));
+            Files.createDirectories(resolved.resolve("input/population"));
+            Files.createDirectories(resolved.resolve("input/network"));
+            Files.createDirectories(resolved.resolve("input/publicTransport"));
         } catch (Exception e) {
             throw new IllegalStateException("Cannot create data directory: " + resolved
                     + " | Impossible de créer le répertoire de données : " + resolved, e);

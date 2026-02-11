@@ -2,6 +2,7 @@ package ez.backend.turbo.validation;
 
 import ez.backend.turbo.endpoints.SimulationRequest;
 import ez.backend.turbo.endpoints.SimulationRequest.*;
+import ez.backend.turbo.services.SourceRegistry;
 import ez.backend.turbo.utils.L;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -30,14 +30,11 @@ public class SimulationRequestValidator {
     private static final double SIM_AREA_MIN_SQM = 500000;
     private static final double SIM_AREA_MAX_SQM = 6000000;
 
-    private static final Map<Integer, Set<String>> VALID_POPULATION_SOURCES = Map.of(
-            2024, Set.of("montreal-polytechnique-pipeline-2024"),
-            2025, Set.of("montreal-polytechnique-pipeline-2025"));
-    private static final Map<Integer, Set<String>> VALID_NETWORK_SOURCES = Map.of(
-            2025, Set.of("osm-2025"));
-    private static final Map<Integer, Set<String>> VALID_PUBLIC_TRANSPORT_SOURCES = Map.of(
-            2024, Set.of("stm-gtfs-2024"),
-            2025, Set.of("stm-gtfs-2025"));
+    private final SourceRegistry sourceRegistry;
+
+    public SimulationRequestValidator(SourceRegistry sourceRegistry) {
+        this.sourceRegistry = sourceRegistry;
+    }
 
     private static final double[][] MTL_BOUNDARY = {
             {-73.61197208186829, 45.41263857780996},
@@ -339,27 +336,20 @@ public class SimulationRequestValidator {
             errors.add(String.format(L.msg("validation.required"), "sources"));
             return;
         }
-        validateDataSource(request.getSources().getPopulation(), "sources.population",
-                VALID_POPULATION_SOURCES, errors);
-        validateDataSource(request.getSources().getNetwork(), "sources.network",
-                VALID_NETWORK_SOURCES, errors);
-        validateDataSource(request.getSources().getPublicTransport(), "sources.publicTransport",
-                VALID_PUBLIC_TRANSPORT_SOURCES, errors);
+        resolveSource(request.getSources().getPopulation(), "population", "sources.population", errors);
+        resolveSource(request.getSources().getNetwork(), "network", "sources.network", errors);
+        resolveSource(request.getSources().getPublicTransport(), "publicTransport", "sources.publicTransport", errors);
     }
 
-    private void validateDataSource(DataSource ds, String label,
-                                    Map<Integer, Set<String>> validSources, List<String> errors) {
+    private void resolveSource(DataSource ds, String type, String label, List<String> errors) {
         if (ds == null) {
             errors.add(String.format(L.msg("validation.required"), label));
             return;
         }
-        Set<String> validNames = validSources.get(ds.getYear());
-        if (validNames == null) {
-            errors.add(String.format(L.msg("validation.source.year"), label, validSources.keySet()));
-            return;
-        }
-        if (ds.getName() == null || !validNames.contains(ds.getName())) {
-            errors.add(String.format(L.msg("validation.source.name"), label, ds.getName(), ds.getYear(), validNames));
+        try {
+            sourceRegistry.resolve(type, ds.getYear(), ds.getName());
+        } catch (IllegalArgumentException e) {
+            errors.add(label + ": " + e.getMessage());
         }
     }
 

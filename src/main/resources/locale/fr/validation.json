@@ -39,9 +39,6 @@
   "validation.geo.area.above": "%s : superficie %s km² depasse le maximum %s km²",
   "validation.geo.outside.boundary": "%s : sommet du polygone a [%s, %s] est hors des limites de Montreal",
 
-  "validation.source.year": "%s : year doit etre l'un de %s",
-  "validation.source.name": "%s : name '%s' n'est pas valide pour l'annee %d (attendu l'un de %s)",
-
   "validation.options.iterations": "iterations doit etre entre 1 et 10",
   "validation.options.percentage": "percentage doit etre entre 1 et 10",
 
