@@ -1,6 +1,9 @@
 package ez.backend.turbo.config;
 
 import ez.backend.turbo.services.ProcessConfig;
+import ez.backend.turbo.services.ScaleFactorConfig;
+import ez.backend.turbo.services.ScoringConfig;
+import ez.backend.turbo.services.StrategyConfig;
 import ez.backend.turbo.utils.L;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -41,9 +45,17 @@ public class StartupValidator implements ApplicationRunner {
     private final ProcessConfig readProcessConfig;
     private final ProcessConfig computeProcessConfig;
     private final Path dataRoot;
+    private final String sourceCrs;
+    private final String targetCrs;
     private final boolean computeQueueEnabled;
     private final long computeQueueTimeout;
     private final int computeQueueMaxSize;
+    private final Path hbefaWarmFile;
+    private final Path hbefaColdFile;
+    private final Path vehicleTypesFile;
+    private final ScaleFactorConfig scaleFactorConfig;
+    private final ScoringConfig scoringConfig;
+    private final StrategyConfig strategyConfig;
 
     public StartupValidator(Environment environment, JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -68,6 +80,11 @@ public class StartupValidator implements ApplicationRunner {
         this.readProcessConfig = validateProcessConfig("read", environment);
         this.computeProcessConfig = validateProcessConfig("compute", environment);
 
+        this.sourceCrs = validateCrs("ez.source.crs",
+                environment.getProperty("ez.source.crs"));
+        this.targetCrs = validateCrs("ez.target.crs",
+                environment.getProperty("ez.target.crs"));
+
         this.computeQueueEnabled = validateBoolean("ez.processes.compute.queue.enabled",
                 environment.getProperty("ez.processes.compute.queue.enabled"));
         if (computeQueueEnabled) {
@@ -83,6 +100,18 @@ public class StartupValidator implements ApplicationRunner {
             this.computeQueueTimeout = 0;
             this.computeQueueMaxSize = 0;
         }
+
+        Path hbefaDir = dataRoot.resolve("input/hbefa");
+        this.hbefaWarmFile = validateFilePath("ez.hbefa.warm-file",
+                environment.getProperty("ez.hbefa.warm-file"), hbefaDir, ".csv");
+        this.hbefaColdFile = validateFilePath("ez.hbefa.cold-file",
+                environment.getProperty("ez.hbefa.cold-file"), hbefaDir, ".csv");
+        this.vehicleTypesFile = validateFilePath("ez.hbefa.vehicle-types-file",
+                environment.getProperty("ez.hbefa.vehicle-types-file"), hbefaDir, ".yml");
+
+        this.scaleFactorConfig = validateScaleFactorConfig(environment);
+        this.scoringConfig = validateScoringConfig(environment);
+        this.strategyConfig = validateStrategyConfig(environment);
 
         if (adminProcessConfig.max() == 0 && readProcessConfig.max() == 0 && computeProcessConfig.max() == 0) {
             throw new IllegalStateException("At least one of {admin, read, compute} must have max > 0 | "
@@ -158,11 +187,55 @@ public class StartupValidator implements ApplicationRunner {
         return dataRoot;
     }
 
+    public String getSourceCrs() {
+        return sourceCrs;
+    }
+
+    public String getTargetCrs() {
+        return targetCrs;
+    }
+
+    public Path getHbefaWarmFile() {
+        return hbefaWarmFile;
+    }
+
+    public Path getHbefaColdFile() {
+        return hbefaColdFile;
+    }
+
+    public Path getVehicleTypesFile() {
+        return vehicleTypesFile;
+    }
+
+    public ScaleFactorConfig getScaleFactorConfig() {
+        return scaleFactorConfig;
+    }
+
+    public ScoringConfig getScoringConfig() {
+        return scoringConfig;
+    }
+
+    public StrategyConfig getStrategyConfig() {
+        return strategyConfig;
+    }
+
     @Override
     public void run(ApplicationArguments args) {
         verifyConnectivity();
         checkRequiredTables();
         log.info(L.msg("db.tables.verified"));
+        log.info(L.msg("config.scoring.loaded"),
+                scoringConfig.performingUtilsPerHr(),
+                scoringConfig.brainExpBeta(),
+                scoringConfig.learningRate());
+        log.info(L.msg("config.scale.factors.loaded"),
+                scaleFactorConfig.walk(), scaleFactorConfig.bike(), scaleFactorConfig.car(),
+                scaleFactorConfig.ev(), scaleFactorConfig.subway(), scaleFactorConfig.bus());
+        log.info(L.msg("config.strategy.loaded"),
+                4,
+                Arrays.toString(strategyConfig.subtourModes()),
+                strategyConfig.globalThreads(),
+                strategyConfig.qsimThreads());
     }
 
     private Path validateDataRoot(String value) {
@@ -175,6 +248,7 @@ public class StartupValidator implements ApplicationRunner {
             Files.createDirectories(resolved.resolve("input/population"));
             Files.createDirectories(resolved.resolve("input/network"));
             Files.createDirectories(resolved.resolve("input/publicTransport"));
+            Files.createDirectories(resolved.resolve("input/hbefa"));
         } catch (Exception e) {
             throw new IllegalStateException("Cannot create data directory: " + resolved
                     + " | Impossible de créer le répertoire de données : " + resolved, e);
@@ -242,6 +316,17 @@ public class StartupValidator implements ApplicationRunner {
         return new ProcessConfig(max, timeout);
     }
 
+    private String validateCrs(String key, String value) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalStateException(key + " is missing | " + key + " est manquant");
+        }
+        if (!value.matches("EPSG:\\d+")) {
+            throw new IllegalStateException(key + " must match EPSG:<number>, got '" + value
+                    + "' | " + key + " doit correspondre a EPSG:<nombre>, recu '" + value + "'");
+        }
+        return value;
+    }
+
     private int validatePositiveInteger(String key, String value) {
         if (value == null || value.isBlank()) {
             throw new IllegalStateException("Missing value: " + key + " | Valeur manquante : " + key);
@@ -291,6 +376,136 @@ public class StartupValidator implements ApplicationRunner {
             throw new IllegalStateException("Invalid number format: " + key + " (got: " + value + ") | "
                     + "Format numérique invalide : " + key + " (reçu : " + value + ")", e);
         }
+    }
+
+    private Path validateFilePath(String key, String value, Path baseDir, String extension) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalStateException(key + " is missing | " + key + " est manquant");
+        }
+        if (!value.endsWith(extension)) {
+            throw new IllegalStateException(key + " must end with " + extension + ", got '" + value
+                    + "' | " + key + " doit se terminer par " + extension + ", reçu '" + value + "'");
+        }
+        Path resolved = baseDir.resolve(value).toAbsolutePath().normalize();
+        if (!Files.isRegularFile(resolved)) {
+            throw new IllegalStateException(key + " file not found: " + resolved
+                    + " | " + key + " fichier introuvable : " + resolved);
+        }
+        if (!Files.isReadable(resolved)) {
+            throw new IllegalStateException(key + " file not readable: " + resolved
+                    + " | " + key + " fichier illisible : " + resolved);
+        }
+        return resolved;
+    }
+
+    private double validateDouble(String key, String value) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalStateException("Missing value: " + key + " | Valeur manquante : " + key);
+        }
+        try {
+            return Double.parseDouble(value);
+        } catch (NumberFormatException e) {
+            throw new IllegalStateException("Invalid number format: " + key + " (got: " + value + ") | "
+                    + "Format numérique invalide : " + key + " (reçu : " + value + ")", e);
+        }
+    }
+
+    private double validatePositiveDouble(String key, String value) {
+        double parsed = validateDouble(key, value);
+        if (parsed <= 0) {
+            throw new IllegalStateException("Value must be > 0: " + key + " (got: " + value + ") | "
+                    + "La valeur doit être > 0 : " + key + " (reçu : " + value + ")");
+        }
+        return parsed;
+    }
+
+    private double validateNonNegativeDouble(String key, String value) {
+        double parsed = validateDouble(key, value);
+        if (parsed < 0) {
+            throw new IllegalStateException("Value must be >= 0: " + key + " (got: " + value + ") | "
+                    + "La valeur doit être >= 0 : " + key + " (reçu : " + value + ")");
+        }
+        return parsed;
+    }
+
+    private String validateNonEmptyString(String key, String value) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalStateException(key + " must not be empty | " + key + " ne doit pas être vide");
+        }
+        return value.trim();
+    }
+
+    private ScaleFactorConfig validateScaleFactorConfig(Environment env) {
+        return new ScaleFactorConfig(
+                validateDouble("ez.scoring.scale-factor.walk",
+                        env.getProperty("ez.scoring.scale-factor.walk")),
+                validateDouble("ez.scoring.scale-factor.bike",
+                        env.getProperty("ez.scoring.scale-factor.bike")),
+                validateDouble("ez.scoring.scale-factor.car",
+                        env.getProperty("ez.scoring.scale-factor.car")),
+                validateDouble("ez.scoring.scale-factor.ev",
+                        env.getProperty("ez.scoring.scale-factor.ev")),
+                validateDouble("ez.scoring.scale-factor.subway",
+                        env.getProperty("ez.scoring.scale-factor.subway")),
+                validateDouble("ez.scoring.scale-factor.bus",
+                        env.getProperty("ez.scoring.scale-factor.bus"))
+        );
+    }
+
+    private ScoringConfig validateScoringConfig(Environment env) {
+        return new ScoringConfig(
+                validatePositiveDouble("ez.scoring.performing-utils-per-hr",
+                        env.getProperty("ez.scoring.performing-utils-per-hr")),
+                validatePositiveDouble("ez.scoring.marginal-utility-of-money",
+                        env.getProperty("ez.scoring.marginal-utility-of-money")),
+                validatePositiveDouble("ez.scoring.brain-exp-beta",
+                        env.getProperty("ez.scoring.brain-exp-beta")),
+                validatePositiveDouble("ez.scoring.learning-rate",
+                        env.getProperty("ez.scoring.learning-rate")),
+                validateDouble("ez.scoring.car.marginal-utility-of-traveling",
+                        env.getProperty("ez.scoring.car.marginal-utility-of-traveling")),
+                validateDouble("ez.scoring.car.monetary-distance-rate",
+                        env.getProperty("ez.scoring.car.monetary-distance-rate")),
+                validateDouble("ez.scoring.pt.marginal-utility-of-traveling",
+                        env.getProperty("ez.scoring.pt.marginal-utility-of-traveling")),
+                validateDouble("ez.scoring.walk.marginal-utility-of-traveling",
+                        env.getProperty("ez.scoring.walk.marginal-utility-of-traveling")),
+                validateDouble("ez.scoring.bike.marginal-utility-of-traveling",
+                        env.getProperty("ez.scoring.bike.marginal-utility-of-traveling"))
+        );
+    }
+
+    private StrategyConfig validateStrategyConfig(Environment env) {
+        String subtourModesRaw = validateNonEmptyString("ez.strategy.subtour-modes",
+                env.getProperty("ez.strategy.subtour-modes"));
+        String chainBasedModesRaw = validateNonEmptyString("ez.strategy.chain-based-modes",
+                env.getProperty("ez.strategy.chain-based-modes"));
+
+        String[] subtourModes = Arrays.stream(subtourModesRaw.split(","))
+                .map(String::trim).toArray(String[]::new);
+        String[] chainBasedModes = Arrays.stream(chainBasedModesRaw.split(","))
+                .map(String::trim).toArray(String[]::new);
+
+        return new StrategyConfig(
+                validateNonNegativeDouble("ez.strategy.change-exp-beta-weight",
+                        env.getProperty("ez.strategy.change-exp-beta-weight")),
+                validateNonNegativeDouble("ez.strategy.reroute-weight",
+                        env.getProperty("ez.strategy.reroute-weight")),
+                validateNonNegativeDouble("ez.strategy.subtour-mode-choice-weight",
+                        env.getProperty("ez.strategy.subtour-mode-choice-weight")),
+                validateNonNegativeDouble("ez.strategy.time-allocation-mutator-weight",
+                        env.getProperty("ez.strategy.time-allocation-mutator-weight")),
+                subtourModes,
+                chainBasedModes,
+                validatePositiveDouble("ez.strategy.mutation-range",
+                        env.getProperty("ez.strategy.mutation-range")),
+                validatePositiveInteger("ez.strategy.max-agent-plan-memory-size",
+                        env.getProperty("ez.strategy.max-agent-plan-memory-size")),
+                validatePositiveInteger("ez.strategy.global-threads",
+                        env.getProperty("ez.strategy.global-threads")),
+                validatePositiveInteger("ez.strategy.qsim-threads",
+                        env.getProperty("ez.strategy.qsim-threads"))
+        );
     }
 
     public static void printErrors(List<String> errors) {

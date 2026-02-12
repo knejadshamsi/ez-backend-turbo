@@ -48,6 +48,17 @@ ez:
     # Log files: logs/ez-backend.log (10 MB rotation, 5 archives).
     file: true
 
+  source:
+    crs: EPSG:4326
+
+  target:
+    crs: EPSG:32188
+
+  hbefa:
+    warm-file: average_warm.csv
+    cold-file: average_cold.csv
+    vehicle-types-file: vehicle-types.yml
+
   ratelimit:
     # Maximum requests per second from a single IP before ban
     max-requests-per-second: 20
@@ -70,3 +81,37 @@ ez:
     compute:
       max: 2
       timeout: 300000
+
+  scoring:
+    scale-factor:
+      walk: 0.5
+      bike: 0.5
+      car: 0.5
+      ev: 0.5
+      subway: 0.5
+      bus: 0.5
+    performing-utils-per-hr: 6.0
+    marginal-utility-of-money: 1.0
+    brain-exp-beta: 2.0
+    learning-rate: 1.0
+    car:
+      marginal-utility-of-traveling: -6.0
+      monetary-distance-rate: -0.0002
+    pt:
+      marginal-utility-of-traveling: -3.0
+    walk:
+      marginal-utility-of-traveling: -12.0
+    bike:
+      marginal-utility-of-traveling: -6.0
+
+  strategy:
+    change-exp-beta-weight: 0.7
+    reroute-weight: 0.1
+    subtour-mode-choice-weight: 0.1
+    time-allocation-mutator-weight: 0.1
+    subtour-modes: car,pt,walk,bike
+    chain-based-modes: car,bike
+    mutation-range: 7200.0
+    max-agent-plan-memory-size: 5
+    global-threads: 4
+    qsim-threads: 4

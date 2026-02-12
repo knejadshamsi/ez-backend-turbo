@@ -117,7 +117,7 @@ public class NetworkSpatialLoader {
         int derived = 0;
         for (Link link : network.getLinks().values()) {
             try {
-                String type = mapping.determineHebfaType(link);
+                String type = mapping.determineHbefaType(link);
                 if (type != null) {
                     link.getAttributes().putAttribute(HBEFA_ATTR, type);
                     derived++;

@@ -1,0 +1,5 @@
+{
+  "config.scoring.loaded": "Config scoring : performingUtils={}, brainExpBeta={}, learningRate={}",
+  "config.scale.factors.loaded": "Facteurs d'echelle : walk={}, bike={}, car={}, ev={}, subway={}, bus={}",
+  "config.strategy.loaded": "Config strategie : {} strategies, subtourModes={}, threads={}/{}"
+}
