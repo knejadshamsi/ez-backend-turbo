@@ -100,7 +100,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
         response.setContentType("application/json");
         Map<String, Object> body = Map.of(
                 "statusCode", 429,
-                "message", "Too many requests",
+                "message", L.msg("ratelimit.exceeded"),
                 "payload", Map.of(),
                 "timestamp", Instant.now().toString()
         );

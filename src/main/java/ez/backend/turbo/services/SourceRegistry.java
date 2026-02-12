@@ -1,24 +1,23 @@
 package ez.backend.turbo.services;
 
 import ez.backend.turbo.config.StartupValidator;
+import ez.backend.turbo.database.NetworkSpatialLoader;
+import ez.backend.turbo.database.PopulationSpatialLoader;
+import ez.backend.turbo.database.SpatialDatabaseManager;
 import ez.backend.turbo.utils.L;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.core.config.ConfigUtils;
-import org.matsim.core.network.NetworkUtils;
 import org.matsim.core.scenario.ScenarioUtils;
 import org.matsim.pt.transitSchedule.api.TransitSchedule;
 import org.matsim.pt.transitSchedule.api.TransitScheduleReader;
 import org.matsim.vehicles.MatsimVehicleReader;
 import org.matsim.vehicles.Vehicles;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamReader;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,6 +33,9 @@ public class SourceRegistry {
     private static final Set<String> SOURCE_TYPES = Set.of("population", "network", "publicTransport");
 
     private final Path inputRoot;
+    private final SpatialDatabaseManager dbManager;
+    private final NetworkSpatialLoader networkLoader;
+    private final PopulationSpatialLoader populationLoader;
     private final Map<String, Map<Integer, Set<String>>> catalog = new HashMap<>();
     private final Map<String, Network> networks = new HashMap<>();
     private final Map<String, TransitData> transitCache = new HashMap<>();
@@ -41,8 +43,14 @@ public class SourceRegistry {
     public record TransitPaths(Path schedule, Path vehicles) {}
     public record TransitData(TransitSchedule schedule, Vehicles vehicles) {}
 
-    public SourceRegistry(StartupValidator startupValidator, L locale) {
+    public SourceRegistry(StartupValidator startupValidator, L locale,
+                          SpatialDatabaseManager dbManager,
+                          NetworkSpatialLoader networkLoader,
+                          PopulationSpatialLoader populationLoader) {
         this.inputRoot = startupValidator.getDataRoot().resolve("input");
+        this.dbManager = dbManager;
+        this.networkLoader = networkLoader;
+        this.populationLoader = populationLoader;
         log.info(L.msg("source.scan.started"), inputRoot);
         scanSources();
     }
@@ -78,6 +86,14 @@ public class SourceRegistry {
                     L.msg("source.resolve.name"), name, "network", year, catalog.getOrDefault("network", Map.of()).getOrDefault(year, Set.of())));
         }
         return network;
+    }
+
+    public JdbcTemplate getNetworkDb(int year, String name) {
+        return dbManager.get("network/" + year + "/" + name);
+    }
+
+    public JdbcTemplate getPopulationDb(int year, String name) {
+        return dbManager.get("population/" + year + "/" + name);
     }
 
     public TransitData getTransit(int year, String name) {
@@ -139,12 +155,16 @@ public class SourceRegistry {
         try (DirectoryStream<Path> files = Files.newDirectoryStream(yearDir, "*.xml")) {
             for (Path file : files) {
                 String name = stripExtension(file.getFileName().toString());
+                String dbKey = "network/" + year + "/" + name;
                 try {
-                    Network network = NetworkUtils.readNetwork(file.toString());
+                    Network network;
+                    if (dbManager.databaseExists(file)) {
+                        network = networkLoader.loadFromDatabase(dbKey, file);
+                    } else {
+                        network = networkLoader.loadFromXml(file, dbKey);
+                    }
                     register("network", year, name);
                     networks.put(year + "/" + name, network);
-                    log.info(L.msg("source.network.loaded"), name,
-                            network.getNodes().size(), network.getLinks().size());
                     count++;
                 } catch (Exception e) {
                     log.warn(L.msg("source.scan.skipped.file"), file.getFileName());
@@ -194,21 +214,15 @@ public class SourceRegistry {
         try (DirectoryStream<Path> files = Files.newDirectoryStream(yearDir, "*.xml")) {
             for (Path file : files) {
                 String name = stripExtension(file.getFileName().toString());
-                try (InputStream in = new FileInputStream(file.toFile())) {
-                    XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(in);
-                    while (reader.hasNext()) {
-                        if (reader.next() == XMLStreamReader.START_ELEMENT) {
-                            String root = reader.getLocalName();
-                            if ("population".equals(root) || "plans".equals(root)) {
-                                register("population", year, name);
-                                count++;
-                            } else {
-                                log.warn(L.msg("source.population.invalid"), file.getFileName());
-                            }
-                            break;
-                        }
+                String dbKey = "population/" + year + "/" + name;
+                try {
+                    if (dbManager.databaseExists(file)) {
+                        populationLoader.openExisting(dbKey, file);
+                    } else {
+                        populationLoader.loadFromXml(file, dbKey);
                     }
-                    reader.close();
+                    register("population", year, name);
+                    count++;
                 } catch (Exception e) {
                     log.warn(L.msg("source.scan.skipped.file"), file.getFileName());
                 }

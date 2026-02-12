@@ -5,6 +5,8 @@
   "process.already.registered": "ID de processus déjà enregistré",
   "process.unregister.unknown": "Impossible de désenregistrer un processus inconnu",
   "health.check.failed": "Vérification de santé échouée",
+  "health.message": "Le backend est fonctionnel",
   "ratelimit.blocked": "Limite de débit dépassée, IP bannie",
-  "ratelimit.ban.duration": "Durée du bannissement (secondes)"
+  "ratelimit.ban.duration": "Durée du bannissement (secondes)",
+  "ratelimit.exceeded": "Trop de requêtes"
 }

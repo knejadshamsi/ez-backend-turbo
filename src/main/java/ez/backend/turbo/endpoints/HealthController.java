@@ -1,5 +1,6 @@
 package ez.backend.turbo.endpoints;
 
+import ez.backend.turbo.utils.L;
 import ez.backend.turbo.utils.ResponseFormatter;
 import ez.backend.turbo.utils.StandardResponse;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,6 @@ public class HealthController {
 
     @GetMapping("/health")
     public ResponseEntity<StandardResponse<Map<String, Object>>> health() {
-        return ResponseEntity.ok(responseFormatter.success("Backend is healthy", Map.of()));
+        return ResponseEntity.ok(responseFormatter.success(L.msg("health.message"), Map.of()));
     }
 }

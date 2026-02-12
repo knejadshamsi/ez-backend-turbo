@@ -50,7 +50,8 @@ public class L {
     public static String msg(String key) {
         String message = messages.get(key);
         if (message == null) {
-            throw new IllegalArgumentException("Missing locale key: " + key);
+            throw new IllegalArgumentException("Missing locale key: " + key
+                    + " | Clé de locale manquante : " + key);
         }
         return message;
     }

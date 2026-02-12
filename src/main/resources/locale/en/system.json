@@ -5,6 +5,8 @@
   "process.already.registered": "Process ID already registered",
   "process.unregister.unknown": "Cannot unregister unknown process",
   "health.check.failed": "Health check failed",
+  "health.message": "Backend is healthy",
   "ratelimit.blocked": "Rate limit exceeded, IP banned",
-  "ratelimit.ban.duration": "Ban duration (seconds)"
+  "ratelimit.ban.duration": "Ban duration (seconds)",
+  "ratelimit.exceeded": "Too many requests"
 }
