@@ -56,6 +56,7 @@ public class StartupValidator implements ApplicationRunner {
     private final ScaleFactorConfig scaleFactorConfig;
     private final ScoringConfig scoringConfig;
     private final StrategyConfig strategyConfig;
+    private final boolean overlapFirstWins;
 
     public StartupValidator(Environment environment, JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -112,6 +113,9 @@ public class StartupValidator implements ApplicationRunner {
         this.scaleFactorConfig = validateScaleFactorConfig(environment);
         this.scoringConfig = validateScoringConfig(environment);
         this.strategyConfig = validateStrategyConfig(environment);
+
+        this.overlapFirstWins = validateBoolean("ez.zone.overlap-first-wins",
+                environment.getProperty("ez.zone.overlap-first-wins"));
 
         if (adminProcessConfig.max() == 0 && readProcessConfig.max() == 0 && computeProcessConfig.max() == 0) {
             throw new IllegalStateException("At least one of {admin, read, compute} must have max > 0 | "
@@ -217,6 +221,10 @@ public class StartupValidator implements ApplicationRunner {
 
     public StrategyConfig getStrategyConfig() {
         return strategyConfig;
+    }
+
+    public boolean isOverlapFirstWins() {
+        return overlapFirstWins;
     }
 
     @Override

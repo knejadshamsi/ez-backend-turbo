@@ -54,6 +54,12 @@ ez:
   target:
     crs: EPSG:32188
 
+  zone:
+    # When two zones claim the same network link:
+    # true = first zone in the payload array wins
+    # false = last zone wins
+    overlap-first-wins: true
+
   hbefa:
     warm-file: average_warm.csv
     cold-file: average_cold.csv
