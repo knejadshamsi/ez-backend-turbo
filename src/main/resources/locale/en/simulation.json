@@ -9,5 +9,10 @@
   "simulation.queued": "Request queued, waiting for available slot",
   "simulation.queue.full": "Request rejected, simulation queue full",
   "simulation.queue.timeout": "Request expired while waiting in queue",
-  "simulation.queue.disconnected": "Queued request dropped, client disconnected"
+  "simulation.queue.disconnected": "Queued request dropped, client disconnected",
+  "population.filter.result": "Population filtered: {} candidates",
+  "population.filter.empty": "No agents matched the zone and simulation area filters",
+  "population.reconstruct.complete": "Population reconstructed: {} agents written",
+  "population.reconstruct.dir.failed": "Failed to create output directory",
+  "simulation.population.ready": "Filtered population ready for simulation"
 }

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ez.backend.turbo.endpoints.SimulationRequest;
 import ez.backend.turbo.session.SseEmitterRegistry;
+import ez.backend.turbo.simulation.ZoneLinkResolver;
+import ez.backend.turbo.simulation.ZoneLinkResolver.ZoneLinkSet;
 import ez.backend.turbo.sse.SseMessageSender;
 import ez.backend.turbo.utils.L;
 import ez.backend.turbo.utils.MessageType;
@@ -16,7 +18,10 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
@@ -31,6 +36,9 @@ public class SimulationService {
     private final SseEmitterRegistry emitterRegistry;
     private final ObjectMapper objectMapper;
     private final SimulationRequestValidator validator;
+    private final PopulationFilterService populationFilterService;
+    private final PopulationReconstructionService populationReconstructionService;
+    private final ZoneLinkResolver zoneLinkResolver;
     @Nullable private final SimulationQueueManager queueManager;
 
     public SimulationService(ScenarioStateService scenarioStateService,
@@ -39,6 +47,9 @@ public class SimulationService {
                              SseEmitterRegistry emitterRegistry,
                              ObjectMapper objectMapper,
                              SimulationRequestValidator validator,
+                             PopulationFilterService populationFilterService,
+                             PopulationReconstructionService populationReconstructionService,
+                             ZoneLinkResolver zoneLinkResolver,
                              @Nullable SimulationQueueManager queueManager) {
         this.scenarioStateService = scenarioStateService;
         this.processManager = processManager;
@@ -46,6 +57,9 @@ public class SimulationService {
         this.emitterRegistry = emitterRegistry;
         this.objectMapper = objectMapper;
         this.validator = validator;
+        this.populationFilterService = populationFilterService;
+        this.populationReconstructionService = populationReconstructionService;
+        this.zoneLinkResolver = zoneLinkResolver;
         this.queueManager = queueManager;
     }
 
@@ -73,7 +87,7 @@ public class SimulationService {
 
             storeInput(requestId, request);
 
-            CompletableFuture.runAsync(() -> runDirectPipeline(requestId, emitter));
+            CompletableFuture.runAsync(() -> runDirectPipeline(requestId, emitter, request));
 
             return emitter;
         } catch (Exception e) {
@@ -92,7 +106,7 @@ public class SimulationService {
         storeInput(requestId, request);
 
         boolean idle = queueManager.hasIdleWorker();
-        boolean submitted = queueManager.submit(requestId, emitter, !idle);
+        boolean submitted = queueManager.submit(requestId, emitter, !idle, request);
         if (!submitted) {
             emitterRegistry.remove(requestId);
             scenarioStateService.updateStatus(requestId, ScenarioStatus.FAILED);
@@ -107,11 +121,24 @@ public class SimulationService {
         return emitter;
     }
 
-    void executePipeline(UUID requestId, SseEmitter emitter) {
+    void executePipeline(UUID requestId, SseEmitter emitter, SimulationRequest request) {
         ThreadContext.put("ctx", requestId.toString());
         try {
             log.info(L.msg("simulation.started"));
             messageSender.sendLifecycle(emitter, MessageType.PA_SIMULATION_START);
+
+            int netYear = request.getSources().getNetwork().getYear();
+            String netName = request.getSources().getNetwork().getName();
+            int popYear = request.getSources().getPopulation().getYear();
+            String popName = request.getSources().getPopulation().getName();
+            int percentage = request.getSimulationOptions().getPercentage();
+
+            List<ZoneLinkSet> zoneLinkSets = zoneLinkResolver.resolve(
+                    request.getZones(), netYear, netName);
+            Set<String> filteredPersonIds = populationFilterService.filter(request, zoneLinkSets);
+            Path plansFile = populationReconstructionService.reconstructAndSample(
+                    filteredPersonIds, popYear, popName, requestId, percentage);
+            log.info(L.msg("simulation.population.ready"));
 
             scenarioStateService.updateStatus(requestId, ScenarioStatus.SIMULATING_BASELINE);
             log.info(L.msg("simulation.stage.baseline"));
@@ -137,11 +164,11 @@ public class SimulationService {
         }
     }
 
-    private void runDirectPipeline(UUID requestId, SseEmitter emitter) {
+    private void runDirectPipeline(UUID requestId, SseEmitter emitter, SimulationRequest request) {
         try {
             messageSender.sendMessage(emitter, MessageType.PA_REQUEST_ACCEPTED,
                     Map.of("requestId", requestId.toString()));
-            executePipeline(requestId, emitter);
+            executePipeline(requestId, emitter, request);
         } finally {
             processManager.unregister(requestId);
         }

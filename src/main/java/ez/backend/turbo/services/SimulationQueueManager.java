@@ -16,6 +16,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import ez.backend.turbo.endpoints.SimulationRequest;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -71,8 +73,10 @@ public class SimulationQueueManager {
         workerPool.shutdownNow();
     }
 
-    public boolean submit(UUID requestId, SseEmitter emitter, boolean queued) {
-        return queue.offer(new QueuedSimulation(requestId, emitter, System.currentTimeMillis(), queued));
+    public boolean submit(UUID requestId, SseEmitter emitter, boolean queued,
+                          SimulationRequest request) {
+        return queue.offer(new QueuedSimulation(requestId, emitter, System.currentTimeMillis(),
+                queued, request));
     }
 
     public boolean hasIdleWorker() {
@@ -122,7 +126,7 @@ public class SimulationQueueManager {
                 payload.put("queued", true);
             }
             messageSender.sendMessage(sim.emitter(), MessageType.PA_REQUEST_ACCEPTED, payload);
-            simulationService.executePipeline(sim.requestId(), sim.emitter());
+            simulationService.executePipeline(sim.requestId(), sim.emitter(), sim.request());
         } finally {
             processManager.unregister(sim.requestId());
             activeWorkers.decrementAndGet();
@@ -142,5 +146,6 @@ public class SimulationQueueManager {
         scenarioStateService.updateStatus(sim.requestId(), ScenarioStatus.CANCELLED);
     }
 
-    record QueuedSimulation(UUID requestId, SseEmitter emitter, long submittedAt, boolean queued) {}
+    record QueuedSimulation(UUID requestId, SseEmitter emitter, long submittedAt,
+                               boolean queued, SimulationRequest request) {}
 }

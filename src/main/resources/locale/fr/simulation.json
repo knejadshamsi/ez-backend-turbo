@@ -9,5 +9,10 @@
   "simulation.queued": "Requete en file d'attente, en attente d'un creneau disponible",
   "simulation.queue.full": "Requete refusee, file d'attente de simulation pleine",
   "simulation.queue.timeout": "Requete expiree en attente dans la file",
-  "simulation.queue.disconnected": "Requete en file abandonnee, client deconnecte"
+  "simulation.queue.disconnected": "Requete en file abandonnee, client deconnecte",
+  "population.filter.result": "Population filtree : {} candidats",
+  "population.filter.empty": "Aucun agent ne correspond aux filtres de zones et surfaces",
+  "population.reconstruct.complete": "Population reconstruite : {} agents ecrits",
+  "population.reconstruct.dir.failed": "Echec de creation du repertoire de sortie",
+  "simulation.population.ready": "Population filtree prete pour la simulation"
 }
