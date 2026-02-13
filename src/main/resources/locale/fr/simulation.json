@@ -14,5 +14,6 @@
   "population.filter.empty": "Aucun agent ne correspond aux filtres de zones et surfaces",
   "population.reconstruct.complete": "Population reconstruite : {} agents ecrits",
   "population.reconstruct.dir.failed": "Echec de creation du repertoire de sortie",
-  "simulation.population.ready": "Population filtree prete pour la simulation"
+  "simulation.population.ready": "Population filtree prete pour la simulation",
+  "vehicle.assignment.complete": "Vehicules assignes : {} agents repartis en {} categories"
 }

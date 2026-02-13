@@ -14,6 +14,10 @@ import ez.backend.turbo.validation.SimulationRequestValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.ThreadContext;
+import org.matsim.api.core.v01.population.Population;
+import org.matsim.core.population.PopulationUtils;
+import org.matsim.vehicles.MatsimVehicleWriter;
+import org.matsim.vehicles.Vehicles;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -38,6 +42,7 @@ public class SimulationService {
     private final SimulationRequestValidator validator;
     private final PopulationFilterService populationFilterService;
     private final PopulationReconstructionService populationReconstructionService;
+    private final VehicleAssignmentService vehicleAssignmentService;
     private final ZoneLinkResolver zoneLinkResolver;
     @Nullable private final SimulationQueueManager queueManager;
 
@@ -49,6 +54,7 @@ public class SimulationService {
                              SimulationRequestValidator validator,
                              PopulationFilterService populationFilterService,
                              PopulationReconstructionService populationReconstructionService,
+                             VehicleAssignmentService vehicleAssignmentService,
                              ZoneLinkResolver zoneLinkResolver,
                              @Nullable SimulationQueueManager queueManager) {
         this.scenarioStateService = scenarioStateService;
@@ -59,6 +65,7 @@ public class SimulationService {
         this.validator = validator;
         this.populationFilterService = populationFilterService;
         this.populationReconstructionService = populationReconstructionService;
+        this.vehicleAssignmentService = vehicleAssignmentService;
         this.zoneLinkResolver = zoneLinkResolver;
         this.queueManager = queueManager;
     }
@@ -139,6 +146,11 @@ public class SimulationService {
             Path plansFile = populationReconstructionService.reconstructAndSample(
                     filteredPersonIds, popYear, popName, requestId, percentage);
             log.info(L.msg("simulation.population.ready"));
+
+            Population population = PopulationUtils.readPopulation(plansFile.toString());
+            Vehicles vehicles = vehicleAssignmentService.assign(population, request.getCarDistribution());
+            Path vehiclesFile = plansFile.getParent().resolve("vehicles.xml");
+            new MatsimVehicleWriter(vehicles).writeFile(vehiclesFile.toString());
 
             scenarioStateService.updateStatus(requestId, ScenarioStatus.SIMULATING_BASELINE);
             log.info(L.msg("simulation.stage.baseline"));

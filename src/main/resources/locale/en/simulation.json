@@ -14,5 +14,6 @@
   "population.filter.empty": "No agents matched the zone and simulation area filters",
   "population.reconstruct.complete": "Population reconstructed: {} agents written",
   "population.reconstruct.dir.failed": "Failed to create output directory",
-  "simulation.population.ready": "Filtered population ready for simulation"
+  "simulation.population.ready": "Filtered population ready for simulation",
+  "vehicle.assignment.complete": "Vehicles assigned: {} agents across {} categories"
 }
