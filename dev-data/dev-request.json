@@ -1,0 +1,138 @@
+{
+  "zones": [
+    {
+      "id": "4ea608bb-1066-4d22-a3b5-15f7505a3f31",
+      "coords": [
+        [
+          [
+            -73.578,
+            45.507
+          ],
+          [
+            -73.565,
+            45.507
+          ],
+          [
+            -73.565,
+            45.515
+          ],
+          [
+            -73.578,
+            45.515
+          ],
+          [
+            -73.578,
+            45.507
+          ]
+        ]
+      ],
+      "trip": [
+        "start",
+        "end",
+        "pass"
+      ],
+      "policies": [
+        {
+          "vehicleType": "highEmission",
+          "tier": 1,
+          "period": [
+            "07:00",
+            "19:00"
+          ]
+        }
+      ]
+    }
+  ],
+  "customSimulationAreas": [
+    {
+      "id": "b2c3d4e5-6789-4abc-def0-123456789abc",
+      "coords": [
+        [
+          [
+            -73.58,
+            45.506
+          ],
+          [
+            -73.563,
+            45.506
+          ],
+          [
+            -73.563,
+            45.516
+          ],
+          [
+            -73.58,
+            45.516
+          ],
+          [
+            -73.58,
+            45.506
+          ]
+        ]
+      ]
+    }
+  ],
+  "scaledSimulationAreas": [
+    {
+      "id": "c3d4e5f6-789a-4bcd-ef01-23456789abcd",
+      "zoneId": "4ea608bb-1066-4d22-a3b5-15f7505a3f31",
+      "coords": [
+        [
+          [
+            -73.58,
+            45.506
+          ],
+          [
+            -73.563,
+            45.506
+          ],
+          [
+            -73.563,
+            45.516
+          ],
+          [
+            -73.58,
+            45.516
+          ],
+          [
+            -73.58,
+            45.506
+          ]
+        ]
+      ]
+    }
+  ],
+  "sources": {
+    "network": {
+      "year": 2024,
+      "name": "dev"
+    },
+    "population": {
+      "year": 2024,
+      "name": "dev"
+    },
+    "publicTransport": {
+      "year": 2024,
+      "name": "dev"
+    }
+  },
+  "simulationOptions": {
+    "iterations": 1,
+    "percentage": 10
+  },
+  "carDistribution": {
+    "zeroEmission": 20,
+    "nearZeroEmission": 20,
+    "lowEmission": 20,
+    "midEmission": 20,
+    "highEmission": 20
+  },
+  "modeUtilities": {
+    "walk": 0,
+    "bike": 0,
+    "car": 0,
+    "ev": 0,
+    "subway": 0,
+    "bus": 0
+  }
+}

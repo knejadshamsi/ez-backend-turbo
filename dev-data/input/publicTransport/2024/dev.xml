@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE transitSchedule SYSTEM "http://www.matsim.org/files/dtd/transitSchedule_v2.dtd">
+<transitSchedule>
+  <transitStops>
+    <stopFacility id="stop_1" x="-73.576" y="45.508" linkRefId="25" name="Stop South"/>
+    <stopFacility id="stop_5" x="-73.576" y="45.51" linkRefId="26" name="Stop Mid-South"/>
+    <stopFacility id="stop_9" x="-73.576" y="45.512" linkRefId="27" name="Stop Mid-North"/>
+    <stopFacility id="stop_13" x="-73.576" y="45.514" linkRefId="27" name="Stop North"/>
+  </transitStops>
+  <transitLine id="line_1" name="Bus 1">
+    <transitRoute id="route_1">
+      <transportMode>bus</transportMode>
+      <routeProfile>
+        <stop refId="stop_1" departureOffset="00:00:00"/>
+        <stop refId="stop_5" arrivalOffset="00:02:00" departureOffset="00:02:30"/>
+        <stop refId="stop_9" arrivalOffset="00:04:30" departureOffset="00:05:00"/>
+        <stop refId="stop_13" arrivalOffset="00:07:00"/>
+      </routeProfile>
+      <route>
+        <link refId="25"/>
+        <link refId="26"/>
+        <link refId="27"/>
+      </route>
+      <departures>
+        <departure id="dep_1" departureTime="06:00:00" vehicleRefId="bus_1"/>
+        <departure id="dep_2" departureTime="06:10:00" vehicleRefId="bus_2"/>
+        <departure id="dep_3" departureTime="06:20:00" vehicleRefId="bus_3"/>
+        <departure id="dep_4" departureTime="06:30:00" vehicleRefId="bus_4"/>
+        <departure id="dep_5" departureTime="06:40:00" vehicleRefId="bus_1"/>
+        <departure id="dep_6" departureTime="06:50:00" vehicleRefId="bus_2"/>
+        <departure id="dep_7" departureTime="07:00:00" vehicleRefId="bus_3"/>
+        <departure id="dep_8" departureTime="07:10:00" vehicleRefId="bus_4"/>
+        <departure id="dep_9" departureTime="07:20:00" vehicleRefId="bus_1"/>
+        <departure id="dep_10" departureTime="07:30:00" vehicleRefId="bus_2"/>
+        <departure id="dep_11" departureTime="07:40:00" vehicleRefId="bus_3"/>
+        <departure id="dep_12" departureTime="07:50:00" vehicleRefId="bus_4"/>
+        <departure id="dep_13" departureTime="08:00:00" vehicleRefId="bus_1"/>
+        <departure id="dep_14" departureTime="08:10:00" vehicleRefId="bus_2"/>
+        <departure id="dep_15" departureTime="08:20:00" vehicleRefId="bus_3"/>
+        <departure id="dep_16" departureTime="08:30:00" vehicleRefId="bus_4"/>
+        <departure id="dep_17" departureTime="08:40:00" vehicleRefId="bus_1"/>
+        <departure id="dep_18" departureTime="08:50:00" vehicleRefId="bus_2"/>
+        <departure id="dep_19" departureTime="09:00:00" vehicleRefId="bus_3"/>
+        <departure id="dep_20" departureTime="09:10:00" vehicleRefId="bus_4"/>
+        <departure id="dep_21" departureTime="16:00:00" vehicleRefId="bus_1"/>
+        <departure id="dep_22" departureTime="16:10:00" vehicleRefId="bus_2"/>
+        <departure id="dep_23" departureTime="16:20:00" vehicleRefId="bus_3"/>
+        <departure id="dep_24" departureTime="16:30:00" vehicleRefId="bus_4"/>
+        <departure id="dep_25" departureTime="16:40:00" vehicleRefId="bus_1"/>
+        <departure id="dep_26" departureTime="16:50:00" vehicleRefId="bus_2"/>
+        <departure id="dep_27" departureTime="17:00:00" vehicleRefId="bus_3"/>
+        <departure id="dep_28" departureTime="17:10:00" vehicleRefId="bus_4"/>
+        <departure id="dep_29" departureTime="17:20:00" vehicleRefId="bus_1"/>
+        <departure id="dep_30" departureTime="17:30:00" vehicleRefId="bus_2"/>
+        <departure id="dep_31" departureTime="17:40:00" vehicleRefId="bus_3"/>
+        <departure id="dep_32" departureTime="17:50:00" vehicleRefId="bus_4"/>
+        <departure id="dep_33" departureTime="18:00:00" vehicleRefId="bus_1"/>
+        <departure id="dep_34" departureTime="18:10:00" vehicleRefId="bus_2"/>
+        <departure id="dep_35" departureTime="18:20:00" vehicleRefId="bus_3"/>
+        <departure id="dep_36" departureTime="18:30:00" vehicleRefId="bus_4"/>
+      </departures>
+    </transitRoute>
+  </transitLine>
+</transitSchedule>

@@ -1,0 +1,26 @@
+vehicleTypes:
+  zeroEmission:
+    hbefaCategory: "PASSENGER_CAR"
+    hbefaTechnology: "electricity"
+    hbefaSizeClass: "not specified"
+    hbefaEmissionsConcept: "PC-BEV"
+  nearZeroEmission:
+    hbefaCategory: "PASSENGER_CAR"
+    hbefaTechnology: "electricity"
+    hbefaSizeClass: "not specified"
+    hbefaEmissionsConcept: "PC-PHEV"
+  lowEmission:
+    hbefaCategory: "PASSENGER_CAR"
+    hbefaTechnology: "petrol/electric"
+    hbefaSizeClass: "not specified"
+    hbefaEmissionsConcept: "PC-P-Euro-6d"
+  midEmission:
+    hbefaCategory: "PASSENGER_CAR"
+    hbefaTechnology: "petrol (4S)"
+    hbefaSizeClass: "not specified"
+    hbefaEmissionsConcept: "PC-P-Euro-4"
+  highEmission:
+    hbefaCategory: "PASSENGER_CAR"
+    hbefaTechnology: "diesel"
+    hbefaSizeClass: "not specified"
+    hbefaEmissionsConcept: "PC-D-Euro-3"

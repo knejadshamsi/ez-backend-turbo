@@ -54,7 +54,7 @@ public class Application {
         }
 
         if (hasDev) {
-            SpringApplication.run(Application.class, new String[]{});
+            SpringApplication.run(Application.class, new String[]{"--ez.data.root=./dev-data"});
         } else {
             if (!StartupValidator.checkConfigFile(configPath)) {
                 return;

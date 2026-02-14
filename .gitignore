@@ -13,3 +13,5 @@ docs/
 *.bak
 *~
 .vscode/
+dev-data/db/
+dev-data/output/

@@ -13,6 +13,9 @@ import org.matsim.core.controler.AbstractModule;
 import org.matsim.core.controler.Controler;
 import org.matsim.core.scenario.MutableScenario;
 import org.matsim.core.scenario.ScenarioUtils;
+import org.matsim.vehicles.EngineInformation;
+import org.matsim.vehicles.VehicleType;
+import org.matsim.vehicles.VehicleUtils;
 import org.matsim.vehicles.Vehicles;
 import org.springframework.stereotype.Component;
 
@@ -52,6 +55,7 @@ public class MatsimRunner {
         String transitName = request.getSources().getPublicTransport().getName();
         SourceRegistry.TransitData transit = sourceRegistry.getTransit(transitYear, transitName);
         scenario.setTransitSchedule(transit.schedule());
+        tagTransitVehicleTypes(transit.vehicles());
         scenario.setTransitVehicles(transit.vehicles());
 
         log.info(L.msg("simulation.matsim.scenario.ready"));
@@ -68,5 +72,18 @@ public class MatsimRunner {
         Path outputDir = Path.of(config.controller().getOutputDirectory());
         log.info(L.msg("simulation.baseline.complete"), outputDir);
         return outputDir;
+    }
+
+    private void tagTransitVehicleTypes(Vehicles transitVehicles) {
+        for (VehicleType vt : transitVehicles.getVehicleTypes().values()) {
+            if (VehicleUtils.getHbefaVehicleCategory(vt.getEngineInformation()) == null) {
+                vt.setNetworkMode("car");
+                EngineInformation ei = vt.getEngineInformation();
+                VehicleUtils.setHbefaVehicleCategory(ei, "PASSENGER_CAR");
+                VehicleUtils.setHbefaTechnology(ei, "diesel");
+                VehicleUtils.setHbefaSizeClass(ei, "not specified");
+                VehicleUtils.setHbefaEmissionsConcept(ei, "PC-D-Euro-3");
+            }
+        }
     }
 }

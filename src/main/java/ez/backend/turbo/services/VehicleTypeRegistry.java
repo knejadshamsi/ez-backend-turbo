@@ -91,6 +91,7 @@ public class VehicleTypeRegistry {
             Map<String, String> attrs = entry.getValue();
 
             VehicleType vt = factory.createVehicleType(Id.create(name, VehicleType.class));
+            vt.setNetworkMode("car");
             EngineInformation engineInfo = vt.getEngineInformation();
             VehicleUtils.setHbefaVehicleCategory(engineInfo, attrs.get("hbefaCategory"));
             VehicleUtils.setHbefaTechnology(engineInfo, attrs.get("hbefaTechnology"));

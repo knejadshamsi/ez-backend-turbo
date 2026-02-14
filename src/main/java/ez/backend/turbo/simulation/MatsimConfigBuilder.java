@@ -188,5 +188,8 @@ public class MatsimConfigBuilder {
         EmissionsConfigGroup emissions = ConfigUtils.addOrGetModule(config, EmissionsConfigGroup.class);
         emissions.setAverageWarmEmissionFactorsFile(vehicleTypeRegistry.getHbefaWarmFile().toString());
         emissions.setAverageColdEmissionFactorsFile(vehicleTypeRegistry.getHbefaColdFile().toString());
+        emissions.setDetailedVsAverageLookupBehavior(
+                EmissionsConfigGroup.DetailedVsAverageLookupBehavior.directlyTryAverageTable);
+        emissions.setNonScenarioVehicles(EmissionsConfigGroup.NonScenarioVehicles.ignore);
     }
 }

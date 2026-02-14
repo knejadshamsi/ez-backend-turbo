@@ -10,7 +10,6 @@ import org.matsim.api.core.v01.network.Link;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.api.core.v01.network.NetworkFactory;
 import org.matsim.api.core.v01.network.Node;
-import org.matsim.contrib.emissions.OsmHbefaMapping;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.network.NetworkUtils;
 import org.matsim.core.utils.geometry.CoordinateTransformation;
@@ -47,7 +46,7 @@ public class NetworkSpatialLoader {
 
         try {
             createTables(jdbc);
-            deriveHbefaTypes(network);
+            validateHbefaTypes(network);
             insertNodes(jdbc, network);
             insertLinks(jdbc, network);
         } catch (Exception e) {
@@ -112,19 +111,18 @@ public class NetworkSpatialLoader {
         jdbc.execute("CREATE SPATIAL INDEX IF NOT EXISTS idx_links_geom ON links(geom)");
     }
 
-    private void deriveHbefaTypes(Network network) {
-        OsmHbefaMapping mapping = OsmHbefaMapping.build();
-        int derived = 0;
+    private void validateHbefaTypes(Network network) {
+        List<String> missing = new ArrayList<>();
         for (Link link : network.getLinks().values()) {
-            try {
-                String type = mapping.determineHbefaType(link);
-                if (type != null) {
-                    link.getAttributes().putAttribute(HBEFA_ATTR, type);
-                    derived++;
-                }
-            } catch (Exception ignored) {}
+            if (link.getAttributes().getAttribute(HBEFA_ATTR) == null) {
+                missing.add(link.getId().toString());
+            }
         }
-        log.info(L.msg("source.network.hbefa"), derived, network.getLinks().size());
+        if (!missing.isEmpty()) {
+            throw new IllegalStateException(
+                    L.msg("source.network.hbefa.missing") + ": " + String.join(", ", missing));
+        }
+        log.info(L.msg("source.network.hbefa"), network.getLinks().size(), network.getLinks().size());
     }
 
     private void insertNodes(JdbcTemplate jdbc, Network network) {
