@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ez.backend.turbo.endpoints.SimulationRequest;
 import ez.backend.turbo.session.SseEmitterRegistry;
+import ez.backend.turbo.simulation.MatsimRunner;
 import ez.backend.turbo.simulation.ZoneLinkResolver;
 import ez.backend.turbo.simulation.ZoneLinkResolver.ZoneLinkSet;
 import ez.backend.turbo.sse.SseMessageSender;
@@ -44,6 +45,7 @@ public class SimulationService {
     private final PopulationReconstructionService populationReconstructionService;
     private final VehicleAssignmentService vehicleAssignmentService;
     private final ZoneLinkResolver zoneLinkResolver;
+    private final MatsimRunner matsimRunner;
     @Nullable private final SimulationQueueManager queueManager;
 
     public SimulationService(ScenarioStateService scenarioStateService,
@@ -56,6 +58,7 @@ public class SimulationService {
                              PopulationReconstructionService populationReconstructionService,
                              VehicleAssignmentService vehicleAssignmentService,
                              ZoneLinkResolver zoneLinkResolver,
+                             MatsimRunner matsimRunner,
                              @Nullable SimulationQueueManager queueManager) {
         this.scenarioStateService = scenarioStateService;
         this.processManager = processManager;
@@ -67,6 +70,7 @@ public class SimulationService {
         this.populationReconstructionService = populationReconstructionService;
         this.vehicleAssignmentService = vehicleAssignmentService;
         this.zoneLinkResolver = zoneLinkResolver;
+        this.matsimRunner = matsimRunner;
         this.queueManager = queueManager;
     }
 
@@ -98,6 +102,7 @@ public class SimulationService {
 
             return emitter;
         } catch (Exception e) {
+            emitterRegistry.remove(requestId);
             processManager.unregister(requestId);
             scenarioStateService.updateStatus(requestId, ScenarioStatus.FAILED);
             throw e;
@@ -110,7 +115,13 @@ public class SimulationService {
         SseEmitter emitter = new SseEmitter(totalTimeout);
         emitterRegistry.register(requestId, emitter);
 
-        storeInput(requestId, request);
+        try {
+            storeInput(requestId, request);
+        } catch (Exception e) {
+            emitterRegistry.remove(requestId);
+            scenarioStateService.updateStatus(requestId, ScenarioStatus.FAILED);
+            throw e;
+        }
 
         boolean idle = queueManager.hasIdleWorker();
         boolean submitted = queueManager.submit(requestId, emitter, !idle, request);
@@ -154,6 +165,8 @@ public class SimulationService {
 
             scenarioStateService.updateStatus(requestId, ScenarioStatus.SIMULATING_BASELINE);
             log.info(L.msg("simulation.stage.baseline"));
+            matsimRunner.runSimulation(
+                    request, requestId, population, vehicles, plansFile, vehiclesFile, "baseline");
 
             scenarioStateService.updateStatus(requestId, ScenarioStatus.SIMULATING_POLICY);
             log.info(L.msg("simulation.stage.policy"));
@@ -181,6 +194,11 @@ public class SimulationService {
             messageSender.sendMessage(emitter, MessageType.PA_REQUEST_ACCEPTED,
                     Map.of("requestId", requestId.toString()));
             executePipeline(requestId, emitter, request);
+        } catch (Exception e) {
+            log.error("{}: {}", L.msg("simulation.failed"), e.getMessage(), e);
+            scenarioStateService.updateStatus(requestId, ScenarioStatus.FAILED);
+            messageSender.sendError(emitter, MessageType.ERROR_GLOBAL, "PIPELINE_ERROR", e.getMessage());
+            messageSender.complete(emitter);
         } finally {
             processManager.unregister(requestId);
         }

@@ -206,6 +206,13 @@ public class SimulationRequestValidator {
             if (policy.getInterval() == null || policy.getInterval() <= 0) {
                 errors.add(String.format(L.msg("validation.policy.interval"), prefix));
             }
+        } else {
+            if (policy.getPenalty() != null) {
+                errors.add(String.format(L.msg("validation.policy.penalty.forbidden"), prefix));
+            }
+            if (policy.getInterval() != null) {
+                errors.add(String.format(L.msg("validation.policy.interval.forbidden"), prefix));
+            }
         }
     }
 

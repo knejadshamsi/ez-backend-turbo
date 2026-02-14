@@ -4,6 +4,7 @@ import ez.backend.turbo.utils.L;
 import ez.backend.turbo.utils.StandardResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -23,6 +24,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<StandardResponse<?>> handleServiceUnavailable(IllegalStateException e) {
         log.warn("{}: {}", L.msg("exception.caught"), e.getMessage());
         return ResponseEntity.status(503).body(StandardResponse.error(503, e.getMessage()));
+    }
+
+    @ExceptionHandler(DataAccessException.class)
+    public ResponseEntity<StandardResponse<?>> handleDatabaseError(DataAccessException e) {
+        log.error("{}: {}", L.msg("exception.caught"), e.getMessage(), e);
+        return ResponseEntity.status(503).body(StandardResponse.error(503, L.msg("exception.database")));
     }
 
     @ExceptionHandler(Exception.class)

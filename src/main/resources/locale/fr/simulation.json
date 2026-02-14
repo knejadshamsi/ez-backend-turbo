@@ -15,5 +15,7 @@
   "population.reconstruct.complete": "Population reconstruite : {} agents ecrits",
   "population.reconstruct.dir.failed": "Echec de creation du repertoire de sortie",
   "simulation.population.ready": "Population filtree prete pour la simulation",
-  "vehicle.assignment.complete": "Vehicules assignes : {} agents repartis en {} categories"
+  "vehicle.assignment.complete": "Vehicules assignes : {} agents repartis en {} categories",
+  "simulation.baseline.complete": "Simulation de reference terminee, sortie : {}",
+  "simulation.matsim.scenario.ready": "Scenario MATSim assemble, demarrage du Controler"
 }

@@ -53,13 +53,15 @@ public class MatsimConfigBuilder {
         this.vehicleTypeRegistry = vehicleTypeRegistry;
     }
 
-    public Config build(SimulationRequest request, UUID requestId, String runType, @Nullable Path plansFile) {
+    public Config build(SimulationRequest request, UUID requestId, String runType,
+                        @Nullable Path plansFile, @Nullable Path vehiclesFile) {
         Config config = ConfigUtils.createConfig();
         configureGlobal(config);
         configureController(config, request, requestId, runType);
         configureQSim(config, request);
         configureNetwork(config, request);
         configurePlans(config, plansFile);
+        configureVehicles(config, vehiclesFile);
         configureTransit(config, request);
         configureScoring(config, request);
         configureReplanning(config);
@@ -106,6 +108,12 @@ public class MatsimConfigBuilder {
     private void configurePlans(Config config, @Nullable Path plansFile) {
         if (plansFile != null) {
             config.plans().setInputFile(plansFile.toString());
+        }
+    }
+
+    private void configureVehicles(Config config, @Nullable Path vehiclesFile) {
+        if (vehiclesFile != null) {
+            config.vehicles().setVehiclesFile(vehiclesFile.toString());
         }
     }
 

@@ -25,6 +25,8 @@
   "validation.policy.period.order": "%s : le debut de period doit etre avant la fin",
   "validation.policy.penalty": "%s : tier 2 exige penalty > 0",
   "validation.policy.interval": "%s : tier 2 exige interval > 0",
+  "validation.policy.penalty.forbidden": "%s : penalty s'applique uniquement au tier 2",
+  "validation.policy.interval.forbidden": "%s : interval s'applique uniquement au tier 2",
 
   "validation.ctx.custom.area": "Zone personnalisee a l'index %d",
   "validation.ctx.scaled.area": "Zone mise a l'echelle a l'index %d",
