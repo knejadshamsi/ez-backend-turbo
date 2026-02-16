@@ -17,5 +17,7 @@
   "simulation.population.ready": "Population filtree prete pour la simulation",
   "vehicle.assignment.complete": "Vehicules assignes : {} agents repartis en {} categories",
   "simulation.baseline.complete": "Simulation de reference terminee, sortie : {}",
-  "simulation.matsim.scenario.ready": "Scenario MATSim assemble, demarrage du Controler"
+  "simulation.matsim.scenario.ready": "Scenario MATSim assemble, demarrage du Controler",
+  "simulation.policy.complete": "Simulation de politique terminee, sortie : {}",
+  "simulation.policy.index": "Index de politiques de zone construit : {} zones, {} regles"
 }

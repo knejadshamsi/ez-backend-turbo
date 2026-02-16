@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ez.backend.turbo.endpoints.SimulationRequest;
 import ez.backend.turbo.session.SseEmitterRegistry;
 import ez.backend.turbo.simulation.MatsimRunner;
+import ez.backend.turbo.simulation.ZoneEnforcementModule;
 import ez.backend.turbo.simulation.ZoneLinkResolver;
+import ez.backend.turbo.simulation.ZonePolicyIndex;
 import ez.backend.turbo.simulation.ZoneLinkResolver.ZoneLinkSet;
 import ez.backend.turbo.sse.SseMessageSender;
 import ez.backend.turbo.utils.L;
@@ -17,6 +19,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.ThreadContext;
 import org.matsim.api.core.v01.population.Population;
 import org.matsim.core.population.PopulationUtils;
+import org.matsim.core.population.io.PopulationWriter;
 import org.matsim.vehicles.MatsimVehicleWriter;
 import org.matsim.vehicles.Vehicles;
 import org.springframework.lang.Nullable;
@@ -162,6 +165,7 @@ public class SimulationService {
             Vehicles vehicles = vehicleAssignmentService.assign(population, request.getCarDistribution());
             Path vehiclesFile = plansFile.getParent().resolve("vehicles.xml");
             new MatsimVehicleWriter(vehicles).writeFile(vehiclesFile.toString());
+            new PopulationWriter(population).write(plansFile.toString());
 
             scenarioStateService.updateStatus(requestId, ScenarioStatus.SIMULATING_BASELINE);
             log.info(L.msg("simulation.stage.baseline"));
@@ -170,6 +174,12 @@ public class SimulationService {
 
             scenarioStateService.updateStatus(requestId, ScenarioStatus.SIMULATING_POLICY);
             log.info(L.msg("simulation.stage.policy"));
+            ZonePolicyIndex policyIndex = ZonePolicyIndex.build(request.getZones(), zoneLinkSets);
+            ZoneEnforcementModule enforcementModule = new ZoneEnforcementModule(policyIndex);
+            Population policyPopulation = PopulationUtils.readPopulation(plansFile.toString());
+            matsimRunner.runSimulation(
+                    request, requestId, policyPopulation, vehicles,
+                    plansFile, vehiclesFile, "policy", enforcementModule);
 
             scenarioStateService.updateStatus(requestId, ScenarioStatus.POSTPROCESSING);
             log.info(L.msg("simulation.stage.postprocess"));

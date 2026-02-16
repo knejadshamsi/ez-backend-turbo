@@ -202,6 +202,8 @@ public class SimulationRequestValidator {
         if (policy.getTier() == 2) {
             if (policy.getPenalty() == null || policy.getPenalty() <= 0) {
                 errors.add(String.format(L.msg("validation.policy.penalty"), prefix));
+            } else if (policy.getPenalty() >= 10000) {
+                errors.add(String.format(L.msg("validation.policy.penalty.max"), prefix));
             }
             if (policy.getInterval() == null || policy.getInterval() <= 0) {
                 errors.add(String.format(L.msg("validation.policy.interval"), prefix));

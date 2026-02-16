@@ -38,7 +38,8 @@ public class MatsimRunner {
 
     public Path runSimulation(SimulationRequest request, UUID requestId,
                               Population population, Vehicles vehicles,
-                              Path plansFile, Path vehiclesFile, String runType) {
+                              Path plansFile, Path vehiclesFile, String runType,
+                              AbstractModule... additionalModules) {
         Config config = configBuilder.build(request, requestId, runType, plansFile, vehiclesFile);
         MutableScenario scenario = (MutableScenario) ScenarioUtils.createScenario(config);
 
@@ -67,10 +68,15 @@ public class MatsimRunner {
                 bind(EmissionModule.class).asEagerSingleton();
             }
         });
+        for (AbstractModule module : additionalModules) {
+            controler.addOverridingModule(module);
+        }
         controler.run();
 
         Path outputDir = Path.of(config.controller().getOutputDirectory());
-        log.info(L.msg("simulation.baseline.complete"), outputDir);
+        String msgKey = "baseline".equals(runType)
+                ? "simulation.baseline.complete" : "simulation.policy.complete";
+        log.info(L.msg(msgKey), outputDir);
         return outputDir;
     }
 

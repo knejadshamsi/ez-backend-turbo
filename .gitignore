@@ -13,5 +13,5 @@ docs/
 *.bak
 *~
 .vscode/
-dev-data/db/
+dev-data/scenarios.*
 dev-data/output/

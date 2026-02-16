@@ -34,6 +34,40 @@
       "policies": [
         {
           "vehicleType": "highEmission",
+          "tier": 3,
+          "period": [
+            "07:00",
+            "19:00"
+          ]
+        },
+        {
+          "vehicleType": "midEmission",
+          "tier": 2,
+          "period": [
+            "07:00",
+            "19:00"
+          ],
+          "penalty": 5,
+          "interval": 10
+        },
+        {
+          "vehicleType": "lowEmission",
+          "tier": 1,
+          "period": [
+            "07:00",
+            "19:00"
+          ]
+        },
+        {
+          "vehicleType": "nearZeroEmission",
+          "tier": 1,
+          "period": [
+            "07:00",
+            "19:00"
+          ]
+        },
+        {
+          "vehicleType": "zeroEmission",
           "tier": 1,
           "period": [
             "07:00",
@@ -117,7 +151,7 @@
     }
   },
   "simulationOptions": {
-    "iterations": 1,
+    "iterations": 10,
     "percentage": 10
   },
   "carDistribution": {

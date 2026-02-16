@@ -24,6 +24,7 @@
   "validation.policy.period.format": "%s : l'entree '%s' de period n'est pas un HH:mm valide",
   "validation.policy.period.order": "%s : le debut de period doit etre avant la fin",
   "validation.policy.penalty": "%s : tier 2 exige penalty > 0",
+  "validation.policy.penalty.max": "%s : la penalite tier 2 doit etre inferieure a 10000",
   "validation.policy.interval": "%s : tier 2 exige interval > 0",
   "validation.policy.penalty.forbidden": "%s : penalty s'applique uniquement au tier 2",
   "validation.policy.interval.forbidden": "%s : interval s'applique uniquement au tier 2",

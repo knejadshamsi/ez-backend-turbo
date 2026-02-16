@@ -17,5 +17,7 @@
   "simulation.population.ready": "Filtered population ready for simulation",
   "vehicle.assignment.complete": "Vehicles assigned: {} agents across {} categories",
   "simulation.baseline.complete": "Baseline simulation finished, output: {}",
-  "simulation.matsim.scenario.ready": "MATSim scenario assembled, starting Controler"
+  "simulation.matsim.scenario.ready": "MATSim scenario assembled, starting Controler",
+  "simulation.policy.complete": "Policy simulation finished, output: {}",
+  "simulation.policy.index": "Zone policy index built: {} zones, {} enforcement rules"
 }
