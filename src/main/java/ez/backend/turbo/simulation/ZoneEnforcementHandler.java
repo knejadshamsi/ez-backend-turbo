@@ -27,6 +27,7 @@ public class ZoneEnforcementHandler implements LinkEnterEventHandler, VehicleEnt
     private final EventsManager eventsManager;
     private final Vehicles vehicles;
     private final ConcurrentHashMap<Id<Vehicle>, Id<Person>> vehiclePersonMap = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Id<Person>, Integer> tripIndexMap = new ConcurrentHashMap<>();
     private final ConcurrentHashMap<Id<Vehicle>, ConcurrentHashMap<String, EntryRecord>> entryTimestamps = new ConcurrentHashMap<>();
 
     private record EntryRecord(double time, EnforcementRule rule) {}
@@ -41,12 +42,14 @@ public class ZoneEnforcementHandler implements LinkEnterEventHandler, VehicleEnt
     @Override
     public void reset(int iteration) {
         vehiclePersonMap.clear();
+        tripIndexMap.clear();
         entryTimestamps.clear();
     }
 
     @Override
     public void handleEvent(VehicleEntersTrafficEvent event) {
         vehiclePersonMap.put(event.getVehicleId(), event.getPersonId());
+        tripIndexMap.merge(event.getPersonId(), 0, (old, v) -> old + 1);
 
         Id<Vehicle> vehicleId = event.getVehicleId();
         Vehicle vehicle = vehicles.getVehicles().get(vehicleId);
@@ -85,8 +88,9 @@ public class ZoneEnforcementHandler implements LinkEnterEventHandler, VehicleEnt
             if (rule.tier() == 3) {
                 Id<Person> personId = vehiclePersonMap.get(vehicleId);
                 if (personId != null) {
+                    String ref = String.valueOf(tripIndexMap.getOrDefault(personId, 0));
                     eventsManager.processEvent(
-                            new PersonMoneyEvent(time, personId, BAN_PENALTY, "zone_ban", rule.zoneId(), null));
+                            new PersonMoneyEvent(time, personId, BAN_PENALTY, "zone_ban", rule.zoneId(), ref));
                 }
             } else if (rule.tier() == 2) {
                 entryTimestamps
@@ -114,8 +118,9 @@ public class ZoneEnforcementHandler implements LinkEnterEventHandler, VehicleEnt
             double charge = intervals * record.rule().penalty();
             Id<Person> personId = vehiclePersonMap.get(vehicleId);
             if (personId != null) {
+                String ref = String.valueOf(tripIndexMap.getOrDefault(personId, 0));
                 eventsManager.processEvent(
-                        new PersonMoneyEvent(time, personId, -charge, "zone_penalty", zoneId, null));
+                        new PersonMoneyEvent(time, personId, -charge, "zone_penalty", zoneId, ref));
             }
         }
     }

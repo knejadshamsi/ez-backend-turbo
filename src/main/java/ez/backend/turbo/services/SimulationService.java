@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ez.backend.turbo.endpoints.SimulationRequest;
 import ez.backend.turbo.session.SseEmitterRegistry;
 import ez.backend.turbo.simulation.MatsimRunner;
+import ez.backend.turbo.simulation.MatsimRunner.SimulationResult;
 import ez.backend.turbo.simulation.ZoneEnforcementModule;
 import ez.backend.turbo.simulation.ZoneLinkResolver;
 import ez.backend.turbo.simulation.ZonePolicyIndex;
@@ -17,6 +18,7 @@ import ez.backend.turbo.validation.SimulationRequestValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.ThreadContext;
+import org.matsim.api.core.v01.network.Network;
 import org.matsim.api.core.v01.population.Population;
 import org.matsim.core.population.PopulationUtils;
 import org.matsim.core.population.io.PopulationWriter;
@@ -49,6 +51,7 @@ public class SimulationService {
     private final VehicleAssignmentService vehicleAssignmentService;
     private final ZoneLinkResolver zoneLinkResolver;
     private final MatsimRunner matsimRunner;
+    private final SourceRegistry sourceRegistry;
     @Nullable private final SimulationQueueManager queueManager;
 
     public SimulationService(ScenarioStateService scenarioStateService,
@@ -62,6 +65,7 @@ public class SimulationService {
                              VehicleAssignmentService vehicleAssignmentService,
                              ZoneLinkResolver zoneLinkResolver,
                              MatsimRunner matsimRunner,
+                             SourceRegistry sourceRegistry,
                              @Nullable SimulationQueueManager queueManager) {
         this.scenarioStateService = scenarioStateService;
         this.processManager = processManager;
@@ -74,6 +78,7 @@ public class SimulationService {
         this.vehicleAssignmentService = vehicleAssignmentService;
         this.zoneLinkResolver = zoneLinkResolver;
         this.matsimRunner = matsimRunner;
+        this.sourceRegistry = sourceRegistry;
         this.queueManager = queueManager;
     }
 
@@ -162,14 +167,20 @@ public class SimulationService {
             log.info(L.msg("simulation.population.ready"));
 
             Population population = PopulationUtils.readPopulation(plansFile.toString());
+            int personCount = population.getPersons().size();
             Vehicles vehicles = vehicleAssignmentService.assign(population, request.getCarDistribution());
             Path vehiclesFile = plansFile.getParent().resolve("vehicles.xml");
             new MatsimVehicleWriter(vehicles).writeFile(vehiclesFile.toString());
             new PopulationWriter(population).write(plansFile.toString());
 
+            Network network = sourceRegistry.getNetwork(netYear, netName);
+            int networkNodes = network.getNodes().size();
+            int networkLinks = network.getLinks().size();
+            double simulationAreaKm2 = zoneLinkResolver.computeTotalAreaKm2(zoneLinkSets);
+
             scenarioStateService.updateStatus(requestId, ScenarioStatus.SIMULATING_BASELINE);
             log.info(L.msg("simulation.stage.baseline"));
-            matsimRunner.runSimulation(
+            SimulationResult baselineResult = matsimRunner.runSimulation(
                     request, requestId, population, vehicles, plansFile, vehiclesFile, "baseline");
 
             scenarioStateService.updateStatus(requestId, ScenarioStatus.SIMULATING_POLICY);
@@ -177,12 +188,14 @@ public class SimulationService {
             ZonePolicyIndex policyIndex = ZonePolicyIndex.build(request.getZones(), zoneLinkSets);
             ZoneEnforcementModule enforcementModule = new ZoneEnforcementModule(policyIndex);
             Population policyPopulation = PopulationUtils.readPopulation(plansFile.toString());
-            matsimRunner.runSimulation(
+            SimulationResult policyResult = matsimRunner.runSimulation(
                     request, requestId, policyPopulation, vehicles,
                     plansFile, vehiclesFile, "policy", enforcementModule);
 
             scenarioStateService.updateStatus(requestId, ScenarioStatus.POSTPROCESSING);
             log.info(L.msg("simulation.stage.postprocess"));
+
+            // TODO: OutputManager.processOutput(...)
 
             scenarioStateService.updateStatus(requestId, ScenarioStatus.COMPLETED);
             messageSender.sendLifecycle(emitter, MessageType.SUCCESS_PROCESS);

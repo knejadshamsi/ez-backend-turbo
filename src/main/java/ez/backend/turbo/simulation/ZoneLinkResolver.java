@@ -47,7 +47,8 @@ public class ZoneLinkResolver {
             Set<Id<Link>> allLinks,
             Set<Id<Link>> entryGateways,
             Set<Id<Link>> exitGateways,
-            Set<Id<Link>> interiorLinks
+            Set<Id<Link>> interiorLinks,
+            double areaM2
     ) {}
 
     public List<ZoneLinkSet> resolve(List<SimulationRequest.Zone> zones,
@@ -73,7 +74,8 @@ public class ZoneLinkResolver {
 
         List<ZoneLinkSet> results = new ArrayList<>(zones.size());
         for (ProjectedZone pz : projectedZones) {
-            results.add(classifyLinks(pz, rawLinkSets.get(pz.zoneId), network));
+            double areaM2 = pz.polygon.getArea();
+            results.add(classifyLinks(pz, rawLinkSets.get(pz.zoneId), network, areaM2));
         }
         return results;
     }
@@ -118,7 +120,7 @@ public class ZoneLinkResolver {
         }
     }
 
-    private ZoneLinkSet classifyLinks(ProjectedZone pz, Set<String> linkIdStrings, Network network) {
+    private ZoneLinkSet classifyLinks(ProjectedZone pz, Set<String> linkIdStrings, Network network, double areaM2) {
         Set<Id<Link>> allLinks = new HashSet<>();
         Set<Id<Link>> entryGateways = new HashSet<>();
         Set<Id<Link>> exitGateways = new HashSet<>();
@@ -146,7 +148,15 @@ public class ZoneLinkResolver {
             }
         }
 
-        return new ZoneLinkSet(pz.zoneId, allLinks, entryGateways, exitGateways, interiorLinks);
+        return new ZoneLinkSet(pz.zoneId, allLinks, entryGateways, exitGateways, interiorLinks, areaM2);
+    }
+
+    public double computeTotalAreaKm2(List<ZoneLinkSet> zoneLinkSets) {
+        double totalM2 = 0;
+        for (ZoneLinkSet zls : zoneLinkSets) {
+            totalM2 += zls.areaM2();
+        }
+        return totalM2 / 1_000_000.0;
     }
 
     private boolean isInside(Node node, Polygon polygon) {
