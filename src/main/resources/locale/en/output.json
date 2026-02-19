@@ -1,0 +1,7 @@
+{
+  "output.stage.overview": "Extracting overview metrics",
+  "output.stage.modescan": "Pre-scanning mode shift data",
+  "output.overview.written": "Overview written: {} persons, {} legs, {} km traveled",
+  "output.failed": "Output processing failed",
+  "output.column.missing": "Column not found"
+}

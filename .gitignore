@@ -6,7 +6,7 @@ target/
 *.war
 *.log
 logs/
-output/
+/output/
 *.db
 docs/
 *.tmp

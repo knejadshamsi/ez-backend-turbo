@@ -3,6 +3,7 @@ package ez.backend.turbo.services;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ez.backend.turbo.endpoints.SimulationRequest;
+import ez.backend.turbo.output.OutputManager;
 import ez.backend.turbo.session.SseEmitterRegistry;
 import ez.backend.turbo.simulation.MatsimRunner;
 import ez.backend.turbo.simulation.MatsimRunner.SimulationResult;
@@ -52,6 +53,7 @@ public class SimulationService {
     private final ZoneLinkResolver zoneLinkResolver;
     private final MatsimRunner matsimRunner;
     private final SourceRegistry sourceRegistry;
+    private final OutputManager outputManager;
     @Nullable private final SimulationQueueManager queueManager;
 
     public SimulationService(ScenarioStateService scenarioStateService,
@@ -66,6 +68,7 @@ public class SimulationService {
                              ZoneLinkResolver zoneLinkResolver,
                              MatsimRunner matsimRunner,
                              SourceRegistry sourceRegistry,
+                             OutputManager outputManager,
                              @Nullable SimulationQueueManager queueManager) {
         this.scenarioStateService = scenarioStateService;
         this.processManager = processManager;
@@ -79,6 +82,7 @@ public class SimulationService {
         this.zoneLinkResolver = zoneLinkResolver;
         this.matsimRunner = matsimRunner;
         this.sourceRegistry = sourceRegistry;
+        this.outputManager = outputManager;
         this.queueManager = queueManager;
     }
 
@@ -195,11 +199,9 @@ public class SimulationService {
             scenarioStateService.updateStatus(requestId, ScenarioStatus.POSTPROCESSING);
             log.info(L.msg("simulation.stage.postprocess"));
 
-            // TODO: OutputManager.processOutput(...)
-
-            scenarioStateService.updateStatus(requestId, ScenarioStatus.COMPLETED);
-            messageSender.sendLifecycle(emitter, MessageType.SUCCESS_PROCESS);
-            messageSender.complete(emitter);
+            outputManager.processOutput(requestId, emitter, request, vehicles,
+                    personCount, networkNodes, networkLinks, simulationAreaKm2,
+                    baselineResult, policyResult);
             log.info(L.msg("simulation.completed"));
 
         } catch (Exception e) {

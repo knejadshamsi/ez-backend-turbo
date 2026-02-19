@@ -1,0 +1,7 @@
+{
+  "output.stage.overview": "Extraction des indicateurs de synthèse",
+  "output.stage.modescan": "Pré-analyse du transfert modal",
+  "output.overview.written": "Synthèse écrite : {} personnes, {} trajets, {} km parcourus",
+  "output.failed": "Échec du traitement des résultats",
+  "output.column.missing": "Colonne introuvable"
+}
