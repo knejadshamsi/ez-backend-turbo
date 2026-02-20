@@ -3,5 +3,8 @@
   "output.stage.modescan": "Pré-analyse du transfert modal",
   "output.overview.written": "Synthèse écrite : {} personnes, {} trajets, {} km parcourus",
   "output.failed": "Échec du traitement des résultats",
-  "output.column.missing": "Colonne introuvable"
+  "output.column.missing": "Colonne introuvable",
+  "output.stage.emissions": "Traitement des données d'émissions",
+  "output.emissions.written": "Émissions traitées : CO2 de base {} g, CO2 politique {} g",
+  "output.map.failed": "Échec de la génération de la carte"
 }

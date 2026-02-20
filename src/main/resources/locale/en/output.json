@@ -3,5 +3,8 @@
   "output.stage.modescan": "Pre-scanning mode shift data",
   "output.overview.written": "Overview written: {} persons, {} legs, {} km traveled",
   "output.failed": "Output processing failed",
-  "output.column.missing": "Column not found"
+  "output.column.missing": "Column not found",
+  "output.stage.emissions": "Processing emission data",
+  "output.emissions.written": "Emissions processed: baseline CO2 {} g, policy CO2 {} g",
+  "output.map.failed": "Map generation failed"
 }

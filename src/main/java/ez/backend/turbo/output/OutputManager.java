@@ -3,7 +3,9 @@ package ez.backend.turbo.output;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ez.backend.turbo.config.StartupValidator;
 import ez.backend.turbo.endpoints.SimulationRequest;
+import ez.backend.turbo.output.EmissionsAggregator.EmissionsResult;
 import ez.backend.turbo.services.ScenarioStateService;
+import ez.backend.turbo.services.SourceRegistry;
 import ez.backend.turbo.simulation.MatsimRunner.SimulationResult;
 import ez.backend.turbo.sse.SseMessageSender;
 import ez.backend.turbo.utils.L;
@@ -11,7 +13,9 @@ import ez.backend.turbo.utils.MessageType;
 import ez.backend.turbo.utils.ScenarioStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.matsim.api.core.v01.network.Network;
 import org.matsim.vehicles.Vehicles;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -20,6 +24,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -31,16 +36,28 @@ public class OutputManager {
     private final SseMessageSender messageSender;
     private final ScenarioStateService scenarioStateService;
     private final ObjectMapper objectMapper;
+    private final SourceRegistry sourceRegistry;
     private final Path dataRoot;
+    private final String targetCrs;
+    private final String fleetMetric;
+    private final double mixingHeightMeters;
 
     public OutputManager(SseMessageSender messageSender,
                          ScenarioStateService scenarioStateService,
                          ObjectMapper objectMapper,
-                         StartupValidator startupValidator) {
+                         StartupValidator startupValidator,
+                         SourceRegistry sourceRegistry,
+                         @Value("${ez.target.crs}") String targetCrs,
+                         @Value("${ez.output.fleet-metric}") String fleetMetric,
+                         @Value("${ez.emissions.mixing-height-meters}") double mixingHeightMeters) {
         this.messageSender = messageSender;
         this.scenarioStateService = scenarioStateService;
         this.objectMapper = objectMapper;
+        this.sourceRegistry = sourceRegistry;
         this.dataRoot = startupValidator.getDataRoot();
+        this.targetCrs = targetCrs;
+        this.fleetMetric = fleetMetric;
+        this.mixingHeightMeters = mixingHeightMeters;
     }
 
     public void processOutput(UUID requestId, SseEmitter emitter,
@@ -71,7 +88,40 @@ public class OutputManager {
         log.info(L.msg("output.stage.modescan"));
         double modeShiftPercentage = computeModeShift(baselineDir, policyDir);
 
-        // Step 2: Emissions (commit 2)
+        // Step 2: Emissions
+        log.info(L.msg("output.stage.emissions"));
+        int netYear = request.getSources().getNetwork().getYear();
+        String netName = request.getSources().getNetwork().getName();
+        Network network = sourceRegistry.getNetwork(netYear, netName);
+
+        EmissionsResult emissions = EmissionsAggregator.aggregate(
+                baselineDir, policyDir, vehicles, network,
+                request.getCarDistribution(), modeShiftPercentage,
+                simulationAreaKm2, targetCrs, fleetMetric, mixingHeightMeters);
+
+        Map<String, Object> emissionsJson = new LinkedHashMap<>();
+        emissionsJson.put("paragraph1", emissions.paragraph1());
+        emissionsJson.put("paragraph2", emissions.paragraph2());
+        emissionsJson.put("barChart", emissions.barChart());
+        emissionsJson.put("pieChart", emissions.pieChart());
+        writeJson(outputDir.resolve("emissions.json"), emissionsJson);
+
+        messageSender.sendMessage(emitter, MessageType.DATA_TEXT_PARAGRAPH1_EMISSIONS, emissions.paragraph1());
+        messageSender.sendMessage(emitter, MessageType.DATA_TEXT_PARAGRAPH2_EMISSIONS, emissions.paragraph2());
+        messageSender.sendMessage(emitter, MessageType.DATA_CHART_BAR_EMISSIONS, emissions.barChart());
+        messageSender.sendMessage(emitter, MessageType.DATA_CHART_PIE_EMISSIONS, emissions.pieChart());
+
+        try {
+            writeJson(outputDir.resolve("map-emissions.json"), emissions.mapData());
+            messageSender.sendLifecycle(emitter, MessageType.SUCCESS_MAP_EMISSIONS);
+        } catch (Exception e) {
+            log.warn("{}: {}", L.msg("output.map.failed"), e.getMessage());
+            messageSender.sendError(emitter, MessageType.ERROR_MAP_EMISSIONS, "MAP_ERROR", e.getMessage());
+        }
+
+        log.info(L.msg("output.emissions.written"),
+                emissions.paragraph1().get("co2Baseline"),
+                emissions.paragraph1().get("co2PostPolicy"));
 
         // Step 3: Response analysis (commit 3)
 
