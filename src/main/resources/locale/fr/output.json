@@ -8,5 +8,8 @@
   "output.emissions.written": "Émissions traitées : CO2 de base {} g, CO2 politique {} g",
   "output.map.failed": "Échec de la génération de la carte",
   "output.stage.response": "Analyse des réponses comportementales",
-  "output.response.written": "Analyse des réponses terminée : {} segments"
+  "output.response.written": "Analyse des réponses terminée : {} segments",
+  "output.scenario.not.found": "Scénario introuvable",
+  "output.scenario.not.completed": "Le scénario n'est pas terminé",
+  "output.map.file.missing": "Données cartographiques indisponibles"
 }

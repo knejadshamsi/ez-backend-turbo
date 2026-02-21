@@ -49,8 +49,8 @@ public class TripLegRepository {
                     Map<String, Object> row = new HashMap<>();
                     row.put("legId", rs.getString("leg_id"));
                     row.put("personId", rs.getString("person_id"));
-                    row.put("originActivityType", rs.getString("origin_activity_type"));
-                    row.put("destinationActivityType", rs.getString("destination_activity_type"));
+                    row.put("originActivity", rs.getString("origin_activity_type"));
+                    row.put("destinationActivity", rs.getString("destination_activity_type"));
                     row.put("co2DeltaGrams", rs.getBigDecimal("co2_delta_grams"));
                     row.put("timeDeltaMinutes", rs.getBigDecimal("time_delta_minutes"));
                     row.put("impact", rs.getString("impact"));

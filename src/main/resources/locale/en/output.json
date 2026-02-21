@@ -8,5 +8,8 @@
   "output.emissions.written": "Emissions processed: baseline CO2 {} g, policy CO2 {} g",
   "output.map.failed": "Map generation failed",
   "output.stage.response": "Analyzing behavioral responses",
-  "output.response.written": "Response analysis complete: {} trip legs"
+  "output.response.written": "Response analysis complete: {} trip legs",
+  "output.scenario.not.found": "Scenario not found",
+  "output.scenario.not.completed": "Scenario has not completed",
+  "output.map.file.missing": "Map data not available"
 }
