@@ -6,5 +6,7 @@
   "output.column.missing": "Column not found",
   "output.stage.emissions": "Processing emission data",
   "output.emissions.written": "Emissions processed: baseline CO2 {} g, policy CO2 {} g",
-  "output.map.failed": "Map generation failed"
+  "output.map.failed": "Map generation failed",
+  "output.stage.response": "Analyzing behavioral responses",
+  "output.response.written": "Response analysis complete: {} trip legs"
 }

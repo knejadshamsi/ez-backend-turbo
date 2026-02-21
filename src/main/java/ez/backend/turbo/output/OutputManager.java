@@ -2,8 +2,12 @@ package ez.backend.turbo.output;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ez.backend.turbo.config.StartupValidator;
+import ez.backend.turbo.database.TripLegRepository;
+import ez.backend.turbo.database.TripLegRepository.TripLegRecord;
 import ez.backend.turbo.endpoints.SimulationRequest;
 import ez.backend.turbo.output.EmissionsAggregator.EmissionsResult;
+import ez.backend.turbo.output.ResponseAnalyzer.ResponseConfig;
+import ez.backend.turbo.output.ResponseAnalyzer.ResponseResult;
 import ez.backend.turbo.services.ScenarioStateService;
 import ez.backend.turbo.services.SourceRegistry;
 import ez.backend.turbo.simulation.MatsimRunner.SimulationResult;
@@ -25,6 +29,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -37,27 +42,45 @@ public class OutputManager {
     private final ScenarioStateService scenarioStateService;
     private final ObjectMapper objectMapper;
     private final SourceRegistry sourceRegistry;
+    private final TripLegRepository tripLegRepository;
     private final Path dataRoot;
     private final String targetCrs;
     private final String fleetMetric;
     private final double mixingHeightMeters;
+    private final boolean excludeNonCarAgents;
+    private final double rerouteThresholdMeters;
+    private final String multiModalPt;
+    private final double subwayFactorGpkm;
+    private final String tripLegsScope;
 
     public OutputManager(SseMessageSender messageSender,
                          ScenarioStateService scenarioStateService,
                          ObjectMapper objectMapper,
                          StartupValidator startupValidator,
                          SourceRegistry sourceRegistry,
+                         TripLegRepository tripLegRepository,
                          @Value("${ez.target.crs}") String targetCrs,
                          @Value("${ez.output.fleet-metric}") String fleetMetric,
-                         @Value("${ez.emissions.mixing-height-meters}") double mixingHeightMeters) {
+                         @Value("${ez.emissions.mixing-height-meters}") double mixingHeightMeters,
+                         @Value("${ez.response.exclude-non-car-agents}") boolean excludeNonCarAgents,
+                         @Value("${ez.response.reroute-threshold-meters}") double rerouteThresholdMeters,
+                         @Value("${ez.response.multi-modal-pt}") String multiModalPt,
+                         @Value("${ez.emissions.subway-factor-gpkm}") double subwayFactorGpkm,
+                         @Value("${ez.output.trip-legs-scope}") String tripLegsScope) {
         this.messageSender = messageSender;
         this.scenarioStateService = scenarioStateService;
         this.objectMapper = objectMapper;
         this.sourceRegistry = sourceRegistry;
+        this.tripLegRepository = tripLegRepository;
         this.dataRoot = startupValidator.getDataRoot();
         this.targetCrs = targetCrs;
         this.fleetMetric = fleetMetric;
         this.mixingHeightMeters = mixingHeightMeters;
+        this.excludeNonCarAgents = excludeNonCarAgents;
+        this.rerouteThresholdMeters = rerouteThresholdMeters;
+        this.multiModalPt = multiModalPt;
+        this.subwayFactorGpkm = subwayFactorGpkm;
+        this.tripLegsScope = tripLegsScope;
     }
 
     public void processOutput(UUID requestId, SseEmitter emitter,
@@ -123,7 +146,56 @@ public class OutputManager {
                 emissions.paragraph1().get("co2Baseline"),
                 emissions.paragraph1().get("co2PostPolicy"));
 
-        // Step 3: Response analysis (commit 3)
+        // Step 3: Response analysis
+        log.info(L.msg("output.stage.response"));
+        ResponseConfig responseConfig = new ResponseConfig(
+                excludeNonCarAgents, rerouteThresholdMeters, multiModalPt,
+                subwayFactorGpkm, tripLegsScope, targetCrs);
+
+        ResponseResult response = ResponseAnalyzer.analyze(
+                baselineDir, policyDir, request,
+                baselineResult.legTracker(), policyResult.legTracker(),
+                policyResult.moneyCollector(), responseConfig);
+
+        Map<String, Object> prJson = new LinkedHashMap<>();
+        prJson.put("paragraph1", response.paragraph1());
+        prJson.put("paragraph2", response.paragraph2());
+        prJson.put("breakdownChart", response.breakdownChart());
+        prJson.put("timeImpactChart", response.timeImpactChart());
+        writeJson(outputDir.resolve("people-response.json"), prJson);
+
+        messageSender.sendMessage(emitter, MessageType.DATA_TEXT_PARAGRAPH1_PEOPLE_RESPONSE, response.paragraph1());
+        messageSender.sendMessage(emitter, MessageType.DATA_TEXT_PARAGRAPH2_PEOPLE_RESPONSE, response.paragraph2());
+        messageSender.sendMessage(emitter, MessageType.DATA_CHART_BREAKDOWN_PEOPLE_RESPONSE, response.breakdownChart());
+        messageSender.sendMessage(emitter, MessageType.DATA_CHART_TIME_IMPACT_PEOPLE_RESPONSE, response.timeImpactChart());
+
+        try {
+            writeJson(outputDir.resolve("map-people-response.json"), response.peopleResponseMap());
+            messageSender.sendLifecycle(emitter, MessageType.SUCCESS_MAP_PEOPLE_RESPONSE);
+        } catch (Exception e) {
+            log.warn("{}: {}", L.msg("output.map.failed"), e.getMessage());
+            messageSender.sendError(emitter, MessageType.ERROR_MAP_PEOPLE_RESPONSE, "MAP_ERROR", e.getMessage());
+        }
+
+        tripLegRepository.batchInsert(requestId, response.tripLegRecords());
+        int totalRecords = response.tripLegRecords().size();
+        int pageSize = 50;
+        List<Map<String, Object>> firstPage = response.tripLegRecords().stream()
+                .limit(pageSize)
+                .map(ResponseAnalyzer::toSseRecord)
+                .toList();
+        messageSender.sendMessage(emitter, MessageType.DATA_TABLE_TRIP_LEGS,
+                Map.of("records", firstPage, "totalRecords", totalRecords, "pageSize", pageSize));
+
+        try {
+            writeJson(outputDir.resolve("map-trip-legs.json"), response.tripLegsMap());
+            messageSender.sendLifecycle(emitter, MessageType.SUCCESS_MAP_TRIP_LEGS);
+        } catch (Exception e) {
+            log.warn("{}: {}", L.msg("output.map.failed"), e.getMessage());
+            messageSender.sendError(emitter, MessageType.ERROR_MAP_TRIP_LEGS, "MAP_ERROR", e.getMessage());
+        }
+
+        log.info(L.msg("output.response.written"), totalRecords);
 
         // Step 4: Completion
         scenarioStateService.updateStatus(requestId, ScenarioStatus.COMPLETED);
