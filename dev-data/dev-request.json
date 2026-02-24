@@ -4,76 +4,20 @@
       "id": "4ea608bb-1066-4d22-a3b5-15f7505a3f31",
       "coords": [
         [
-          [
-            -73.578,
-            45.507
-          ],
-          [
-            -73.565,
-            45.507
-          ],
-          [
-            -73.565,
-            45.515
-          ],
-          [
-            -73.578,
-            45.515
-          ],
-          [
-            -73.578,
-            45.507
-          ]
+          [-73.576000, 45.505500],
+          [-73.566000, 45.505500],
+          [-73.566000, 45.514500],
+          [-73.576000, 45.514500],
+          [-73.576000, 45.505500]
         ]
       ],
-      "trip": [
-        "start",
-        "end",
-        "pass"
-      ],
+      "trip": ["start", "end", "pass"],
       "policies": [
-        {
-          "vehicleType": "highEmission",
-          "tier": 3,
-          "period": [
-            "07:00",
-            "19:00"
-          ]
-        },
-        {
-          "vehicleType": "midEmission",
-          "tier": 2,
-          "period": [
-            "07:00",
-            "19:00"
-          ],
-          "penalty": 5,
-          "interval": 10
-        },
-        {
-          "vehicleType": "lowEmission",
-          "tier": 1,
-          "period": [
-            "07:00",
-            "19:00"
-          ]
-        },
-        {
-          "vehicleType": "nearZeroEmission",
-          "tier": 1,
-          "period": [
-            "07:00",
-            "19:00"
-          ]
-        },
-        {
-          "vehicleType": "zeroEmission",
-          "tier": 1,
-          "period": [
-            "07:00",
-            "19:00"
-          ]
-        }
+        { "vehicleType": "highEmission", "tier": 3, "period": ["07:00", "19:00"] },
+        { "vehicleType": "midEmission", "tier": 2, "period": ["07:00", "19:00"], "penalty": 5, "interval": 10 },
+        { "vehicleType": "lowEmission", "tier": 1, "period": ["07:00", "19:00"] },
+        { "vehicleType": "nearZeroEmission", "tier": 1, "period": ["07:00", "19:00"] },
+        { "vehicleType": "zeroEmission", "tier": 1, "period": ["07:00", "19:00"] }
       ]
     }
   ],
@@ -82,26 +26,11 @@
       "id": "b2c3d4e5-6789-4abc-def0-123456789abc",
       "coords": [
         [
-          [
-            -73.58,
-            45.506
-          ],
-          [
-            -73.563,
-            45.506
-          ],
-          [
-            -73.563,
-            45.516
-          ],
-          [
-            -73.58,
-            45.516
-          ],
-          [
-            -73.58,
-            45.506
-          ]
+          [-73.583500, 45.500000],
+          [-73.558500, 45.500000],
+          [-73.558500, 45.522000],
+          [-73.583500, 45.522000],
+          [-73.583500, 45.500000]
         ]
       ]
     }
@@ -112,48 +41,21 @@
       "zoneId": "4ea608bb-1066-4d22-a3b5-15f7505a3f31",
       "coords": [
         [
-          [
-            -73.58,
-            45.506
-          ],
-          [
-            -73.563,
-            45.506
-          ],
-          [
-            -73.563,
-            45.516
-          ],
-          [
-            -73.58,
-            45.516
-          ],
-          [
-            -73.58,
-            45.506
-          ]
+          [-73.583500, 45.500000],
+          [-73.558500, 45.500000],
+          [-73.558500, 45.522000],
+          [-73.583500, 45.522000],
+          [-73.583500, 45.500000]
         ]
       ]
     }
   ],
   "sources": {
-    "network": {
-      "year": 2024,
-      "name": "dev"
-    },
-    "population": {
-      "year": 2024,
-      "name": "dev"
-    },
-    "publicTransport": {
-      "year": 2024,
-      "name": "dev"
-    }
+    "network": { "year": 2024, "name": "dev" },
+    "population": { "year": 2024, "name": "dev" },
+    "publicTransport": { "year": 2024, "name": "dev" }
   },
-  "simulationOptions": {
-    "iterations": 10,
-    "percentage": 10
-  },
+  "simulationOptions": { "iterations": 10, "percentage": 10 },
   "carDistribution": {
     "zeroEmission": 20,
     "nearZeroEmission": 20,
@@ -162,11 +64,6 @@
     "highEmission": 20
   },
   "modeUtilities": {
-    "walk": 0,
-    "bike": 0,
-    "car": 0,
-    "ev": 0,
-    "subway": 0,
-    "bus": 0
+    "walk": 0, "bike": 0, "car": 0, "ev": 0, "subway": 0, "bus": 0
   }
 }

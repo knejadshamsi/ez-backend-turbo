@@ -83,6 +83,7 @@ public class ResponseAnalyzer {
 
         Map<String, TripRow> baselineTrips = parseTrips(baselineDir.resolve("output_trips.csv.gz"));
         Map<String, TripRow> policyTrips = parseTrips(policyDir.resolve("output_trips.csv.gz"));
+        Map<String, List<LegRow>> baselineLegs = parseLegs(baselineDir.resolve("output_legs.csv.gz"));
         Map<String, List<LegRow>> policyLegs = parseLegs(policyDir.resolve("output_legs.csv.gz"));
 
         Set<String> eligiblePersons = null;
@@ -160,13 +161,14 @@ public class ResponseAnalyzer {
         Map<String, Object> timeImpactChart = buildTimeImpactChart(timeSums, timeCounts);
 
         List<TripLegRecord> tripLegRecords = buildTripLegRecords(
-                baselineTrips, policyTrips, policyLegs,
+                baselineTrips, policyTrips, baselineLegs, policyLegs,
                 baselineTracker, policyTracker,
                 tripClassifications, affectedPersons, config);
 
-        Map<String, List<LegRow>> legsByPerson = buildLegsByPerson(policyLegs);
+        Map<String, List<LegRow>> polLegsByPerson = buildLegsByPerson(policyLegs);
+        Map<String, List<LegRow>> baseLegsByPerson = buildLegsByPerson(baselineLegs);
         List<Map<String, Object>> tripLegsMapData = buildTripLegsMap(
-                tripLegRecords, legsByPerson, toWgs84);
+                tripLegRecords, polLegsByPerson, baseLegsByPerson, toWgs84);
 
         return new ResponseResult(paragraph1, paragraph2, breakdownChart,
                 timeImpactChart, prMap, tripLegRecords, tripLegsMapData);
@@ -337,7 +339,7 @@ public class ResponseAnalyzer {
 
     private static List<TripLegRecord> buildTripLegRecords(
             Map<String, TripRow> baselineTrips, Map<String, TripRow> policyTrips,
-            Map<String, List<LegRow>> policyLegs,
+            Map<String, List<LegRow>> baselineLegs, Map<String, List<LegRow>> policyLegs,
             LegEmissionTracker baselineTracker, LegEmissionTracker policyTracker,
             Map<String, Integer> tripClassifications, Set<String> affectedPersons,
             ResponseConfig config) {
@@ -345,7 +347,8 @@ public class ResponseAnalyzer {
         Map<Id<Person>, List<LegEmission>> baselineEmissions = baselineTracker.getPersonLegs();
         Map<Id<Person>, List<LegEmission>> policyEmissions = policyTracker.getPersonLegs();
 
-        Map<String, List<LegRow>> legsByPerson = buildLegsByPerson(policyLegs);
+        Map<String, List<LegRow>> polLegsByPerson = buildLegsByPerson(policyLegs);
+        Map<String, List<LegRow>> baseLegsByPerson = buildLegsByPerson(baselineLegs);
 
         List<TripLegRecord> records = new ArrayList<>();
         Set<String> processedPersons = new HashSet<>();
@@ -364,28 +367,31 @@ public class ResponseAnalyzer {
             Id<Person> pid = Id.createPersonId(personId);
             List<LegEmission> baseLegList = baselineEmissions.getOrDefault(pid, List.of());
             List<LegEmission> polLegList = policyEmissions.getOrDefault(pid, List.of());
-            List<LegRow> personLegRows = legsByPerson.getOrDefault(personId, List.of());
+            List<LegRow> baselinePersonLegRows = baseLegsByPerson.getOrDefault(personId, List.of());
+            List<LegRow> policyPersonLegRows = polLegsByPerson.getOrDefault(personId, List.of());
 
-            int legCount = Math.min(baseLegList.size(), polLegList.size());
-            if ("all".equals(config.tripLegsScope())) {
-                legCount = Math.max(baseLegList.size(), polLegList.size());
-            }
+            int legCount = Math.max(
+                    Math.max(baseLegList.size(), polLegList.size()),
+                    Math.max(baselinePersonLegRows.size(), policyPersonLegRows.size()));
 
             for (int i = 0; i < legCount; i++) {
                 LegEmission baseLeg = i < baseLegList.size() ? baseLegList.get(i) : null;
                 LegEmission polLeg = i < polLegList.size() ? polLegList.get(i) : null;
-                LegRow legRow = i < personLegRows.size() ? personLegRows.get(i) : null;
+                LegRow baseLegRow = i < baselinePersonLegRows.size() ? baselinePersonLegRows.get(i) : null;
+                LegRow polLegRow = i < policyPersonLegRows.size() ? policyPersonLegRows.get(i) : null;
 
                 double baseCo2 = baseLeg != null ? baseLeg.co2() : 0;
                 double polCo2 = polLeg != null ? polLeg.co2() : 0;
 
-                if (legRow != null && legRow.vehicleId() != null
-                        && legRow.vehicleId().startsWith("subway_")) {
-                    polCo2 = config.subwayFactorGpkm() * (legRow.distance() / 1000.0);
+                if (polLegRow != null && polLegRow.vehicleId() != null
+                        && polLegRow.vehicleId().startsWith("subway_")) {
+                    polCo2 = config.subwayFactorGpkm() * (polLegRow.distance() / 1000.0);
                 }
 
-                double baseTime = baseLeg != null ? (baseLeg.endTime() - baseLeg.startTime()) / 60.0 : 0;
-                double polTime = polLeg != null ? (polLeg.endTime() - polLeg.startTime()) / 60.0 : 0;
+                double baseTime = baseLeg != null ? (baseLeg.endTime() - baseLeg.startTime()) / 60.0
+                        : (baseLegRow != null ? baseLegRow.travTimeMinutes() : 0);
+                double polTime = polLeg != null ? (polLeg.endTime() - polLeg.startTime()) / 60.0
+                        : (polLegRow != null ? polLegRow.travTimeMinutes() : 0);
 
                 double co2Delta = polCo2 - baseCo2;
                 double timeDelta = polTime - baseTime;
@@ -394,9 +400,13 @@ public class ResponseAnalyzer {
                     continue;
                 }
 
+                LegRow legRow = polLegRow != null ? polLegRow : baseLegRow;
                 String tripId = legRow != null ? legRow.tripId() : null;
                 String impact = findImpactForLeg(tripId, tripClassifications);
                 TripRow parentTrip = tripId != null ? policyTrips.get(tripId) : null;
+                if (parentTrip == null && tripId != null) {
+                    parentTrip = baselineTrips.get(tripId);
+                }
                 String originActivity = parentTrip != null ? parentTrip.startActivityType() : "unknown";
                 String destActivity = parentTrip != null ? parentTrip.endActivityType() : "unknown";
 
@@ -434,7 +444,8 @@ public class ResponseAnalyzer {
 
     private static List<Map<String, Object>> buildTripLegsMap(
             List<TripLegRecord> records,
-            Map<String, List<LegRow>> legsByPerson,
+            Map<String, List<LegRow>> polLegsByPerson,
+            Map<String, List<LegRow>> baseLegsByPerson,
             CoordinateTransformation toWgs84) {
 
         List<Map<String, Object>> mapEntries = new ArrayList<>();
@@ -443,10 +454,16 @@ public class ResponseAnalyzer {
             String legId = rec.legId();
             int legIndex = Integer.parseInt(legId.substring(legId.lastIndexOf('_') + 1));
 
-            List<LegRow> personLegList = legsByPerson.get(personId);
-            if (personLegList == null || legIndex >= personLegList.size()) continue;
+            List<LegRow> polLegList = polLegsByPerson.get(personId);
+            List<LegRow> baseLegList = baseLegsByPerson.get(personId);
+            LegRow leg = null;
+            if (polLegList != null && legIndex < polLegList.size()) {
+                leg = polLegList.get(legIndex);
+            } else if (baseLegList != null && legIndex < baseLegList.size()) {
+                leg = baseLegList.get(legIndex);
+            }
+            if (leg == null) continue;
 
-            LegRow leg = personLegList.get(legIndex);
             Coord start = toWgs84.transform(new Coord(leg.startX(), leg.startY()));
             Coord end = toWgs84.transform(new Coord(leg.endX(), leg.endY()));
 

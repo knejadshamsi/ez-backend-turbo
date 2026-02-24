@@ -10,8 +10,24 @@
     <maximumVelocity meterPerSecond="16.67"/>
     <passengerCarEquivalents pce="2.5"/>
   </vehicleType>
+  <vehicleType id="subway_type">
+    <attributes/>
+    <capacity seats="200" standingRoomInPersons="400"/>
+    <length meter="50.0"/>
+    <width meter="3.0"/>
+    <maximumVelocity meterPerSecond="22.22"/>
+    <passengerCarEquivalents pce="0.0"/>
+  </vehicleType>
   <vehicle id="bus_1" type="bus_type"/>
   <vehicle id="bus_2" type="bus_type"/>
   <vehicle id="bus_3" type="bus_type"/>
   <vehicle id="bus_4" type="bus_type"/>
+  <vehicle id="bus_5" type="bus_type"/>
+  <vehicle id="bus_6" type="bus_type"/>
+  <vehicle id="subway_1" type="subway_type"/>
+  <vehicle id="subway_2" type="subway_type"/>
+  <vehicle id="subway_3" type="subway_type"/>
+  <vehicle id="subway_4" type="subway_type"/>
+  <vehicle id="subway_5" type="subway_type"/>
+  <vehicle id="subway_6" type="subway_type"/>
 </vehicleDefinitions>
