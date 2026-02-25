@@ -13,6 +13,8 @@ import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.AbstractModule;
 import org.matsim.core.controler.Controler;
+import org.matsim.core.controler.events.IterationStartsEvent;
+import org.matsim.core.controler.listener.IterationStartsListener;
 import org.matsim.core.scenario.MutableScenario;
 import org.matsim.core.scenario.ScenarioUtils;
 import org.matsim.pt.transitSchedule.api.TransitLine;
@@ -26,6 +28,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import ez.backend.turbo.endpoints.SimulationRequest;
+import ez.backend.turbo.services.ProcessManager;
 import ez.backend.turbo.services.SourceRegistry;
 import ez.backend.turbo.utils.L;
 
@@ -50,6 +53,7 @@ public class MatsimRunner {
     public SimulationResult runSimulation(SimulationRequest request, UUID requestId,
                               Population population, Vehicles vehicles,
                               Path plansFile, Path vehiclesFile, String runType,
+                              ProcessManager processManager,
                               AbstractModule... additionalModules) {
         Config config = configBuilder.build(request, requestId, runType, plansFile, vehiclesFile);
         MutableScenario scenario = (MutableScenario) ScenarioUtils.createScenario(config);
@@ -94,6 +98,13 @@ public class MatsimRunner {
         for (AbstractModule module : additionalModules) {
             controler.addOverridingModule(module);
         }
+
+        controler.addControlerListener((IterationStartsListener) event -> {
+            if (processManager.isCancelled(requestId)) {
+                throw new RuntimeException(L.msg("scenario.cancel.confirmed"));
+            }
+        });
+
         controler.run();
 
         Path outputDir = Path.of(config.controller().getOutputDirectory());

@@ -5,5 +5,12 @@
   "scenario.session.stored": "Données de session enregistrées",
   "scenario.not.found": "Scénario introuvable",
   "scenario.input.null": "Les données d'entrée ne doivent pas être nulles",
-  "scenario.session.null": "Les données de session ne doivent pas être nulles"
+  "scenario.session.null": "Les données de session ne doivent pas être nulles",
+  "scenario.cancel.requested": "Annulation demandée",
+  "scenario.cancel.confirmed": "Simulation annulée",
+  "scenario.cancel.already.completed": "La simulation est déjà terminée",
+  "scenario.cancel.already.cancelled": "La simulation a déjà été annulée",
+  "scenario.cancel.not.running": "La simulation n'est pas dans un état annulable",
+  "scenario.cancel.cleanup": "Nettoyage du scénario annulé terminé",
+  "scenario.cancel.queued": "Simulation en file d'attente annulée"
 }

@@ -78,7 +78,7 @@ public class ScenarioRepository {
 
     public List<UUID> findIncompleteScenarios() {
         return jdbcTemplate.query(
-                "SELECT request_id FROM scenarios WHERE status NOT IN ('COMPLETED', 'FAILED', 'CANCELLED')",
+                "SELECT request_id FROM scenarios WHERE status NOT IN ('COMPLETED', 'FAILED', 'CANCELLED', 'DELETED')",
                 (rs, rowNum) -> UUID.fromString(rs.getString("request_id"))
         );
     }

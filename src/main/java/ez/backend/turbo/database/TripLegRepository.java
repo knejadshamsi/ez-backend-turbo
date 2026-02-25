@@ -59,6 +59,10 @@ public class TripLegRepository {
                 requestId, pageSize, offset);
     }
 
+    public int deleteByRequestId(UUID requestId) {
+        return jdbcTemplate.update("DELETE FROM trip_legs WHERE request_id = ?", requestId);
+    }
+
     public int countByRequestId(UUID requestId) {
         Integer count = jdbcTemplate.queryForObject(
                 "SELECT COUNT(*) FROM trip_legs WHERE request_id = ?",

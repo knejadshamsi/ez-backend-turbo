@@ -163,6 +163,8 @@ public class SimulationService {
             String popName = request.getSources().getPopulation().getName();
             int percentage = request.getSimulationOptions().getPercentage();
 
+            checkCancelled(requestId);
+
             List<ZoneLinkSet> zoneLinkSets = zoneLinkResolver.resolve(
                     request.getZones(), netYear, netName);
             Set<String> filteredPersonIds = populationFilterService.filter(request, zoneLinkSets);
@@ -182,11 +184,14 @@ public class SimulationService {
             int networkLinks = network.getLinks().size();
             double simulationAreaKm2 = zoneLinkResolver.computeTotalAreaKm2(zoneLinkSets);
 
+            checkCancelled(requestId);
             scenarioStateService.updateStatus(requestId, ScenarioStatus.SIMULATING_BASELINE);
             log.info(L.msg("simulation.stage.baseline"));
             SimulationResult baselineResult = matsimRunner.runSimulation(
-                    request, requestId, population, vehicles, plansFile, vehiclesFile, "baseline");
+                    request, requestId, population, vehicles, plansFile, vehiclesFile, "baseline",
+                    processManager);
 
+            checkCancelled(requestId);
             scenarioStateService.updateStatus(requestId, ScenarioStatus.SIMULATING_POLICY);
             log.info(L.msg("simulation.stage.policy"));
             ZonePolicyIndex policyIndex = ZonePolicyIndex.build(request.getZones(), zoneLinkSets);
@@ -194,8 +199,9 @@ public class SimulationService {
             Population policyPopulation = PopulationUtils.readPopulation(plansFile.toString());
             SimulationResult policyResult = matsimRunner.runSimulation(
                     request, requestId, policyPopulation, vehicles,
-                    plansFile, vehiclesFile, "policy", enforcementModule);
+                    plansFile, vehiclesFile, "policy", processManager, enforcementModule);
 
+            checkCancelled(requestId);
             scenarioStateService.updateStatus(requestId, ScenarioStatus.POSTPROCESSING);
             log.info(L.msg("simulation.stage.postprocess"));
 
@@ -204,13 +210,40 @@ public class SimulationService {
                     baselineResult, policyResult);
             log.info(L.msg("simulation.completed"));
 
+        } catch (CancellationException e) {
+            handleCancellation(requestId, emitter);
         } catch (Exception e) {
+            if (processManager.isCancelled(requestId)) {
+                handleCancellation(requestId, emitter);
+                return;
+            }
             log.error("{}: {}", L.msg("simulation.failed"), e.getMessage(), e);
             scenarioStateService.updateStatus(requestId, ScenarioStatus.FAILED);
             messageSender.sendError(emitter, MessageType.ERROR_GLOBAL, "PIPELINE_ERROR", e.getMessage());
             messageSender.complete(emitter);
         } finally {
             ThreadContext.remove("ctx");
+        }
+    }
+
+    private void checkCancelled(UUID requestId) {
+        if (processManager.isCancelled(requestId)) {
+            throw new CancellationException(requestId);
+        }
+    }
+
+    private void handleCancellation(UUID requestId, SseEmitter emitter) {
+        log.info("{}: {}", L.msg("scenario.cancel.confirmed"), requestId);
+        scenarioStateService.updateStatus(requestId, ScenarioStatus.CANCELLED);
+        messageSender.sendMessage(emitter, MessageType.CANCELLED_PROCESS,
+                Map.of("requestId", requestId.toString()));
+        messageSender.complete(emitter);
+        scenarioStateService.cleanupOutputData(requestId);
+    }
+
+    static class CancellationException extends RuntimeException {
+        CancellationException(UUID requestId) {
+            super(requestId.toString());
         }
     }
 

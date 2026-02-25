@@ -11,5 +11,6 @@ public enum ScenarioStatus {
     POSTPROCESSING,
     COMPLETED,
     FAILED,
-    CANCELLED
+    CANCELLED,
+    DELETED
 }

@@ -19,6 +19,7 @@ public class ProcessManager {
     private final Map<ProcessType, ProcessConfig> config;
     private final Map<UUID, ProcessInfo> activeProcesses;
     private final Map<ProcessType, Semaphore> semaphores;
+    private final Map<UUID, Boolean> cancellationFlags;
 
     public ProcessManager(StartupValidator validator) {
         this.config = Map.of(
@@ -28,6 +29,7 @@ public class ProcessManager {
         );
         this.activeProcesses = new ConcurrentHashMap<>();
         this.semaphores = new ConcurrentHashMap<>();
+        this.cancellationFlags = new ConcurrentHashMap<>();
         for (ProcessType type : ProcessType.values()) {
             semaphores.put(type, new Semaphore(config.get(type).max(), true));
         }
@@ -80,6 +82,15 @@ public class ProcessManager {
             throw new IllegalStateException(L.msg("process.unregister.unknown") + ": " + processId);
         }
         semaphores.get(removed.type()).release();
+        cancellationFlags.remove(processId);
+    }
+
+    public void requestCancel(UUID processId) {
+        cancellationFlags.put(processId, true);
+    }
+
+    public boolean isCancelled(UUID processId) {
+        return cancellationFlags.getOrDefault(processId, false);
     }
 
     public Map<ProcessType, ProcessStats> getStats() {
