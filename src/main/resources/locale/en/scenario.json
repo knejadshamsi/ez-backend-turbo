@@ -12,5 +12,11 @@
   "scenario.cancel.already.cancelled": "Simulation has already been cancelled",
   "scenario.cancel.not.running": "Simulation is not in a cancellable state",
   "scenario.cancel.cleanup": "Cancelled scenario cleanup complete",
-  "scenario.cancel.queued": "Queued simulation cancelled"
+  "scenario.cancel.queued": "Queued simulation cancelled",
+  "scenario.retry.not.allowed": "Cannot retry scenario with status",
+  "scenario.retry.still.running": "Cannot retry while simulation is still running",
+  "scenario.retry.invalid.type": "Invalid or missing messageType",
+  "scenario.retry.data.missing": "Output data not available for retry",
+  "scenario.retry.data.corrupt": "Output data is corrupt or incomplete",
+  "scenario.retry.served": "Retry served"
 }

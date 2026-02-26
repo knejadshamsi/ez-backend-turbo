@@ -12,5 +12,11 @@
   "scenario.cancel.already.cancelled": "La simulation a déjà été annulée",
   "scenario.cancel.not.running": "La simulation n'est pas dans un état annulable",
   "scenario.cancel.cleanup": "Nettoyage du scénario annulé terminé",
-  "scenario.cancel.queued": "Simulation en file d'attente annulée"
+  "scenario.cancel.queued": "Simulation en file d'attente annulée",
+  "scenario.retry.not.allowed": "Impossible de réessayer un scénario avec le statut",
+  "scenario.retry.still.running": "Impossible de réessayer pendant l'exécution de la simulation",
+  "scenario.retry.invalid.type": "Type de message invalide ou manquant",
+  "scenario.retry.data.missing": "Données de sortie indisponibles pour la reprise",
+  "scenario.retry.data.corrupt": "Les données de sortie sont corrompues ou incomplètes",
+  "scenario.retry.served": "Reprise servie"
 }
