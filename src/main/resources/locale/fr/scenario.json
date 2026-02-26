@@ -18,5 +18,8 @@
   "scenario.retry.invalid.type": "Type de message invalide ou manquant",
   "scenario.retry.data.missing": "Données de sortie indisponibles pour la reprise",
   "scenario.retry.data.corrupt": "Les données de sortie sont corrompues ou incomplètes",
-  "scenario.retry.served": "Reprise servie"
+  "scenario.retry.served": "Reprise servie",
+  "scenario.delete.already.deleted": "Le scénario a déjà été supprimé",
+  "scenario.delete.auto.cancelled": "Scénario en cours auto-annulé pour suppression",
+  "scenario.delete.completed": "Scénario supprimé"
 }

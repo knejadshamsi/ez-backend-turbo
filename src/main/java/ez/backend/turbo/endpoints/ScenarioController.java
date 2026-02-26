@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -192,6 +193,42 @@ public class ScenarioController {
             return ResponseEntity.status(500)
                     .body(StandardResponse.error(500, L.msg("scenario.retry.data.corrupt")));
         }
+    }
+
+    @DeleteMapping("/scenario/{id}")
+    public ResponseEntity<StandardResponse<?>> delete(@PathVariable String id) {
+        UUID requestId = parseUuid(id);
+
+        Optional<ScenarioStatus> status = scenarioStateService.getStatus(requestId);
+        if (status.isEmpty()) {
+            return ResponseEntity.status(404)
+                    .body(StandardResponse.error(404, L.msg("scenario.not.found")));
+        }
+
+        ScenarioStatus current = status.get();
+        if (current == ScenarioStatus.DELETED) {
+            return ResponseEntity.badRequest()
+                    .body(StandardResponse.error(400, L.msg("scenario.delete.already.deleted")));
+        }
+
+        if (STILL_RUNNING.contains(current)) {
+            processManager.requestCancel(requestId);
+            if (current == ScenarioStatus.QUEUED || current == ScenarioStatus.CREATED) {
+                SseEmitter emitter = emitterRegistry.get(requestId);
+                if (emitter != null) {
+                    messageSender.sendMessage(emitter, MessageType.CANCELLED_PROCESS,
+                            Map.of("requestId", requestId.toString()));
+                    messageSender.complete(emitter);
+                }
+            }
+            log.info("{}: {}", L.msg("scenario.delete.auto.cancelled"), requestId);
+        }
+
+        scenarioStateService.cleanupOutputData(requestId);
+        scenarioStateService.updateStatus(requestId, ScenarioStatus.DELETED);
+        log.info("{}: {}", L.msg("scenario.delete.completed"), requestId);
+
+        return ResponseEntity.ok(responseFormatter.success(L.msg("scenario.delete.completed"), Map.of()));
     }
 
     private void handleImmediateCancel(UUID requestId) {

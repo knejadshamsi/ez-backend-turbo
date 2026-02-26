@@ -234,7 +234,10 @@ public class SimulationService {
 
     private void handleCancellation(UUID requestId, SseEmitter emitter) {
         log.info("{}: {}", L.msg("scenario.cancel.confirmed"), requestId);
-        scenarioStateService.updateStatus(requestId, ScenarioStatus.CANCELLED);
+        ScenarioStatus current = scenarioStateService.getStatus(requestId).orElse(null);
+        if (current != ScenarioStatus.DELETED) {
+            scenarioStateService.updateStatus(requestId, ScenarioStatus.CANCELLED);
+        }
         messageSender.sendMessage(emitter, MessageType.CANCELLED_PROCESS,
                 Map.of("requestId", requestId.toString()));
         messageSender.complete(emitter);

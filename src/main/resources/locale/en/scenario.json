@@ -18,5 +18,8 @@
   "scenario.retry.invalid.type": "Invalid or missing messageType",
   "scenario.retry.data.missing": "Output data not available for retry",
   "scenario.retry.data.corrupt": "Output data is corrupt or incomplete",
-  "scenario.retry.served": "Retry served"
+  "scenario.retry.served": "Retry served",
+  "scenario.delete.already.deleted": "Scenario has already been deleted",
+  "scenario.delete.auto.cancelled": "Running scenario auto-cancelled for deletion",
+  "scenario.delete.completed": "Scenario deleted"
 }
