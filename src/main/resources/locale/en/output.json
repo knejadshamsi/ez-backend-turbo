@@ -13,5 +13,7 @@
   "output.scenario.not.completed": "Scenario has not completed",
   "output.map.file.missing": "Map data not available",
   "output.replay.failed": "Scenario replay failed",
-  "output.replay.corrupt": "Scenario data is incomplete"
+  "output.replay.corrupt": "Scenario data is incomplete",
+  "output.component.failed": "Output component failed",
+  "output.all.failed": "All output components failed"
 }

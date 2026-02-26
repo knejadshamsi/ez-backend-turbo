@@ -92,82 +92,139 @@ public class OutputManager {
         Path outputDir = dataRoot.resolve("output").resolve(requestId.toString());
         Path baselineDir = baselineResult.outputDir();
         Path policyDir = policyResult.outputDir();
+        boolean anySucceeded = false;
 
         // Step 1: Overview
-        log.info(L.msg("output.stage.overview"));
-        Map<String, Object> overview;
-        try {
-            overview = OverviewExtractor.extract(
-                    policyDir, personCount, networkNodes, networkLinks, simulationAreaKm2);
-        } catch (IOException e) {
-            throw new RuntimeException(L.msg("output.failed") + ": " + e.getMessage(), e);
-        }
-        writeJson(outputDir.resolve("overview.json"), overview);
-        messageSender.sendMessage(emitter, MessageType.DATA_TEXT_OVERVIEW, overview);
-        log.info(L.msg("output.overview.written"),
-                overview.get("personCount"), overview.get("legCount"), overview.get("totalKmTraveled"));
-
-        // Step 1.5: Mode shift pre-scan
-        log.info(L.msg("output.stage.modescan"));
-        double modeShiftPercentage = computeModeShift(baselineDir, policyDir);
+        anySucceeded |= processOverview(emitter, outputDir, policyDir,
+                personCount, networkNodes, networkLinks, simulationAreaKm2);
 
         // Step 2: Emissions
-        log.info(L.msg("output.stage.emissions"));
-        int netYear = request.getSources().getNetwork().getYear();
-        String netName = request.getSources().getNetwork().getName();
-        Network network = sourceRegistry.getNetwork(netYear, netName);
+        anySucceeded |= processEmissions(emitter, outputDir, baselineDir, policyDir,
+                request, vehicles, simulationAreaKm2);
 
-        EmissionsResult emissions = EmissionsAggregator.aggregate(
-                baselineDir, policyDir, vehicles, network,
-                request.getCarDistribution(), modeShiftPercentage,
-                simulationAreaKm2, targetCrs, fleetMetric, mixingHeightMeters);
+        // Step 3: Response analysis + trip legs
+        anySucceeded |= processResponse(requestId, emitter, outputDir, baselineDir, policyDir,
+                request, baselineResult, policyResult);
 
-        Map<String, Object> emissionsJson = new LinkedHashMap<>();
-        emissionsJson.put("paragraph1", emissions.paragraph1());
-        emissionsJson.put("paragraph2", emissions.paragraph2());
-        emissionsJson.put("barChart", emissions.barChart());
-        emissionsJson.put("pieChart", emissions.pieChart());
-        writeJson(outputDir.resolve("emissions.json"), emissionsJson);
+        // Step 4: Completion
+        if (anySucceeded) {
+            scenarioStateService.updateStatus(requestId, ScenarioStatus.COMPLETED);
+            messageSender.sendLifecycle(emitter, MessageType.SUCCESS_PROCESS);
+        } else {
+            scenarioStateService.updateStatus(requestId, ScenarioStatus.FAILED);
+            messageSender.sendError(emitter, MessageType.ERROR_GLOBAL,
+                    "ALL_COMPONENTS_FAILED", L.msg("output.all.failed"));
+        }
+        messageSender.complete(emitter);
+    }
 
-        messageSender.sendMessage(emitter, MessageType.DATA_TEXT_PARAGRAPH1_EMISSIONS, emissions.paragraph1());
-        messageSender.sendMessage(emitter, MessageType.DATA_TEXT_PARAGRAPH2_EMISSIONS, emissions.paragraph2());
-        messageSender.sendMessage(emitter, MessageType.DATA_CHART_BAR_EMISSIONS, emissions.barChart());
-        messageSender.sendMessage(emitter, MessageType.DATA_CHART_PIE_EMISSIONS, emissions.pieChart());
+    private boolean processOverview(SseEmitter emitter, Path outputDir, Path policyDir,
+                                     int personCount, int networkNodes, int networkLinks,
+                                     double simulationAreaKm2) {
+        try {
+            log.info(L.msg("output.stage.overview"));
+            Map<String, Object> overview = OverviewExtractor.extract(
+                    policyDir, personCount, networkNodes, networkLinks, simulationAreaKm2);
+            writeJson(outputDir.resolve("overview.json"), overview);
+            messageSender.sendMessage(emitter, MessageType.DATA_TEXT_OVERVIEW, overview);
+            log.info(L.msg("output.overview.written"),
+                    overview.get("personCount"), overview.get("legCount"), overview.get("totalKmTraveled"));
+            return true;
+        } catch (Exception e) {
+            log.error("{}: {}", L.msg("output.component.failed"), e.getMessage(), e);
+            messageSender.sendError(emitter, MessageType.ERROR_GLOBAL,
+                    "OVERVIEW_ERROR", e.getMessage());
+            return false;
+        }
+    }
+
+    private boolean processEmissions(SseEmitter emitter, Path outputDir,
+                                      Path baselineDir, Path policyDir,
+                                      SimulationRequest request, Vehicles vehicles,
+                                      double simulationAreaKm2) {
+        try {
+            log.info(L.msg("output.stage.modescan"));
+            double modeShiftPercentage = computeModeShift(baselineDir, policyDir);
+
+            log.info(L.msg("output.stage.emissions"));
+            int netYear = request.getSources().getNetwork().getYear();
+            String netName = request.getSources().getNetwork().getName();
+            Network network = sourceRegistry.getNetwork(netYear, netName);
+
+            EmissionsResult emissions = EmissionsAggregator.aggregate(
+                    baselineDir, policyDir, vehicles, network,
+                    request.getCarDistribution(), modeShiftPercentage,
+                    simulationAreaKm2, targetCrs, fleetMetric, mixingHeightMeters);
+
+            Map<String, Object> emissionsJson = new LinkedHashMap<>();
+            emissionsJson.put("paragraph1", emissions.paragraph1());
+            emissionsJson.put("paragraph2", emissions.paragraph2());
+            emissionsJson.put("barChart", emissions.barChart());
+            emissionsJson.put("pieChart", emissions.pieChart());
+            writeJson(outputDir.resolve("emissions.json"), emissionsJson);
+
+            messageSender.sendMessage(emitter, MessageType.DATA_TEXT_PARAGRAPH1_EMISSIONS, emissions.paragraph1());
+            messageSender.sendMessage(emitter, MessageType.DATA_TEXT_PARAGRAPH2_EMISSIONS, emissions.paragraph2());
+            messageSender.sendMessage(emitter, MessageType.DATA_CHART_BAR_EMISSIONS, emissions.barChart());
+            messageSender.sendMessage(emitter, MessageType.DATA_CHART_PIE_EMISSIONS, emissions.pieChart());
+
+            try {
+                writeJson(outputDir.resolve("map-emissions.json"), emissions.mapData());
+                messageSender.sendLifecycle(emitter, MessageType.SUCCESS_MAP_EMISSIONS);
+            } catch (Exception mapEx) {
+                log.warn("{}: {}", L.msg("output.map.failed"), mapEx.getMessage());
+                messageSender.sendError(emitter, MessageType.ERROR_MAP_EMISSIONS, "MAP_ERROR", mapEx.getMessage());
+            }
+
+            log.info(L.msg("output.emissions.written"),
+                    emissions.paragraph1().get("co2Baseline"),
+                    emissions.paragraph1().get("co2PostPolicy"));
+            return true;
+        } catch (Exception e) {
+            log.error("{}: {}", L.msg("output.component.failed"), e.getMessage(), e);
+            messageSender.sendError(emitter, MessageType.ERROR_GLOBAL,
+                    "EMISSIONS_ERROR", e.getMessage());
+            return false;
+        }
+    }
+
+    private boolean processResponse(UUID requestId, SseEmitter emitter, Path outputDir,
+                                     Path baselineDir, Path policyDir,
+                                     SimulationRequest request,
+                                     SimulationResult baselineResult,
+                                     SimulationResult policyResult) {
+        ResponseResult response;
+        boolean chartsSucceeded = false;
 
         try {
-            writeJson(outputDir.resolve("map-emissions.json"), emissions.mapData());
-            messageSender.sendLifecycle(emitter, MessageType.SUCCESS_MAP_EMISSIONS);
+            log.info(L.msg("output.stage.response"));
+            ResponseConfig responseConfig = new ResponseConfig(
+                    excludeNonCarAgents, rerouteThresholdMeters, multiModalPt,
+                    subwayFactorGpkm, tripLegsScope, targetCrs);
+
+            response = ResponseAnalyzer.analyze(
+                    baselineDir, policyDir, request,
+                    baselineResult.legTracker(), policyResult.legTracker(),
+                    policyResult.moneyCollector(), responseConfig);
+
+            Map<String, Object> prJson = new LinkedHashMap<>();
+            prJson.put("paragraph1", response.paragraph1());
+            prJson.put("paragraph2", response.paragraph2());
+            prJson.put("breakdownChart", response.breakdownChart());
+            prJson.put("timeImpactChart", response.timeImpactChart());
+            writeJson(outputDir.resolve("people-response.json"), prJson);
+
+            messageSender.sendMessage(emitter, MessageType.DATA_TEXT_PARAGRAPH1_PEOPLE_RESPONSE, response.paragraph1());
+            messageSender.sendMessage(emitter, MessageType.DATA_TEXT_PARAGRAPH2_PEOPLE_RESPONSE, response.paragraph2());
+            messageSender.sendMessage(emitter, MessageType.DATA_CHART_BREAKDOWN_PEOPLE_RESPONSE, response.breakdownChart());
+            messageSender.sendMessage(emitter, MessageType.DATA_CHART_TIME_IMPACT_PEOPLE_RESPONSE, response.timeImpactChart());
+            chartsSucceeded = true;
         } catch (Exception e) {
-            log.warn("{}: {}", L.msg("output.map.failed"), e.getMessage());
-            messageSender.sendError(emitter, MessageType.ERROR_MAP_EMISSIONS, "MAP_ERROR", e.getMessage());
+            log.error("{}: {}", L.msg("output.component.failed"), e.getMessage(), e);
+            messageSender.sendError(emitter, MessageType.ERROR_GLOBAL,
+                    "RESPONSE_ERROR", e.getMessage());
+            return false;
         }
-
-        log.info(L.msg("output.emissions.written"),
-                emissions.paragraph1().get("co2Baseline"),
-                emissions.paragraph1().get("co2PostPolicy"));
-
-        // Step 3: Response analysis
-        log.info(L.msg("output.stage.response"));
-        ResponseConfig responseConfig = new ResponseConfig(
-                excludeNonCarAgents, rerouteThresholdMeters, multiModalPt,
-                subwayFactorGpkm, tripLegsScope, targetCrs);
-
-        ResponseResult response = ResponseAnalyzer.analyze(
-                baselineDir, policyDir, request,
-                baselineResult.legTracker(), policyResult.legTracker(),
-                policyResult.moneyCollector(), responseConfig);
-
-        Map<String, Object> prJson = new LinkedHashMap<>();
-        prJson.put("paragraph1", response.paragraph1());
-        prJson.put("paragraph2", response.paragraph2());
-        prJson.put("breakdownChart", response.breakdownChart());
-        prJson.put("timeImpactChart", response.timeImpactChart());
-        writeJson(outputDir.resolve("people-response.json"), prJson);
-
-        messageSender.sendMessage(emitter, MessageType.DATA_TEXT_PARAGRAPH1_PEOPLE_RESPONSE, response.paragraph1());
-        messageSender.sendMessage(emitter, MessageType.DATA_TEXT_PARAGRAPH2_PEOPLE_RESPONSE, response.paragraph2());
-        messageSender.sendMessage(emitter, MessageType.DATA_CHART_BREAKDOWN_PEOPLE_RESPONSE, response.breakdownChart());
-        messageSender.sendMessage(emitter, MessageType.DATA_CHART_TIME_IMPACT_PEOPLE_RESPONSE, response.timeImpactChart());
 
         try {
             writeJson(outputDir.resolve("map-people-response.json"), response.peopleResponseMap());
@@ -177,15 +234,22 @@ public class OutputManager {
             messageSender.sendError(emitter, MessageType.ERROR_MAP_PEOPLE_RESPONSE, "MAP_ERROR", e.getMessage());
         }
 
-        tripLegRepository.batchInsert(requestId, response.tripLegRecords());
-        int totalRecords = response.tripLegRecords().size();
-        int pageSize = 50;
-        List<Map<String, Object>> firstPage = response.tripLegRecords().stream()
-                .limit(pageSize)
-                .map(ResponseAnalyzer::toSseRecord)
-                .toList();
-        messageSender.sendMessage(emitter, MessageType.DATA_TABLE_TRIP_LEGS,
-                Map.of("records", firstPage, "totalRecords", totalRecords, "pageSize", pageSize));
+        try {
+            tripLegRepository.batchInsert(requestId, response.tripLegRecords());
+            int totalRecords = response.tripLegRecords().size();
+            int pageSize = 50;
+            List<Map<String, Object>> firstPage = response.tripLegRecords().stream()
+                    .limit(pageSize)
+                    .map(ResponseAnalyzer::toSseRecord)
+                    .toList();
+            messageSender.sendMessage(emitter, MessageType.DATA_TABLE_TRIP_LEGS,
+                    Map.of("records", firstPage, "totalRecords", totalRecords, "pageSize", pageSize));
+            log.info(L.msg("output.response.written"), totalRecords);
+        } catch (Exception e) {
+            log.error("{}: {}", L.msg("output.component.failed"), e.getMessage(), e);
+            messageSender.sendError(emitter, MessageType.ERROR_GLOBAL,
+                    "TRIP_LEGS_ERROR", e.getMessage());
+        }
 
         try {
             writeJson(outputDir.resolve("map-trip-legs.json"), response.tripLegsMap());
@@ -195,12 +259,7 @@ public class OutputManager {
             messageSender.sendError(emitter, MessageType.ERROR_MAP_TRIP_LEGS, "MAP_ERROR", e.getMessage());
         }
 
-        log.info(L.msg("output.response.written"), totalRecords);
-
-        // Step 4: Completion
-        scenarioStateService.updateStatus(requestId, ScenarioStatus.COMPLETED);
-        messageSender.sendLifecycle(emitter, MessageType.SUCCESS_PROCESS);
-        messageSender.complete(emitter);
+        return chartsSucceeded;
     }
 
     private double computeModeShift(Path baselineDir, Path policyDir) {

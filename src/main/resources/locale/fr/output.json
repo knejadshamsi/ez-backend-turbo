@@ -13,5 +13,7 @@
   "output.scenario.not.completed": "Le scénario n'est pas terminé",
   "output.map.file.missing": "Données cartographiques indisponibles",
   "output.replay.failed": "Échec de la relecture du scénario",
-  "output.replay.corrupt": "Les données du scénario sont incomplètes"
+  "output.replay.corrupt": "Les données du scénario sont incomplètes",
+  "output.component.failed": "Échec du composant de sortie",
+  "output.all.failed": "Tous les composants de sortie ont échoué"
 }
