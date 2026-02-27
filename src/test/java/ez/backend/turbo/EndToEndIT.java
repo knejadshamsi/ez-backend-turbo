@@ -277,6 +277,177 @@ class EndToEndIT {
     }
 
     @Test
+    @Order(6)
+    void testRetryComponents() throws Exception {
+        assertNotNull(requestId, "requestId not set");
+
+        String[] retryTypes = {
+                "text_overview",
+                "text_paragraph1_emissions",
+                "text_paragraph2_emissions",
+                "chart_bar_emissions",
+                "chart_pie_emissions",
+                "text_paragraph1_people_response",
+                "text_paragraph2_people_response",
+                "chart_breakdown_people_response",
+                "chart_time_impact_people_response"
+        };
+
+        for (String retryType : retryTypes) {
+            Thread.sleep(100);
+            String sseType = "data_" + retryType;
+
+            Map<String, Object> liveMsg = liveMessages.stream()
+                    .filter(m -> sseType.equals(m.get("messageType")))
+                    .findFirst()
+                    .orElseThrow(() -> new AssertionError("No live SSE message for " + sseType));
+
+            HttpURLConnection conn = sendPostJson(
+                    BASE + "/scenario/" + requestId + "/retry",
+                    "{\"messageType\":\"" + retryType + "\"}");
+            assertEquals(200, conn.getResponseCode(), "Retry failed for " + retryType);
+            Map<String, Object> body = readJsonResponse(conn);
+            conn.disconnect();
+
+            assertEquals(200, ((Number) body.get("statusCode")).intValue());
+            @SuppressWarnings("unchecked")
+            Map<String, Object> envelope = (Map<String, Object>) body.get("payload");
+            assertEquals(sseType, envelope.get("messageType"),
+                    "Retry messageType mismatch for " + retryType);
+
+            var liveTree = mapper.valueToTree(liveMsg.get("payload"));
+            var retryTree = mapper.valueToTree(envelope.get("payload"));
+            assertEquals(liveTree, retryTree,
+                    "Retry payload mismatch for " + retryType);
+        }
+    }
+
+    @Test
+    @Order(7)
+    void testRetryGuards() throws Exception {
+        assertNotNull(requestId, "requestId not set");
+        Thread.sleep(200);
+
+        HttpURLConnection invalid = sendPostJson(
+                BASE + "/scenario/" + requestId + "/retry",
+                "{\"messageType\":\"not_a_real_type\"}");
+        assertEquals(400, invalid.getResponseCode());
+        Map<String, Object> invalidBody = readErrorJsonResponse(invalid);
+        assertEquals(400, ((Number) invalidBody.get("statusCode")).intValue());
+        invalid.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection missing = sendPostJson(
+                BASE + "/scenario/" + requestId + "/retry", "{}");
+        assertEquals(400, missing.getResponseCode());
+        missing.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection notFound = sendPostJson(
+                BASE + "/scenario/00000000-0000-0000-0000-000000000000/retry",
+                "{\"messageType\":\"text_overview\"}");
+        assertEquals(404, notFound.getResponseCode());
+        notFound.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection badUuid = sendPostJson(
+                BASE + "/scenario/not-a-uuid/retry",
+                "{\"messageType\":\"text_overview\"}");
+        assertEquals(400, badUuid.getResponseCode());
+        badUuid.disconnect();
+    }
+
+    @Test
+    @Order(8)
+    void testCancelCompletedScenario() throws Exception {
+        assertNotNull(requestId, "requestId not set");
+        Thread.sleep(200);
+
+        HttpURLConnection conn = sendPostJson(
+                BASE + "/scenario/" + requestId + "/cancel", null);
+        assertEquals(400, conn.getResponseCode());
+        Map<String, Object> body = readErrorJsonResponse(conn);
+        assertEquals(400, ((Number) body.get("statusCode")).intValue());
+        conn.disconnect();
+    }
+
+    @Test
+    @Order(9)
+    void testDeleteScenario() throws Exception {
+        assertNotNull(requestId, "requestId not set");
+        Thread.sleep(200);
+
+        HttpURLConnection conn = sendDelete(BASE + "/scenario/" + requestId);
+        assertEquals(200, conn.getResponseCode());
+        Map<String, Object> body = readJsonResponse(conn);
+        assertEquals(200, ((Number) body.get("statusCode")).intValue());
+        conn.disconnect();
+
+        Path outputDir = DEV_DATA.resolve("output").resolve(requestId);
+        assertFalse(Files.isDirectory(outputDir), "Output directory should be deleted");
+
+        Thread.sleep(100);
+        HttpURLConnection tripLegs = openGet(
+                BASE + "/scenario/" + requestId + "/trip-legs?page=1&pageSize=50");
+        assertEquals(409, tripLegs.getResponseCode());
+        tripLegs.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection mapConn = openGet(
+                BASE + "/scenario/" + requestId + "/maps/emissions");
+        assertEquals(409, mapConn.getResponseCode());
+        mapConn.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection retryConn = sendPostJson(
+                BASE + "/scenario/" + requestId + "/retry",
+                "{\"messageType\":\"text_overview\"}");
+        assertEquals(400, retryConn.getResponseCode());
+        retryConn.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection cancelConn = sendPostJson(
+                BASE + "/scenario/" + requestId + "/cancel", null);
+        assertEquals(400, cancelConn.getResponseCode());
+        cancelConn.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection deleteAgain = sendDelete(BASE + "/scenario/" + requestId);
+        assertEquals(400, deleteAgain.getResponseCode());
+        Map<String, Object> deleteAgainBody = readErrorJsonResponse(deleteAgain);
+        assertEquals(400, ((Number) deleteAgainBody.get("statusCode")).intValue());
+        deleteAgain.disconnect();
+    }
+
+    @Test
+    @Order(10)
+    void testErrorCasesNewEndpoints() throws Exception {
+        Thread.sleep(200);
+
+        HttpURLConnection cancelBad = sendPostJson(
+                BASE + "/scenario/not-a-uuid/cancel", null);
+        assertEquals(400, cancelBad.getResponseCode());
+        cancelBad.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection cancelNotFound = sendPostJson(
+                BASE + "/scenario/00000000-0000-0000-0000-000000000000/cancel", null);
+        assertEquals(404, cancelNotFound.getResponseCode());
+        cancelNotFound.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection deleteBad = sendDelete(BASE + "/scenario/not-a-uuid");
+        assertEquals(400, deleteBad.getResponseCode());
+        deleteBad.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection deleteNotFound = sendDelete(
+                BASE + "/scenario/00000000-0000-0000-0000-000000000000");
+        assertEquals(404, deleteNotFound.getResponseCode());
+        deleteNotFound.disconnect();
+    }
+
+    @Test
     @Order(5)
     void testErrorCases() throws Exception {
         List<Map<String, Object>> badUuidSse = sendSseRequest(
@@ -396,10 +567,48 @@ class EndToEndIT {
         return conn;
     }
 
+    private static HttpURLConnection sendPostJson(String url, String body) throws Exception {
+        HttpURLConnection conn = (HttpURLConnection) URI.create(url).toURL().openConnection();
+        conn.setRequestMethod("POST");
+        conn.setConnectTimeout(5000);
+        conn.setReadTimeout(5000);
+        conn.setRequestProperty("Accept", "application/json");
+        if (body != null && !body.isEmpty()) {
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setDoOutput(true);
+            try (OutputStream os = conn.getOutputStream()) {
+                os.write(body.getBytes(StandardCharsets.UTF_8));
+            }
+        }
+        return conn;
+    }
+
+    private static HttpURLConnection sendDelete(String url) throws Exception {
+        HttpURLConnection conn = (HttpURLConnection) URI.create(url).toURL().openConnection();
+        conn.setRequestMethod("DELETE");
+        conn.setConnectTimeout(5000);
+        conn.setReadTimeout(5000);
+        conn.setRequestProperty("Accept", "application/json");
+        return conn;
+    }
+
     @SuppressWarnings("unchecked")
     private static Map<String, Object> readJsonResponse(HttpURLConnection conn) throws Exception {
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+            return mapper.readValue(sb.toString(), Map.class);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static Map<String, Object> readErrorJsonResponse(HttpURLConnection conn) throws Exception {
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(conn.getErrorStream(), StandardCharsets.UTF_8))) {
             StringBuilder sb = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
