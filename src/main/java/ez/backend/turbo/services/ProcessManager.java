@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
 
 @Service
@@ -19,7 +20,8 @@ public class ProcessManager {
     private final Map<ProcessType, ProcessConfig> config;
     private final Map<UUID, ProcessInfo> activeProcesses;
     private final Map<ProcessType, Semaphore> semaphores;
-    private final Map<UUID, Boolean> cancellationFlags;
+    private final Map<UUID, CountDownLatch> cancellationLatches;
+    private final long cancelTimeoutMs;
 
     public ProcessManager(StartupValidator validator) {
         this.config = Map.of(
@@ -29,7 +31,8 @@ public class ProcessManager {
         );
         this.activeProcesses = new ConcurrentHashMap<>();
         this.semaphores = new ConcurrentHashMap<>();
-        this.cancellationFlags = new ConcurrentHashMap<>();
+        this.cancellationLatches = new ConcurrentHashMap<>();
+        this.cancelTimeoutMs = validator.getCancelTimeoutMs();
         for (ProcessType type : ProcessType.values()) {
             semaphores.put(type, new Semaphore(config.get(type).max(), true));
         }
@@ -82,15 +85,33 @@ public class ProcessManager {
             throw new IllegalStateException(L.msg("process.unregister.unknown") + ": " + processId);
         }
         semaphores.get(removed.type()).release();
-        cancellationFlags.remove(processId);
+        CountDownLatch latch = cancellationLatches.remove(processId);
+        if (latch != null) {
+            latch.countDown();
+        }
     }
 
     public void requestCancel(UUID processId) {
-        cancellationFlags.put(processId, true);
+        cancellationLatches.putIfAbsent(processId, new CountDownLatch(1));
     }
 
     public boolean isCancelled(UUID processId) {
-        return cancellationFlags.getOrDefault(processId, false);
+        return cancellationLatches.containsKey(processId);
+    }
+
+    public CountDownLatch getCancellationLatch(UUID processId) {
+        return cancellationLatches.get(processId);
+    }
+
+    public void signalCancellationComplete(UUID processId) {
+        CountDownLatch latch = cancellationLatches.get(processId);
+        if (latch != null) {
+            latch.countDown();
+        }
+    }
+
+    public long getCancelTimeoutMs() {
+        return cancelTimeoutMs;
     }
 
     public Map<ProcessType, ProcessStats> getStats() {

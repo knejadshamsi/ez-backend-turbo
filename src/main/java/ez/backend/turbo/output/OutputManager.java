@@ -8,9 +8,11 @@ import ez.backend.turbo.endpoints.SimulationRequest;
 import ez.backend.turbo.output.EmissionsAggregator.EmissionsResult;
 import ez.backend.turbo.output.ResponseAnalyzer.ResponseConfig;
 import ez.backend.turbo.output.ResponseAnalyzer.ResponseResult;
+import ez.backend.turbo.services.ProcessManager;
 import ez.backend.turbo.services.ScenarioStateService;
 import ez.backend.turbo.services.SourceRegistry;
 import ez.backend.turbo.simulation.MatsimRunner.SimulationResult;
+import ez.backend.turbo.utils.CancellationException;
 import ez.backend.turbo.sse.SseMessageSender;
 import ez.backend.turbo.utils.L;
 import ez.backend.turbo.utils.MessageType;
@@ -40,6 +42,7 @@ public class OutputManager {
 
     private final SseMessageSender messageSender;
     private final ScenarioStateService scenarioStateService;
+    private final ProcessManager processManager;
     private final ObjectMapper objectMapper;
     private final SourceRegistry sourceRegistry;
     private final TripLegRepository tripLegRepository;
@@ -55,6 +58,7 @@ public class OutputManager {
 
     public OutputManager(SseMessageSender messageSender,
                          ScenarioStateService scenarioStateService,
+                         ProcessManager processManager,
                          ObjectMapper objectMapper,
                          StartupValidator startupValidator,
                          SourceRegistry sourceRegistry,
@@ -69,6 +73,7 @@ public class OutputManager {
                          @Value("${ez.output.trip-legs-scope}") String tripLegsScope) {
         this.messageSender = messageSender;
         this.scenarioStateService = scenarioStateService;
+        this.processManager = processManager;
         this.objectMapper = objectMapper;
         this.sourceRegistry = sourceRegistry;
         this.tripLegRepository = tripLegRepository;
@@ -94,15 +99,14 @@ public class OutputManager {
         Path policyDir = policyResult.outputDir();
         boolean anySucceeded = false;
 
-        // Step 1: Overview
         anySucceeded |= processOverview(emitter, outputDir, policyDir,
                 personCount, networkNodes, networkLinks, simulationAreaKm2);
+        checkCancelled(requestId);
 
-        // Step 2: Emissions
         anySucceeded |= processEmissions(emitter, outputDir, baselineDir, policyDir,
                 request, vehicles, simulationAreaKm2);
+        checkCancelled(requestId);
 
-        // Step 3: Response analysis + trip legs
         anySucceeded |= processResponse(requestId, emitter, outputDir, baselineDir, policyDir,
                 request, baselineResult, policyResult);
 
@@ -219,12 +223,16 @@ public class OutputManager {
             messageSender.sendMessage(emitter, MessageType.DATA_CHART_BREAKDOWN_PEOPLE_RESPONSE, response.breakdownChart());
             messageSender.sendMessage(emitter, MessageType.DATA_CHART_TIME_IMPACT_PEOPLE_RESPONSE, response.timeImpactChart());
             chartsSucceeded = true;
+        } catch (CancellationException e) {
+            throw e;
         } catch (Exception e) {
             log.error("{}: {}", L.msg("output.component.failed"), e.getMessage(), e);
             messageSender.sendError(emitter, MessageType.ERROR_GLOBAL,
                     "RESPONSE_ERROR", e.getMessage());
             return false;
         }
+
+        checkCancelled(requestId);
 
         try {
             writeJson(outputDir.resolve("map-people-response.json"), response.peopleResponseMap());
@@ -233,6 +241,8 @@ public class OutputManager {
             log.warn("{}: {}", L.msg("output.map.failed"), e.getMessage());
             messageSender.sendError(emitter, MessageType.ERROR_MAP_PEOPLE_RESPONSE, "MAP_ERROR", e.getMessage());
         }
+
+        checkCancelled(requestId);
 
         try {
             tripLegRepository.batchInsert(requestId, response.tripLegRecords());
@@ -245,11 +255,15 @@ public class OutputManager {
             messageSender.sendMessage(emitter, MessageType.DATA_TABLE_TRIP_LEGS,
                     Map.of("records", firstPage, "totalRecords", totalRecords, "pageSize", pageSize));
             log.info(L.msg("output.response.written"), totalRecords);
+        } catch (CancellationException e) {
+            throw e;
         } catch (Exception e) {
             log.error("{}: {}", L.msg("output.component.failed"), e.getMessage(), e);
             messageSender.sendError(emitter, MessageType.ERROR_GLOBAL,
                     "TRIP_LEGS_ERROR", e.getMessage());
         }
+
+        checkCancelled(requestId);
 
         try {
             writeJson(outputDir.resolve("map-trip-legs.json"), response.tripLegsMap());
@@ -260,6 +274,12 @@ public class OutputManager {
         }
 
         return chartsSucceeded;
+    }
+
+    private void checkCancelled(UUID requestId) {
+        if (processManager.isCancelled(requestId)) {
+            throw new CancellationException(requestId);
+        }
     }
 
     private double computeModeShift(Path baselineDir, Path policyDir) {

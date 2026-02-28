@@ -8,7 +8,6 @@ public enum MessageType {
     PA_SIMULATION_START("pa_simulation_start"),
     HEARTBEAT("heartbeat"),
     SUCCESS_PROCESS("success_process"),
-    CANCELLED_PROCESS("cancelled_process"),
     ERROR_GLOBAL("error_global"),
 
     SCENARIO_STATUS("scenario_status"),

@@ -12,6 +12,7 @@ import ez.backend.turbo.simulation.ZoneLinkResolver;
 import ez.backend.turbo.simulation.ZonePolicyIndex;
 import ez.backend.turbo.simulation.ZoneLinkResolver.ZoneLinkSet;
 import ez.backend.turbo.sse.SseMessageSender;
+import ez.backend.turbo.utils.CancellationException;
 import ez.backend.turbo.utils.L;
 import ez.backend.turbo.utils.MessageType;
 import ez.backend.turbo.utils.ScenarioStatus;
@@ -167,10 +168,15 @@ public class SimulationService {
 
             List<ZoneLinkSet> zoneLinkSets = zoneLinkResolver.resolve(
                     request.getZones(), netYear, netName);
+            checkCancelled(requestId);
+
             Set<String> filteredPersonIds = populationFilterService.filter(request, zoneLinkSets);
+            checkCancelled(requestId);
+
             Path plansFile = populationReconstructionService.reconstructAndSample(
                     filteredPersonIds, popYear, popName, requestId, percentage);
             log.info(L.msg("simulation.population.ready"));
+            checkCancelled(requestId);
 
             Population population = PopulationUtils.readPopulation(plansFile.toString());
             int personCount = population.getPersons().size();
@@ -178,6 +184,7 @@ public class SimulationService {
             Path vehiclesFile = plansFile.getParent().resolve("vehicles.xml");
             new MatsimVehicleWriter(vehicles).writeFile(vehiclesFile.toString());
             new PopulationWriter(population).write(plansFile.toString());
+            checkCancelled(requestId);
 
             Network network = sourceRegistry.getNetwork(netYear, netName);
             int networkNodes = network.getNodes().size();
@@ -226,7 +233,7 @@ public class SimulationService {
         }
     }
 
-    private void checkCancelled(UUID requestId) {
+    void checkCancelled(UUID requestId) {
         if (processManager.isCancelled(requestId)) {
             throw new CancellationException(requestId);
         }
@@ -238,16 +245,9 @@ public class SimulationService {
         if (current != ScenarioStatus.DELETED) {
             scenarioStateService.updateStatus(requestId, ScenarioStatus.CANCELLED);
         }
-        messageSender.sendMessage(emitter, MessageType.CANCELLED_PROCESS,
-                Map.of("requestId", requestId.toString()));
         messageSender.complete(emitter);
         scenarioStateService.cleanupOutputData(requestId);
-    }
-
-    static class CancellationException extends RuntimeException {
-        CancellationException(UUID requestId) {
-            super(requestId.toString());
-        }
+        processManager.signalCancellationComplete(requestId);
     }
 
     private void runDirectPipeline(UUID requestId, SseEmitter emitter, SimulationRequest request) {

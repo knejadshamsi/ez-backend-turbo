@@ -57,6 +57,7 @@ public class StartupValidator implements ApplicationRunner {
     private final ScoringConfig scoringConfig;
     private final StrategyConfig strategyConfig;
     private final boolean overlapFirstWins;
+    private final long cancelTimeoutMs;
 
     public StartupValidator(Environment environment, JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -116,6 +117,9 @@ public class StartupValidator implements ApplicationRunner {
 
         this.overlapFirstWins = validateBoolean("ez.zone.overlap-first-wins",
                 environment.getProperty("ez.zone.overlap-first-wins"));
+
+        this.cancelTimeoutMs = validatePositiveLong("ez.cancel.timeout",
+                environment.getProperty("ez.cancel.timeout"));
 
         if (adminProcessConfig.max() == 0 && readProcessConfig.max() == 0 && computeProcessConfig.max() == 0) {
             throw new IllegalStateException("At least one of {admin, read, compute} must have max > 0 | "
@@ -225,6 +229,10 @@ public class StartupValidator implements ApplicationRunner {
 
     public boolean isOverlapFirstWins() {
         return overlapFirstWins;
+    }
+
+    public long getCancelTimeoutMs() {
+        return cancelTimeoutMs;
     }
 
     @Override

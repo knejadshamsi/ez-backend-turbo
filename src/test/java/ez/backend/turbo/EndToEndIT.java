@@ -402,9 +402,9 @@ class EndToEndIT {
 
         HttpURLConnection conn = sendPostJson(
                 BASE + "/scenario/" + requestId + "/cancel", null);
-        assertEquals(400, conn.getResponseCode());
+        assertEquals(409, conn.getResponseCode());
         Map<String, Object> body = readErrorJsonResponse(conn);
-        assertEquals(400, ((Number) body.get("statusCode")).intValue());
+        assertEquals(409, ((Number) body.get("statusCode")).intValue());
         conn.disconnect();
     }
 
@@ -456,7 +456,7 @@ class EndToEndIT {
         Thread.sleep(100);
         HttpURLConnection cancelConn = sendPostJson(
                 BASE + "/scenario/" + requestId + "/cancel", null);
-        assertEquals(400, cancelConn.getResponseCode());
+        assertEquals(409, cancelConn.getResponseCode());
         cancelConn.disconnect();
 
         Thread.sleep(100);

@@ -8,7 +8,6 @@ import ez.backend.turbo.services.ScenarioStateService;
 import ez.backend.turbo.session.SseEmitterRegistry;
 import ez.backend.turbo.sse.SseMessageSender;
 import ez.backend.turbo.utils.L;
-import ez.backend.turbo.utils.MessageType;
 import ez.backend.turbo.utils.ResponseFormatter;
 import ez.backend.turbo.utils.ScenarioStatus;
 import ez.backend.turbo.utils.StandardResponse;
@@ -31,6 +30,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 public class ScenarioController {
@@ -41,6 +42,9 @@ public class ScenarioController {
             ScenarioStatus.CREATED, ScenarioStatus.QUEUED, ScenarioStatus.VALIDATING,
             ScenarioStatus.SIMULATING_BASELINE, ScenarioStatus.SIMULATING_POLICY,
             ScenarioStatus.POSTPROCESSING);
+
+    private static final Set<ScenarioStatus> IMMEDIATE_CANCEL = Set.of(
+            ScenarioStatus.CREATED, ScenarioStatus.QUEUED);
 
     private static final Set<ScenarioStatus> NOT_RETRYABLE = Set.of(
             ScenarioStatus.CANCELLED, ScenarioStatus.DELETED, ScenarioStatus.FAILED);
@@ -100,27 +104,66 @@ public class ScenarioController {
 
         ScenarioStatus current = status.get();
         if (current == ScenarioStatus.COMPLETED) {
-            return ResponseEntity.badRequest()
-                    .body(StandardResponse.error(400, L.msg("scenario.cancel.already.completed")));
+            return ResponseEntity.status(409)
+                    .body(StandardResponse.error(409, L.msg("scenario.cancel.already.completed")));
         }
         if (current == ScenarioStatus.CANCELLED) {
-            return ResponseEntity.badRequest()
-                    .body(StandardResponse.error(400, L.msg("scenario.cancel.already.cancelled")));
+            return ResponseEntity.status(409)
+                    .body(StandardResponse.error(409, L.msg("scenario.cancel.already.cancelled")));
+        }
+        if (current == ScenarioStatus.DELETED) {
+            return ResponseEntity.status(409)
+                    .body(StandardResponse.error(409, L.msg("scenario.cancel.deleted")));
+        }
+        if (current == ScenarioStatus.FAILED) {
+            return ResponseEntity.status(409)
+                    .body(StandardResponse.error(409, L.msg("scenario.cancel.failed")));
         }
         if (!CANCELLABLE.contains(current)) {
-            return ResponseEntity.badRequest()
-                    .body(StandardResponse.error(400, L.msg("scenario.cancel.not.running")));
+            return ResponseEntity.status(409)
+                    .body(StandardResponse.error(409, L.msg("scenario.cancel.not.running")));
+        }
+
+        log.info("{}: {}", L.msg("scenario.cancel.requested"), requestId);
+
+        if (IMMEDIATE_CANCEL.contains(current)) {
+            handleImmediateCancel(requestId);
+            return ResponseEntity.ok(responseFormatter.success(
+                    L.msg("scenario.cancel.confirmed"),
+                    Map.of("requestId", requestId.toString())));
         }
 
         processManager.requestCancel(requestId);
-        log.info("{}: {}", L.msg("scenario.cancel.requested"), requestId);
+        CountDownLatch latch = processManager.getCancellationLatch(requestId);
 
-        if (current == ScenarioStatus.QUEUED || current == ScenarioStatus.CREATED) {
-            handleImmediateCancel(requestId);
+        if (latch == null) {
+            ScenarioStatus recheck = scenarioStateService.getStatus(requestId).orElse(null);
+            if (recheck == ScenarioStatus.CANCELLED) {
+                return ResponseEntity.ok(responseFormatter.success(
+                        L.msg("scenario.cancel.confirmed"),
+                        Map.of("requestId", requestId.toString())));
+            }
+            return ResponseEntity.status(409)
+                    .body(StandardResponse.error(409, L.msg("scenario.cancel.not.running")));
         }
 
-        Map<String, Object> payload = Map.of("status", "cancelled", "requestId", requestId.toString());
-        return ResponseEntity.ok(responseFormatter.success(L.msg("scenario.cancel.confirmed"), payload));
+        try {
+            boolean completed = latch.await(processManager.getCancelTimeoutMs(), TimeUnit.MILLISECONDS);
+            if (completed) {
+                log.info("{}: {}", L.msg("scenario.cancel.confirmed"), requestId);
+                return ResponseEntity.ok(responseFormatter.success(
+                        L.msg("scenario.cancel.confirmed"),
+                        Map.of("requestId", requestId.toString())));
+            } else {
+                log.warn("{}: {}", L.msg("scenario.cancel.timeout"), requestId);
+                return ResponseEntity.status(408)
+                        .body(StandardResponse.error(408, L.msg("scenario.cancel.timeout")));
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return ResponseEntity.status(408)
+                    .body(StandardResponse.error(408, L.msg("scenario.cancel.timeout")));
+        }
     }
 
     @PostMapping("/scenario/{id}/retry")
@@ -212,13 +255,17 @@ public class ScenarioController {
         }
 
         if (STILL_RUNNING.contains(current)) {
-            processManager.requestCancel(requestId);
-            if (current == ScenarioStatus.QUEUED || current == ScenarioStatus.CREATED) {
-                SseEmitter emitter = emitterRegistry.get(requestId);
-                if (emitter != null) {
-                    messageSender.sendMessage(emitter, MessageType.CANCELLED_PROCESS,
-                            Map.of("requestId", requestId.toString()));
-                    messageSender.complete(emitter);
+            if (IMMEDIATE_CANCEL.contains(current)) {
+                handleImmediateCancel(requestId);
+            } else {
+                processManager.requestCancel(requestId);
+                CountDownLatch latch = processManager.getCancellationLatch(requestId);
+                if (latch != null) {
+                    try {
+                        latch.await(processManager.getCancelTimeoutMs(), TimeUnit.MILLISECONDS);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                 }
             }
             log.info("{}: {}", L.msg("scenario.delete.auto.cancelled"), requestId);
@@ -250,8 +297,6 @@ public class ScenarioController {
         scenarioStateService.updateStatus(requestId, ScenarioStatus.CANCELLED);
         SseEmitter emitter = emitterRegistry.get(requestId);
         if (emitter != null) {
-            messageSender.sendMessage(emitter, MessageType.CANCELLED_PROCESS,
-                    Map.of("requestId", requestId.toString()));
             messageSender.complete(emitter);
         }
         scenarioStateService.cleanupOutputData(requestId);
