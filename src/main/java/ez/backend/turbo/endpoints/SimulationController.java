@@ -18,11 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
 public class SimulationController {
+
+    private static final Set<ScenarioStatus> REPLAYABLE = Set.of(
+            ScenarioStatus.COMPLETED, ScenarioStatus.CANCELLED,
+            ScenarioStatus.FAILED, ScenarioStatus.DELETED);
 
     private final SimulationService simulationService;
     private final ScenarioStateService scenarioStateService;
@@ -63,7 +68,9 @@ public class SimulationController {
         if (status.isEmpty()) {
             return errorEmitter(MessageType.ERROR_GLOBAL, "NOT_FOUND", L.msg("output.scenario.not.found"));
         }
-        if (status.get() != ScenarioStatus.COMPLETED) {
+
+        ScenarioStatus current = status.get();
+        if (!REPLAYABLE.contains(current)) {
             return errorEmitter(MessageType.ERROR_GLOBAL, "NOT_COMPLETED", L.msg("output.scenario.not.completed"));
         }
 
@@ -78,7 +85,7 @@ public class SimulationController {
 
         CompletableFuture.runAsync(() -> {
             try {
-                scenarioReplayService.replay(requestId, emitter);
+                scenarioReplayService.replay(requestId, emitter, current);
             } finally {
                 processManager.unregister(requestId);
             }

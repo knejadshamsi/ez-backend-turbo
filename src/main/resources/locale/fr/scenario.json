@@ -21,5 +21,6 @@
   "scenario.retry.served": "Reprise servie",
   "scenario.delete.already.deleted": "Le scénario a déjà été supprimé",
   "scenario.delete.auto.cancelled": "Scénario en cours auto-annulé pour suppression",
-  "scenario.delete.completed": "Scénario supprimé"
+  "scenario.delete.completed": "Scénario supprimé",
+  "scenario.refetch.started": "Relecture du scénario lancée"
 }

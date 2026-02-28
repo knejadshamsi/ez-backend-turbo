@@ -6,6 +6,7 @@ import ez.backend.turbo.database.TripLegRepository;
 import ez.backend.turbo.sse.SseMessageSender;
 import ez.backend.turbo.utils.L;
 import ez.backend.turbo.utils.MessageType;
+import ez.backend.turbo.utils.ScenarioStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -25,20 +26,69 @@ public class ScenarioReplayService {
     private final SseMessageSender messageSender;
     private final ObjectMapper objectMapper;
     private final TripLegRepository tripLegRepository;
+    private final ScenarioStateService scenarioStateService;
     private final Path dataRoot;
 
     public ScenarioReplayService(SseMessageSender messageSender,
                                  ObjectMapper objectMapper,
                                  TripLegRepository tripLegRepository,
+                                 ScenarioStateService scenarioStateService,
                                  StartupValidator startupValidator) {
         this.messageSender = messageSender;
         this.objectMapper = objectMapper;
         this.tripLegRepository = tripLegRepository;
+        this.scenarioStateService = scenarioStateService;
         this.dataRoot = startupValidator.getDataRoot();
     }
 
     @SuppressWarnings("unchecked")
-    public void replay(UUID requestId, SseEmitter emitter) {
+    public void replay(UUID requestId, SseEmitter emitter, ScenarioStatus status) {
+        sendPreamble(requestId, emitter, status);
+
+        if (status != ScenarioStatus.COMPLETED) {
+            messageSender.complete(emitter);
+            return;
+        }
+
+        replayOutput(requestId, emitter);
+    }
+
+    private void sendPreamble(UUID requestId, SseEmitter emitter, ScenarioStatus status) {
+        messageSender.sendMessage(emitter, MessageType.SCENARIO_STATUS,
+                Map.of("status", status.name(), "requestId", requestId.toString()));
+
+        var scenario = scenarioStateService.getScenario(requestId);
+        if (scenario.isEmpty()) return;
+
+        String inputJson = (String) scenario.get().get("inputData");
+        if (inputJson != null) {
+            try {
+                Object inputData = objectMapper.readValue(inputJson, Object.class);
+                messageSender.sendMessage(emitter, MessageType.SCENARIO_INPUT, inputData);
+            } catch (Exception e) {
+                log.warn("{}: {}", L.msg("output.replay.failed"), e.getMessage());
+                messageSender.sendMessage(emitter, MessageType.SCENARIO_INPUT, Map.of());
+            }
+        } else {
+            messageSender.sendMessage(emitter, MessageType.SCENARIO_INPUT, Map.of());
+        }
+
+        String sessionJson = (String) scenario.get().get("sessionData");
+        if (sessionJson != null) {
+            try {
+                Object sessionData = objectMapper.readValue(sessionJson, Object.class);
+                messageSender.sendMessage(emitter, MessageType.SCENARIO_SESSION, sessionData);
+            } catch (Exception e) {
+                log.warn("{}: {}", L.msg("output.replay.failed"), e.getMessage());
+                messageSender.sendMessage(emitter, MessageType.SCENARIO_SESSION, Map.of());
+            }
+        } else {
+            messageSender.sendMessage(emitter, MessageType.SCENARIO_SESSION, Map.of());
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void replayOutput(UUID requestId, SseEmitter emitter) {
         Path outputDir = dataRoot.resolve("output").resolve(requestId.toString());
 
         Path overviewFile = outputDir.resolve("overview.json");

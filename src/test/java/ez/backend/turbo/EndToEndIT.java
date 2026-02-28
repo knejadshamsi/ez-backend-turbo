@@ -173,8 +173,45 @@ class EndToEndIT {
     void testReplaySimulation() throws Exception {
         assertNotNull(requestId, "requestId not set — testLiveSimulation must run first");
 
+        String sessionJson = "{\"testKey\":\"testValue\",\"colorPalette\":[\"#FF0000\"]}";
+
+        Thread.sleep(200);
+        HttpURLConnection sessionConn = sendPostJson(
+                BASE + "/scenario/" + requestId + "/session-data", sessionJson);
+        assertEquals(200, sessionConn.getResponseCode());
+        Map<String, Object> sessionResponse = readJsonResponse(sessionConn);
+        assertEquals(200, ((Number) sessionResponse.get("statusCode")).intValue());
+        assertNotNull(sessionResponse.get("message"));
+        sessionConn.disconnect();
+
+        Thread.sleep(200);
         List<Map<String, Object>> replayMessages = sendSseRequest(
                 "GET", BASE + "/scenario/" + requestId, null, REPLAY_TIMEOUT_MS);
+
+        assertTrue(replayMessages.size() >= 4, "Expected at least 4 messages (preamble + output)");
+
+        assertEquals("scenario_status", replayMessages.get(0).get("messageType"));
+        @SuppressWarnings("unchecked")
+        Map<String, Object> statusPayload = (Map<String, Object>) replayMessages.get(0).get("payload");
+        assertEquals("COMPLETED", statusPayload.get("status"));
+        assertEquals(requestId, statusPayload.get("requestId"));
+
+        assertEquals("scenario_input", replayMessages.get(1).get("messageType"));
+        @SuppressWarnings("unchecked")
+        Map<String, Object> inputPayload = (Map<String, Object>) replayMessages.get(1).get("payload");
+        assertNotNull(inputPayload, "scenario_input payload is null");
+        assertNotNull(inputPayload.get("zones"), "scenario_input should contain zones");
+        assertInstanceOf(List.class, inputPayload.get("zones"));
+        assertFalse(((List<?>) inputPayload.get("zones")).isEmpty(), "zones should not be empty");
+
+        assertEquals("scenario_session", replayMessages.get(2).get("messageType"));
+        @SuppressWarnings("unchecked")
+        Map<String, Object> sessionPayload = (Map<String, Object>) replayMessages.get(2).get("payload");
+        var expectedSession = mapper.readTree(sessionJson);
+        var actualSession = mapper.valueToTree(sessionPayload);
+        assertEquals(expectedSession, actualSession, "Session data round-trip mismatch");
+
+        List<Map<String, Object>> outputMessages = replayMessages.subList(3, replayMessages.size());
 
         List<Map<String, Object>> liveDataMessages = liveMessages.stream()
                 .filter(m -> {
@@ -183,13 +220,13 @@ class EndToEndIT {
                 })
                 .toList();
 
-        assertEquals(liveDataMessages.size(), replayMessages.size(),
-                "Replay message count mismatch: expected " + liveDataMessages.size()
-                        + " got " + replayMessages.size());
+        assertEquals(liveDataMessages.size(), outputMessages.size(),
+                "Output message count mismatch: expected " + liveDataMessages.size()
+                        + " got " + outputMessages.size());
 
         for (int i = 0; i < liveDataMessages.size(); i++) {
             Map<String, Object> live = liveDataMessages.get(i);
-            Map<String, Object> replay = replayMessages.get(i);
+            Map<String, Object> replay = outputMessages.get(i);
 
             assertEquals(live.get("messageType"), replay.get("messageType"),
                     "Message type mismatch at index " + i);
@@ -386,6 +423,17 @@ class EndToEndIT {
         Path outputDir = DEV_DATA.resolve("output").resolve(requestId);
         assertFalse(Files.isDirectory(outputDir), "Output directory should be deleted");
 
+        Thread.sleep(200);
+        List<Map<String, Object>> refetchMessages = sendSseRequest(
+                "GET", BASE + "/scenario/" + requestId, null, REPLAY_TIMEOUT_MS);
+        assertEquals(3, refetchMessages.size(), "Deleted refetch should send 3 preamble messages only");
+        assertEquals("scenario_status", refetchMessages.get(0).get("messageType"));
+        @SuppressWarnings("unchecked")
+        Map<String, Object> deletedStatus = (Map<String, Object>) refetchMessages.get(0).get("payload");
+        assertEquals("DELETED", deletedStatus.get("status"));
+        assertEquals("scenario_input", refetchMessages.get(1).get("messageType"));
+        assertEquals("scenario_session", refetchMessages.get(2).get("messageType"));
+
         Thread.sleep(100);
         HttpURLConnection tripLegs = openGet(
                 BASE + "/scenario/" + requestId + "/trip-legs?page=1&pageSize=50");
@@ -445,6 +493,25 @@ class EndToEndIT {
                 BASE + "/scenario/00000000-0000-0000-0000-000000000000");
         assertEquals(404, deleteNotFound.getResponseCode());
         deleteNotFound.disconnect();
+    }
+
+    @Test
+    @Order(11)
+    void testSessionDataGuards() throws Exception {
+        Thread.sleep(200);
+
+        HttpURLConnection notFound = sendPostJson(
+                BASE + "/scenario/00000000-0000-0000-0000-000000000000/session-data",
+                "{\"key\":\"value\"}");
+        assertEquals(404, notFound.getResponseCode());
+        notFound.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection badUuid = sendPostJson(
+                BASE + "/scenario/not-a-uuid/session-data",
+                "{\"key\":\"value\"}");
+        assertEquals(400, badUuid.getResponseCode());
+        badUuid.disconnect();
     }
 
     @Test

@@ -231,6 +231,21 @@ public class ScenarioController {
         return ResponseEntity.ok(responseFormatter.success(L.msg("scenario.delete.completed"), Map.of()));
     }
 
+    @PostMapping("/scenario/{id}/session-data")
+    public ResponseEntity<StandardResponse<?>> storeSessionData(@PathVariable String id,
+                                                                 @RequestBody String body) {
+        UUID requestId = parseUuid(id);
+
+        Optional<ScenarioStatus> status = scenarioStateService.getStatus(requestId);
+        if (status.isEmpty()) {
+            return ResponseEntity.status(404)
+                    .body(StandardResponse.error(404, L.msg("scenario.not.found")));
+        }
+
+        scenarioStateService.storeSessionData(requestId, body);
+        return ResponseEntity.ok(responseFormatter.success(L.msg("scenario.session.stored"), Map.of()));
+    }
+
     private void handleImmediateCancel(UUID requestId) {
         scenarioStateService.updateStatus(requestId, ScenarioStatus.CANCELLED);
         SseEmitter emitter = emitterRegistry.get(requestId);

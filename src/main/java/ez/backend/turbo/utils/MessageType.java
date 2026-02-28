@@ -11,6 +11,10 @@ public enum MessageType {
     CANCELLED_PROCESS("cancelled_process"),
     ERROR_GLOBAL("error_global"),
 
+    SCENARIO_STATUS("scenario_status"),
+    SCENARIO_INPUT("scenario_input"),
+    SCENARIO_SESSION("scenario_session"),
+
     DATA_TEXT_OVERVIEW("data_text_overview"),
 
     DATA_TEXT_PARAGRAPH1_EMISSIONS("data_text_paragraph1_emissions"),
