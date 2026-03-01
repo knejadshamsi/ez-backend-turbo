@@ -25,5 +25,6 @@
   "scenario.delete.already.deleted": "Scenario has already been deleted",
   "scenario.delete.auto.cancelled": "Running scenario auto-cancelled for deletion",
   "scenario.delete.completed": "Scenario deleted",
-  "scenario.refetch.started": "Scenario refetch started"
+  "scenario.refetch.started": "Scenario refetch started",
+  "scenario.status.stale": "Pipeline process not found, marking as failed"
 }

@@ -8,6 +8,7 @@ import ez.backend.turbo.services.ScenarioStateService;
 import ez.backend.turbo.session.SseEmitterRegistry;
 import ez.backend.turbo.sse.SseMessageSender;
 import ez.backend.turbo.utils.L;
+import ez.backend.turbo.utils.MessageType;
 import ez.backend.turbo.utils.ResponseFormatter;
 import ez.backend.turbo.utils.ScenarioStatus;
 import ez.backend.turbo.utils.StandardResponse;
@@ -16,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -293,10 +295,37 @@ public class ScenarioController {
         return ResponseEntity.ok(responseFormatter.success(L.msg("scenario.session.stored"), Map.of()));
     }
 
+    @GetMapping("/scenario/{id}/status")
+    public ResponseEntity<StandardResponse<?>> status(@PathVariable String id) {
+        UUID requestId = parseUuid(id);
+
+        Optional<ScenarioStatus> status = scenarioStateService.getStatus(requestId);
+        if (status.isEmpty()) {
+            return ResponseEntity.status(404)
+                    .body(StandardResponse.error(404, L.msg("scenario.not.found")));
+        }
+
+        ScenarioStatus current = status.get();
+        if (STILL_RUNNING.contains(current) && !processManager.isActive(requestId)) {
+            log.warn("{}: {}", L.msg("scenario.status.stale"), requestId);
+            scenarioStateService.updateStatus(requestId, ScenarioStatus.FAILED);
+            current = ScenarioStatus.FAILED;
+        }
+
+        Map<String, Object> payload = new LinkedHashMap<>();
+        payload.put("status", current.name());
+        String progress = processManager.getProgress(requestId);
+        payload.put("progress", progress);
+
+        return ResponseEntity.ok(responseFormatter.success(payload));
+    }
+
     private void handleImmediateCancel(UUID requestId) {
         scenarioStateService.updateStatus(requestId, ScenarioStatus.CANCELLED);
         SseEmitter emitter = emitterRegistry.get(requestId);
         if (emitter != null) {
+            messageSender.sendMessage(emitter, MessageType.PA_CANCELLED_PROCESS,
+                    Map.of("status", "CANCELLED", "reason", "user_cancelled"));
             messageSender.complete(emitter);
         }
         scenarioStateService.cleanupOutputData(requestId);

@@ -7,6 +7,7 @@ public enum MessageType {
     PA_REQUEST_ACCEPTED("pa_request_accepted"),
     PA_SIMULATION_START("pa_simulation_start"),
     HEARTBEAT("heartbeat"),
+    PA_CANCELLED_PROCESS("pa_cancelled_process"),
     SUCCESS_PROCESS("success_process"),
     ERROR_GLOBAL("error_global"),
 

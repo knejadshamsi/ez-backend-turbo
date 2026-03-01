@@ -166,18 +166,22 @@ public class SimulationService {
 
             checkCancelled(requestId);
 
+            processManager.setProgress(requestId, L.msg("simulation.progress.zones"));
             List<ZoneLinkSet> zoneLinkSets = zoneLinkResolver.resolve(
                     request.getZones(), netYear, netName);
             checkCancelled(requestId);
 
+            processManager.setProgress(requestId, L.msg("simulation.progress.population"));
             Set<String> filteredPersonIds = populationFilterService.filter(request, zoneLinkSets);
             checkCancelled(requestId);
 
+            processManager.setProgress(requestId, L.msg("simulation.progress.reconstruction"));
             Path plansFile = populationReconstructionService.reconstructAndSample(
                     filteredPersonIds, popYear, popName, requestId, percentage);
             log.info(L.msg("simulation.population.ready"));
             checkCancelled(requestId);
 
+            processManager.setProgress(requestId, L.msg("simulation.progress.vehicles"));
             Population population = PopulationUtils.readPopulation(plansFile.toString());
             int personCount = population.getPersons().size();
             Vehicles vehicles = vehicleAssignmentService.assign(population, request.getCarDistribution());
@@ -193,6 +197,7 @@ public class SimulationService {
 
             checkCancelled(requestId);
             scenarioStateService.updateStatus(requestId, ScenarioStatus.SIMULATING_BASELINE);
+            processManager.setProgress(requestId, L.msg("simulation.progress.baseline"));
             log.info(L.msg("simulation.stage.baseline"));
             SimulationResult baselineResult = matsimRunner.runSimulation(
                     request, requestId, population, vehicles, plansFile, vehiclesFile, "baseline",
@@ -200,6 +205,7 @@ public class SimulationService {
 
             checkCancelled(requestId);
             scenarioStateService.updateStatus(requestId, ScenarioStatus.SIMULATING_POLICY);
+            processManager.setProgress(requestId, L.msg("simulation.progress.policy"));
             log.info(L.msg("simulation.stage.policy"));
             ZonePolicyIndex policyIndex = ZonePolicyIndex.build(request.getZones(), zoneLinkSets);
             ZoneEnforcementModule enforcementModule = new ZoneEnforcementModule(policyIndex);
@@ -210,6 +216,7 @@ public class SimulationService {
 
             checkCancelled(requestId);
             scenarioStateService.updateStatus(requestId, ScenarioStatus.POSTPROCESSING);
+            processManager.setProgress(requestId, L.msg("simulation.progress.postprocessing"));
             log.info(L.msg("simulation.stage.postprocess"));
 
             outputManager.processOutput(requestId, emitter, request, vehicles,
@@ -245,6 +252,8 @@ public class SimulationService {
         if (current != ScenarioStatus.DELETED) {
             scenarioStateService.updateStatus(requestId, ScenarioStatus.CANCELLED);
         }
+        messageSender.sendMessage(emitter, MessageType.PA_CANCELLED_PROCESS,
+                Map.of("status", "CANCELLED", "reason", "user_cancelled"));
         messageSender.complete(emitter);
         scenarioStateService.cleanupOutputData(requestId);
         processManager.signalCancellationComplete(requestId);

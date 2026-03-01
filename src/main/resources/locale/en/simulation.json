@@ -19,5 +19,12 @@
   "simulation.baseline.complete": "Baseline simulation finished, output: {}",
   "simulation.matsim.scenario.ready": "MATSim scenario assembled, starting Controler",
   "simulation.policy.complete": "Policy simulation finished, output: {}",
-  "simulation.policy.index": "Zone policy index built: {} zones, {} enforcement rules"
+  "simulation.policy.index": "Zone policy index built: {} zones, {} enforcement rules",
+  "simulation.progress.zones": "Resolving zone boundaries",
+  "simulation.progress.population": "Filtering population",
+  "simulation.progress.reconstruction": "Reconstructing population sample",
+  "simulation.progress.vehicles": "Assigning vehicles",
+  "simulation.progress.baseline": "Running baseline simulation",
+  "simulation.progress.policy": "Running policy simulation",
+  "simulation.progress.postprocessing": "Processing output"
 }

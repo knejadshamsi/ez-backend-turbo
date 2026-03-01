@@ -21,6 +21,7 @@ public class ProcessManager {
     private final Map<UUID, ProcessInfo> activeProcesses;
     private final Map<ProcessType, Semaphore> semaphores;
     private final Map<UUID, CountDownLatch> cancellationLatches;
+    private final Map<UUID, String> progressMessages;
     private final long cancelTimeoutMs;
 
     public ProcessManager(StartupValidator validator) {
@@ -32,6 +33,7 @@ public class ProcessManager {
         this.activeProcesses = new ConcurrentHashMap<>();
         this.semaphores = new ConcurrentHashMap<>();
         this.cancellationLatches = new ConcurrentHashMap<>();
+        this.progressMessages = new ConcurrentHashMap<>();
         this.cancelTimeoutMs = validator.getCancelTimeoutMs();
         for (ProcessType type : ProcessType.values()) {
             semaphores.put(type, new Semaphore(config.get(type).max(), true));
@@ -85,6 +87,7 @@ public class ProcessManager {
             throw new IllegalStateException(L.msg("process.unregister.unknown") + ": " + processId);
         }
         semaphores.get(removed.type()).release();
+        progressMessages.remove(processId);
         CountDownLatch latch = cancellationLatches.remove(processId);
         if (latch != null) {
             latch.countDown();
@@ -108,6 +111,14 @@ public class ProcessManager {
         if (latch != null) {
             latch.countDown();
         }
+    }
+
+    public void setProgress(UUID processId, String message) {
+        progressMessages.put(processId, message);
+    }
+
+    public String getProgress(UUID processId) {
+        return progressMessages.get(processId);
     }
 
     public long getCancelTimeoutMs() {

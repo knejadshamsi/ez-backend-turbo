@@ -43,6 +43,13 @@ public class ScenarioReplayService {
 
     @SuppressWarnings("unchecked")
     public void replay(UUID requestId, SseEmitter emitter, ScenarioStatus status) {
+        if (status == ScenarioStatus.DELETED) {
+            messageSender.sendMessage(emitter, MessageType.SCENARIO_STATUS,
+                    Map.of("status", status.name()));
+            messageSender.complete(emitter);
+            return;
+        }
+
         sendPreamble(requestId, emitter, status);
 
         if (status != ScenarioStatus.COMPLETED) {
@@ -55,7 +62,7 @@ public class ScenarioReplayService {
 
     private void sendPreamble(UUID requestId, SseEmitter emitter, ScenarioStatus status) {
         messageSender.sendMessage(emitter, MessageType.SCENARIO_STATUS,
-                Map.of("status", status.name(), "requestId", requestId.toString()));
+                Map.of("status", status.name()));
 
         var scenario = scenarioStateService.getScenario(requestId);
         if (scenario.isEmpty()) return;

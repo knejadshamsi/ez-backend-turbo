@@ -19,5 +19,12 @@
   "simulation.baseline.complete": "Simulation de reference terminee, sortie : {}",
   "simulation.matsim.scenario.ready": "Scenario MATSim assemble, demarrage du Controler",
   "simulation.policy.complete": "Simulation de politique terminee, sortie : {}",
-  "simulation.policy.index": "Index de politiques de zone construit : {} zones, {} regles"
+  "simulation.policy.index": "Index de politiques de zone construit : {} zones, {} regles",
+  "simulation.progress.zones": "Résolution des limites de zones",
+  "simulation.progress.population": "Filtrage de la population",
+  "simulation.progress.reconstruction": "Reconstruction de l'échantillon de population",
+  "simulation.progress.vehicles": "Attribution des véhicules",
+  "simulation.progress.baseline": "Exécution de la simulation de référence",
+  "simulation.progress.policy": "Exécution de la simulation de politique",
+  "simulation.progress.postprocessing": "Traitement des résultats"
 }

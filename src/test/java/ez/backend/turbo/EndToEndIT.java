@@ -18,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -194,7 +195,6 @@ class EndToEndIT {
         @SuppressWarnings("unchecked")
         Map<String, Object> statusPayload = (Map<String, Object>) replayMessages.get(0).get("payload");
         assertEquals("COMPLETED", statusPayload.get("status"));
-        assertEquals(requestId, statusPayload.get("requestId"));
 
         assertEquals("scenario_input", replayMessages.get(1).get("messageType"));
         @SuppressWarnings("unchecked")
@@ -426,13 +426,11 @@ class EndToEndIT {
         Thread.sleep(200);
         List<Map<String, Object>> refetchMessages = sendSseRequest(
                 "GET", BASE + "/scenario/" + requestId, null, REPLAY_TIMEOUT_MS);
-        assertEquals(3, refetchMessages.size(), "Deleted refetch should send 3 preamble messages only");
+        assertEquals(1, refetchMessages.size(), "Deleted refetch should send scenario_status only");
         assertEquals("scenario_status", refetchMessages.get(0).get("messageType"));
         @SuppressWarnings("unchecked")
         Map<String, Object> deletedStatus = (Map<String, Object>) refetchMessages.get(0).get("payload");
         assertEquals("DELETED", deletedStatus.get("status"));
-        assertEquals("scenario_input", refetchMessages.get(1).get("messageType"));
-        assertEquals("scenario_session", refetchMessages.get(2).get("messageType"));
 
         Thread.sleep(100);
         HttpURLConnection tripLegs = openGet(
@@ -493,6 +491,160 @@ class EndToEndIT {
                 BASE + "/scenario/00000000-0000-0000-0000-000000000000");
         assertEquals(404, deleteNotFound.getResponseCode());
         deleteNotFound.disconnect();
+    }
+
+    @Test
+    @Order(12)
+    @SuppressWarnings("unchecked")
+    void testDraftCrud() throws Exception {
+        Thread.sleep(200);
+
+        String requestBody = Files.readString(DEV_DATA.resolve("dev-request.json"));
+        Object inputObj = mapper.readValue(requestBody, Object.class);
+        String sessionJson = "{" +
+                "\"zoneSessionData\":{\"4ea608bb-1066-4d22-a3b5-15f7505a3f31\":" +
+                "{\"name\":\"Downtown Zone\",\"color\":\"#E53935\",\"hidden\":false," +
+                "\"description\":\"Central business district\",\"scale\":[500,\"m\"]}}," +
+                "\"simulationAreaDisplay\":{\"borderStyle\":\"solid\",\"fillOpacity\":0.3}," +
+                "\"carDistributionCategories\":{\"zeroEmission\":true,\"nearZeroEmission\":true," +
+                "\"lowEmission\":true,\"midEmission\":true,\"highEmission\":true}," +
+                "\"customAreaSessionData\":{\"b2c3d4e5-6789-4abc-def0-123456789abc\":" +
+                "{\"name\":\"Study Area\",\"color\":\"#1E88E5\"}}," +
+                "\"scaledAreaSessionData\":{\"c3d4e5f6-789a-4bcd-ef01-23456789abcd\":" +
+                "{\"scale\":[1000,\"m\"],\"color\":\"#43A047\"}}," +
+                "\"activeZone\":\"4ea608bb-1066-4d22-a3b5-15f7505a3f31\"," +
+                "\"activeCustomArea\":null," +
+                "\"colorPalette\":[\"#E53935\",\"#1E88E5\",\"#43A047\"]}";
+        Map<String, Object> createMap = new LinkedHashMap<>();
+        createMap.put("inputData", inputObj);
+        createMap.put("sessionData", mapper.readValue(sessionJson, Object.class));
+        String createBody = mapper.writeValueAsString(createMap);
+
+        HttpURLConnection createConn = sendPostJson(BASE + "/draft", createBody);
+        assertEquals(200, createConn.getResponseCode());
+        Map<String, Object> createResp = readJsonResponse(createConn);
+        Map<String, Object> createPayload = (Map<String, Object>) createResp.get("payload");
+        String draftId = (String) createPayload.get("draftId");
+        assertNotNull(draftId);
+        assertTrue(draftId.startsWith("d_"), "Draft ID should start with d_");
+        createConn.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection getConn = openGet(BASE + "/draft/" + draftId);
+        assertEquals(200, getConn.getResponseCode());
+        Map<String, Object> getResp = readJsonResponse(getConn);
+        Map<String, Object> getPayload = (Map<String, Object>) getResp.get("payload");
+        assertEquals(draftId, getPayload.get("draftId"));
+        var expectedInput = mapper.valueToTree(inputObj);
+        var actualInput = mapper.valueToTree(getPayload.get("inputData"));
+        assertEquals(expectedInput, actualInput, "Input data round-trip mismatch");
+        var expectedSession = mapper.readTree(sessionJson);
+        var actualSession = mapper.valueToTree(getPayload.get("sessionData"));
+        assertEquals(expectedSession, actualSession, "Session data round-trip mismatch");
+        assertNotNull(getPayload.get("createdAt"));
+        getConn.disconnect();
+
+        Thread.sleep(100);
+        String updatedSessionJson = "{" +
+                "\"zoneSessionData\":{\"4ea608bb-1066-4d22-a3b5-15f7505a3f31\":" +
+                "{\"name\":\"Renamed Zone\",\"color\":\"#FF8F00\",\"hidden\":true," +
+                "\"scale\":[1000,\"m\"]}}," +
+                "\"simulationAreaDisplay\":{\"borderStyle\":\"dashed\",\"fillOpacity\":0.5}," +
+                "\"carDistributionCategories\":{\"zeroEmission\":true,\"nearZeroEmission\":false," +
+                "\"lowEmission\":true,\"midEmission\":false,\"highEmission\":true}," +
+                "\"customAreaSessionData\":{}," +
+                "\"scaledAreaSessionData\":{}," +
+                "\"activeZone\":null," +
+                "\"activeCustomArea\":null," +
+                "\"colorPalette\":[\"#FF8F00\"]}";
+        Map<String, Object> updateMap = new LinkedHashMap<>();
+        updateMap.put("inputData", inputObj);
+        updateMap.put("sessionData", mapper.readValue(updatedSessionJson, Object.class));
+        String updateBody = mapper.writeValueAsString(updateMap);
+        HttpURLConnection putConn = sendPutJson(BASE + "/draft/" + draftId, updateBody);
+        assertEquals(200, putConn.getResponseCode());
+        putConn.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection getUpdated = openGet(BASE + "/draft/" + draftId);
+        assertEquals(200, getUpdated.getResponseCode());
+        Map<String, Object> updatedResp = readJsonResponse(getUpdated);
+        Map<String, Object> updatedPayload = (Map<String, Object>) updatedResp.get("payload");
+        var updatedExpectedSession = mapper.readTree(updatedSessionJson);
+        var updatedActualSession = mapper.valueToTree(updatedPayload.get("sessionData"));
+        assertEquals(updatedExpectedSession, updatedActualSession, "Updated session round-trip mismatch");
+        getUpdated.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection deleteConn = sendDelete(BASE + "/draft/" + draftId);
+        assertEquals(200, deleteConn.getResponseCode());
+        deleteConn.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection getDeleted = openGet(BASE + "/draft/" + draftId);
+        assertEquals(404, getDeleted.getResponseCode());
+        getDeleted.disconnect();
+    }
+
+    @Test
+    @Order(13)
+    void testDraftGuards() throws Exception {
+        Thread.sleep(200);
+
+        HttpURLConnection noPrefix = openGet(BASE + "/draft/00000000-0000-0000-0000-000000000000");
+        assertEquals(400, noPrefix.getResponseCode());
+        noPrefix.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection badUuid = openGet(BASE + "/draft/d_not-a-uuid");
+        assertEquals(400, badUuid.getResponseCode());
+        badUuid.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection notFound = openGet(
+                BASE + "/draft/d_00000000-0000-0000-0000-000000000000");
+        assertEquals(404, notFound.getResponseCode());
+        notFound.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection deleteNotFound = sendDelete(
+                BASE + "/draft/d_00000000-0000-0000-0000-000000000000");
+        assertEquals(404, deleteNotFound.getResponseCode());
+        deleteNotFound.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection putNotFound = sendPutJson(
+                BASE + "/draft/d_00000000-0000-0000-0000-000000000000",
+                "{\"inputData\":{}}");
+        assertEquals(404, putNotFound.getResponseCode());
+        putNotFound.disconnect();
+    }
+
+    @Test
+    @Order(14)
+    @SuppressWarnings("unchecked")
+    void testScenarioStatus() throws Exception {
+        Thread.sleep(200);
+
+        HttpURLConnection statusConn = openGet(
+                BASE + "/scenario/" + requestId + "/status");
+        assertEquals(200, statusConn.getResponseCode());
+        Map<String, Object> statusResp = readJsonResponse(statusConn);
+        Map<String, Object> statusPayload = (Map<String, Object>) statusResp.get("payload");
+        assertEquals("DELETED", statusPayload.get("status"));
+        assertNull(statusPayload.get("progress"));
+        statusConn.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection badUuid = openGet(BASE + "/scenario/not-a-uuid/status");
+        assertEquals(400, badUuid.getResponseCode());
+        badUuid.disconnect();
+
+        Thread.sleep(100);
+        HttpURLConnection notFound = openGet(
+                BASE + "/scenario/00000000-0000-0000-0000-000000000000/status");
+        assertEquals(404, notFound.getResponseCode());
+        notFound.disconnect();
     }
 
     @Test
@@ -637,6 +789,22 @@ class EndToEndIT {
     private static HttpURLConnection sendPostJson(String url, String body) throws Exception {
         HttpURLConnection conn = (HttpURLConnection) URI.create(url).toURL().openConnection();
         conn.setRequestMethod("POST");
+        conn.setConnectTimeout(5000);
+        conn.setReadTimeout(5000);
+        conn.setRequestProperty("Accept", "application/json");
+        if (body != null && !body.isEmpty()) {
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setDoOutput(true);
+            try (OutputStream os = conn.getOutputStream()) {
+                os.write(body.getBytes(StandardCharsets.UTF_8));
+            }
+        }
+        return conn;
+    }
+
+    private static HttpURLConnection sendPutJson(String url, String body) throws Exception {
+        HttpURLConnection conn = (HttpURLConnection) URI.create(url).toURL().openConnection();
+        conn.setRequestMethod("PUT");
         conn.setConnectTimeout(5000);
         conn.setReadTimeout(5000);
         conn.setRequestProperty("Accept", "application/json");
