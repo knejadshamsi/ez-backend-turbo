@@ -20,7 +20,7 @@ public class L {
     private static final TypeReference<Map<String, String>> MAP_TYPE = new TypeReference<>() {};
 
     private static final List<String> LOCALE_FILES = List.of(
-            "config", "db", "output", "scenario", "simulation", "source", "sse", "system", "validation");
+            "config", "db", "draft", "output", "scenario", "simulation", "source", "sse", "system", "validation");
 
     private static volatile Map<String, String> messages = Map.of();
 

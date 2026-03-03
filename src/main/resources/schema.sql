@@ -23,3 +23,10 @@ CREATE TABLE IF NOT EXISTS trip_legs (
 
 CREATE INDEX IF NOT EXISTS idx_trip_legs_request_id ON trip_legs(request_id);
 CREATE INDEX IF NOT EXISTS idx_trip_legs_request_id_id ON trip_legs(request_id, id);
+
+CREATE TABLE IF NOT EXISTS drafts (
+    draft_id     UUID PRIMARY KEY,
+    input_data   CLOB,
+    session_data CLOB,
+    created_at   TIMESTAMP WITH TIME ZONE NOT NULL
+);

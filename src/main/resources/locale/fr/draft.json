@@ -1,0 +1,8 @@
+{
+  "draft.created": "Brouillon créé",
+  "draft.updated": "Brouillon mis à jour",
+  "draft.deleted": "Brouillon supprimé",
+  "draft.not.found": "Brouillon introuvable",
+  "draft.invalid.id": "Format d'identifiant de brouillon invalide",
+  "draft.invalid.body": "Corps de brouillon invalide"
+}

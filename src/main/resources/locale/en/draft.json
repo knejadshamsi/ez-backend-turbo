@@ -1,0 +1,8 @@
+{
+  "draft.created": "Draft created",
+  "draft.updated": "Draft updated",
+  "draft.deleted": "Draft deleted",
+  "draft.not.found": "Draft not found",
+  "draft.invalid.id": "Invalid draft ID format",
+  "draft.invalid.body": "Invalid draft body"
+}

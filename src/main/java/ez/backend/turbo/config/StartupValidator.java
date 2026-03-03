@@ -29,7 +29,7 @@ public class StartupValidator implements ApplicationRunner {
 
     private static final Logger log = LogManager.getLogger(StartupValidator.class);
 
-    private static final List<String> REQUIRED_TABLES = List.of("scenarios", "trip_legs");
+    private static final List<String> REQUIRED_TABLES = List.of("scenarios", "trip_legs", "drafts");
     private static final Set<String> VALID_LOCALES = Set.of("en", "fr");
     private static final String SEPARATOR = "========================================";
 
