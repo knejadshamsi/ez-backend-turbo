@@ -85,8 +85,11 @@ public class PopulationSpatialLoader {
                         }
                         case "activity" -> {
                             if (current != null && inSelectedPlan) {
-                                double x = Double.parseDouble(reader.getAttributeValue(null, "x"));
-                                double y = Double.parseDouble(reader.getAttributeValue(null, "y"));
+                                String xStr = reader.getAttributeValue(null, "x");
+                                String yStr = reader.getAttributeValue(null, "y");
+                                if (xStr == null || yStr == null) break;
+                                double x = Double.parseDouble(xStr);
+                                double y = Double.parseDouble(yStr);
                                 Coord projected = transformation.transform(new Coord(x, y));
                                 String endTimeStr = reader.getAttributeValue(null, "end_time");
                                 Double endTime = endTimeStr != null ? parseTime(endTimeStr) : null;

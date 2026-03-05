@@ -225,6 +225,7 @@ public class SourceRegistry {
                     count++;
                 } catch (Exception e) {
                     log.warn(L.msg("source.scan.skipped.file"), file.getFileName());
+                    log.warn("Population load failure: {}", e.getMessage(), e);
                 }
             }
         } catch (Exception e) {

@@ -1,10 +1,12 @@
 package ez.backend.turbo;
 
 import ez.backend.turbo.config.StartupValidator;
+import ez.backend.turbo.preprocess.PreprocessCommand;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
@@ -12,6 +14,11 @@ import java.util.List;
 public class Application {
 
     public static void main(String[] args) {
+        if (args.length > 0 && "preprocess".equals(args[0])) {
+            PreprocessCommand.run(Arrays.copyOfRange(args, 1, args.length));
+            return;
+        }
+
         if (args.length == 0) {
             StartupValidator.printErrors(List.of(
                     "No arguments provided | Aucun argument fourni",
