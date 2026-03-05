@@ -8,7 +8,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -71,26 +70,22 @@ public class SimulationRequestValidator {
             {-73.61197208186829, 45.41263857780996}
     };
 
-    public void validate(SimulationRequest request) {
+    public ValidationResult validate(SimulationRequest request) {
         log.info(L.msg("validation.started"));
-        List<String> errors = new ArrayList<>();
+        ValidationResult result = new ValidationResult();
 
-        validateZones(request, errors);
-        validateCustomSimulationAreas(request, errors);
-        validateScaledSimulationAreas(request, errors);
-        validateSources(request, errors);
-        validateSimulationOptions(request, errors);
-        validateCarDistribution(request, errors);
-        validateModeUtilities(request, errors);
+        validateZones(request, result);
+        validateCustomSimulationAreas(request, result);
+        validateScaledSimulationAreas(request, result);
+        validateSources(request, result);
+        validateSimulationOptions(request, result);
+        validateCarDistribution(request, result);
+        validateModeUtilities(request, result);
 
-        if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(String.join(". ", errors));
+        if (!result.hasErrors()) {
+            log.info(L.msg("validation.passed"));
         }
-        log.info(L.msg("validation.passed"));
-    }
-
-    private String zoneContext(String label) {
-        return String.format(L.msg("validation.ctx.zone"), label);
+        return result;
     }
 
     private boolean isValidUuidV4(String value) {
@@ -101,153 +96,179 @@ public class SimulationRequestValidator {
         }
     }
 
-    private void validateZones(SimulationRequest request, List<String> errors) {
+    private void validateZones(SimulationRequest request, ValidationResult result) {
         if (request.getZones() == null) {
-            errors.add(String.format(L.msg("validation.required"), "zones"));
+            result.add("zones", ZoneValidationError.LIST_REQUIRED,
+                    String.format(L.msg("validation.required"), "zones"));
             return;
         }
         if (request.getZones().isEmpty()) {
-            errors.add(L.msg("validation.zones.empty"));
+            result.add("zones", ZoneValidationError.LIST_EMPTY,
+                    L.msg("validation.zones.empty"));
             return;
         }
         for (int i = 0; i < request.getZones().size(); i++) {
-            validateZone(request.getZones().get(i), i, errors);
+            validateZone(request.getZones().get(i), i, result);
         }
     }
 
-    private void validateZone(Zone zone, int index, List<String> errors) {
-        String label = (zone.getId() != null && !zone.getId().isBlank()) ? zone.getId() : "index " + index;
-        String context = zoneContext(label);
+    private void validateZone(Zone zone, int index, ValidationResult result) {
+        String zp = "zones[" + index + "]";
 
         if (zone.getId() == null || zone.getId().isBlank()) {
-            errors.add(String.format(L.msg("validation.zone.id.required"),
-                    String.format(L.msg("validation.ctx.zone.index"), index)));
+            result.add(zp + ".id", ZoneValidationError.ID_REQUIRED,
+                    String.format(L.msg("validation.zone.id.required"),
+                            String.format(L.msg("validation.ctx.zone.index"), index)));
         } else if (!isValidUuidV4(zone.getId())) {
-            errors.add(String.format(L.msg("validation.zone.id.format"),
-                    String.format(L.msg("validation.ctx.zone.index"), index)));
+            result.add(zp + ".id", ZoneValidationError.ID_INVALID_FORMAT,
+                    String.format(L.msg("validation.zone.id.format"),
+                            String.format(L.msg("validation.ctx.zone.index"), index)));
         }
 
         if (zone.getCoords() == null) {
-            errors.add(String.format(L.msg("validation.zone.coords.required"), context));
+            result.add(zp + ".coords", ZoneValidationError.COORDS_REQUIRED,
+                    String.format(L.msg("validation.zone.coords.required"), zp));
         } else {
-            int before = errors.size();
-            validatePolygon(zone.getCoords(), context, errors);
-            if (errors.size() == before) {
-                validateGeo(zone.getCoords(), context, ZONE_MIN_AREA_SQM, ZONE_MAX_AREA_SQM, errors);
+            int before = result.errors().size();
+            validatePolygon(zone.getCoords(), zp + ".coords", result);
+            if (result.errors().size() == before) {
+                validateGeo(zone.getCoords(), zp + ".coords", ZONE_MIN_AREA_SQM, ZONE_MAX_AREA_SQM, result);
             }
         }
 
         if (zone.getTrip() == null || zone.getTrip().isEmpty()) {
-            errors.add(String.format(L.msg("validation.zone.trip.required"), context));
+            result.add(zp + ".trip", ZoneValidationError.TRIP_REQUIRED,
+                    String.format(L.msg("validation.zone.trip.required"), zp));
         } else {
-            for (String tripType : zone.getTrip()) {
+            for (int t = 0; t < zone.getTrip().size(); t++) {
+                String tripType = zone.getTrip().get(t);
                 if (tripType == null || !VALID_TRIP_TYPES.contains(tripType)) {
-                    errors.add(String.format(L.msg("validation.zone.trip.invalid"),
-                            context, tripType, VALID_TRIP_TYPES));
+                    result.add(zp + ".trip[" + t + "]", ZoneValidationError.TRIP_INVALID_VALUE,
+                            String.format(L.msg("validation.zone.trip.invalid"),
+                                    zp, tripType, VALID_TRIP_TYPES));
                 }
             }
         }
 
         if (zone.getPolicies() == null || zone.getPolicies().isEmpty()) {
-            errors.add(String.format(L.msg("validation.zone.policies.required"), context));
+            result.add(zp + ".policies", ZoneValidationError.POLICIES_REQUIRED,
+                    String.format(L.msg("validation.zone.policies.required"), zp));
         } else {
             for (int i = 0; i < zone.getPolicies().size(); i++) {
-                validatePolicy(zone.getPolicies().get(i), label, i, errors);
+                validatePolicy(zone.getPolicies().get(i), zp + ".policies[" + i + "]", result);
             }
         }
     }
 
-    private void validatePolygon(List<List<double[]>> rings, String context, List<String> errors) {
+    private void validatePolygon(List<List<double[]>> rings, String origin, ValidationResult result) {
         for (int r = 0; r < rings.size(); r++) {
             List<double[]> ring = rings.get(r);
+            String rp = origin + "[" + r + "]";
             if (ring.size() < 4) {
-                errors.add(String.format(L.msg("validation.polygon.min.points"), context, r));
+                result.add(rp, PolygonValidationError.TOO_FEW_POINTS,
+                        String.format(L.msg("validation.polygon.min.points"), origin, r));
                 continue;
             }
             for (int c = 0; c < ring.size(); c++) {
                 double[] coord = ring.get(c);
                 if (coord.length != 2) {
-                    errors.add(String.format(L.msg("validation.polygon.point.size"), context, r, c));
+                    result.add(rp + "[" + c + "]", PolygonValidationError.INVALID_POINT_SIZE,
+                            String.format(L.msg("validation.polygon.point.size"), origin, r, c));
                 }
             }
             double[] first = ring.get(0);
             double[] last = ring.get(ring.size() - 1);
             if (first[0] != last[0] || first[1] != last[1]) {
-                errors.add(String.format(L.msg("validation.polygon.not.closed"), context, r));
+                result.add(rp, PolygonValidationError.NOT_CLOSED,
+                        String.format(L.msg("validation.polygon.not.closed"), origin, r));
             }
         }
     }
 
-    private void validatePolicy(Policy policy, String zoneLabel, int index, List<String> errors) {
-        String prefix = String.format(L.msg("validation.ctx.policy"), zoneContext(zoneLabel), index);
-
+    private void validatePolicy(Policy policy, String origin, ValidationResult result) {
         if (policy.getVehicleType() == null || !VALID_VEHICLE_TYPES.contains(policy.getVehicleType())) {
-            errors.add(String.format(L.msg("validation.policy.vehicle.type"), prefix, VALID_VEHICLE_TYPES));
+            result.add(origin + ".vehicleType", PolicyValidationError.VEHICLE_TYPE_INVALID,
+                    String.format(L.msg("validation.policy.vehicle.type"), origin, VALID_VEHICLE_TYPES));
         }
         if (!VALID_TIERS.contains(policy.getTier())) {
-            errors.add(String.format(L.msg("validation.policy.tier"), prefix));
+            result.add(origin + ".tier", PolicyValidationError.TIER_INVALID,
+                    String.format(L.msg("validation.policy.tier"), origin));
         }
         if (policy.getPeriod() == null || policy.getPeriod().size() != 2) {
-            errors.add(String.format(L.msg("validation.policy.period.size"), prefix));
+            result.add(origin + ".period", PolicyValidationError.PERIOD_REQUIRED,
+                    String.format(L.msg("validation.policy.period.size"), origin));
         } else {
-            for (String time : policy.getPeriod()) {
+            for (int i = 0; i < policy.getPeriod().size(); i++) {
+                String time = policy.getPeriod().get(i);
                 if (time == null || !time.matches(TIME_PATTERN)) {
-                    errors.add(String.format(L.msg("validation.policy.period.format"), prefix, time));
+                    result.add(origin + ".period[" + i + "]", PolicyValidationError.PERIOD_INVALID_FORMAT,
+                            String.format(L.msg("validation.policy.period.format"), origin, time));
                 }
             }
             if (policy.getPeriod().get(0).compareTo(policy.getPeriod().get(1)) >= 0) {
-                errors.add(String.format(L.msg("validation.policy.period.order"), prefix));
+                result.add(origin + ".period", PolicyValidationError.PERIOD_INVALID_ORDER,
+                        String.format(L.msg("validation.policy.period.order"), origin));
             }
         }
         if (policy.getTier() == 2) {
             if (policy.getPenalty() == null || policy.getPenalty() <= 0) {
-                errors.add(String.format(L.msg("validation.policy.penalty"), prefix));
+                result.add(origin + ".penalty", PolicyValidationError.PENALTY_REQUIRED,
+                        String.format(L.msg("validation.policy.penalty"), origin));
             } else if (policy.getPenalty() >= 10000) {
-                errors.add(String.format(L.msg("validation.policy.penalty.max"), prefix));
+                result.add(origin + ".penalty", PolicyValidationError.PENALTY_TOO_HIGH,
+                        String.format(L.msg("validation.policy.penalty.max"), origin));
             }
             if (policy.getInterval() == null || policy.getInterval() <= 0) {
-                errors.add(String.format(L.msg("validation.policy.interval"), prefix));
+                result.add(origin + ".interval", PolicyValidationError.INTERVAL_REQUIRED,
+                        String.format(L.msg("validation.policy.interval"), origin));
             }
         } else {
             if (policy.getPenalty() != null) {
-                errors.add(String.format(L.msg("validation.policy.penalty.forbidden"), prefix));
+                result.add(origin + ".penalty", PolicyValidationError.PENALTY_FORBIDDEN,
+                        String.format(L.msg("validation.policy.penalty.forbidden"), origin));
             }
             if (policy.getInterval() != null) {
-                errors.add(String.format(L.msg("validation.policy.interval.forbidden"), prefix));
+                result.add(origin + ".interval", PolicyValidationError.INTERVAL_FORBIDDEN,
+                        String.format(L.msg("validation.policy.interval.forbidden"), origin));
             }
         }
     }
 
-    private void validateCustomSimulationAreas(SimulationRequest request, List<String> errors) {
+    private void validateCustomSimulationAreas(SimulationRequest request, ValidationResult result) {
         if (request.getCustomSimulationAreas() == null) {
-            errors.add(String.format(L.msg("validation.required"), "customSimulationAreas"));
+            result.add("customSimulationAreas", AreaValidationError.REQUIRED,
+                    String.format(L.msg("validation.required"), "customSimulationAreas"));
             return;
         }
         for (int i = 0; i < request.getCustomSimulationAreas().size(); i++) {
             CustomSimulationArea area = request.getCustomSimulationAreas().get(i);
-            String context = String.format(L.msg("validation.ctx.custom.area"), i);
+            String ap = "customSimulationAreas[" + i + "]";
 
             if (area.getId() == null || area.getId().isBlank()) {
-                errors.add(String.format(L.msg("validation.area.id.required"), context));
+                result.add(ap + ".id", AreaValidationError.ID_REQUIRED,
+                        String.format(L.msg("validation.area.id.required"), ap));
             } else if (!isValidUuidV4(area.getId())) {
-                errors.add(String.format(L.msg("validation.area.id.format"), context));
+                result.add(ap + ".id", AreaValidationError.ID_INVALID_FORMAT,
+                        String.format(L.msg("validation.area.id.format"), ap));
             }
 
             if (area.getCoords() == null) {
-                errors.add(String.format(L.msg("validation.area.coords.required"), context));
+                result.add(ap + ".coords", AreaValidationError.COORDS_REQUIRED,
+                        String.format(L.msg("validation.area.coords.required"), ap));
             } else {
-                int before = errors.size();
-                validatePolygon(area.getCoords(), context, errors);
-                if (errors.size() == before) {
-                    validateGeo(area.getCoords(), context, SIM_AREA_MIN_SQM, SIM_AREA_MAX_SQM, errors);
+                int before = result.errors().size();
+                validatePolygon(area.getCoords(), ap + ".coords", result);
+                if (result.errors().size() == before) {
+                    validateGeo(area.getCoords(), ap + ".coords", SIM_AREA_MIN_SQM, SIM_AREA_MAX_SQM, result);
                 }
             }
         }
     }
 
-    private void validateScaledSimulationAreas(SimulationRequest request, List<String> errors) {
+    private void validateScaledSimulationAreas(SimulationRequest request, ValidationResult result) {
         if (request.getScaledSimulationAreas() == null) {
-            errors.add(String.format(L.msg("validation.required"), "scaledSimulationAreas"));
+            result.add("scaledSimulationAreas", AreaValidationError.REQUIRED,
+                    String.format(L.msg("validation.required"), "scaledSimulationAreas"));
             return;
         }
         Set<String> zoneIds = new HashSet<>();
@@ -259,54 +280,63 @@ public class SimulationRequestValidator {
 
         for (int i = 0; i < request.getScaledSimulationAreas().size(); i++) {
             ScaledSimulationArea area = request.getScaledSimulationAreas().get(i);
-            String context = String.format(L.msg("validation.ctx.scaled.area"), i);
+            String ap = "scaledSimulationAreas[" + i + "]";
 
             if (area.getId() == null || area.getId().isBlank()) {
-                errors.add(String.format(L.msg("validation.area.id.required"), context));
+                result.add(ap + ".id", AreaValidationError.ID_REQUIRED,
+                        String.format(L.msg("validation.area.id.required"), ap));
             } else if (!isValidUuidV4(area.getId())) {
-                errors.add(String.format(L.msg("validation.area.id.format"), context));
+                result.add(ap + ".id", AreaValidationError.ID_INVALID_FORMAT,
+                        String.format(L.msg("validation.area.id.format"), ap));
             }
 
             if (area.getZoneId() == null || area.getZoneId().isBlank()) {
-                errors.add(String.format(L.msg("validation.area.zoneid.required"), context));
+                result.add(ap + ".zoneId", AreaValidationError.ZONE_REF_REQUIRED,
+                        String.format(L.msg("validation.area.zoneid.required"), ap));
             } else if (!isValidUuidV4(area.getZoneId())) {
-                errors.add(String.format(L.msg("validation.area.zoneid.format"), context));
+                result.add(ap + ".zoneId", AreaValidationError.ZONE_REF_INVALID_FORMAT,
+                        String.format(L.msg("validation.area.zoneid.format"), ap));
             } else if (!zoneIds.contains(area.getZoneId())) {
-                errors.add(String.format(L.msg("validation.area.zoneid.ref"), context, area.getZoneId()));
+                result.add(ap + ".zoneId", AreaValidationError.ZONE_REF_NOT_FOUND,
+                        String.format(L.msg("validation.area.zoneid.ref"), ap, area.getZoneId()));
             }
 
             if (area.getCoords() == null) {
-                errors.add(String.format(L.msg("validation.area.coords.required"), context));
+                result.add(ap + ".coords", AreaValidationError.COORDS_REQUIRED,
+                        String.format(L.msg("validation.area.coords.required"), ap));
             } else {
-                int before = errors.size();
-                validatePolygon(area.getCoords(), context, errors);
-                if (errors.size() == before) {
-                    validateGeo(area.getCoords(), context, SIM_AREA_MIN_SQM, SIM_AREA_MAX_SQM, errors);
+                int before = result.errors().size();
+                validatePolygon(area.getCoords(), ap + ".coords", result);
+                if (result.errors().size() == before) {
+                    validateGeo(area.getCoords(), ap + ".coords", SIM_AREA_MIN_SQM, SIM_AREA_MAX_SQM, result);
                 }
             }
         }
     }
 
-    private void validateGeo(List<List<double[]>> rings, String context,
-                             double minAreaSqm, double maxAreaSqm, List<String> errors) {
+    private void validateGeo(List<List<double[]>> rings, String origin,
+                             double minAreaSqm, double maxAreaSqm, ValidationResult result) {
         double areaSqm = geodesicRingArea(rings.get(0));
         double areaKm2 = areaSqm / 1_000_000.0;
         double minKm2 = minAreaSqm / 1_000_000.0;
         double maxKm2 = maxAreaSqm / 1_000_000.0;
 
         if (areaSqm < minAreaSqm) {
-            errors.add(String.format(L.msg("validation.geo.area.below"),
-                    context, String.format("%.2f", areaKm2), String.format("%.1f", minKm2)));
+            result.add(origin, PolygonValidationError.AREA_TOO_SMALL,
+                    String.format(L.msg("validation.geo.area.below"),
+                            origin, String.format("%.2f", areaKm2), String.format("%.1f", minKm2)));
         }
         if (areaSqm > maxAreaSqm) {
-            errors.add(String.format(L.msg("validation.geo.area.above"),
-                    context, String.format("%.2f", areaKm2), String.format("%.1f", maxKm2)));
+            result.add(origin, PolygonValidationError.AREA_TOO_LARGE,
+                    String.format(L.msg("validation.geo.area.above"),
+                            origin, String.format("%.2f", areaKm2), String.format("%.1f", maxKm2)));
         }
 
         for (double[] coord : rings.get(0)) {
             if (!isPointInPolygon(coord[0], coord[1], MTL_BOUNDARY)) {
-                errors.add(String.format(L.msg("validation.geo.outside.boundary"),
-                        context, String.valueOf(coord[0]), String.valueOf(coord[1])));
+                result.add(origin, PolygonValidationError.OUTSIDE_BOUNDARY,
+                        String.format(L.msg("validation.geo.outside.boundary"),
+                                origin, String.valueOf(coord[0]), String.valueOf(coord[1])));
             }
         }
     }
@@ -340,86 +370,107 @@ public class SimulationRequestValidator {
         return inside;
     }
 
-    private void validateSources(SimulationRequest request, List<String> errors) {
+    private void validateSources(SimulationRequest request, ValidationResult result) {
         if (request.getSources() == null) {
-            errors.add(String.format(L.msg("validation.required"), "sources"));
+            result.add("sources", SourceValidationError.REQUIRED,
+                    String.format(L.msg("validation.required"), "sources"));
             return;
         }
-        resolveSource(request.getSources().getPopulation(), "population", "sources.population", errors);
-        resolveSource(request.getSources().getNetwork(), "network", "sources.network", errors);
-        resolveSource(request.getSources().getPublicTransport(), "publicTransport", "sources.publicTransport", errors);
+        resolveSource(request.getSources().getPopulation(), "population", "sources.population", result);
+        resolveSource(request.getSources().getNetwork(), "network", "sources.network", result);
+        resolveSource(request.getSources().getPublicTransport(), "publicTransport", "sources.publicTransport", result);
     }
 
-    private void resolveSource(DataSource ds, String type, String label, List<String> errors) {
+    private void resolveSource(DataSource ds, String type, String origin, ValidationResult result) {
         if (ds == null) {
-            errors.add(String.format(L.msg("validation.required"), label));
+            result.add(origin, SourceValidationError.REQUIRED,
+                    String.format(L.msg("validation.required"), origin));
             return;
         }
         try {
             sourceRegistry.resolve(type, ds.getYear(), ds.getName());
         } catch (IllegalArgumentException e) {
-            errors.add(label + ": " + e.getMessage());
+            String msg = e.getMessage();
+            if (msg != null && msg.contains("year")) {
+                result.add(origin + ".year", SourceValidationError.YEAR_UNAVAILABLE, msg);
+            } else if (msg != null && msg.contains("not available")) {
+                result.add(origin + ".name", SourceValidationError.NAME_UNAVAILABLE, msg);
+            } else {
+                result.add(origin, SourceValidationError.REQUIRED, msg);
+            }
         }
     }
 
-    private void validateSimulationOptions(SimulationRequest request, List<String> errors) {
+    private void validateSimulationOptions(SimulationRequest request, ValidationResult result) {
         if (request.getSimulationOptions() == null) {
-            errors.add(String.format(L.msg("validation.required"), "simulationOptions"));
+            result.add("simulationOptions", OptionsValidationError.REQUIRED,
+                    String.format(L.msg("validation.required"), "simulationOptions"));
             return;
         }
         if (request.getSimulationOptions().getIterations() < 1 || request.getSimulationOptions().getIterations() > 10) {
-            errors.add(L.msg("validation.options.iterations"));
+            result.add("simulationOptions.iterations", OptionsValidationError.ITERATIONS_OUT_OF_RANGE,
+                    L.msg("validation.options.iterations"));
         }
         if (request.getSimulationOptions().getPercentage() < 1 || request.getSimulationOptions().getPercentage() > 10) {
-            errors.add(L.msg("validation.options.percentage"));
+            result.add("simulationOptions.percentage", OptionsValidationError.PERCENTAGE_OUT_OF_RANGE,
+                    L.msg("validation.options.percentage"));
         }
     }
 
-    private void validateCarDistribution(SimulationRequest request, List<String> errors) {
+    private void validateCarDistribution(SimulationRequest request, ValidationResult result) {
         if (request.getCarDistribution() == null) {
-            errors.add(String.format(L.msg("validation.required"), "carDistribution"));
+            result.add("carDistribution", CarDistributionValidationError.REQUIRED,
+                    String.format(L.msg("validation.required"), "carDistribution"));
             return;
         }
         CarDistribution cd = request.getCarDistribution();
         if (cd.getZeroEmission() < 0) {
-            errors.add(String.format(L.msg("validation.car.negative"), "zeroEmission"));
+            result.add("carDistribution.zeroEmission", CarDistributionValidationError.NEGATIVE_VALUE,
+                    String.format(L.msg("validation.car.negative"), "zeroEmission"));
         }
         if (cd.getNearZeroEmission() < 0) {
-            errors.add(String.format(L.msg("validation.car.negative"), "nearZeroEmission"));
+            result.add("carDistribution.nearZeroEmission", CarDistributionValidationError.NEGATIVE_VALUE,
+                    String.format(L.msg("validation.car.negative"), "nearZeroEmission"));
         }
         if (cd.getLowEmission() < 0) {
-            errors.add(String.format(L.msg("validation.car.negative"), "lowEmission"));
+            result.add("carDistribution.lowEmission", CarDistributionValidationError.NEGATIVE_VALUE,
+                    String.format(L.msg("validation.car.negative"), "lowEmission"));
         }
         if (cd.getMidEmission() < 0) {
-            errors.add(String.format(L.msg("validation.car.negative"), "midEmission"));
+            result.add("carDistribution.midEmission", CarDistributionValidationError.NEGATIVE_VALUE,
+                    String.format(L.msg("validation.car.negative"), "midEmission"));
         }
         if (cd.getHighEmission() < 0) {
-            errors.add(String.format(L.msg("validation.car.negative"), "highEmission"));
+            result.add("carDistribution.highEmission", CarDistributionValidationError.NEGATIVE_VALUE,
+                    String.format(L.msg("validation.car.negative"), "highEmission"));
         }
         double sum = cd.getZeroEmission() + cd.getNearZeroEmission() + cd.getLowEmission()
                 + cd.getMidEmission() + cd.getHighEmission();
         if (sum < 99.99 || sum > 100.01) {
-            errors.add(String.format(L.msg("validation.car.sum"), String.format("%.1f", sum)));
+            result.add("carDistribution", CarDistributionValidationError.SUM_INVALID,
+                    String.format(L.msg("validation.car.sum"), String.format("%.1f", sum)));
         }
     }
 
-    private void validateModeUtilities(SimulationRequest request, List<String> errors) {
+    private void validateModeUtilities(SimulationRequest request, ValidationResult result) {
         if (request.getModeUtilities() == null) {
-            errors.add(String.format(L.msg("validation.required"), "modeUtilities"));
+            result.add("modeUtilities", ModeUtilityValidationError.REQUIRED,
+                    String.format(L.msg("validation.required"), "modeUtilities"));
             return;
         }
         ModeUtilities mu = request.getModeUtilities();
-        validateModeValue(mu.getWalk(), "walk", errors);
-        validateModeValue(mu.getBike(), "bike", errors);
-        validateModeValue(mu.getCar(), "car", errors);
-        validateModeValue(mu.getEv(), "ev", errors);
-        validateModeValue(mu.getSubway(), "subway", errors);
-        validateModeValue(mu.getBus(), "bus", errors);
+        validateModeValue(mu.getWalk(), "modeUtilities.walk", result);
+        validateModeValue(mu.getBike(), "modeUtilities.bike", result);
+        validateModeValue(mu.getCar(), "modeUtilities.car", result);
+        validateModeValue(mu.getEv(), "modeUtilities.ev", result);
+        validateModeValue(mu.getSubway(), "modeUtilities.subway", result);
+        validateModeValue(mu.getBus(), "modeUtilities.bus", result);
     }
 
-    private void validateModeValue(double value, String field, List<String> errors) {
+    private void validateModeValue(double value, String origin, ValidationResult result) {
         if (value % 1 != 0 || value < -10 || value > 10) {
-            errors.add(String.format(L.msg("validation.mode.range"), field));
+            result.add(origin, ModeUtilityValidationError.OUT_OF_RANGE,
+                    String.format(L.msg("validation.mode.range"), origin));
         }
     }
 }

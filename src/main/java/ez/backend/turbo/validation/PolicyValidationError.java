@@ -1,0 +1,14 @@
+package ez.backend.turbo.validation;
+
+public enum PolicyValidationError {
+    VEHICLE_TYPE_INVALID,
+    TIER_INVALID,
+    PERIOD_REQUIRED,
+    PERIOD_INVALID_FORMAT,
+    PERIOD_INVALID_ORDER,
+    PENALTY_REQUIRED,
+    PENALTY_TOO_HIGH,
+    INTERVAL_REQUIRED,
+    PENALTY_FORBIDDEN,
+    INTERVAL_FORBIDDEN
+}
