@@ -9,6 +9,7 @@ public record ScoringConfig(
         double carMonetaryDistanceRate,
         double ptMarginalUtilityOfTraveling,
         double walkMarginalUtilityOfTraveling,
+        double walkMarginalUtilityOfDistance,
         double bikeMarginalUtilityOfTraveling
 ) {
 

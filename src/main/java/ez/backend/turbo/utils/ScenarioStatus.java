@@ -6,6 +6,7 @@ public enum ScenarioStatus {
     CREATED,
     QUEUED,
     VALIDATING,
+    SIMULATING,
     SIMULATING_BASELINE,
     SIMULATING_POLICY,
     POSTPROCESSING,

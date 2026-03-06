@@ -486,6 +486,8 @@ public class StartupValidator implements ApplicationRunner {
                         env.getProperty("ez.scoring.pt.marginal-utility-of-traveling")),
                 validateDouble("ez.scoring.walk.marginal-utility-of-traveling",
                         env.getProperty("ez.scoring.walk.marginal-utility-of-traveling")),
+                validateDouble("ez.scoring.walk.marginal-utility-of-distance",
+                        env.getProperty("ez.scoring.walk.marginal-utility-of-distance")),
                 validateDouble("ez.scoring.bike.marginal-utility-of-traveling",
                         env.getProperty("ez.scoring.bike.marginal-utility-of-traveling"))
         );

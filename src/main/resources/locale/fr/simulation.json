@@ -24,7 +24,15 @@
   "simulation.progress.population": "Filtrage de la population",
   "simulation.progress.reconstruction": "Reconstruction de l'échantillon de population",
   "simulation.progress.vehicles": "Attribution des véhicules",
-  "simulation.progress.baseline": "Exécution de la simulation de référence",
-  "simulation.progress.policy": "Exécution de la simulation de politique",
-  "simulation.progress.postprocessing": "Traitement des résultats"
+  "simulation.progress.network": "Chargement du reseau",
+  "simulation.progress.transit": "Preparation des donnees de transport en commun",
+  "simulation.progress.config": "Construction des configurations de simulation",
+  "simulation.progress.baseline": "Execution de la simulation de reference",
+  "simulation.progress.policy": "Execution de la simulation de politique",
+  "simulation.progress.simulations": "Execution des simulations",
+  "simulation.progress.postprocessing": "Traitement des resultats",
+  "simulation.transit.cleanup": "Horaire de transit nettoye, entrees incompletes supprimees",
+  "simulation.transit.validation.error": "Erreur de validation de l'horaire de transit",
+  "simulation.transit.validation.warning": "Avertissement de validation de l'horaire de transit",
+  "simulation.transit.validation.failed": "Validation de l'horaire de transit echouee, erreurs trouvees"
 }
