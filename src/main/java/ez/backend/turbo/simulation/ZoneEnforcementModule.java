@@ -23,6 +23,10 @@ public class ZoneEnforcementModule extends AbstractModule {
                     new RandomizingTimeDistanceTravelDisutilityFactory("car", getConfig());
             addTravelDisutilityFactoryBinding("car").toInstance(
                     new ZoneBanTravelDisutility(baseFactory, index));
+
+            bind(BanViolationTracker.class).asEagerSingleton();
+            addEventHandlerBinding().to(BanViolationTracker.class);
+            addControlerListenerBinding().to(ForcedInnovationListener.class);
         }
     }
 }

@@ -1,35 +1,32 @@
 package ez.backend.turbo.simulation;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CountDownLatch;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.matsim.api.core.v01.Id;
-import org.matsim.api.core.v01.Scenario;
+import org.matsim.api.core.v01.network.Network;
+import org.matsim.api.core.v01.population.Leg;
+import org.matsim.api.core.v01.population.Person;
+import org.matsim.api.core.v01.population.Plan;
+import org.matsim.api.core.v01.population.PlanElement;
 import org.matsim.api.core.v01.population.Population;
 import org.matsim.contrib.emissions.EmissionModule;
 import org.matsim.core.config.Config;
-import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.AbstractModule;
 import org.matsim.core.controler.Controler;
-import org.matsim.core.controler.events.IterationStartsEvent;
 import org.matsim.core.controler.listener.IterationStartsListener;
 import org.matsim.core.scenario.MutableScenario;
 import org.matsim.core.scenario.ScenarioUtils;
-import org.matsim.pt.transitSchedule.api.TransitLine;
-import org.matsim.pt.transitSchedule.api.TransitRoute;
-import org.matsim.vehicles.EngineInformation;
-import org.matsim.vehicles.Vehicle;
-import org.matsim.vehicles.VehicleType;
-import org.matsim.vehicles.VehicleUtils;
+import org.matsim.pt.transitSchedule.api.TransitSchedule;
 import org.matsim.vehicles.Vehicles;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-import ez.backend.turbo.endpoints.SimulationRequest;
 import ez.backend.turbo.services.ProcessManager;
-import ez.backend.turbo.services.SourceRegistry;
 import ez.backend.turbo.utils.L;
 
 @Component
@@ -37,43 +34,28 @@ public class MatsimRunner {
 
     private static final Logger log = LogManager.getLogger(MatsimRunner.class);
 
-    private final MatsimConfigBuilder configBuilder;
-    private final SourceRegistry sourceRegistry;
-
     public record SimulationResult(
             Path outputDir,
             LegEmissionTracker legTracker,
             @Nullable PersonMoneyEventCollector moneyCollector) {}
 
-    public MatsimRunner(MatsimConfigBuilder configBuilder, SourceRegistry sourceRegistry) {
-        this.configBuilder = configBuilder;
-        this.sourceRegistry = sourceRegistry;
-    }
+    public SimulationResult runSimulation(
+            Config config, Network network,
+            TransitSchedule transitSchedule, Vehicles transitVehicles,
+            Population population, Vehicles vehicles,
+            String runType, UUID requestId, ProcessManager processManager,
+            @Nullable CountDownLatch initGate,
+            AbstractModule... additionalModules) {
 
-    public SimulationResult runSimulation(SimulationRequest request, UUID requestId,
-                              Population population, Vehicles vehicles,
-                              Path plansFile, Path vehiclesFile, String runType,
-                              ProcessManager processManager,
-                              AbstractModule... additionalModules) {
-        Config config = configBuilder.build(request, requestId, runType, plansFile, vehiclesFile);
         MutableScenario scenario = (MutableScenario) ScenarioUtils.createScenario(config);
-
-        int netYear = request.getSources().getNetwork().getYear();
-        String netName = request.getSources().getNetwork().getName();
-        scenario.setNetwork(sourceRegistry.getNetwork(netYear, netName));
-
+        scenario.setNetwork(network);
         scenario.setPopulation(population);
 
         vehicles.getVehicleTypes().values().forEach(scenario.getVehicles()::addVehicleType);
         vehicles.getVehicles().values().forEach(scenario.getVehicles()::addVehicle);
 
-        int transitYear = request.getSources().getPublicTransport().getYear();
-        String transitName = request.getSources().getPublicTransport().getName();
-        SourceRegistry.TransitData transit = sourceRegistry.getTransit(transitYear, transitName);
-        prefixTransitVehicleIds(transit.schedule(), transit.vehicles());
-        tagBusVehicleTypes(transit.vehicles());
-        scenario.setTransitSchedule(transit.schedule());
-        scenario.setTransitVehicles(transit.vehicles());
+        scenario.setTransitSchedule(transitSchedule);
+        scenario.setTransitVehicles(transitVehicles);
 
         log.info(L.msg("simulation.matsim.scenario.ready"));
 
@@ -100,6 +82,9 @@ public class MatsimRunner {
         }
 
         controler.addControlerListener((IterationStartsListener) event -> {
+            if (event.getIteration() == 0 && initGate != null) {
+                initGate.countDown();
+            }
             if (processManager.isCancelled(requestId)) {
                 throw new RuntimeException(L.msg("scenario.cancel.confirmed"));
             }
@@ -113,66 +98,52 @@ public class MatsimRunner {
         return new SimulationResult(outputDir, legTracker, moneyCollector);
     }
 
-    private void prefixTransitVehicleIds(
-            org.matsim.pt.transitSchedule.api.TransitSchedule schedule, Vehicles transitVehicles) {
-        java.util.Set<String> busRouteVehicleIds = new java.util.HashSet<>();
-        java.util.Set<String> subwayRouteVehicleIds = new java.util.HashSet<>();
-
-        for (TransitLine line : schedule.getTransitLines().values()) {
-            for (TransitRoute route : line.getRoutes().values()) {
-                String mode = route.getTransportMode();
-                for (var departure : route.getDepartures().values()) {
-                    String vid = departure.getVehicleId().toString();
-                    if ("subway".equals(mode) || "rail".equals(mode) || "metro".equals(mode)) {
-                        subwayRouteVehicleIds.add(vid);
-                    } else {
-                        busRouteVehicleIds.add(vid);
+    public static void normalizeModesInPopulation(Population population) {
+        for (Person person : population.getPersons().values()) {
+            for (Plan plan : person.getPlans()) {
+                List<PlanElement> elements = plan.getPlanElements();
+                for (int i = 0; i < elements.size(); i++) {
+                    if (elements.get(i) instanceof Leg leg) {
+                        if ("car_passenger".equals(leg.getMode())) {
+                            leg.setMode("ride");
+                        }
                     }
                 }
-            }
-        }
-
-        java.util.Map<Id<Vehicle>, String> renames = new java.util.HashMap<>();
-        for (Vehicle v : transitVehicles.getVehicles().values()) {
-            String id = v.getId().toString();
-            if (subwayRouteVehicleIds.contains(id)) {
-                renames.put(v.getId(), "subway_" + id);
-            } else if (busRouteVehicleIds.contains(id)) {
-                renames.put(v.getId(), "bus_" + id);
-            }
-        }
-
-        for (var entry : renames.entrySet()) {
-            Vehicle old = transitVehicles.getVehicles().get(entry.getKey());
-            transitVehicles.removeVehicle(entry.getKey());
-            Vehicle renamed = transitVehicles.getFactory()
-                    .createVehicle(Id.createVehicleId(entry.getValue()), old.getType());
-            transitVehicles.addVehicle(renamed);
-        }
-
-        for (TransitLine line : schedule.getTransitLines().values()) {
-            for (TransitRoute route : line.getRoutes().values()) {
-                for (var departure : route.getDepartures().values()) {
-                    String oldId = departure.getVehicleId().toString();
-                    String newId = renames.get(Id.createVehicleId(oldId));
-                    if (newId != null) {
-                        departure.setVehicleId(Id.createVehicleId(newId));
+                List<Leg> currentTrip = new ArrayList<>();
+                for (PlanElement element : elements) {
+                    if (element instanceof Leg leg) {
+                        currentTrip.add(leg);
+                    } else {
+                        if (!currentTrip.isEmpty()) {
+                            setTripRoutingMode(currentTrip);
+                            currentTrip.clear();
+                        }
                     }
+                }
+                if (!currentTrip.isEmpty()) {
+                    setTripRoutingMode(currentTrip);
                 }
             }
         }
     }
 
-    private void tagBusVehicleTypes(Vehicles transitVehicles) {
-        for (VehicleType vt : transitVehicles.getVehicleTypes().values()) {
-            EngineInformation ei = vt.getEngineInformation();
-            if (VehicleUtils.getHbefaVehicleCategory(ei) == null) {
-                vt.setNetworkMode("car");
-                VehicleUtils.setHbefaVehicleCategory(ei, "URBAN_BUS");
-                VehicleUtils.setHbefaTechnology(ei, "diesel");
-                VehicleUtils.setHbefaSizeClass(ei, "not specified");
-                VehicleUtils.setHbefaEmissionsConcept(ei, "UBus-d-EU3");
-            }
+    private static void setTripRoutingMode(List<Leg> trip) {
+        String mainMode = trip.size() == 1
+                ? trip.get(0).getMode()
+                : identifyMainMode(trip);
+        for (Leg leg : trip) {
+            leg.setRoutingMode(mainMode);
         }
+    }
+
+    private static String identifyMainMode(List<Leg> legs) {
+        for (Leg leg : legs) {
+            String mode = leg.getMode();
+            if ("car".equals(mode)) return "car";
+            if ("pt".equals(mode)) return "pt";
+            if ("bike".equals(mode)) return "bike";
+            if ("ride".equals(mode)) return "ride";
+        }
+        return legs.get(0).getMode();
     }
 }

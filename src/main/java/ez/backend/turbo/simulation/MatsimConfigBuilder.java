@@ -7,9 +7,11 @@ import java.util.UUID;
 import org.matsim.contrib.emissions.utils.EmissionsConfigGroup;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
+import org.matsim.core.config.groups.PlansConfigGroup;
 import org.matsim.core.config.groups.QSimConfigGroup;
 import org.matsim.core.config.groups.ReplanningConfigGroup;
 import org.matsim.core.config.groups.ScoringConfigGroup;
+import org.matsim.pt.config.TransitConfigGroup;
 import org.matsim.core.controler.OutputDirectoryHierarchy;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -32,6 +34,21 @@ public class MatsimConfigBuilder {
     private static final double WORK_DURATION = 8 * 3600.0;
     private static final double WORK_OPEN = 6 * 3600.0;
     private static final double WORK_CLOSE = 20 * 3600.0;
+    private static final double EDUCATION_DURATION = 6 * 3600.0;
+    private static final double EDUCATION_OPEN = 7 * 3600.0;
+    private static final double EDUCATION_CLOSE = 18 * 3600.0;
+    private static final double EDUCATION_LATEST_START = 9 * 3600.0;
+    private static final double SHOP_DURATION = 1 * 3600.0;
+    private static final double SHOP_OPEN = 8 * 3600.0;
+    private static final double SHOP_CLOSE = 21 * 3600.0;
+    private static final double SHOP_LATEST_START = 20 * 3600.0;
+    private static final double LEISURE_DURATION = 2 * 3600.0;
+    private static final double LEISURE_OPEN = 6 * 3600.0;
+    private static final double LEISURE_CLOSE = 24 * 3600.0;
+    private static final double LEISURE_LATEST_START = 23 * 3600.0;
+    private static final double OTHER_DURATION = 1.5 * 3600.0;
+    private static final double OTHER_CLOSE = 24 * 3600.0;
+    private static final double OTHER_LATEST_START = 24 * 3600.0;
 
     private final Path dataRoot;
     private final String targetCrs;
@@ -109,6 +126,8 @@ public class MatsimConfigBuilder {
         if (plansFile != null) {
             config.plans().setInputFile(plansFile.toString());
         }
+        config.plans().setHandlingOfPlansWithoutRoutingMode(
+                PlansConfigGroup.HandlingOfPlansWithoutRoutingMode.useMainModeIdentifier);
     }
 
     private void configureVehicles(Config config, @Nullable Path vehiclesFile) {
@@ -124,6 +143,8 @@ public class MatsimConfigBuilder {
         config.transit().setUseTransit(true);
         config.transit().setTransitScheduleFile(transit.schedule().toString());
         config.transit().setVehiclesFile(transit.vehicles().toString());
+        config.transit().setRoutingAlgorithmType(
+                TransitConfigGroup.TransitRoutingAlgorithmType.SwissRailRaptor);
     }
 
     private void configureScoring(Config config, SimulationRequest request) {
@@ -142,6 +163,39 @@ public class MatsimConfigBuilder {
         work.setClosingTime(WORK_CLOSE);
         config.scoring().addActivityParams(work);
 
+        ScoringConfigGroup.ActivityParams education = new ScoringConfigGroup.ActivityParams("education");
+        education.setTypicalDuration(EDUCATION_DURATION);
+        education.setOpeningTime(EDUCATION_OPEN);
+        education.setClosingTime(EDUCATION_CLOSE);
+        education.setLatestStartTime(EDUCATION_LATEST_START);
+        config.scoring().addActivityParams(education);
+
+        ScoringConfigGroup.ActivityParams shop = new ScoringConfigGroup.ActivityParams("shop");
+        shop.setTypicalDuration(SHOP_DURATION);
+        shop.setOpeningTime(SHOP_OPEN);
+        shop.setClosingTime(SHOP_CLOSE);
+        shop.setLatestStartTime(SHOP_LATEST_START);
+        config.scoring().addActivityParams(shop);
+
+        ScoringConfigGroup.ActivityParams leisure = new ScoringConfigGroup.ActivityParams("leisure");
+        leisure.setTypicalDuration(LEISURE_DURATION);
+        leisure.setOpeningTime(LEISURE_OPEN);
+        leisure.setClosingTime(LEISURE_CLOSE);
+        leisure.setLatestStartTime(LEISURE_LATEST_START);
+        config.scoring().addActivityParams(leisure);
+
+        ScoringConfigGroup.ActivityParams other = new ScoringConfigGroup.ActivityParams("other");
+        other.setTypicalDuration(OTHER_DURATION);
+        other.setClosingTime(OTHER_CLOSE);
+        other.setLatestStartTime(OTHER_LATEST_START);
+        config.scoring().addActivityParams(other);
+
+        addInteractionActivity(config, "car interaction");
+        addInteractionActivity(config, "pt interaction");
+        addInteractionActivity(config, "bike interaction");
+        addInteractionActivity(config, "walk interaction");
+        addInteractionActivity(config, "ride interaction");
+
         SimulationRequest.ModeUtilities mu = request.getModeUtilities();
 
         ScoringConfigGroup.ModeParams carParams = config.scoring().getOrCreateModeParams("car");
@@ -152,6 +206,7 @@ public class MatsimConfigBuilder {
         ScoringConfigGroup.ModeParams walkParams = config.scoring().getOrCreateModeParams("walk");
         walkParams.setConstant(mu.getWalk() * scaleFactorConfig.walk());
         walkParams.setMarginalUtilityOfTraveling(scoringConfig.walkMarginalUtilityOfTraveling());
+        walkParams.setMarginalUtilityOfDistance(scoringConfig.walkMarginalUtilityOfDistance());
 
         ScoringConfigGroup.ModeParams bikeParams = config.scoring().getOrCreateModeParams("bike");
         bikeParams.setConstant(mu.getBike() * scaleFactorConfig.bike());
@@ -166,6 +221,7 @@ public class MatsimConfigBuilder {
 
     private void configureReplanning(Config config) {
         config.replanning().setMaxAgentPlanMemorySize(strategyConfig.maxAgentPlanMemorySize());
+        config.replanning().setFractionOfIterationsToDisableInnovation(0.8);
 
         addStrategy(config, "ChangeExpBeta", strategyConfig.changeExpBetaWeight());
         addStrategy(config, "ReRoute", strategyConfig.reRouteWeight());
@@ -175,6 +231,12 @@ public class MatsimConfigBuilder {
         config.subtourModeChoice().setModes(strategyConfig.subtourModes());
         config.subtourModeChoice().setChainBasedModes(strategyConfig.chainBasedModes());
         config.timeAllocationMutator().setMutationRange(strategyConfig.mutationRange());
+    }
+
+    private void addInteractionActivity(Config config, String type) {
+        ScoringConfigGroup.ActivityParams params = new ScoringConfigGroup.ActivityParams(type);
+        params.setScoringThisActivityAtAll(false);
+        config.scoring().addActivityParams(params);
     }
 
     private void addStrategy(Config config, String name, double weight) {
@@ -188,8 +250,23 @@ public class MatsimConfigBuilder {
         EmissionsConfigGroup emissions = ConfigUtils.addOrGetModule(config, EmissionsConfigGroup.class);
         emissions.setAverageWarmEmissionFactorsFile(vehicleTypeRegistry.getHbefaWarmFile().toString());
         emissions.setAverageColdEmissionFactorsFile(vehicleTypeRegistry.getHbefaColdFile().toString());
-        emissions.setDetailedVsAverageLookupBehavior(
-                EmissionsConfigGroup.DetailedVsAverageLookupBehavior.directlyTryAverageTable);
+
+        Path hbefaDir = vehicleTypeRegistry.getHbefaWarmFile().getParent();
+        Path detailedWarm = hbefaDir.resolve("detailed_warm.csv");
+        Path detailedCold = hbefaDir.resolve("detailed_cold.csv");
+
+        if (detailedWarm.toFile().isFile() && detailedCold.toFile().isFile()) {
+            emissions.setDetailedWarmEmissionFactorsFile(detailedWarm.toString());
+            emissions.setDetailedColdEmissionFactorsFile(detailedCold.toString());
+            emissions.setDetailedVsAverageLookupBehavior(
+                    EmissionsConfigGroup.DetailedVsAverageLookupBehavior.tryDetailedThenTechnologyAverageThenAverageTable);
+        } else {
+            emissions.setDetailedVsAverageLookupBehavior(
+                    EmissionsConfigGroup.DetailedVsAverageLookupBehavior.directlyTryAverageTable);
+        }
+
         emissions.setNonScenarioVehicles(EmissionsConfigGroup.NonScenarioVehicles.ignore);
+        emissions.setHbefaTableConsistencyCheckingLevel(
+                EmissionsConfigGroup.HbefaTableConsistencyCheckingLevel.none);
     }
 }

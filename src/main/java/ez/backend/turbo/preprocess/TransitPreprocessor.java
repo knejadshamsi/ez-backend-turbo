@@ -120,7 +120,7 @@ final class TransitPreprocessor {
                 cli.optional("--threads", "4")));
         config.setTravelCostType(PublicTransitMappingConfigGroup.TravelCostType.travelTime);
         config.setRoutingWithCandidateDistance(true);
-        config.setRemoveNotUsedStopFacilities(false);
+        config.setRemoveNotUsedStopFacilities(true);
         config.getModesToKeepOnCleanUp().add("car");
 
         String modeAssignment = cli.optional("--mode-assignment", null);
