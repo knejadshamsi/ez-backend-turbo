@@ -39,12 +39,16 @@ public class TripLegRepository {
                 });
     }
 
-    public List<Map<String, Object>> findByRequestId(UUID requestId, int page, int pageSize) {
+    public List<Map<String, Object>> findByRequestId(UUID requestId, int page, int pageSize,
+                                                      boolean excludeNC) {
         int offset = (page - 1) * pageSize;
+        String where = excludeNC
+                ? "WHERE request_id = ? AND impact != 'NC'"
+                : "WHERE request_id = ?";
         return jdbcTemplate.query(
                 "SELECT leg_id, person_id, origin_activity_type, destination_activity_type, " +
                         "co2_delta_grams, time_delta_minutes, impact FROM trip_legs " +
-                        "WHERE request_id = ? ORDER BY id LIMIT ? OFFSET ?",
+                        where + " ORDER BY id LIMIT ? OFFSET ?",
                 (rs, rowNum) -> {
                     Map<String, Object> row = new HashMap<>();
                     row.put("legId", rs.getString("leg_id"));
@@ -56,7 +60,8 @@ public class TripLegRepository {
                     row.put("impact", rs.getString("impact"));
                     return row;
                 },
-                requestId, pageSize, offset);
+                excludeNC ? new Object[]{requestId, pageSize, offset}
+                          : new Object[]{requestId, pageSize, offset});
     }
 
     public int deleteByRequestId(UUID requestId) {
@@ -66,6 +71,13 @@ public class TripLegRepository {
     public int countByRequestId(UUID requestId) {
         Integer count = jdbcTemplate.queryForObject(
                 "SELECT COUNT(*) FROM trip_legs WHERE request_id = ?",
+                Integer.class, requestId);
+        return count != null ? count : 0;
+    }
+
+    public int countByRequestIdExcludeNC(UUID requestId) {
+        Integer count = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM trip_legs WHERE request_id = ? AND impact != 'NC'",
                 Integer.class, requestId);
         return count != null ? count : 0;
     }
