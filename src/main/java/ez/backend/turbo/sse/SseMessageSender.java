@@ -8,10 +8,12 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import ez.backend.turbo.utils.L;
 import ez.backend.turbo.utils.MessageType;
+import ez.backend.turbo.validation.ValidationError;
 
 import java.io.IOException;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -39,7 +41,12 @@ public class SseMessageSender {
     }
 
     public void sendError(SseEmitter emitter, MessageType type, String code, String message) {
-        sendMessage(emitter, type, Map.of("code", code, "message", message));
+        String safeMessage = message != null ? message : type.getValue();
+        sendMessage(emitter, type, Map.of("code", code, "message", safeMessage));
+    }
+
+    public void sendValidationErrors(SseEmitter emitter, List<ValidationError> errors) {
+        sendMessage(emitter, MessageType.ERROR_VALIDATION, Map.of("errors", errors));
     }
 
     public void complete(SseEmitter emitter) {

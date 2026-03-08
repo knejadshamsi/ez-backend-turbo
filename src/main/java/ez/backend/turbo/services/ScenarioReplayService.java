@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -101,9 +102,11 @@ public class ScenarioReplayService {
         Path overviewFile = outputDir.resolve("overview.json");
         Path emissionsFile = outputDir.resolve("emissions.json");
         Path peopleResponseFile = outputDir.resolve("people-response.json");
+        Path tripPerformanceFile = outputDir.resolve("trip-performance.json");
 
         if (!Files.isRegularFile(overviewFile) || !Files.isRegularFile(emissionsFile)
-                || !Files.isRegularFile(peopleResponseFile)) {
+                || !Files.isRegularFile(peopleResponseFile)
+                || !Files.isRegularFile(tripPerformanceFile)) {
             messageSender.sendError(emitter, MessageType.ERROR_GLOBAL,
                     "DATA_CORRUPT", L.msg("output.replay.corrupt"));
             messageSender.complete(emitter);
@@ -116,9 +119,11 @@ public class ScenarioReplayService {
 
             Map<String, Object> emissions = objectMapper.readValue(emissionsFile.toFile(), Map.class);
             messageSender.sendMessage(emitter, MessageType.DATA_TEXT_PARAGRAPH1_EMISSIONS, emissions.get("paragraph1"));
+            messageSender.sendMessage(emitter, MessageType.DATA_CHART_BAR_EMISSIONS, emissions.get("paragraph1"));
+            messageSender.sendMessage(emitter, MessageType.DATA_CHART_LINE_EMISSIONS, emissions.get("lineChart"));
+            messageSender.sendMessage(emitter, MessageType.DATA_CHART_STACKED_BAR_EMISSIONS, emissions.get("stackedBar"));
             messageSender.sendMessage(emitter, MessageType.DATA_TEXT_PARAGRAPH2_EMISSIONS, emissions.get("paragraph2"));
-            messageSender.sendMessage(emitter, MessageType.DATA_CHART_BAR_EMISSIONS, emissions.get("barChart"));
-            messageSender.sendMessage(emitter, MessageType.DATA_CHART_PIE_EMISSIONS, emissions.get("pieChart"));
+            messageSender.sendMessage(emitter, MessageType.DATA_WARM_COLD_INTENSITY_EMISSIONS, emissions.get("warmColdIntensity"));
 
             if (Files.isRegularFile(outputDir.resolve("map-emissions.json"))) {
                 messageSender.sendLifecycle(emitter, MessageType.SUCCESS_MAP_EMISSIONS);
@@ -128,10 +133,9 @@ public class ScenarioReplayService {
             }
 
             Map<String, Object> peopleResponse = objectMapper.readValue(peopleResponseFile.toFile(), Map.class);
-            messageSender.sendMessage(emitter, MessageType.DATA_TEXT_PARAGRAPH1_PEOPLE_RESPONSE, peopleResponse.get("paragraph1"));
-            messageSender.sendMessage(emitter, MessageType.DATA_TEXT_PARAGRAPH2_PEOPLE_RESPONSE, peopleResponse.get("paragraph2"));
-            messageSender.sendMessage(emitter, MessageType.DATA_CHART_BREAKDOWN_PEOPLE_RESPONSE, peopleResponse.get("breakdownChart"));
-            messageSender.sendMessage(emitter, MessageType.DATA_CHART_TIME_IMPACT_PEOPLE_RESPONSE, peopleResponse.get("timeImpactChart"));
+            messageSender.sendMessage(emitter, MessageType.DATA_TEXT_PARAGRAPH1_PEOPLE_RESPONSE, peopleResponse.get("paragraph"));
+            messageSender.sendMessage(emitter, MessageType.DATA_CHART_SANKEY_PEOPLE_RESPONSE, peopleResponse.get("sankey"));
+            messageSender.sendMessage(emitter, MessageType.DATA_CHART_BAR_PEOPLE_RESPONSE, peopleResponse.get("bar"));
 
             if (Files.isRegularFile(outputDir.resolve("map-people-response.json"))) {
                 messageSender.sendLifecycle(emitter, MessageType.SUCCESS_MAP_PEOPLE_RESPONSE);
@@ -140,11 +144,19 @@ public class ScenarioReplayService {
                         "MAP_MISSING", L.msg("output.map.file.missing"));
             }
 
-            int pageSize = 50;
-            List<Map<String, Object>> records = tripLegRepository.findByRequestId(requestId, 1, pageSize);
-            int totalRecords = tripLegRepository.countByRequestId(requestId);
-            messageSender.sendMessage(emitter, MessageType.DATA_TABLE_TRIP_LEGS,
-                    Map.of("records", records, "totalRecords", totalRecords, "pageSize", pageSize));
+            Map<String, Object> tripPerformance = objectMapper.readValue(tripPerformanceFile.toFile(), Map.class);
+            messageSender.sendMessage(emitter, MessageType.DATA_TEXT_PARAGRAPH1_TRIP_LEGS, tripPerformance.get("paragraph"));
+
+            int pageSize = 10;
+            List<Map<String, Object>> records = tripLegRepository.findByRequestId(requestId, 1, pageSize, true);
+            int totalRecords = tripLegRepository.countByRequestIdExcludeNC(requestId);
+            int totalAllRecords = tripLegRepository.countByRequestId(requestId);
+            Map<String, Object> tablePayload = new LinkedHashMap<>();
+            tablePayload.put("records", records);
+            tablePayload.put("totalRecords", totalRecords);
+            tablePayload.put("totalAllRecords", totalAllRecords);
+            tablePayload.put("pageSize", pageSize);
+            messageSender.sendMessage(emitter, MessageType.DATA_TABLE_TRIP_LEGS, tablePayload);
 
             if (Files.isRegularFile(outputDir.resolve("map-trip-legs.json"))) {
                 messageSender.sendLifecycle(emitter, MessageType.SUCCESS_MAP_TRIP_LEGS);

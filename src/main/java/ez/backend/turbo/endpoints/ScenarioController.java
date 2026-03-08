@@ -42,7 +42,7 @@ public class ScenarioController {
 
     private static final Set<ScenarioStatus> CANCELLABLE = Set.of(
             ScenarioStatus.CREATED, ScenarioStatus.QUEUED, ScenarioStatus.VALIDATING,
-            ScenarioStatus.SIMULATING_BASELINE, ScenarioStatus.SIMULATING_POLICY,
+            ScenarioStatus.SIMULATING, ScenarioStatus.SIMULATING_BASELINE, ScenarioStatus.SIMULATING_POLICY,
             ScenarioStatus.POSTPROCESSING);
 
     private static final Set<ScenarioStatus> IMMEDIATE_CANCEL = Set.of(
@@ -53,22 +53,25 @@ public class ScenarioController {
 
     private static final Set<ScenarioStatus> STILL_RUNNING = Set.of(
             ScenarioStatus.CREATED, ScenarioStatus.QUEUED, ScenarioStatus.VALIDATING,
-            ScenarioStatus.SIMULATING_BASELINE, ScenarioStatus.SIMULATING_POLICY,
+            ScenarioStatus.SIMULATING, ScenarioStatus.SIMULATING_BASELINE, ScenarioStatus.SIMULATING_POLICY,
             ScenarioStatus.POSTPROCESSING);
 
     private record RetryMapping(String filename, String jsonKey) {}
 
-    private static final Map<String, RetryMapping> RETRY_MAPPINGS = Map.of(
-            "text_overview", new RetryMapping("overview.json", null),
-            "text_paragraph1_emissions", new RetryMapping("emissions.json", "paragraph1"),
-            "text_paragraph2_emissions", new RetryMapping("emissions.json", "paragraph2"),
-            "chart_bar_emissions", new RetryMapping("emissions.json", "barChart"),
-            "chart_pie_emissions", new RetryMapping("emissions.json", "pieChart"),
-            "text_paragraph1_people_response", new RetryMapping("people-response.json", "paragraph1"),
-            "text_paragraph2_people_response", new RetryMapping("people-response.json", "paragraph2"),
-            "chart_breakdown_people_response", new RetryMapping("people-response.json", "breakdownChart"),
-            "chart_time_impact_people_response", new RetryMapping("people-response.json", "timeImpactChart")
-    );
+    private static final Map<String, RetryMapping> RETRY_MAPPINGS = new java.util.LinkedHashMap<>();
+    static {
+        RETRY_MAPPINGS.put("text_overview", new RetryMapping("overview.json", null));
+        RETRY_MAPPINGS.put("text_paragraph1_emissions", new RetryMapping("emissions.json", "paragraph1"));
+        RETRY_MAPPINGS.put("text_paragraph2_emissions", new RetryMapping("emissions.json", "paragraph2"));
+        RETRY_MAPPINGS.put("chart_bar_emissions", new RetryMapping("emissions.json", "paragraph1"));
+        RETRY_MAPPINGS.put("chart_line_emissions", new RetryMapping("emissions.json", "lineChart"));
+        RETRY_MAPPINGS.put("chart_stacked_bar_emissions", new RetryMapping("emissions.json", "stackedBar"));
+        RETRY_MAPPINGS.put("warm_cold_intensity_emissions", new RetryMapping("emissions.json", "warmColdIntensity"));
+        RETRY_MAPPINGS.put("text_paragraph1_people_response", new RetryMapping("people-response.json", "paragraph"));
+        RETRY_MAPPINGS.put("chart_sankey_people_response", new RetryMapping("people-response.json", "sankey"));
+        RETRY_MAPPINGS.put("chart_bar_people_response", new RetryMapping("people-response.json", "bar"));
+        RETRY_MAPPINGS.put("text_paragraph1_trip_legs", new RetryMapping("trip-performance.json", "paragraph"));
+    }
 
     private final ScenarioStateService scenarioStateService;
     private final ProcessManager processManager;

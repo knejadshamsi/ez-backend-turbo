@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ez.backend.turbo.endpoints.SimulationRequest;
 import ez.backend.turbo.output.OutputManager;
 import ez.backend.turbo.session.SseEmitterRegistry;
+import ez.backend.turbo.simulation.MatsimConfigBuilder;
 import ez.backend.turbo.simulation.MatsimRunner;
 import ez.backend.turbo.simulation.MatsimRunner.SimulationResult;
+import ez.backend.turbo.simulation.TransitPreparer;
 import ez.backend.turbo.simulation.ZoneEnforcementModule;
 import ez.backend.turbo.simulation.ZoneLinkResolver;
 import ez.backend.turbo.simulation.ZonePolicyIndex;
@@ -17,13 +19,16 @@ import ez.backend.turbo.utils.L;
 import ez.backend.turbo.utils.MessageType;
 import ez.backend.turbo.utils.ScenarioStatus;
 import ez.backend.turbo.validation.SimulationRequestValidator;
+import ez.backend.turbo.validation.ValidationResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.ThreadContext;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.api.core.v01.population.Population;
+import org.matsim.core.config.Config;
 import org.matsim.core.population.PopulationUtils;
 import org.matsim.core.population.io.PopulationWriter;
+import org.matsim.pt.transitSchedule.api.TransitSchedule;
 import org.matsim.vehicles.MatsimVehicleWriter;
 import org.matsim.vehicles.Vehicles;
 import org.springframework.lang.Nullable;
@@ -36,6 +41,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.CountDownLatch;
 
 @Service
 public class SimulationService {
@@ -53,6 +60,8 @@ public class SimulationService {
     private final VehicleAssignmentService vehicleAssignmentService;
     private final ZoneLinkResolver zoneLinkResolver;
     private final MatsimRunner matsimRunner;
+    private final MatsimConfigBuilder configBuilder;
+    private final TransitPreparer transitPreparer;
     private final SourceRegistry sourceRegistry;
     private final OutputManager outputManager;
     @Nullable private final SimulationQueueManager queueManager;
@@ -68,6 +77,8 @@ public class SimulationService {
                              VehicleAssignmentService vehicleAssignmentService,
                              ZoneLinkResolver zoneLinkResolver,
                              MatsimRunner matsimRunner,
+                             MatsimConfigBuilder configBuilder,
+                             TransitPreparer transitPreparer,
                              SourceRegistry sourceRegistry,
                              OutputManager outputManager,
                              @Nullable SimulationQueueManager queueManager) {
@@ -82,13 +93,21 @@ public class SimulationService {
         this.vehicleAssignmentService = vehicleAssignmentService;
         this.zoneLinkResolver = zoneLinkResolver;
         this.matsimRunner = matsimRunner;
+        this.configBuilder = configBuilder;
+        this.transitPreparer = transitPreparer;
         this.sourceRegistry = sourceRegistry;
         this.outputManager = outputManager;
         this.queueManager = queueManager;
     }
 
     public SseEmitter startSimulation(SimulationRequest request) {
-        validator.validate(request);
+        ValidationResult validation = validator.validate(request);
+        if (validation.hasErrors()) {
+            SseEmitter emitter = new SseEmitter(5000L);
+            messageSender.sendValidationErrors(emitter, validation.errors());
+            messageSender.complete(emitter);
+            return emitter;
+        }
         UUID requestId = scenarioStateService.createScenario();
 
         if (queueManager != null) {
@@ -162,65 +181,181 @@ public class SimulationService {
             String netName = request.getSources().getNetwork().getName();
             int popYear = request.getSources().getPopulation().getYear();
             String popName = request.getSources().getPopulation().getName();
+            int transitYear = request.getSources().getPublicTransport().getYear();
+            String transitName = request.getSources().getPublicTransport().getName();
             int percentage = request.getSimulationOptions().getPercentage();
 
             checkCancelled(requestId);
 
-            processManager.setProgress(requestId, L.msg("simulation.progress.zones"));
-            List<ZoneLinkSet> zoneLinkSets = zoneLinkResolver.resolve(
-                    request.getZones(), netYear, netName);
-            checkCancelled(requestId);
-
-            processManager.setProgress(requestId, L.msg("simulation.progress.population"));
-            Set<String> filteredPersonIds = populationFilterService.filter(request, zoneLinkSets);
-            checkCancelled(requestId);
-
-            processManager.setProgress(requestId, L.msg("simulation.progress.reconstruction"));
-            Path plansFile = populationReconstructionService.reconstructAndSample(
-                    filteredPersonIds, popYear, popName, requestId, percentage);
-            log.info(L.msg("simulation.population.ready"));
-            checkCancelled(requestId);
-
-            processManager.setProgress(requestId, L.msg("simulation.progress.vehicles"));
-            Population population = PopulationUtils.readPopulation(plansFile.toString());
-            int personCount = population.getPersons().size();
-            Vehicles vehicles = vehicleAssignmentService.assign(population, request.getCarDistribution());
-            Path vehiclesFile = plansFile.getParent().resolve("vehicles.xml");
-            new MatsimVehicleWriter(vehicles).writeFile(vehiclesFile.toString());
-            new PopulationWriter(population).write(plansFile.toString());
-            checkCancelled(requestId);
-
+            messageSender.sendLifecycle(emitter, MessageType.PA_PREPROCESSING_NETWORK_STARTED);
+            processManager.setProgress(requestId, L.msg("simulation.progress.network"));
             Network network = sourceRegistry.getNetwork(netYear, netName);
             int networkNodes = network.getNodes().size();
             int networkLinks = network.getLinks().size();
-            double simulationAreaKm2 = zoneLinkResolver.computeTotalAreaKm2(zoneLinkSets);
-
+            messageSender.sendLifecycle(emitter, MessageType.PA_PREPROCESSING_NETWORK_COMPLETE);
             checkCancelled(requestId);
-            scenarioStateService.updateStatus(requestId, ScenarioStatus.SIMULATING_BASELINE);
-            processManager.setProgress(requestId, L.msg("simulation.progress.baseline"));
-            log.info(L.msg("simulation.stage.baseline"));
-            SimulationResult baselineResult = matsimRunner.runSimulation(
-                    request, requestId, population, vehicles, plansFile, vehiclesFile, "baseline",
-                    processManager);
 
+            messageSender.sendLifecycle(emitter, MessageType.PA_PREPROCESSING_POPULATION_STARTED);
+            messageSender.sendLifecycle(emitter, MessageType.PA_PREPROCESSING_TRANSIT_STARTED);
+
+            final Network sharedNetwork = network;
+            CompletableFuture<PopulationPrepResult> populationFuture = CompletableFuture.supplyAsync(() -> {
+                ThreadContext.put("ctx", requestId.toString());
+                try {
+                    processManager.setProgress(requestId, L.msg("simulation.progress.zones"));
+                    List<ZoneLinkSet> zls = zoneLinkResolver.resolve(
+                            request.getZones(), netYear, netName);
+                    checkCancelled(requestId);
+
+                    processManager.setProgress(requestId, L.msg("simulation.progress.population"));
+                    Set<String> filteredIds = populationFilterService.filter(request, zls);
+                    checkCancelled(requestId);
+
+                    processManager.setProgress(requestId, L.msg("simulation.progress.reconstruction"));
+                    Path plans = populationReconstructionService.reconstructAndSample(
+                            filteredIds, popYear, popName, requestId, percentage);
+                    log.info(L.msg("simulation.population.ready"));
+                    checkCancelled(requestId);
+
+                    processManager.setProgress(requestId, L.msg("simulation.progress.vehicles"));
+                    Population pop = PopulationUtils.readPopulation(plans.toString());
+                    Vehicles vehs = vehicleAssignmentService.assign(pop, request.getCarDistribution());
+                    Path vehFile = plans.getParent().resolve("vehicles.xml");
+                    new MatsimVehicleWriter(vehs).writeFile(vehFile.toString());
+                    new PopulationWriter(pop).write(plans.toString());
+
+                    double area = zoneLinkResolver.computeTotalAreaKm2(zls);
+                    return new PopulationPrepResult(pop, vehs, plans, vehFile,
+                            pop.getPersons().size(), area, zls);
+                } finally {
+                    ThreadContext.remove("ctx");
+                }
+            });
+
+            CompletableFuture<SourceRegistry.TransitData> transitFuture = CompletableFuture.supplyAsync(() -> {
+                ThreadContext.put("ctx", requestId.toString());
+                try {
+                    processManager.setProgress(requestId, L.msg("simulation.progress.transit"));
+                    SourceRegistry.TransitData td = sourceRegistry.getTransit(transitYear, transitName);
+                    transitPreparer.prepare(td.schedule(), td.vehicles(), sharedNetwork);
+                    return td;
+                } finally {
+                    ThreadContext.remove("ctx");
+                }
+            });
+
+            PopulationPrepResult popResult;
+            SourceRegistry.TransitData transitData;
+            try {
+                CompletableFuture.allOf(populationFuture, transitFuture).join();
+                popResult = populationFuture.get();
+                transitData = transitFuture.get();
+            } catch (CompletionException e) {
+                Throwable cause = e.getCause();
+                if (cause instanceof CancellationException ce) throw ce;
+                if (cause instanceof RuntimeException re) throw re;
+                throw new RuntimeException(cause);
+            } catch (Exception e) {
+                if (e instanceof RuntimeException re) throw re;
+                throw new RuntimeException(e);
+            }
+
+            messageSender.sendLifecycle(emitter, MessageType.PA_PREPROCESSING_POPULATION_COMPLETE);
+            messageSender.sendLifecycle(emitter, MessageType.PA_PREPROCESSING_TRANSIT_COMPLETE);
             checkCancelled(requestId);
-            scenarioStateService.updateStatus(requestId, ScenarioStatus.SIMULATING_POLICY);
-            processManager.setProgress(requestId, L.msg("simulation.progress.policy"));
-            log.info(L.msg("simulation.stage.policy"));
-            ZonePolicyIndex policyIndex = ZonePolicyIndex.build(request.getZones(), zoneLinkSets);
+
+            messageSender.sendLifecycle(emitter, MessageType.PA_PREPROCESSING_CONFIG_STARTED);
+            processManager.setProgress(requestId, L.msg("simulation.progress.config"));
+
+            Config baselineConfig = configBuilder.build(
+                    request, requestId, "baseline", popResult.plansFile, popResult.vehiclesFile);
+            Config policyConfig = configBuilder.build(
+                    request, requestId, "policy", popResult.plansFile, popResult.vehiclesFile);
+
+            ZonePolicyIndex policyIndex = ZonePolicyIndex.build(request.getZones(), popResult.zoneLinkSets);
             ZoneEnforcementModule enforcementModule = new ZoneEnforcementModule(policyIndex);
-            Population policyPopulation = PopulationUtils.readPopulation(plansFile.toString());
-            SimulationResult policyResult = matsimRunner.runSimulation(
-                    request, requestId, policyPopulation, vehicles,
-                    plansFile, vehiclesFile, "policy", processManager, enforcementModule);
+
+            MatsimRunner.normalizeModesInPopulation(popResult.population);
+
+            Population policyPopulation = PopulationUtils.readPopulation(popResult.plansFile.toString());
+            MatsimRunner.normalizeModesInPopulation(policyPopulation);
+
+            messageSender.sendLifecycle(emitter, MessageType.PA_PREPROCESSING_CONFIG_COMPLETE);
+            checkCancelled(requestId);
+
+            scenarioStateService.updateStatus(requestId, ScenarioStatus.SIMULATING);
+            processManager.setProgress(requestId, L.msg("simulation.progress.simulations"));
+
+            TransitSchedule ts = transitData.schedule();
+            Vehicles tv = transitData.vehicles();
+
+            messageSender.sendLifecycle(emitter, MessageType.PA_SIMULATION_BASE_STARTED);
+            messageSender.sendLifecycle(emitter, MessageType.PA_SIMULATION_POLICY_STARTED);
+
+            CountDownLatch baselineInitGate = new CountDownLatch(1);
+
+            log.info(L.msg("simulation.stage.baseline"));
+            CompletableFuture<SimulationResult> baselineFuture = CompletableFuture.supplyAsync(() -> {
+                ThreadContext.put("ctx", requestId.toString());
+                try {
+                    return matsimRunner.runSimulation(
+                            baselineConfig, network, ts, tv,
+                            popResult.population, popResult.vehicles,
+                            "baseline", requestId, processManager, baselineInitGate);
+                } catch (Exception e) {
+                    baselineInitGate.countDown();
+                    throw e;
+                } finally {
+                    ThreadContext.remove("ctx");
+                }
+            });
+
+            try {
+                baselineInitGate.await();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new RuntimeException(e);
+            }
+
+            log.info(L.msg("simulation.stage.policy"));
+            CompletableFuture<SimulationResult> policyFuture = CompletableFuture.supplyAsync(() -> {
+                ThreadContext.put("ctx", requestId.toString());
+                try {
+                    return matsimRunner.runSimulation(
+                            policyConfig, network, ts, tv,
+                            policyPopulation, popResult.vehicles,
+                            "policy", requestId, processManager, null, enforcementModule);
+                } finally {
+                    ThreadContext.remove("ctx");
+                }
+            });
+
+            SimulationResult baselineResult;
+            SimulationResult policyResult;
+            try {
+                CompletableFuture.allOf(baselineFuture, policyFuture).join();
+                baselineResult = baselineFuture.get();
+                policyResult = policyFuture.get();
+            } catch (CompletionException e) {
+                Throwable cause = e.getCause();
+                if (cause instanceof CancellationException ce) throw ce;
+                if (cause instanceof RuntimeException re) throw re;
+                throw new RuntimeException(cause);
+            } catch (Exception e) {
+                if (e instanceof RuntimeException re) throw re;
+                throw new RuntimeException(e);
+            }
+
+            messageSender.sendLifecycle(emitter, MessageType.PA_SIMULATION_BASE_COMPLETE);
+            messageSender.sendLifecycle(emitter, MessageType.PA_SIMULATION_POLICY_COMPLETE);
 
             checkCancelled(requestId);
             scenarioStateService.updateStatus(requestId, ScenarioStatus.POSTPROCESSING);
             processManager.setProgress(requestId, L.msg("simulation.progress.postprocessing"));
             log.info(L.msg("simulation.stage.postprocess"));
 
-            outputManager.processOutput(requestId, emitter, request, vehicles,
-                    personCount, networkNodes, networkLinks, simulationAreaKm2,
+            outputManager.processOutput(requestId, emitter, request, popResult.vehicles,
+                    popResult.personCount, networkNodes, networkLinks, popResult.simulationAreaKm2,
                     baselineResult, policyResult);
             log.info(L.msg("simulation.completed"));
 
@@ -239,6 +374,12 @@ public class SimulationService {
             ThreadContext.remove("ctx");
         }
     }
+
+    private record PopulationPrepResult(
+            Population population, Vehicles vehicles,
+            Path plansFile, Path vehiclesFile,
+            int personCount, double simulationAreaKm2,
+            List<ZoneLinkSet> zoneLinkSets) {}
 
     void checkCancelled(UUID requestId) {
         if (processManager.isCancelled(requestId)) {

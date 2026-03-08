@@ -71,19 +71,25 @@ public class OutputController {
     @GetMapping("/scenario/{id}/trip-legs")
     public ResponseEntity<StandardResponse<?>> tripLegs(@PathVariable String id,
                                                         @RequestParam int page,
-                                                        @RequestParam int pageSize) {
+                                                        @RequestParam int pageSize,
+                                                        @RequestParam(defaultValue = "true") boolean excludeNC) {
         UUID requestId = parseUuid(id);
         ResponseEntity<StandardResponse<?>> validation = validateCompleted(requestId);
         if (validation != null) return validation;
 
-        List<Map<String, Object>> records = tripLegRepository.findByRequestId(requestId, page, pageSize);
-        int totalRecords = tripLegRepository.countByRequestId(requestId);
+        List<Map<String, Object>> records = tripLegRepository.findByRequestId(
+                requestId, page, pageSize, excludeNC);
+        int totalRecords = excludeNC
+                ? tripLegRepository.countByRequestIdExcludeNC(requestId)
+                : tripLegRepository.countByRequestId(requestId);
+        int totalAllRecords = tripLegRepository.countByRequestId(requestId);
 
         Map<String, Object> payload = new LinkedHashMap<>();
         payload.put("records", records);
         payload.put("page", page);
         payload.put("pageSize", pageSize);
         payload.put("totalRecords", totalRecords);
+        payload.put("totalAllRecords", totalAllRecords);
 
         return ResponseEntity.ok(responseFormatter.success(payload));
     }
