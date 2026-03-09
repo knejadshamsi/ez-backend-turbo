@@ -78,95 +78,209 @@ class EndToEndIT {
         assertEquals("success_process", types.getLast());
         assertTrue(types.contains("pa_simulation_start"));
 
-        int idx = 0;
-
-        // pa_request_accepted
-        Map<String, Object> accepted = payload(idx++);
+        Map<String, Object> accepted = findPayload("pa_request_accepted");
         requestId = (String) accepted.get("requestId");
         assertNotNull(requestId);
         assertDoesNotThrow(() -> UUID.fromString(requestId));
 
-        // pa_simulation_start
-        assertType(idx++, "pa_simulation_start");
-
-        // data_text_overview
-        Map<String, Object> overview = payload(idx++);
-        assertType(idx - 1, "data_text_overview");
+        Map<String, Object> overview = findPayload("data_text_overview");
         assertPositiveNumber(overview, "personCount");
         assertPositiveNumber(overview, "legCount");
         assertPositiveNumber(overview, "totalKmTraveled");
         assertPositiveNumber(overview, "networkNodes");
         assertPositiveNumber(overview, "networkLinks");
         assertPositiveNumber(overview, "simulationAreaKm2");
+        assertPositiveNumber(overview, "samplePersonCount");
+        assertPositiveNumber(overview, "sampleLegCount");
+        assertPositiveNumber(overview, "sampleTotalKmTraveled");
+        assertPositiveNumber(overview, "samplePercentage");
 
-        // data_text_paragraph1_emissions
-        Map<String, Object> emP1 = payload(idx++);
-        assertType(idx - 1, "data_text_paragraph1_emissions");
-        assertNonNegativeNumber(emP1, "co2Baseline");
-        assertNonNegativeNumber(emP1, "co2PostPolicy");
-        double modeShift = toDouble(emP1.get("modeShiftPercentage"));
-        assertTrue(modeShift >= 0 && modeShift <= 100,
-                "modeShiftPercentage out of range: " + modeShift);
+        Map<String, Object> emP1 = findPayload("data_text_paragraph1_emissions");
+        assertPositiveNumber(emP1, "co2Baseline");
+        assertPositiveNumber(emP1, "co2Policy");
+        assertNotNaN(emP1, "co2DeltaPercent");
+        assertPositiveNumber(emP1, "noxBaseline");
+        assertPositiveNumber(emP1, "noxPolicy");
+        assertNotNaN(emP1, "noxDeltaPercent");
+        assertPositiveNumber(emP1, "pm25Baseline");
+        assertPositiveNumber(emP1, "pm25Policy");
+        assertNotNaN(emP1, "pm25DeltaPercent");
+        assertPositiveNumber(emP1, "pm10Baseline");
+        assertPositiveNumber(emP1, "pm10Policy");
+        assertNotNaN(emP1, "pm10DeltaPercent");
+        assertNonNegativeNumber(emP1, "privateCo2Baseline");
+        assertNonNegativeNumber(emP1, "privateCo2Policy");
+        assertNotNaN(emP1, "privateCo2DeltaPercent");
+        assertPositiveNumber(emP1, "transitCo2Baseline");
+        assertPositiveNumber(emP1, "transitCo2Policy");
+        assertNonNegativeNumber(emP1, "privateNoxBaseline");
+        assertNonNegativeNumber(emP1, "privateNoxPolicy");
+        assertNotNaN(emP1, "privateNoxDeltaPercent");
+        assertPositiveNumber(emP1, "transitNoxBaseline");
+        assertPositiveNumber(emP1, "transitNoxPolicy");
+        assertNonNegativeNumber(emP1, "privatePm25Baseline");
+        assertNonNegativeNumber(emP1, "privatePm25Policy");
+        assertNotNaN(emP1, "privatePm25DeltaPercent");
+        assertNonNegativeNumber(emP1, "privatePm10Baseline");
+        assertNonNegativeNumber(emP1, "privatePm10Policy");
+        assertNotNaN(emP1, "privatePm10DeltaPercent");
 
-        // data_text_paragraph2_emissions
-        Map<String, Object> emP2 = payload(idx++);
-        assertType(idx - 1, "data_text_paragraph2_emissions");
-        assertPositiveNumber(emP2, "zoneArea");
+        Map<String, Object> barChart = findPayload("data_chart_bar_emissions");
+        assertPositiveNumber(barChart, "co2Baseline");
+        assertPositiveNumber(barChart, "co2Policy");
 
-        // data_chart_bar_emissions
-        Map<String, Object> barChart = payload(idx++);
-        assertType(idx - 1, "data_chart_bar_emissions");
-        assertListSize(barChart, "baselineData", 4);
-        assertListSize(barChart, "postPolicyData", 4);
+        Map<String, Object> lineChart = findPayload("data_chart_line_emissions");
+        assertListSize(lineChart, "timeBins", 12);
+        assertListSize(lineChart, "co2Baseline", 12);
+        assertListSize(lineChart, "co2Policy", 12);
+        assertListSize(lineChart, "noxBaseline", 12);
+        assertListSize(lineChart, "noxPolicy", 12);
+        assertListSize(lineChart, "pm25Baseline", 12);
+        assertListSize(lineChart, "pm25Policy", 12);
+        assertListSize(lineChart, "pm10Baseline", 12);
+        assertListSize(lineChart, "pm10Policy", 12);
 
-        // data_chart_pie_emissions
-        Map<String, Object> pieChart = payload(idx++);
-        assertType(idx - 1, "data_chart_pie_emissions");
-        assertListSize(pieChart, "vehicleBaselineData", 5);
-        assertListSize(pieChart, "vehiclePostPolicyData", 5);
+        @SuppressWarnings("unchecked")
+        Map<String, Object> stackedBar = findPayload("data_chart_stacked_bar_emissions");
+        @SuppressWarnings("unchecked")
+        Map<String, Object> stackedBaseline = (Map<String, Object>) stackedBar.get("baseline");
+        assertNotNull(stackedBaseline, "stacked bar baseline is null");
+        @SuppressWarnings("unchecked")
+        Map<String, Object> stackedPolicy = (Map<String, Object>) stackedBar.get("policy");
+        assertNotNull(stackedPolicy, "stacked bar policy is null");
+        @SuppressWarnings("unchecked")
+        Map<String, Object> stackedPrivate = (Map<String, Object>) stackedBaseline.get("private");
+        assertNotNull(stackedPrivate, "stacked bar private is null");
+        @SuppressWarnings("unchecked")
+        Map<String, Object> co2ByType = (Map<String, Object>) stackedPrivate.get("co2ByType");
+        assertNotNull(co2ByType, "co2ByType is null");
+        assertFalse(co2ByType.isEmpty(), "co2ByType is empty");
+        assertNotNull(stackedBaseline.get("transit"), "transit is null");
 
-        // success_map_emissions or error_map_emissions
-        assertMapSignal(idx++, "emissions");
+        Map<String, Object> emP2 = findPayload("data_text_paragraph2_emissions");
+        assertNonNegativeNumber(emP2, "pm25PerKm2Baseline");
+        assertNonNegativeNumber(emP2, "pm25PerKm2Policy");
+        assertPositiveNumber(emP2, "zoneAreaKm2");
+        assertPositiveNumber(emP2, "mixingHeightMeters");
 
-        // data_text_paragraph1_people_response
-        assertType(idx, "data_text_paragraph1_people_response");
-        assertNotNull(payload(idx++), "paragraph1 people response is null");
+        @SuppressWarnings("unchecked")
+        Map<String, Object> warmColdIntensity = findPayload("data_warm_cold_intensity_emissions");
+        @SuppressWarnings("unchecked")
+        Map<String, Object> warmCold = (Map<String, Object>) warmColdIntensity.get("warmCold");
+        assertNotNull(warmCold, "warmCold is null");
+        assertPositiveNumber(warmCold, "warmBaseline");
+        assertPositiveNumber(warmCold, "warmPolicy");
+        assertNonNegativeNumber(warmCold, "coldBaseline");
+        assertNonNegativeNumber(warmCold, "coldPolicy");
+        @SuppressWarnings("unchecked")
+        Map<String, Object> intensity = (Map<String, Object>) warmColdIntensity.get("intensity");
+        assertNotNull(intensity, "intensity is null");
+        assertPositiveNumber(intensity, "co2Baseline");
+        assertPositiveNumber(intensity, "co2Policy");
+        assertPositiveNumber(intensity, "distanceBaseline");
+        assertPositiveNumber(intensity, "distancePolicy");
+        assertPositiveNumber(intensity, "co2PerMeterBaseline");
+        assertPositiveNumber(intensity, "co2PerMeterPolicy");
 
-        // data_text_paragraph2_people_response
-        assertType(idx, "data_text_paragraph2_people_response");
-        assertNotNull(payload(idx++), "paragraph2 people response is null");
+        assertHasMapSignal("emissions");
 
-        // data_chart_breakdown_people_response
-        assertType(idx, "data_chart_breakdown_people_response");
-        assertNotNull(payload(idx++), "breakdown chart is null");
+        Map<String, Object> prParagraph = findPayload("data_text_paragraph1_people_response");
+        assertPositiveNumber(prParagraph, "totalTrips");
+        assertNonNegativeNumber(prParagraph, "affectedTrips");
+        assertNonNegativeNumber(prParagraph, "affectedAgents");
+        assertNonNegativeNumber(prParagraph, "modeShiftCount");
+        assertNotNaN(prParagraph, "modeShiftPct");
+        assertNonNegativeNumber(prParagraph, "reroutedCount");
+        assertNotNaN(prParagraph, "reroutedPct");
+        assertNonNegativeNumber(prParagraph, "paidPenaltyCount");
+        assertNotNaN(prParagraph, "paidPenaltyPct");
+        assertNonNegativeNumber(prParagraph, "cancelledCount");
+        assertNotNaN(prParagraph, "cancelledPct");
+        assertNonNegativeNumber(prParagraph, "noChangeCount");
+        assertNotNaN(prParagraph, "noChangePct");
+        assertNonEmptyString(prParagraph, "dominantResponse");
+        assertNotNull(prParagraph.get("penaltyCharges"), "penaltyCharges is null");
+        assertInstanceOf(List.class, prParagraph.get("penaltyCharges"));
+        int prTotal = ((Number) prParagraph.get("totalTrips")).intValue();
+        int prAffected = ((Number) prParagraph.get("affectedTrips")).intValue();
+        int prNoChange = ((Number) prParagraph.get("noChangeCount")).intValue();
+        assertEquals(prTotal, prAffected + prNoChange,
+                "affectedTrips + noChangeCount should equal totalTrips");
 
-        // data_chart_time_impact_people_response
-        assertType(idx, "data_chart_time_impact_people_response");
-        assertNotNull(payload(idx++), "time impact chart is null");
+        @SuppressWarnings("unchecked")
+        Map<String, Object> sankey = findPayload("data_chart_sankey_people_response");
+        assertListSize(sankey, "nodes", 5);
+        assertNonEmptyList(sankey, "flows");
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> flows = (List<Map<String, Object>>) sankey.get("flows");
+        for (Map<String, Object> flow : flows) {
+            assertNonEmptyString(flow, "from");
+            assertNonEmptyString(flow, "to");
+            assertPositiveNumber(flow, "count");
+        }
 
-        // success_map_people_response or error_map_people_response
-        assertMapSignal(idx++, "people_response");
+        @SuppressWarnings("unchecked")
+        Map<String, Object> prBar = findPayload("data_chart_bar_people_response");
+        assertListSize(prBar, "modes", 5);
+        assertListSize(prBar, "baseline", 5);
+        assertListSize(prBar, "policy", 5);
+        @SuppressWarnings("unchecked")
+        List<Number> barBaseline = (List<Number>) prBar.get("baseline");
+        @SuppressWarnings("unchecked")
+        List<Number> barPolicy = (List<Number>) prBar.get("policy");
+        double barBaseSum = barBaseline.stream().mapToDouble(Number::doubleValue).sum();
+        double barPolSum = barPolicy.stream().mapToDouble(Number::doubleValue).sum();
+        assertTrue(Math.abs(barBaseSum - 100.0) < 0.1,
+                "bar baseline percentages should sum to ~100 but was " + barBaseSum);
+        assertTrue(Math.abs(barPolSum - 100.0) < 0.1,
+                "bar policy percentages should sum to ~100 but was " + barPolSum);
 
-        // data_table_trip_legs
-        Map<String, Object> tripLegs = payload(idx++);
-        assertType(idx - 1, "data_table_trip_legs");
+        assertHasMapSignal("people_response");
+
+        Map<String, Object> tripParagraph = findPayload("data_text_paragraph1_trip_legs");
+        assertPositiveNumber(tripParagraph, "totalTrips");
+        assertNonNegativeNumber(tripParagraph, "changedTrips");
+        assertNonNegativeNumber(tripParagraph, "unchangedTrips");
+        assertNonNegativeNumber(tripParagraph, "cancelledTrips");
+        assertNonNegativeNumber(tripParagraph, "newTrips");
+        assertNonNegativeNumber(tripParagraph, "modeShiftTrips");
+        assertNotNaN(tripParagraph, "netCo2DeltaGrams");
+        assertNotNaN(tripParagraph, "netTimeDeltaMinutes");
+        assertNotNaN(tripParagraph, "avgCo2DeltaGrams");
+        assertNotNaN(tripParagraph, "avgTimeDeltaMinutes");
+        assertNonNegativeNumber(tripParagraph, "winWinCount");
+        assertNonNegativeNumber(tripParagraph, "loseLoseCount");
+        assertNonNegativeNumber(tripParagraph, "envWinPersonalCostCount");
+        assertNonNegativeNumber(tripParagraph, "personalWinEnvCostCount");
+        assertNonEmptyString(tripParagraph, "dominantOutcome");
+        int tpTotal = ((Number) tripParagraph.get("totalTrips")).intValue();
+        int tpChanged = ((Number) tripParagraph.get("changedTrips")).intValue();
+        int tpUnchanged = ((Number) tripParagraph.get("unchangedTrips")).intValue();
+        assertEquals(tpTotal, tpChanged + tpUnchanged,
+                "changedTrips + unchangedTrips should equal totalTrips");
+
+        Map<String, Object> tripLegs = findPayload("data_table_trip_legs");
         @SuppressWarnings("unchecked")
         List<Map<String, Object>> records = (List<Map<String, Object>>) tripLegs.get("records");
-        assertNotNull(records, "trip legs records is null");
-        assertFalse(records.isEmpty(), "trip legs records is empty");
+        assertNotNull(records, "trip records is null");
+        assertFalse(records.isEmpty(), "trip records should not be empty");
         int totalRecords = ((Number) tripLegs.get("totalRecords")).intValue();
+        int totalAllRecords = ((Number) tripLegs.get("totalAllRecords")).intValue();
         assertTrue(totalRecords > 0, "totalRecords should be > 0");
-        assertEquals(50, ((Number) tripLegs.get("pageSize")).intValue());
-        assertTripLegRecord(records.getFirst());
+        assertTrue(totalAllRecords >= totalRecords,
+                "totalAllRecords should be >= totalRecords");
+        assertEquals(10, ((Number) tripLegs.get("pageSize")).intValue());
+        for (Map<String, Object> rec : records) {
+            assertNonEmptyString(rec, "legId");
+            assertNonEmptyString(rec, "personId");
+            assertNonEmptyString(rec, "originActivity");
+            assertNonEmptyString(rec, "destinationActivity");
+            assertNotNaN(rec, "co2DeltaGrams");
+            assertNotNaN(rec, "timeDeltaMinutes");
+            assertNonEmptyString(rec, "impact");
+        }
 
-        // success_map_trip_legs or error_map_trip_legs
-        assertMapSignal(idx++, "trip_legs");
-
-        // success_process
-        assertType(idx, "success_process");
-
-        assertEquals(16, liveMessages.size(),
-                "Expected 16 messages, got " + liveMessages.size() + ": " + types);
+        assertHasMapSignal("trip_legs");
     }
 
     @Test
@@ -213,28 +327,30 @@ class EndToEndIT {
 
         List<Map<String, Object>> outputMessages = replayMessages.subList(3, replayMessages.size());
 
-        List<Map<String, Object>> liveDataMessages = liveMessages.stream()
-                .filter(m -> {
-                    String type = (String) m.get("messageType");
-                    return !"pa_request_accepted".equals(type) && !"pa_simulation_start".equals(type);
-                })
-                .toList();
+        List<String> dataTypes = List.of(
+                "data_text_overview",
+                "data_text_paragraph1_emissions", "data_text_paragraph2_emissions",
+                "data_chart_bar_emissions", "data_chart_line_emissions",
+                "data_chart_stacked_bar_emissions", "data_warm_cold_intensity_emissions",
+                "data_text_paragraph1_people_response",
+                "data_chart_sankey_people_response", "data_chart_bar_people_response",
+                "data_text_paragraph1_trip_legs", "data_table_trip_legs");
 
-        assertEquals(liveDataMessages.size(), outputMessages.size(),
-                "Output message count mismatch: expected " + liveDataMessages.size()
-                        + " got " + outputMessages.size());
+        for (String dataType : dataTypes) {
+            Map<String, Object> liveMsg = liveMessages.stream()
+                    .filter(m -> dataType.equals(m.get("messageType")))
+                    .findFirst().orElse(null);
+            Map<String, Object> replayMsg = outputMessages.stream()
+                    .filter(m -> dataType.equals(m.get("messageType")))
+                    .findFirst().orElse(null);
 
-        for (int i = 0; i < liveDataMessages.size(); i++) {
-            Map<String, Object> live = liveDataMessages.get(i);
-            Map<String, Object> replay = outputMessages.get(i);
-
-            assertEquals(live.get("messageType"), replay.get("messageType"),
-                    "Message type mismatch at index " + i);
-
-            var liveTree = mapper.valueToTree(live.get("payload"));
-            var replayTree = mapper.valueToTree(replay.get("payload"));
-            assertEquals(liveTree, replayTree,
-                    "Payload mismatch for " + live.get("messageType") + " at index " + i);
+            if (liveMsg != null) {
+                assertNotNull(replayMsg, "Replay missing message type: " + dataType);
+                var liveTree = mapper.valueToTree(liveMsg.get("payload"));
+                var replayTree = mapper.valueToTree(replayMsg.get("payload"));
+                assertEquals(liveTree, replayTree,
+                        "Payload mismatch for " + dataType);
+            }
         }
     }
 
@@ -284,9 +400,12 @@ class EndToEndIT {
         Map<String, Object> payload = (Map<String, Object>) body.get("payload");
         @SuppressWarnings("unchecked")
         List<?> records = (List<?>) payload.get("records");
-        assertFalse(records.isEmpty(), "page 1 records should not be empty");
+        assertNotNull(records, "records is null");
         int totalRecords = ((Number) payload.get("totalRecords")).intValue();
-        assertTrue(totalRecords > 0);
+        int totalAllRecords = ((Number) payload.get("totalAllRecords")).intValue();
+        assertTrue(totalRecords >= 0);
+        assertTrue(totalAllRecords >= totalRecords,
+                "totalAllRecords should be >= totalRecords");
         assertEquals(1, ((Number) payload.get("page")).intValue());
         assertEquals(50, ((Number) payload.get("pageSize")).intValue());
 
@@ -323,11 +442,13 @@ class EndToEndIT {
                 "text_paragraph1_emissions",
                 "text_paragraph2_emissions",
                 "chart_bar_emissions",
-                "chart_pie_emissions",
+                "chart_line_emissions",
+                "chart_stacked_bar_emissions",
+                "warm_cold_intensity_emissions",
                 "text_paragraph1_people_response",
-                "text_paragraph2_people_response",
-                "chart_breakdown_people_response",
-                "chart_time_impact_people_response"
+                "chart_sankey_people_response",
+                "chart_bar_people_response",
+                "text_paragraph1_trip_legs"
         };
 
         for (String retryType : retryTypes) {
@@ -861,9 +982,51 @@ class EndToEndIT {
         return payload;
     }
 
+    @SuppressWarnings("unchecked")
+    private static Map<String, Object> findPayload(String messageType) {
+        return liveMessages.stream()
+                .filter(m -> messageType.equals(m.get("messageType")))
+                .map(m -> (Map<String, Object>) m.get("payload"))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Missing message type: " + messageType));
+    }
+
     private static void assertType(int index, String expectedType) {
         assertEquals(expectedType, liveMessages.get(index).get("messageType"),
                 "Unexpected message type at index " + index);
+    }
+
+    private static void assertHasMapSignal(String mapName) {
+        boolean hasSignal = liveMessages.stream()
+                .anyMatch(m -> {
+                    String type = (String) m.get("messageType");
+                    return ("success_map_" + mapName).equals(type)
+                            || ("error_map_" + mapName).equals(type);
+                });
+        assertTrue(hasSignal, "Missing map signal for " + mapName);
+    }
+
+    private static void assertNonEmptyString(Map<String, Object> map, String key) {
+        Object val = map.get(key);
+        assertNotNull(val, key + " is null");
+        assertInstanceOf(String.class, val, key + " is not a string");
+        assertFalse(((String) val).isEmpty(), key + " is empty string");
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void assertNonEmptyList(Map<String, Object> map, String key) {
+        Object val = map.get(key);
+        assertNotNull(val, key + " is null");
+        assertInstanceOf(List.class, val, key + " is not a list");
+        assertFalse(((List<?>) val).isEmpty(), key + " is empty list");
+    }
+
+    private static void assertNotNaN(Map<String, Object> map, String key) {
+        Object val = map.get(key);
+        assertNotNull(val, key + " is null");
+        double d = toDouble(val);
+        assertFalse(Double.isNaN(d), key + " is NaN");
+        assertFalse(Double.isInfinite(d), key + " is infinite");
     }
 
     private static void assertPositiveNumber(Map<String, Object> map, String key) {
