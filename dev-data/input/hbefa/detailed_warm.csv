@@ -1,0 +1,2113 @@
+VehCat;TrafficSit;Technology;SizeClasse;EmConcept;Component;EFA;V
+PASSENGER_CAR;URB/Distr/50/Freeflow;electricity;not specified;PC-BEV;CO;0.000000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;electricity;not specified;PC-PHEV;CO;0.297500;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO;0.467500;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO;1.020000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;diesel;not specified;PC-D-Euro-3;CO;0.425000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;electricity;not specified;PC-PHEV;CO2_TOTAL;58.800000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;109.200000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;168.000000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;218.400000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;electricity;not specified;PC-BEV;FC;0.000000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;electricity;not specified;PC-PHEV;FC;18.585000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;FC;34.515000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;FC;53.100000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;diesel;not specified;PC-D-Euro-3;FC;58.410000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;electricity;not specified;PC-BEV;HC;0.000000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;electricity;not specified;PC-PHEV;HC;0.014700;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;HC;0.021000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;HC;0.054600;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;diesel;not specified;PC-D-Euro-3;HC;0.016800;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;electricity;not specified;PC-BEV;NOx;0.000000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;electricity;not specified;PC-PHEV;NOx;0.112000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.128000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NOx;0.480000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;diesel;not specified;PC-D-Euro-3;NOx;0.960000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;electricity;not specified;PC-BEV;NO2;0.000000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;electricity;not specified;PC-PHEV;NO2;0.019250;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.019250;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NO2;0.044000;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;diesel;not specified;PC-D-Euro-3;NO2;0.192500;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;electricity;not specified;PC-BEV;PM;0.001440;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;electricity;not specified;PC-PHEV;PM;0.002160;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM;0.002880;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM;0.004080;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;diesel;not specified;PC-D-Euro-3;PM;0.009600;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;electricity;not specified;PC-BEV;PM2_5;0.000930;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;electricity;not specified;PC-PHEV;PM2_5;0.001395;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.001860;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.002635;47.1
+PASSENGER_CAR;URB/Distr/50/Freeflow;diesel;not specified;PC-D-Euro-3;PM2_5;0.006200;47.1
+PASSENGER_CAR;URB/Distr/50/Heavy;electricity;not specified;PC-BEV;CO;0.000000;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;electricity;not specified;PC-PHEV;CO;0.386750;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO;0.607750;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO;1.326000;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;diesel;not specified;PC-D-Euro-3;CO;0.552500;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;electricity;not specified;PC-PHEV;CO2_TOTAL;76.440000;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;141.960000;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;218.400000;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;283.920000;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;electricity;not specified;PC-BEV;FC;0.000000;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;electricity;not specified;PC-PHEV;FC;24.160500;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;FC;44.869500;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;FC;69.030000;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;diesel;not specified;PC-D-Euro-3;FC;75.933000;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;electricity;not specified;PC-BEV;HC;0.000000;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;electricity;not specified;PC-PHEV;HC;0.019110;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;HC;0.027300;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;HC;0.070980;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;diesel;not specified;PC-D-Euro-3;HC;0.021840;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;electricity;not specified;PC-BEV;NOx;0.000000;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;electricity;not specified;PC-PHEV;NOx;0.145600;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.166400;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;NOx;0.624000;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;diesel;not specified;PC-D-Euro-3;NOx;1.248000;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;electricity;not specified;PC-BEV;NO2;0.000000;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;electricity;not specified;PC-PHEV;NO2;0.025025;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.025025;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;NO2;0.057200;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;diesel;not specified;PC-D-Euro-3;NO2;0.250250;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;electricity;not specified;PC-BEV;PM;0.001872;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;electricity;not specified;PC-PHEV;PM;0.002808;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM;0.003744;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM;0.005304;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;diesel;not specified;PC-D-Euro-3;PM;0.012480;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;electricity;not specified;PC-BEV;PM2_5;0.001209;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;electricity;not specified;PC-PHEV;PM2_5;0.001814;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.002418;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.003425;32.5
+PASSENGER_CAR;URB/Distr/50/Heavy;diesel;not specified;PC-D-Euro-3;PM2_5;0.008060;32.5
+PASSENGER_CAR;URB/Distr/50/Satur.;electricity;not specified;PC-BEV;CO;0.000000;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;electricity;not specified;PC-PHEV;CO;0.535500;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO;0.841500;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO;1.836000;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;diesel;not specified;PC-D-Euro-3;CO;0.765000;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;electricity;not specified;PC-PHEV;CO2_TOTAL;105.840000;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;196.560000;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;302.400000;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;393.120000;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;electricity;not specified;PC-BEV;FC;0.000000;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;electricity;not specified;PC-PHEV;FC;33.453000;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;FC;62.127000;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;FC;95.580000;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;diesel;not specified;PC-D-Euro-3;FC;105.138000;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;electricity;not specified;PC-BEV;HC;0.000000;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;electricity;not specified;PC-PHEV;HC;0.026460;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;HC;0.037800;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;HC;0.098280;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;diesel;not specified;PC-D-Euro-3;HC;0.030240;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;electricity;not specified;PC-BEV;NOx;0.000000;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;electricity;not specified;PC-PHEV;NOx;0.201600;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.230400;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;NOx;0.864000;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;diesel;not specified;PC-D-Euro-3;NOx;1.728000;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;electricity;not specified;PC-BEV;NO2;0.000000;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;electricity;not specified;PC-PHEV;NO2;0.034650;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.034650;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;NO2;0.079200;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;diesel;not specified;PC-D-Euro-3;NO2;0.346500;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;electricity;not specified;PC-BEV;PM;0.002592;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;electricity;not specified;PC-PHEV;PM;0.003888;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM;0.005184;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM;0.007344;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;diesel;not specified;PC-D-Euro-3;PM;0.017280;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;electricity;not specified;PC-BEV;PM2_5;0.001674;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;electricity;not specified;PC-PHEV;PM2_5;0.002511;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.003348;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.004743;18.3
+PASSENGER_CAR;URB/Distr/50/Satur.;diesel;not specified;PC-D-Euro-3;PM2_5;0.011160;18.3
+PASSENGER_CAR;URB/Distr/50/St+Go;electricity;not specified;PC-BEV;CO;0.000000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;electricity;not specified;PC-PHEV;CO;0.743750;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO;1.168750;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO;2.550000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;diesel;not specified;PC-D-Euro-3;CO;1.062500;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;electricity;not specified;PC-PHEV;CO2_TOTAL;147.000000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;273.000000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;420.000000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;546.000000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;electricity;not specified;PC-BEV;FC;0.000000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;electricity;not specified;PC-PHEV;FC;46.462500;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;FC;86.287500;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;FC;132.750000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;diesel;not specified;PC-D-Euro-3;FC;146.025000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;electricity;not specified;PC-BEV;HC;0.000000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;electricity;not specified;PC-PHEV;HC;0.036750;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;HC;0.052500;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;HC;0.136500;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;diesel;not specified;PC-D-Euro-3;HC;0.042000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;electricity;not specified;PC-BEV;NOx;0.000000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;electricity;not specified;PC-PHEV;NOx;0.280000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.320000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;NOx;1.200000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;diesel;not specified;PC-D-Euro-3;NOx;2.400000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;electricity;not specified;PC-BEV;NO2;0.000000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;electricity;not specified;PC-PHEV;NO2;0.048125;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.048125;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;NO2;0.110000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;diesel;not specified;PC-D-Euro-3;NO2;0.481250;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;electricity;not specified;PC-BEV;PM;0.003600;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;electricity;not specified;PC-PHEV;PM;0.005400;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM;0.007200;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM;0.010200;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;diesel;not specified;PC-D-Euro-3;PM;0.024000;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;electricity;not specified;PC-BEV;PM2_5;0.002325;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;electricity;not specified;PC-PHEV;PM2_5;0.003488;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.004650;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.006587;8.7
+PASSENGER_CAR;URB/Distr/50/St+Go;diesel;not specified;PC-D-Euro-3;PM2_5;0.015500;8.7
+PASSENGER_CAR;URB/Local/30/Freeflow;electricity;not specified;PC-BEV;CO;0.000000;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;electricity;not specified;PC-PHEV;CO;0.342125;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO;0.537625;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO;1.173000;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;diesel;not specified;PC-D-Euro-3;CO;0.488750;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;electricity;not specified;PC-PHEV;CO2_TOTAL;67.620000;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;125.580000;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;193.200000;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;251.160000;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;electricity;not specified;PC-BEV;FC;0.000000;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;electricity;not specified;PC-PHEV;FC;21.372750;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;FC;39.692250;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;FC;61.065000;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;diesel;not specified;PC-D-Euro-3;FC;67.171500;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;electricity;not specified;PC-BEV;HC;0.000000;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;electricity;not specified;PC-PHEV;HC;0.016905;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;HC;0.024150;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;HC;0.062790;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;diesel;not specified;PC-D-Euro-3;HC;0.019320;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;electricity;not specified;PC-BEV;NOx;0.000000;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;electricity;not specified;PC-PHEV;NOx;0.128800;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.147200;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NOx;0.552000;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;diesel;not specified;PC-D-Euro-3;NOx;1.104000;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;electricity;not specified;PC-BEV;NO2;0.000000;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;electricity;not specified;PC-PHEV;NO2;0.022137;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.022137;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NO2;0.050600;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;diesel;not specified;PC-D-Euro-3;NO2;0.221375;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;electricity;not specified;PC-BEV;PM;0.001656;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;electricity;not specified;PC-PHEV;PM;0.002484;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM;0.003312;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM;0.004692;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;diesel;not specified;PC-D-Euro-3;PM;0.011040;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;electricity;not specified;PC-BEV;PM2_5;0.001069;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;electricity;not specified;PC-PHEV;PM2_5;0.001604;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.002139;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.003030;28.4
+PASSENGER_CAR;URB/Local/30/Freeflow;diesel;not specified;PC-D-Euro-3;PM2_5;0.007130;28.4
+PASSENGER_CAR;URB/Local/30/Heavy;electricity;not specified;PC-BEV;CO;0.000000;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;electricity;not specified;PC-PHEV;CO;0.444763;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO;0.698913;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO;1.524900;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;diesel;not specified;PC-D-Euro-3;CO;0.635375;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;electricity;not specified;PC-PHEV;CO2_TOTAL;87.906000;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;163.254000;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;251.160000;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;326.508000;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;electricity;not specified;PC-BEV;FC;0.000000;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;electricity;not specified;PC-PHEV;FC;27.784575;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;FC;51.599925;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;FC;79.384500;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;diesel;not specified;PC-D-Euro-3;FC;87.322950;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;electricity;not specified;PC-BEV;HC;0.000000;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;electricity;not specified;PC-PHEV;HC;0.021976;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;HC;0.031395;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;HC;0.081627;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;diesel;not specified;PC-D-Euro-3;HC;0.025116;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;electricity;not specified;PC-BEV;NOx;0.000000;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;electricity;not specified;PC-PHEV;NOx;0.167440;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.191360;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;NOx;0.717600;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;diesel;not specified;PC-D-Euro-3;NOx;1.435200;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;electricity;not specified;PC-BEV;NO2;0.000000;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;electricity;not specified;PC-PHEV;NO2;0.028779;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.028779;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;NO2;0.065780;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;diesel;not specified;PC-D-Euro-3;NO2;0.287788;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;electricity;not specified;PC-BEV;PM;0.002153;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;electricity;not specified;PC-PHEV;PM;0.003229;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM;0.004306;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM;0.006100;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;diesel;not specified;PC-D-Euro-3;PM;0.014352;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;electricity;not specified;PC-BEV;PM2_5;0.001390;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;electricity;not specified;PC-PHEV;PM2_5;0.002085;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.002780;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.003939;19.6
+PASSENGER_CAR;URB/Local/30/Heavy;diesel;not specified;PC-D-Euro-3;PM2_5;0.009268;19.6
+PASSENGER_CAR;URB/Local/30/Satur.;electricity;not specified;PC-BEV;CO;0.000000;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;electricity;not specified;PC-PHEV;CO;0.615825;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO;0.967725;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO;2.111400;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;diesel;not specified;PC-D-Euro-3;CO;0.879750;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;electricity;not specified;PC-PHEV;CO2_TOTAL;121.716000;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;226.044000;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;347.760000;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;452.088000;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;electricity;not specified;PC-BEV;FC;0.000000;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;electricity;not specified;PC-PHEV;FC;38.470950;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;FC;71.446050;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;FC;109.917000;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;diesel;not specified;PC-D-Euro-3;FC;120.908700;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;electricity;not specified;PC-BEV;HC;0.000000;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;electricity;not specified;PC-PHEV;HC;0.030429;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;HC;0.043470;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;HC;0.113022;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;diesel;not specified;PC-D-Euro-3;HC;0.034776;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;electricity;not specified;PC-BEV;NOx;0.000000;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;electricity;not specified;PC-PHEV;NOx;0.231840;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.264960;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;NOx;0.993600;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;diesel;not specified;PC-D-Euro-3;NOx;1.987200;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;electricity;not specified;PC-BEV;NO2;0.000000;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;electricity;not specified;PC-PHEV;NO2;0.039848;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.039848;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;NO2;0.091080;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;diesel;not specified;PC-D-Euro-3;NO2;0.398475;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;electricity;not specified;PC-BEV;PM;0.002981;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;electricity;not specified;PC-PHEV;PM;0.004471;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM;0.005962;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM;0.008446;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;diesel;not specified;PC-D-Euro-3;PM;0.019872;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;electricity;not specified;PC-BEV;PM2_5;0.001925;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;electricity;not specified;PC-PHEV;PM2_5;0.002888;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.003850;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.005454;11.2
+PASSENGER_CAR;URB/Local/30/Satur.;diesel;not specified;PC-D-Euro-3;PM2_5;0.012834;11.2
+PASSENGER_CAR;URB/Local/30/St+Go;electricity;not specified;PC-BEV;CO;0.000000;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;electricity;not specified;PC-PHEV;CO;0.855313;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO;1.344063;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO;2.932500;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;diesel;not specified;PC-D-Euro-3;CO;1.221875;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;electricity;not specified;PC-PHEV;CO2_TOTAL;169.050000;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;313.950000;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;483.000000;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;627.900000;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;electricity;not specified;PC-BEV;FC;0.000000;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;electricity;not specified;PC-PHEV;FC;53.431875;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;FC;99.230625;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;FC;152.662500;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;diesel;not specified;PC-D-Euro-3;FC;167.928750;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;electricity;not specified;PC-BEV;HC;0.000000;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;electricity;not specified;PC-PHEV;HC;0.042262;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;HC;0.060375;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;HC;0.156975;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;diesel;not specified;PC-D-Euro-3;HC;0.048300;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;electricity;not specified;PC-BEV;NOx;0.000000;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;electricity;not specified;PC-PHEV;NOx;0.322000;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.368000;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;NOx;1.380000;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;diesel;not specified;PC-D-Euro-3;NOx;2.760000;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;electricity;not specified;PC-BEV;NO2;0.000000;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;electricity;not specified;PC-PHEV;NO2;0.055344;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.055344;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;NO2;0.126500;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;diesel;not specified;PC-D-Euro-3;NO2;0.553437;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;electricity;not specified;PC-BEV;PM;0.004140;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;electricity;not specified;PC-PHEV;PM;0.006210;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM;0.008280;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM;0.011730;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;diesel;not specified;PC-D-Euro-3;PM;0.027600;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;electricity;not specified;PC-BEV;PM2_5;0.002674;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;electricity;not specified;PC-PHEV;PM2_5;0.004010;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.005347;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.007575;5.4
+PASSENGER_CAR;URB/Local/30/St+Go;diesel;not specified;PC-D-Euro-3;PM2_5;0.017824;5.4
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;electricity;not specified;PC-BEV;CO;0.000000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;electricity;not specified;PC-PHEV;CO;0.217000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO;0.341000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO;0.744000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;diesel;not specified;PC-D-Euro-3;CO;0.310000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;electricity;not specified;PC-PHEV;CO2_TOTAL;47.250000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;87.750000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;135.000000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;175.500000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;electricity;not specified;PC-BEV;FC;0.000000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;electricity;not specified;PC-PHEV;FC;14.945000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;FC;27.755000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;petrol (4S);not specified;PC-P-Euro-4;FC;42.700000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;diesel;not specified;PC-D-Euro-3;FC;46.970000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;electricity;not specified;PC-BEV;HC;0.000000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;electricity;not specified;PC-PHEV;HC;0.011900;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;HC;0.017000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;petrol (4S);not specified;PC-P-Euro-4;HC;0.044200;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;diesel;not specified;PC-D-Euro-3;HC;0.013600;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;electricity;not specified;PC-BEV;NOx;0.000000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;electricity;not specified;PC-PHEV;NOx;0.091000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.104000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NOx;0.390000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;diesel;not specified;PC-D-Euro-3;NOx;0.780000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;electricity;not specified;PC-BEV;NO2;0.000000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;electricity;not specified;PC-PHEV;NO2;0.015750;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.015750;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NO2;0.036000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;diesel;not specified;PC-D-Euro-3;NO2;0.157500;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;electricity;not specified;PC-BEV;PM;0.001140;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;electricity;not specified;PC-PHEV;PM;0.001710;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM;0.002280;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM;0.003230;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;diesel;not specified;PC-D-Euro-3;PM;0.007600;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;electricity;not specified;PC-BEV;PM2_5;0.000750;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;electricity;not specified;PC-PHEV;PM2_5;0.001125;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.001500;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.002125;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Freeflow;diesel;not specified;PC-D-Euro-3;PM2_5;0.005000;65.3
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;electricity;not specified;PC-BEV;CO;0.000000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;electricity;not specified;PC-PHEV;CO;0.283500;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO;0.445500;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO;0.972000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;diesel;not specified;PC-D-Euro-3;CO;0.405000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;electricity;not specified;PC-PHEV;CO2_TOTAL;61.425000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;114.075000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;175.500000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;228.150000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;electricity;not specified;PC-BEV;FC;0.000000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;electricity;not specified;PC-PHEV;FC;19.425000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;petrol/electric;not specified;PC-P-Euro-6d;FC;36.075000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;petrol (4S);not specified;PC-P-Euro-4;FC;55.500000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;diesel;not specified;PC-D-Euro-3;FC;61.050000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;electricity;not specified;PC-BEV;HC;0.000000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;electricity;not specified;PC-PHEV;HC;0.015400;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;petrol/electric;not specified;PC-P-Euro-6d;HC;0.022000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;petrol (4S);not specified;PC-P-Euro-4;HC;0.057200;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;diesel;not specified;PC-D-Euro-3;HC;0.017600;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;electricity;not specified;PC-BEV;NOx;0.000000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;electricity;not specified;PC-PHEV;NOx;0.118300;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.135200;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;petrol (4S);not specified;PC-P-Euro-4;NOx;0.507000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;diesel;not specified;PC-D-Euro-3;NOx;1.014000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;electricity;not specified;PC-BEV;NO2;0.000000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;electricity;not specified;PC-PHEV;NO2;0.020300;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.020300;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;petrol (4S);not specified;PC-P-Euro-4;NO2;0.046400;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;diesel;not specified;PC-D-Euro-3;NO2;0.203000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;electricity;not specified;PC-BEV;PM;0.001500;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;electricity;not specified;PC-PHEV;PM;0.002250;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM;0.003000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM;0.004250;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;diesel;not specified;PC-D-Euro-3;PM;0.010000;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;electricity;not specified;PC-BEV;PM2_5;0.000960;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;electricity;not specified;PC-PHEV;PM2_5;0.001440;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.001920;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.002720;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Heavy;diesel;not specified;PC-D-Euro-3;PM2_5;0.006400;45.0
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;electricity;not specified;PC-BEV;CO;0.000000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;electricity;not specified;PC-PHEV;CO;0.392000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO;0.616000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO;1.344000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;diesel;not specified;PC-D-Euro-3;CO;0.560000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;electricity;not specified;PC-PHEV;CO2_TOTAL;85.050000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;157.950000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;243.000000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;315.900000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;electricity;not specified;PC-BEV;FC;0.000000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;electricity;not specified;PC-PHEV;FC;26.880000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;petrol/electric;not specified;PC-P-Euro-6d;FC;49.920000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;petrol (4S);not specified;PC-P-Euro-4;FC;76.800000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;diesel;not specified;PC-D-Euro-3;FC;84.480000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;electricity;not specified;PC-BEV;HC;0.000000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;electricity;not specified;PC-PHEV;HC;0.021350;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;petrol/electric;not specified;PC-P-Euro-6d;HC;0.030500;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;petrol (4S);not specified;PC-P-Euro-4;HC;0.079300;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;diesel;not specified;PC-D-Euro-3;HC;0.024400;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;electricity;not specified;PC-BEV;NOx;0.000000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;electricity;not specified;PC-PHEV;NOx;0.163800;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.187200;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;petrol (4S);not specified;PC-P-Euro-4;NOx;0.702000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;diesel;not specified;PC-D-Euro-3;NOx;1.404000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;electricity;not specified;PC-BEV;NO2;0.000000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;electricity;not specified;PC-PHEV;NO2;0.028350;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.028350;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;petrol (4S);not specified;PC-P-Euro-4;NO2;0.064800;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;diesel;not specified;PC-D-Euro-3;NO2;0.283500;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;electricity;not specified;PC-BEV;PM;0.002070;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;electricity;not specified;PC-PHEV;PM;0.003105;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM;0.004140;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM;0.005865;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;diesel;not specified;PC-D-Euro-3;PM;0.013800;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;electricity;not specified;PC-BEV;PM2_5;0.001350;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;electricity;not specified;PC-PHEV;PM2_5;0.002025;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.002700;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.003825;25.5
+PASSENGER_CAR;URB/MW-Nat./80/Satur.;diesel;not specified;PC-D-Euro-3;PM2_5;0.009000;25.5
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;electricity;not specified;PC-BEV;CO;0.000000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;electricity;not specified;PC-PHEV;CO;0.542500;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO;0.852500;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO;1.860000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;diesel;not specified;PC-D-Euro-3;CO;0.775000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;electricity;not specified;PC-PHEV;CO2_TOTAL;118.125000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;219.375000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;337.500000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;438.750000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;electricity;not specified;PC-BEV;FC;0.000000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;electricity;not specified;PC-PHEV;FC;37.345000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;petrol/electric;not specified;PC-P-Euro-6d;FC;69.355000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;petrol (4S);not specified;PC-P-Euro-4;FC;106.700000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;diesel;not specified;PC-D-Euro-3;FC;117.370000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;electricity;not specified;PC-BEV;HC;0.000000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;electricity;not specified;PC-PHEV;HC;0.029750;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;petrol/electric;not specified;PC-P-Euro-6d;HC;0.042500;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;petrol (4S);not specified;PC-P-Euro-4;HC;0.110500;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;diesel;not specified;PC-D-Euro-3;HC;0.034000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;electricity;not specified;PC-BEV;NOx;0.000000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;electricity;not specified;PC-PHEV;NOx;0.227500;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.260000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;petrol (4S);not specified;PC-P-Euro-4;NOx;0.975000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;diesel;not specified;PC-D-Euro-3;NOx;1.950000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;electricity;not specified;PC-BEV;NO2;0.000000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;electricity;not specified;PC-PHEV;NO2;0.039200;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.039200;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;petrol (4S);not specified;PC-P-Euro-4;NO2;0.089600;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;diesel;not specified;PC-D-Euro-3;NO2;0.392000;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;electricity;not specified;PC-BEV;PM;0.002880;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;electricity;not specified;PC-PHEV;PM;0.004320;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM;0.005760;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM;0.008160;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;diesel;not specified;PC-D-Euro-3;PM;0.019200;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;electricity;not specified;PC-BEV;PM2_5;0.001860;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;electricity;not specified;PC-PHEV;PM2_5;0.002790;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.003720;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.005270;12.0
+PASSENGER_CAR;URB/MW-Nat./80/St+Go;diesel;not specified;PC-D-Euro-3;PM2_5;0.012400;12.0
+PASSENGER_CAR;URB/Access/30/Freeflow;electricity;not specified;PC-BEV;CO;0.000000;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;electricity;not specified;PC-PHEV;CO;0.342125;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO;0.537625;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO;1.173000;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;diesel;not specified;PC-D-Euro-3;CO;0.488750;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;electricity;not specified;PC-PHEV;CO2_TOTAL;67.620000;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;125.580000;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;193.200000;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;251.160000;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;electricity;not specified;PC-BEV;FC;0.000000;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;electricity;not specified;PC-PHEV;FC;21.372750;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;FC;39.692250;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;FC;61.065000;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;diesel;not specified;PC-D-Euro-3;FC;67.171500;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;electricity;not specified;PC-BEV;HC;0.000000;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;electricity;not specified;PC-PHEV;HC;0.016905;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;HC;0.024150;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;HC;0.062790;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;diesel;not specified;PC-D-Euro-3;HC;0.019320;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;electricity;not specified;PC-BEV;NOx;0.000000;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;electricity;not specified;PC-PHEV;NOx;0.128800;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.147200;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NOx;0.552000;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;diesel;not specified;PC-D-Euro-3;NOx;1.104000;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;electricity;not specified;PC-BEV;NO2;0.000000;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;electricity;not specified;PC-PHEV;NO2;0.022137;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.022137;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NO2;0.050600;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;diesel;not specified;PC-D-Euro-3;NO2;0.221375;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;electricity;not specified;PC-BEV;PM;0.001656;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;electricity;not specified;PC-PHEV;PM;0.002484;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM;0.003312;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM;0.004692;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;diesel;not specified;PC-D-Euro-3;PM;0.011040;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;electricity;not specified;PC-BEV;PM2_5;0.001069;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;electricity;not specified;PC-PHEV;PM2_5;0.001604;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.002139;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.003030;28.4
+PASSENGER_CAR;URB/Access/30/Freeflow;diesel;not specified;PC-D-Euro-3;PM2_5;0.007130;28.4
+PASSENGER_CAR;URB/Access/30/Heavy;electricity;not specified;PC-BEV;CO;0.000000;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;electricity;not specified;PC-PHEV;CO;0.444763;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO;0.698913;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO;1.524900;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;diesel;not specified;PC-D-Euro-3;CO;0.635375;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;electricity;not specified;PC-PHEV;CO2_TOTAL;87.906000;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;163.254000;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;251.160000;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;326.508000;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;electricity;not specified;PC-BEV;FC;0.000000;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;electricity;not specified;PC-PHEV;FC;27.784575;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;FC;51.599925;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;FC;79.384500;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;diesel;not specified;PC-D-Euro-3;FC;87.322950;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;electricity;not specified;PC-BEV;HC;0.000000;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;electricity;not specified;PC-PHEV;HC;0.021976;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;HC;0.031395;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;HC;0.081627;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;diesel;not specified;PC-D-Euro-3;HC;0.025116;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;electricity;not specified;PC-BEV;NOx;0.000000;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;electricity;not specified;PC-PHEV;NOx;0.167440;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.191360;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;NOx;0.717600;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;diesel;not specified;PC-D-Euro-3;NOx;1.435200;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;electricity;not specified;PC-BEV;NO2;0.000000;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;electricity;not specified;PC-PHEV;NO2;0.028779;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.028779;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;NO2;0.065780;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;diesel;not specified;PC-D-Euro-3;NO2;0.287788;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;electricity;not specified;PC-BEV;PM;0.002153;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;electricity;not specified;PC-PHEV;PM;0.003229;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM;0.004306;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM;0.006100;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;diesel;not specified;PC-D-Euro-3;PM;0.014352;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;electricity;not specified;PC-BEV;PM2_5;0.001390;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;electricity;not specified;PC-PHEV;PM2_5;0.002085;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.002780;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.003939;19.6
+PASSENGER_CAR;URB/Access/30/Heavy;diesel;not specified;PC-D-Euro-3;PM2_5;0.009268;19.6
+PASSENGER_CAR;URB/Access/30/Satur.;electricity;not specified;PC-BEV;CO;0.000000;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;electricity;not specified;PC-PHEV;CO;0.615825;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO;0.967725;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO;2.111400;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;diesel;not specified;PC-D-Euro-3;CO;0.879750;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;electricity;not specified;PC-PHEV;CO2_TOTAL;121.716000;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;226.044000;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;347.760000;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;452.088000;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;electricity;not specified;PC-BEV;FC;0.000000;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;electricity;not specified;PC-PHEV;FC;38.470950;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;FC;71.446050;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;FC;109.917000;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;diesel;not specified;PC-D-Euro-3;FC;120.908700;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;electricity;not specified;PC-BEV;HC;0.000000;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;electricity;not specified;PC-PHEV;HC;0.030429;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;HC;0.043470;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;HC;0.113022;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;diesel;not specified;PC-D-Euro-3;HC;0.034776;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;electricity;not specified;PC-BEV;NOx;0.000000;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;electricity;not specified;PC-PHEV;NOx;0.231840;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.264960;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;NOx;0.993600;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;diesel;not specified;PC-D-Euro-3;NOx;1.987200;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;electricity;not specified;PC-BEV;NO2;0.000000;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;electricity;not specified;PC-PHEV;NO2;0.039848;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.039848;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;NO2;0.091080;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;diesel;not specified;PC-D-Euro-3;NO2;0.398475;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;electricity;not specified;PC-BEV;PM;0.002981;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;electricity;not specified;PC-PHEV;PM;0.004471;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM;0.005962;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM;0.008446;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;diesel;not specified;PC-D-Euro-3;PM;0.019872;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;electricity;not specified;PC-BEV;PM2_5;0.001925;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;electricity;not specified;PC-PHEV;PM2_5;0.002888;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.003850;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.005454;11.2
+PASSENGER_CAR;URB/Access/30/Satur.;diesel;not specified;PC-D-Euro-3;PM2_5;0.012834;11.2
+PASSENGER_CAR;URB/Access/30/St+Go;electricity;not specified;PC-BEV;CO;0.000000;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;electricity;not specified;PC-PHEV;CO;0.855313;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO;1.344063;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO;2.932500;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;diesel;not specified;PC-D-Euro-3;CO;1.221875;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;electricity;not specified;PC-PHEV;CO2_TOTAL;169.050000;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;313.950000;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;483.000000;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;627.900000;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;electricity;not specified;PC-BEV;FC;0.000000;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;electricity;not specified;PC-PHEV;FC;53.431875;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;FC;99.230625;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;FC;152.662500;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;diesel;not specified;PC-D-Euro-3;FC;167.928750;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;electricity;not specified;PC-BEV;HC;0.000000;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;electricity;not specified;PC-PHEV;HC;0.042262;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;HC;0.060375;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;HC;0.156975;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;diesel;not specified;PC-D-Euro-3;HC;0.048300;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;electricity;not specified;PC-BEV;NOx;0.000000;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;electricity;not specified;PC-PHEV;NOx;0.322000;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.368000;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;NOx;1.380000;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;diesel;not specified;PC-D-Euro-3;NOx;2.760000;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;electricity;not specified;PC-BEV;NO2;0.000000;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;electricity;not specified;PC-PHEV;NO2;0.055344;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.055344;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;NO2;0.126500;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;diesel;not specified;PC-D-Euro-3;NO2;0.553437;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;electricity;not specified;PC-BEV;PM;0.004140;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;electricity;not specified;PC-PHEV;PM;0.006210;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM;0.008280;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM;0.011730;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;diesel;not specified;PC-D-Euro-3;PM;0.027600;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;electricity;not specified;PC-BEV;PM2_5;0.002674;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;electricity;not specified;PC-PHEV;PM2_5;0.004010;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.005347;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.007575;5.4
+PASSENGER_CAR;URB/Access/30/St+Go;diesel;not specified;PC-D-Euro-3;PM2_5;0.017824;5.4
+PASSENGER_CAR;URB/Local/50/Freeflow;electricity;not specified;PC-BEV;CO;0.000000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;electricity;not specified;PC-PHEV;CO;0.297500;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO;0.467500;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO;1.020000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;diesel;not specified;PC-D-Euro-3;CO;0.425000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;electricity;not specified;PC-PHEV;CO2_TOTAL;58.800000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;109.200000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;168.000000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;218.400000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;electricity;not specified;PC-BEV;FC;0.000000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;electricity;not specified;PC-PHEV;FC;18.585000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;FC;34.515000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;FC;53.100000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;diesel;not specified;PC-D-Euro-3;FC;58.410000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;electricity;not specified;PC-BEV;HC;0.000000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;electricity;not specified;PC-PHEV;HC;0.014700;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;HC;0.021000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;HC;0.054600;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;diesel;not specified;PC-D-Euro-3;HC;0.016800;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;electricity;not specified;PC-BEV;NOx;0.000000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;electricity;not specified;PC-PHEV;NOx;0.112000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.128000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NOx;0.480000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;diesel;not specified;PC-D-Euro-3;NOx;0.960000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;electricity;not specified;PC-BEV;NO2;0.000000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;electricity;not specified;PC-PHEV;NO2;0.019250;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.019250;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NO2;0.044000;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;diesel;not specified;PC-D-Euro-3;NO2;0.192500;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;electricity;not specified;PC-BEV;PM;0.001440;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;electricity;not specified;PC-PHEV;PM;0.002160;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM;0.002880;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM;0.004080;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;diesel;not specified;PC-D-Euro-3;PM;0.009600;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;electricity;not specified;PC-BEV;PM2_5;0.000930;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;electricity;not specified;PC-PHEV;PM2_5;0.001395;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.001860;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.002635;47.1
+PASSENGER_CAR;URB/Local/50/Freeflow;diesel;not specified;PC-D-Euro-3;PM2_5;0.006200;47.1
+PASSENGER_CAR;URB/Local/50/Heavy;electricity;not specified;PC-BEV;CO;0.000000;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;electricity;not specified;PC-PHEV;CO;0.386750;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO;0.607750;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO;1.326000;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;diesel;not specified;PC-D-Euro-3;CO;0.552500;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;electricity;not specified;PC-PHEV;CO2_TOTAL;76.440000;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;141.960000;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;218.400000;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;283.920000;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;electricity;not specified;PC-BEV;FC;0.000000;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;electricity;not specified;PC-PHEV;FC;24.160500;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;FC;44.869500;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;FC;69.030000;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;diesel;not specified;PC-D-Euro-3;FC;75.933000;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;electricity;not specified;PC-BEV;HC;0.000000;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;electricity;not specified;PC-PHEV;HC;0.019110;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;HC;0.027300;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;HC;0.070980;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;diesel;not specified;PC-D-Euro-3;HC;0.021840;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;electricity;not specified;PC-BEV;NOx;0.000000;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;electricity;not specified;PC-PHEV;NOx;0.145600;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.166400;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;NOx;0.624000;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;diesel;not specified;PC-D-Euro-3;NOx;1.248000;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;electricity;not specified;PC-BEV;NO2;0.000000;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;electricity;not specified;PC-PHEV;NO2;0.025025;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.025025;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;NO2;0.057200;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;diesel;not specified;PC-D-Euro-3;NO2;0.250250;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;electricity;not specified;PC-BEV;PM;0.001872;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;electricity;not specified;PC-PHEV;PM;0.002808;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM;0.003744;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM;0.005304;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;diesel;not specified;PC-D-Euro-3;PM;0.012480;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;electricity;not specified;PC-BEV;PM2_5;0.001209;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;electricity;not specified;PC-PHEV;PM2_5;0.001814;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.002418;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.003425;32.5
+PASSENGER_CAR;URB/Local/50/Heavy;diesel;not specified;PC-D-Euro-3;PM2_5;0.008060;32.5
+PASSENGER_CAR;URB/Local/50/Satur.;electricity;not specified;PC-BEV;CO;0.000000;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;electricity;not specified;PC-PHEV;CO;0.535500;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO;0.841500;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO;1.836000;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;diesel;not specified;PC-D-Euro-3;CO;0.765000;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;electricity;not specified;PC-PHEV;CO2_TOTAL;105.840000;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;196.560000;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;302.400000;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;393.120000;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;electricity;not specified;PC-BEV;FC;0.000000;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;electricity;not specified;PC-PHEV;FC;33.453000;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;FC;62.127000;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;FC;95.580000;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;diesel;not specified;PC-D-Euro-3;FC;105.138000;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;electricity;not specified;PC-BEV;HC;0.000000;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;electricity;not specified;PC-PHEV;HC;0.026460;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;HC;0.037800;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;HC;0.098280;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;diesel;not specified;PC-D-Euro-3;HC;0.030240;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;electricity;not specified;PC-BEV;NOx;0.000000;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;electricity;not specified;PC-PHEV;NOx;0.201600;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.230400;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;NOx;0.864000;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;diesel;not specified;PC-D-Euro-3;NOx;1.728000;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;electricity;not specified;PC-BEV;NO2;0.000000;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;electricity;not specified;PC-PHEV;NO2;0.034650;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.034650;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;NO2;0.079200;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;diesel;not specified;PC-D-Euro-3;NO2;0.346500;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;electricity;not specified;PC-BEV;PM;0.002592;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;electricity;not specified;PC-PHEV;PM;0.003888;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM;0.005184;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM;0.007344;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;diesel;not specified;PC-D-Euro-3;PM;0.017280;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;electricity;not specified;PC-BEV;PM2_5;0.001674;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;electricity;not specified;PC-PHEV;PM2_5;0.002511;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.003348;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.004743;18.3
+PASSENGER_CAR;URB/Local/50/Satur.;diesel;not specified;PC-D-Euro-3;PM2_5;0.011160;18.3
+PASSENGER_CAR;URB/Local/50/St+Go;electricity;not specified;PC-BEV;CO;0.000000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;electricity;not specified;PC-PHEV;CO;0.743750;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO;1.168750;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO;2.550000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;diesel;not specified;PC-D-Euro-3;CO;1.062500;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;electricity;not specified;PC-PHEV;CO2_TOTAL;147.000000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;273.000000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;420.000000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;546.000000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;electricity;not specified;PC-BEV;FC;0.000000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;electricity;not specified;PC-PHEV;FC;46.462500;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;FC;86.287500;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;FC;132.750000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;diesel;not specified;PC-D-Euro-3;FC;146.025000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;electricity;not specified;PC-BEV;HC;0.000000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;electricity;not specified;PC-PHEV;HC;0.036750;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;HC;0.052500;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;HC;0.136500;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;diesel;not specified;PC-D-Euro-3;HC;0.042000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;electricity;not specified;PC-BEV;NOx;0.000000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;electricity;not specified;PC-PHEV;NOx;0.280000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.320000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;NOx;1.200000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;diesel;not specified;PC-D-Euro-3;NOx;2.400000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;electricity;not specified;PC-BEV;NO2;0.000000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;electricity;not specified;PC-PHEV;NO2;0.048125;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.048125;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;NO2;0.110000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;diesel;not specified;PC-D-Euro-3;NO2;0.481250;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;electricity;not specified;PC-BEV;PM;0.003600;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;electricity;not specified;PC-PHEV;PM;0.005400;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM;0.007200;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM;0.010200;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;diesel;not specified;PC-D-Euro-3;PM;0.024000;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;electricity;not specified;PC-BEV;PM2_5;0.002325;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;electricity;not specified;PC-PHEV;PM2_5;0.003488;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.004650;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.006587;8.7
+PASSENGER_CAR;URB/Local/50/St+Go;diesel;not specified;PC-D-Euro-3;PM2_5;0.015500;8.7
+PASSENGER_CAR;URB/Distr/30/Freeflow;electricity;not specified;PC-BEV;CO;0.000000;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;electricity;not specified;PC-PHEV;CO;0.342125;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO;0.537625;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO;1.173000;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;diesel;not specified;PC-D-Euro-3;CO;0.488750;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;electricity;not specified;PC-PHEV;CO2_TOTAL;67.620000;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;125.580000;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;193.200000;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;251.160000;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;electricity;not specified;PC-BEV;FC;0.000000;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;electricity;not specified;PC-PHEV;FC;21.372750;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;FC;39.692250;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;FC;61.065000;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;diesel;not specified;PC-D-Euro-3;FC;67.171500;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;electricity;not specified;PC-BEV;HC;0.000000;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;electricity;not specified;PC-PHEV;HC;0.016905;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;HC;0.024150;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;HC;0.062790;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;diesel;not specified;PC-D-Euro-3;HC;0.019320;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;electricity;not specified;PC-BEV;NOx;0.000000;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;electricity;not specified;PC-PHEV;NOx;0.128800;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.147200;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NOx;0.552000;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;diesel;not specified;PC-D-Euro-3;NOx;1.104000;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;electricity;not specified;PC-BEV;NO2;0.000000;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;electricity;not specified;PC-PHEV;NO2;0.022137;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.022137;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NO2;0.050600;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;diesel;not specified;PC-D-Euro-3;NO2;0.221375;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;electricity;not specified;PC-BEV;PM;0.001656;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;electricity;not specified;PC-PHEV;PM;0.002484;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM;0.003312;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM;0.004692;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;diesel;not specified;PC-D-Euro-3;PM;0.011040;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;electricity;not specified;PC-BEV;PM2_5;0.001069;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;electricity;not specified;PC-PHEV;PM2_5;0.001604;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.002139;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.003030;28.4
+PASSENGER_CAR;URB/Distr/30/Freeflow;diesel;not specified;PC-D-Euro-3;PM2_5;0.007130;28.4
+PASSENGER_CAR;URB/Distr/30/Heavy;electricity;not specified;PC-BEV;CO;0.000000;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;electricity;not specified;PC-PHEV;CO;0.444763;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO;0.698913;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO;1.524900;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;diesel;not specified;PC-D-Euro-3;CO;0.635375;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;electricity;not specified;PC-PHEV;CO2_TOTAL;87.906000;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;163.254000;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;251.160000;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;326.508000;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;electricity;not specified;PC-BEV;FC;0.000000;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;electricity;not specified;PC-PHEV;FC;27.784575;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;FC;51.599925;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;FC;79.384500;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;diesel;not specified;PC-D-Euro-3;FC;87.322950;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;electricity;not specified;PC-BEV;HC;0.000000;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;electricity;not specified;PC-PHEV;HC;0.021976;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;HC;0.031395;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;HC;0.081627;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;diesel;not specified;PC-D-Euro-3;HC;0.025116;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;electricity;not specified;PC-BEV;NOx;0.000000;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;electricity;not specified;PC-PHEV;NOx;0.167440;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.191360;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;NOx;0.717600;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;diesel;not specified;PC-D-Euro-3;NOx;1.435200;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;electricity;not specified;PC-BEV;NO2;0.000000;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;electricity;not specified;PC-PHEV;NO2;0.028779;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.028779;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;NO2;0.065780;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;diesel;not specified;PC-D-Euro-3;NO2;0.287788;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;electricity;not specified;PC-BEV;PM;0.002153;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;electricity;not specified;PC-PHEV;PM;0.003229;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM;0.004306;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM;0.006100;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;diesel;not specified;PC-D-Euro-3;PM;0.014352;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;electricity;not specified;PC-BEV;PM2_5;0.001390;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;electricity;not specified;PC-PHEV;PM2_5;0.002085;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.002780;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.003939;19.6
+PASSENGER_CAR;URB/Distr/30/Heavy;diesel;not specified;PC-D-Euro-3;PM2_5;0.009268;19.6
+PASSENGER_CAR;URB/Distr/30/Satur.;electricity;not specified;PC-BEV;CO;0.000000;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;electricity;not specified;PC-PHEV;CO;0.615825;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO;0.967725;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO;2.111400;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;diesel;not specified;PC-D-Euro-3;CO;0.879750;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;electricity;not specified;PC-PHEV;CO2_TOTAL;121.716000;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;226.044000;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;347.760000;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;452.088000;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;electricity;not specified;PC-BEV;FC;0.000000;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;electricity;not specified;PC-PHEV;FC;38.470950;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;FC;71.446050;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;FC;109.917000;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;diesel;not specified;PC-D-Euro-3;FC;120.908700;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;electricity;not specified;PC-BEV;HC;0.000000;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;electricity;not specified;PC-PHEV;HC;0.030429;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;HC;0.043470;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;HC;0.113022;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;diesel;not specified;PC-D-Euro-3;HC;0.034776;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;electricity;not specified;PC-BEV;NOx;0.000000;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;electricity;not specified;PC-PHEV;NOx;0.231840;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.264960;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;NOx;0.993600;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;diesel;not specified;PC-D-Euro-3;NOx;1.987200;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;electricity;not specified;PC-BEV;NO2;0.000000;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;electricity;not specified;PC-PHEV;NO2;0.039848;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.039848;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;NO2;0.091080;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;diesel;not specified;PC-D-Euro-3;NO2;0.398475;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;electricity;not specified;PC-BEV;PM;0.002981;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;electricity;not specified;PC-PHEV;PM;0.004471;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM;0.005962;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM;0.008446;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;diesel;not specified;PC-D-Euro-3;PM;0.019872;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;electricity;not specified;PC-BEV;PM2_5;0.001925;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;electricity;not specified;PC-PHEV;PM2_5;0.002888;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.003850;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.005454;11.2
+PASSENGER_CAR;URB/Distr/30/Satur.;diesel;not specified;PC-D-Euro-3;PM2_5;0.012834;11.2
+PASSENGER_CAR;URB/Distr/30/St+Go;electricity;not specified;PC-BEV;CO;0.000000;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;electricity;not specified;PC-PHEV;CO;0.855313;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO;1.344063;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO;2.932500;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;diesel;not specified;PC-D-Euro-3;CO;1.221875;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;electricity;not specified;PC-PHEV;CO2_TOTAL;169.050000;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;313.950000;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;483.000000;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;627.900000;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;electricity;not specified;PC-BEV;FC;0.000000;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;electricity;not specified;PC-PHEV;FC;53.431875;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;FC;99.230625;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;FC;152.662500;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;diesel;not specified;PC-D-Euro-3;FC;167.928750;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;electricity;not specified;PC-BEV;HC;0.000000;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;electricity;not specified;PC-PHEV;HC;0.042262;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;HC;0.060375;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;HC;0.156975;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;diesel;not specified;PC-D-Euro-3;HC;0.048300;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;electricity;not specified;PC-BEV;NOx;0.000000;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;electricity;not specified;PC-PHEV;NOx;0.322000;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.368000;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;NOx;1.380000;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;diesel;not specified;PC-D-Euro-3;NOx;2.760000;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;electricity;not specified;PC-BEV;NO2;0.000000;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;electricity;not specified;PC-PHEV;NO2;0.055344;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.055344;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;NO2;0.126500;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;diesel;not specified;PC-D-Euro-3;NO2;0.553437;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;electricity;not specified;PC-BEV;PM;0.004140;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;electricity;not specified;PC-PHEV;PM;0.006210;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM;0.008280;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM;0.011730;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;diesel;not specified;PC-D-Euro-3;PM;0.027600;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;electricity;not specified;PC-BEV;PM2_5;0.002674;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;electricity;not specified;PC-PHEV;PM2_5;0.004010;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.005347;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.007575;5.4
+PASSENGER_CAR;URB/Distr/30/St+Go;diesel;not specified;PC-D-Euro-3;PM2_5;0.017824;5.4
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;electricity;not specified;PC-BEV;CO;0.000000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;electricity;not specified;PC-PHEV;CO;0.297500;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO;0.467500;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO;1.020000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;diesel;not specified;PC-D-Euro-3;CO;0.425000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;electricity;not specified;PC-PHEV;CO2_TOTAL;58.800000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;109.200000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;168.000000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;218.400000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;electricity;not specified;PC-BEV;FC;0.000000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;electricity;not specified;PC-PHEV;FC;18.585000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;FC;34.515000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;FC;53.100000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;diesel;not specified;PC-D-Euro-3;FC;58.410000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;electricity;not specified;PC-BEV;HC;0.000000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;electricity;not specified;PC-PHEV;HC;0.014700;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;HC;0.021000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;HC;0.054600;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;diesel;not specified;PC-D-Euro-3;HC;0.016800;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;electricity;not specified;PC-BEV;NOx;0.000000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;electricity;not specified;PC-PHEV;NOx;0.112000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.128000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NOx;0.480000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;diesel;not specified;PC-D-Euro-3;NOx;0.960000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;electricity;not specified;PC-BEV;NO2;0.000000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;electricity;not specified;PC-PHEV;NO2;0.019250;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.019250;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NO2;0.044000;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;diesel;not specified;PC-D-Euro-3;NO2;0.192500;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;electricity;not specified;PC-BEV;PM;0.001440;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;electricity;not specified;PC-PHEV;PM;0.002160;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM;0.002880;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM;0.004080;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;diesel;not specified;PC-D-Euro-3;PM;0.009600;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;electricity;not specified;PC-BEV;PM2_5;0.000930;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;electricity;not specified;PC-PHEV;PM2_5;0.001395;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.001860;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.002635;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Freeflow;diesel;not specified;PC-D-Euro-3;PM2_5;0.006200;47.1
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;electricity;not specified;PC-BEV;CO;0.000000;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;electricity;not specified;PC-PHEV;CO;0.386750;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO;0.607750;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO;1.326000;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;diesel;not specified;PC-D-Euro-3;CO;0.552500;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;electricity;not specified;PC-PHEV;CO2_TOTAL;76.440000;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;141.960000;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;218.400000;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;283.920000;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;electricity;not specified;PC-BEV;FC;0.000000;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;electricity;not specified;PC-PHEV;FC;24.160500;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;FC;44.869500;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;FC;69.030000;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;diesel;not specified;PC-D-Euro-3;FC;75.933000;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;electricity;not specified;PC-BEV;HC;0.000000;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;electricity;not specified;PC-PHEV;HC;0.019110;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;HC;0.027300;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;HC;0.070980;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;diesel;not specified;PC-D-Euro-3;HC;0.021840;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;electricity;not specified;PC-BEV;NOx;0.000000;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;electricity;not specified;PC-PHEV;NOx;0.145600;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.166400;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;NOx;0.624000;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;diesel;not specified;PC-D-Euro-3;NOx;1.248000;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;electricity;not specified;PC-BEV;NO2;0.000000;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;electricity;not specified;PC-PHEV;NO2;0.025025;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.025025;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;NO2;0.057200;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;diesel;not specified;PC-D-Euro-3;NO2;0.250250;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;electricity;not specified;PC-BEV;PM;0.001872;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;electricity;not specified;PC-PHEV;PM;0.002808;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM;0.003744;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM;0.005304;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;diesel;not specified;PC-D-Euro-3;PM;0.012480;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;electricity;not specified;PC-BEV;PM2_5;0.001209;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;electricity;not specified;PC-PHEV;PM2_5;0.001814;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.002418;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.003425;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Heavy;diesel;not specified;PC-D-Euro-3;PM2_5;0.008060;32.5
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;electricity;not specified;PC-BEV;CO;0.000000;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;electricity;not specified;PC-PHEV;CO;0.535500;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO;0.841500;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO;1.836000;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;diesel;not specified;PC-D-Euro-3;CO;0.765000;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;electricity;not specified;PC-PHEV;CO2_TOTAL;105.840000;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;196.560000;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;302.400000;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;393.120000;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;electricity;not specified;PC-BEV;FC;0.000000;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;electricity;not specified;PC-PHEV;FC;33.453000;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;FC;62.127000;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;FC;95.580000;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;diesel;not specified;PC-D-Euro-3;FC;105.138000;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;electricity;not specified;PC-BEV;HC;0.000000;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;electricity;not specified;PC-PHEV;HC;0.026460;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;HC;0.037800;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;HC;0.098280;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;diesel;not specified;PC-D-Euro-3;HC;0.030240;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;electricity;not specified;PC-BEV;NOx;0.000000;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;electricity;not specified;PC-PHEV;NOx;0.201600;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.230400;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;NOx;0.864000;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;diesel;not specified;PC-D-Euro-3;NOx;1.728000;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;electricity;not specified;PC-BEV;NO2;0.000000;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;electricity;not specified;PC-PHEV;NO2;0.034650;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.034650;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;NO2;0.079200;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;diesel;not specified;PC-D-Euro-3;NO2;0.346500;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;electricity;not specified;PC-BEV;PM;0.002592;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;electricity;not specified;PC-PHEV;PM;0.003888;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM;0.005184;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM;0.007344;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;diesel;not specified;PC-D-Euro-3;PM;0.017280;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;electricity;not specified;PC-BEV;PM2_5;0.001674;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;electricity;not specified;PC-PHEV;PM2_5;0.002511;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.003348;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.004743;18.3
+PASSENGER_CAR;URB/Trunk-City/50/Satur.;diesel;not specified;PC-D-Euro-3;PM2_5;0.011160;18.3
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;electricity;not specified;PC-BEV;CO;0.000000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;electricity;not specified;PC-PHEV;CO;0.743750;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO;1.168750;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO;2.550000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;diesel;not specified;PC-D-Euro-3;CO;1.062500;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;electricity;not specified;PC-PHEV;CO2_TOTAL;147.000000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;273.000000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;420.000000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;546.000000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;electricity;not specified;PC-BEV;FC;0.000000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;electricity;not specified;PC-PHEV;FC;46.462500;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;FC;86.287500;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;FC;132.750000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;diesel;not specified;PC-D-Euro-3;FC;146.025000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;electricity;not specified;PC-BEV;HC;0.000000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;electricity;not specified;PC-PHEV;HC;0.036750;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;HC;0.052500;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;HC;0.136500;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;diesel;not specified;PC-D-Euro-3;HC;0.042000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;electricity;not specified;PC-BEV;NOx;0.000000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;electricity;not specified;PC-PHEV;NOx;0.280000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.320000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;NOx;1.200000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;diesel;not specified;PC-D-Euro-3;NOx;2.400000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;electricity;not specified;PC-BEV;NO2;0.000000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;electricity;not specified;PC-PHEV;NO2;0.048125;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.048125;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;NO2;0.110000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;diesel;not specified;PC-D-Euro-3;NO2;0.481250;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;electricity;not specified;PC-BEV;PM;0.003600;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;electricity;not specified;PC-PHEV;PM;0.005400;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM;0.007200;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM;0.010200;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;diesel;not specified;PC-D-Euro-3;PM;0.024000;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;electricity;not specified;PC-BEV;PM2_5;0.002325;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;electricity;not specified;PC-PHEV;PM2_5;0.003488;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.004650;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.006587;8.7
+PASSENGER_CAR;URB/Trunk-City/50/St+Go;diesel;not specified;PC-D-Euro-3;PM2_5;0.015500;8.7
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;electricity;not specified;PC-BEV;CO;0.000000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;electricity;not specified;PC-PHEV;CO;0.217000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO;0.341000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO;0.744000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;diesel;not specified;PC-D-Euro-3;CO;0.310000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;electricity;not specified;PC-PHEV;CO2_TOTAL;47.250000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;87.750000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;135.000000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;175.500000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;electricity;not specified;PC-BEV;FC;0.000000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;electricity;not specified;PC-PHEV;FC;14.945000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;FC;27.755000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;petrol (4S);not specified;PC-P-Euro-4;FC;42.700000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;diesel;not specified;PC-D-Euro-3;FC;46.970000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;electricity;not specified;PC-BEV;HC;0.000000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;electricity;not specified;PC-PHEV;HC;0.011900;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;HC;0.017000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;petrol (4S);not specified;PC-P-Euro-4;HC;0.044200;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;diesel;not specified;PC-D-Euro-3;HC;0.013600;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;electricity;not specified;PC-BEV;NOx;0.000000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;electricity;not specified;PC-PHEV;NOx;0.091000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.104000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NOx;0.390000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;diesel;not specified;PC-D-Euro-3;NOx;0.780000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;electricity;not specified;PC-BEV;NO2;0.000000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;electricity;not specified;PC-PHEV;NO2;0.015750;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.015750;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NO2;0.036000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;diesel;not specified;PC-D-Euro-3;NO2;0.157500;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;electricity;not specified;PC-BEV;PM;0.001140;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;electricity;not specified;PC-PHEV;PM;0.001710;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM;0.002280;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM;0.003230;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;diesel;not specified;PC-D-Euro-3;PM;0.007600;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;electricity;not specified;PC-BEV;PM2_5;0.000750;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;electricity;not specified;PC-PHEV;PM2_5;0.001125;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.001500;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.002125;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Freeflow;diesel;not specified;PC-D-Euro-3;PM2_5;0.005000;65.3
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;electricity;not specified;PC-BEV;CO;0.000000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;electricity;not specified;PC-PHEV;CO;0.283500;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO;0.445500;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO;0.972000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;diesel;not specified;PC-D-Euro-3;CO;0.405000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;electricity;not specified;PC-PHEV;CO2_TOTAL;61.425000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;114.075000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;175.500000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;228.150000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;electricity;not specified;PC-BEV;FC;0.000000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;electricity;not specified;PC-PHEV;FC;19.425000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;petrol/electric;not specified;PC-P-Euro-6d;FC;36.075000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;petrol (4S);not specified;PC-P-Euro-4;FC;55.500000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;diesel;not specified;PC-D-Euro-3;FC;61.050000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;electricity;not specified;PC-BEV;HC;0.000000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;electricity;not specified;PC-PHEV;HC;0.015400;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;petrol/electric;not specified;PC-P-Euro-6d;HC;0.022000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;petrol (4S);not specified;PC-P-Euro-4;HC;0.057200;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;diesel;not specified;PC-D-Euro-3;HC;0.017600;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;electricity;not specified;PC-BEV;NOx;0.000000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;electricity;not specified;PC-PHEV;NOx;0.118300;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.135200;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;petrol (4S);not specified;PC-P-Euro-4;NOx;0.507000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;diesel;not specified;PC-D-Euro-3;NOx;1.014000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;electricity;not specified;PC-BEV;NO2;0.000000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;electricity;not specified;PC-PHEV;NO2;0.020300;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.020300;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;petrol (4S);not specified;PC-P-Euro-4;NO2;0.046400;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;diesel;not specified;PC-D-Euro-3;NO2;0.203000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;electricity;not specified;PC-BEV;PM;0.001500;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;electricity;not specified;PC-PHEV;PM;0.002250;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM;0.003000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM;0.004250;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;diesel;not specified;PC-D-Euro-3;PM;0.010000;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;electricity;not specified;PC-BEV;PM2_5;0.000960;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;electricity;not specified;PC-PHEV;PM2_5;0.001440;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.001920;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.002720;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Heavy;diesel;not specified;PC-D-Euro-3;PM2_5;0.006400;45.0
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;electricity;not specified;PC-BEV;CO;0.000000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;electricity;not specified;PC-PHEV;CO;0.392000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO;0.616000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO;1.344000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;diesel;not specified;PC-D-Euro-3;CO;0.560000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;electricity;not specified;PC-PHEV;CO2_TOTAL;85.050000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;157.950000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;243.000000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;315.900000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;electricity;not specified;PC-BEV;FC;0.000000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;electricity;not specified;PC-PHEV;FC;26.880000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;petrol/electric;not specified;PC-P-Euro-6d;FC;49.920000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;petrol (4S);not specified;PC-P-Euro-4;FC;76.800000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;diesel;not specified;PC-D-Euro-3;FC;84.480000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;electricity;not specified;PC-BEV;HC;0.000000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;electricity;not specified;PC-PHEV;HC;0.021350;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;petrol/electric;not specified;PC-P-Euro-6d;HC;0.030500;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;petrol (4S);not specified;PC-P-Euro-4;HC;0.079300;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;diesel;not specified;PC-D-Euro-3;HC;0.024400;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;electricity;not specified;PC-BEV;NOx;0.000000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;electricity;not specified;PC-PHEV;NOx;0.163800;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.187200;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;petrol (4S);not specified;PC-P-Euro-4;NOx;0.702000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;diesel;not specified;PC-D-Euro-3;NOx;1.404000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;electricity;not specified;PC-BEV;NO2;0.000000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;electricity;not specified;PC-PHEV;NO2;0.028350;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.028350;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;petrol (4S);not specified;PC-P-Euro-4;NO2;0.064800;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;diesel;not specified;PC-D-Euro-3;NO2;0.283500;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;electricity;not specified;PC-BEV;PM;0.002070;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;electricity;not specified;PC-PHEV;PM;0.003105;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM;0.004140;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM;0.005865;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;diesel;not specified;PC-D-Euro-3;PM;0.013800;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;electricity;not specified;PC-BEV;PM2_5;0.001350;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;electricity;not specified;PC-PHEV;PM2_5;0.002025;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.002700;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.003825;25.5
+PASSENGER_CAR;URB/Trunk-City/60/Satur.;diesel;not specified;PC-D-Euro-3;PM2_5;0.009000;25.5
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;electricity;not specified;PC-BEV;CO;0.000000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;electricity;not specified;PC-PHEV;CO;0.542500;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO;0.852500;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO;1.860000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;diesel;not specified;PC-D-Euro-3;CO;0.775000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;electricity;not specified;PC-PHEV;CO2_TOTAL;118.125000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;219.375000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;337.500000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;438.750000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;electricity;not specified;PC-BEV;FC;0.000000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;electricity;not specified;PC-PHEV;FC;37.345000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;petrol/electric;not specified;PC-P-Euro-6d;FC;69.355000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;petrol (4S);not specified;PC-P-Euro-4;FC;106.700000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;diesel;not specified;PC-D-Euro-3;FC;117.370000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;electricity;not specified;PC-BEV;HC;0.000000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;electricity;not specified;PC-PHEV;HC;0.029750;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;petrol/electric;not specified;PC-P-Euro-6d;HC;0.042500;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;petrol (4S);not specified;PC-P-Euro-4;HC;0.110500;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;diesel;not specified;PC-D-Euro-3;HC;0.034000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;electricity;not specified;PC-BEV;NOx;0.000000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;electricity;not specified;PC-PHEV;NOx;0.227500;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.260000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;petrol (4S);not specified;PC-P-Euro-4;NOx;0.975000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;diesel;not specified;PC-D-Euro-3;NOx;1.950000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;electricity;not specified;PC-BEV;NO2;0.000000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;electricity;not specified;PC-PHEV;NO2;0.039200;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.039200;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;petrol (4S);not specified;PC-P-Euro-4;NO2;0.089600;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;diesel;not specified;PC-D-Euro-3;NO2;0.392000;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;electricity;not specified;PC-BEV;PM;0.002880;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;electricity;not specified;PC-PHEV;PM;0.004320;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM;0.005760;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM;0.008160;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;diesel;not specified;PC-D-Euro-3;PM;0.019200;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;electricity;not specified;PC-BEV;PM2_5;0.001860;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;electricity;not specified;PC-PHEV;PM2_5;0.002790;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.003720;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.005270;12.0
+PASSENGER_CAR;URB/Trunk-City/60/St+Go;diesel;not specified;PC-D-Euro-3;PM2_5;0.012400;12.0
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;electricity;not specified;PC-BEV;CO;0.000000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;electricity;not specified;PC-PHEV;CO;0.217000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO;0.341000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO;0.744000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;diesel;not specified;PC-D-Euro-3;CO;0.310000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;electricity;not specified;PC-PHEV;CO2_TOTAL;47.250000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;87.750000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;135.000000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;175.500000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;electricity;not specified;PC-BEV;FC;0.000000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;electricity;not specified;PC-PHEV;FC;14.945000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;FC;27.755000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;petrol (4S);not specified;PC-P-Euro-4;FC;42.700000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;diesel;not specified;PC-D-Euro-3;FC;46.970000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;electricity;not specified;PC-BEV;HC;0.000000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;electricity;not specified;PC-PHEV;HC;0.011900;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;HC;0.017000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;petrol (4S);not specified;PC-P-Euro-4;HC;0.044200;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;diesel;not specified;PC-D-Euro-3;HC;0.013600;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;electricity;not specified;PC-BEV;NOx;0.000000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;electricity;not specified;PC-PHEV;NOx;0.091000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.104000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NOx;0.390000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;diesel;not specified;PC-D-Euro-3;NOx;0.780000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;electricity;not specified;PC-BEV;NO2;0.000000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;electricity;not specified;PC-PHEV;NO2;0.015750;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.015750;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NO2;0.036000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;diesel;not specified;PC-D-Euro-3;NO2;0.157500;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;electricity;not specified;PC-BEV;PM;0.001140;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;electricity;not specified;PC-PHEV;PM;0.001710;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM;0.002280;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM;0.003230;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;diesel;not specified;PC-D-Euro-3;PM;0.007600;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;electricity;not specified;PC-BEV;PM2_5;0.000750;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;electricity;not specified;PC-PHEV;PM2_5;0.001125;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.001500;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.002125;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Freeflow;diesel;not specified;PC-D-Euro-3;PM2_5;0.005000;65.3
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;electricity;not specified;PC-BEV;CO;0.000000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;electricity;not specified;PC-PHEV;CO;0.283500;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO;0.445500;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO;0.972000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;diesel;not specified;PC-D-Euro-3;CO;0.405000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;electricity;not specified;PC-PHEV;CO2_TOTAL;61.425000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;114.075000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;175.500000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;228.150000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;electricity;not specified;PC-BEV;FC;0.000000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;electricity;not specified;PC-PHEV;FC;19.425000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;petrol/electric;not specified;PC-P-Euro-6d;FC;36.075000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;petrol (4S);not specified;PC-P-Euro-4;FC;55.500000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;diesel;not specified;PC-D-Euro-3;FC;61.050000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;electricity;not specified;PC-BEV;HC;0.000000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;electricity;not specified;PC-PHEV;HC;0.015400;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;petrol/electric;not specified;PC-P-Euro-6d;HC;0.022000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;petrol (4S);not specified;PC-P-Euro-4;HC;0.057200;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;diesel;not specified;PC-D-Euro-3;HC;0.017600;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;electricity;not specified;PC-BEV;NOx;0.000000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;electricity;not specified;PC-PHEV;NOx;0.118300;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.135200;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;petrol (4S);not specified;PC-P-Euro-4;NOx;0.507000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;diesel;not specified;PC-D-Euro-3;NOx;1.014000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;electricity;not specified;PC-BEV;NO2;0.000000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;electricity;not specified;PC-PHEV;NO2;0.020300;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.020300;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;petrol (4S);not specified;PC-P-Euro-4;NO2;0.046400;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;diesel;not specified;PC-D-Euro-3;NO2;0.203000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;electricity;not specified;PC-BEV;PM;0.001500;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;electricity;not specified;PC-PHEV;PM;0.002250;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM;0.003000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM;0.004250;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;diesel;not specified;PC-D-Euro-3;PM;0.010000;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;electricity;not specified;PC-BEV;PM2_5;0.000960;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;electricity;not specified;PC-PHEV;PM2_5;0.001440;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.001920;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.002720;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Heavy;diesel;not specified;PC-D-Euro-3;PM2_5;0.006400;45.0
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;electricity;not specified;PC-BEV;CO;0.000000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;electricity;not specified;PC-PHEV;CO;0.392000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO;0.616000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO;1.344000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;diesel;not specified;PC-D-Euro-3;CO;0.560000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;electricity;not specified;PC-PHEV;CO2_TOTAL;85.050000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;157.950000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;243.000000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;315.900000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;electricity;not specified;PC-BEV;FC;0.000000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;electricity;not specified;PC-PHEV;FC;26.880000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;petrol/electric;not specified;PC-P-Euro-6d;FC;49.920000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;petrol (4S);not specified;PC-P-Euro-4;FC;76.800000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;diesel;not specified;PC-D-Euro-3;FC;84.480000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;electricity;not specified;PC-BEV;HC;0.000000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;electricity;not specified;PC-PHEV;HC;0.021350;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;petrol/electric;not specified;PC-P-Euro-6d;HC;0.030500;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;petrol (4S);not specified;PC-P-Euro-4;HC;0.079300;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;diesel;not specified;PC-D-Euro-3;HC;0.024400;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;electricity;not specified;PC-BEV;NOx;0.000000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;electricity;not specified;PC-PHEV;NOx;0.163800;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.187200;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;petrol (4S);not specified;PC-P-Euro-4;NOx;0.702000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;diesel;not specified;PC-D-Euro-3;NOx;1.404000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;electricity;not specified;PC-BEV;NO2;0.000000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;electricity;not specified;PC-PHEV;NO2;0.028350;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.028350;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;petrol (4S);not specified;PC-P-Euro-4;NO2;0.064800;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;diesel;not specified;PC-D-Euro-3;NO2;0.283500;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;electricity;not specified;PC-BEV;PM;0.002070;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;electricity;not specified;PC-PHEV;PM;0.003105;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM;0.004140;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM;0.005865;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;diesel;not specified;PC-D-Euro-3;PM;0.013800;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;electricity;not specified;PC-BEV;PM2_5;0.001350;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;electricity;not specified;PC-PHEV;PM2_5;0.002025;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.002700;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.003825;25.5
+PASSENGER_CAR;URB/MW-Nat./60/Satur.;diesel;not specified;PC-D-Euro-3;PM2_5;0.009000;25.5
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;electricity;not specified;PC-BEV;CO;0.000000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;electricity;not specified;PC-PHEV;CO;0.542500;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO;0.852500;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO;1.860000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;diesel;not specified;PC-D-Euro-3;CO;0.775000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;electricity;not specified;PC-PHEV;CO2_TOTAL;118.125000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;219.375000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;337.500000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;438.750000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;electricity;not specified;PC-BEV;FC;0.000000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;electricity;not specified;PC-PHEV;FC;37.345000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;petrol/electric;not specified;PC-P-Euro-6d;FC;69.355000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;petrol (4S);not specified;PC-P-Euro-4;FC;106.700000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;diesel;not specified;PC-D-Euro-3;FC;117.370000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;electricity;not specified;PC-BEV;HC;0.000000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;electricity;not specified;PC-PHEV;HC;0.029750;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;petrol/electric;not specified;PC-P-Euro-6d;HC;0.042500;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;petrol (4S);not specified;PC-P-Euro-4;HC;0.110500;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;diesel;not specified;PC-D-Euro-3;HC;0.034000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;electricity;not specified;PC-BEV;NOx;0.000000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;electricity;not specified;PC-PHEV;NOx;0.227500;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.260000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;petrol (4S);not specified;PC-P-Euro-4;NOx;0.975000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;diesel;not specified;PC-D-Euro-3;NOx;1.950000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;electricity;not specified;PC-BEV;NO2;0.000000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;electricity;not specified;PC-PHEV;NO2;0.039200;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.039200;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;petrol (4S);not specified;PC-P-Euro-4;NO2;0.089600;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;diesel;not specified;PC-D-Euro-3;NO2;0.392000;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;electricity;not specified;PC-BEV;PM;0.002880;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;electricity;not specified;PC-PHEV;PM;0.004320;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM;0.005760;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM;0.008160;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;diesel;not specified;PC-D-Euro-3;PM;0.019200;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;electricity;not specified;PC-BEV;PM2_5;0.001860;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;electricity;not specified;PC-PHEV;PM2_5;0.002790;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.003720;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.005270;12.0
+PASSENGER_CAR;URB/MW-Nat./60/St+Go;diesel;not specified;PC-D-Euro-3;PM2_5;0.012400;12.0
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;electricity;not specified;PC-BEV;CO;0.000000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;electricity;not specified;PC-PHEV;CO;0.297500;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO;0.467500;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO;1.020000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;diesel;not specified;PC-D-Euro-3;CO;0.425000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;electricity;not specified;PC-PHEV;CO2_TOTAL;58.800000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;109.200000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;168.000000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;218.400000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;electricity;not specified;PC-BEV;FC;0.000000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;electricity;not specified;PC-PHEV;FC;18.585000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;FC;34.515000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;FC;53.100000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;diesel;not specified;PC-D-Euro-3;FC;58.410000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;electricity;not specified;PC-BEV;HC;0.000000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;electricity;not specified;PC-PHEV;HC;0.014700;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;HC;0.021000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;HC;0.054600;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;diesel;not specified;PC-D-Euro-3;HC;0.016800;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;electricity;not specified;PC-BEV;NOx;0.000000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;electricity;not specified;PC-PHEV;NOx;0.112000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.128000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NOx;0.480000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;diesel;not specified;PC-D-Euro-3;NOx;0.960000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;electricity;not specified;PC-BEV;NO2;0.000000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;electricity;not specified;PC-PHEV;NO2;0.019250;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.019250;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NO2;0.044000;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;diesel;not specified;PC-D-Euro-3;NO2;0.192500;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;electricity;not specified;PC-BEV;PM;0.001440;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;electricity;not specified;PC-PHEV;PM;0.002160;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM;0.002880;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM;0.004080;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;diesel;not specified;PC-D-Euro-3;PM;0.009600;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;electricity;not specified;PC-BEV;PM2_5;0.000930;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;electricity;not specified;PC-PHEV;PM2_5;0.001395;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.001860;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.002635;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Freeflow;diesel;not specified;PC-D-Euro-3;PM2_5;0.006200;47.1
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;electricity;not specified;PC-BEV;CO;0.000000;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;electricity;not specified;PC-PHEV;CO;0.386750;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO;0.607750;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO;1.326000;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;diesel;not specified;PC-D-Euro-3;CO;0.552500;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;electricity;not specified;PC-PHEV;CO2_TOTAL;76.440000;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;141.960000;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;218.400000;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;283.920000;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;electricity;not specified;PC-BEV;FC;0.000000;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;electricity;not specified;PC-PHEV;FC;24.160500;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;FC;44.869500;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;petrol (4S);not specified;PC-P-Euro-4;FC;69.030000;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;diesel;not specified;PC-D-Euro-3;FC;75.933000;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;electricity;not specified;PC-BEV;HC;0.000000;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;electricity;not specified;PC-PHEV;HC;0.019110;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;HC;0.027300;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;petrol (4S);not specified;PC-P-Euro-4;HC;0.070980;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;diesel;not specified;PC-D-Euro-3;HC;0.021840;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;electricity;not specified;PC-BEV;NOx;0.000000;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;electricity;not specified;PC-PHEV;NOx;0.145600;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.166400;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;petrol (4S);not specified;PC-P-Euro-4;NOx;0.624000;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;diesel;not specified;PC-D-Euro-3;NOx;1.248000;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;electricity;not specified;PC-BEV;NO2;0.000000;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;electricity;not specified;PC-PHEV;NO2;0.025025;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.025025;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;petrol (4S);not specified;PC-P-Euro-4;NO2;0.057200;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;diesel;not specified;PC-D-Euro-3;NO2;0.250250;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;electricity;not specified;PC-BEV;PM;0.001872;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;electricity;not specified;PC-PHEV;PM;0.002808;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM;0.003744;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM;0.005304;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;diesel;not specified;PC-D-Euro-3;PM;0.012480;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;electricity;not specified;PC-BEV;PM2_5;0.001209;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;electricity;not specified;PC-PHEV;PM2_5;0.001814;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.002418;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.003425;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Heavy;diesel;not specified;PC-D-Euro-3;PM2_5;0.008060;32.5
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;electricity;not specified;PC-BEV;CO;0.000000;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;electricity;not specified;PC-PHEV;CO;0.535500;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO;0.841500;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO;1.836000;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;diesel;not specified;PC-D-Euro-3;CO;0.765000;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;electricity;not specified;PC-PHEV;CO2_TOTAL;105.840000;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;196.560000;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;302.400000;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;393.120000;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;electricity;not specified;PC-BEV;FC;0.000000;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;electricity;not specified;PC-PHEV;FC;33.453000;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;FC;62.127000;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;petrol (4S);not specified;PC-P-Euro-4;FC;95.580000;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;diesel;not specified;PC-D-Euro-3;FC;105.138000;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;electricity;not specified;PC-BEV;HC;0.000000;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;electricity;not specified;PC-PHEV;HC;0.026460;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;HC;0.037800;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;petrol (4S);not specified;PC-P-Euro-4;HC;0.098280;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;diesel;not specified;PC-D-Euro-3;HC;0.030240;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;electricity;not specified;PC-BEV;NOx;0.000000;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;electricity;not specified;PC-PHEV;NOx;0.201600;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.230400;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;petrol (4S);not specified;PC-P-Euro-4;NOx;0.864000;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;diesel;not specified;PC-D-Euro-3;NOx;1.728000;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;electricity;not specified;PC-BEV;NO2;0.000000;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;electricity;not specified;PC-PHEV;NO2;0.034650;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.034650;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;petrol (4S);not specified;PC-P-Euro-4;NO2;0.079200;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;diesel;not specified;PC-D-Euro-3;NO2;0.346500;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;electricity;not specified;PC-BEV;PM;0.002592;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;electricity;not specified;PC-PHEV;PM;0.003888;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM;0.005184;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM;0.007344;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;diesel;not specified;PC-D-Euro-3;PM;0.017280;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;electricity;not specified;PC-BEV;PM2_5;0.001674;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;electricity;not specified;PC-PHEV;PM2_5;0.002511;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.003348;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.004743;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/Satur.;diesel;not specified;PC-D-Euro-3;PM2_5;0.011160;18.3
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;electricity;not specified;PC-BEV;CO;0.000000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;electricity;not specified;PC-PHEV;CO;0.743750;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO;1.168750;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO;2.550000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;diesel;not specified;PC-D-Euro-3;CO;1.062500;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;electricity;not specified;PC-PHEV;CO2_TOTAL;147.000000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;273.000000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;420.000000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;546.000000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;electricity;not specified;PC-BEV;FC;0.000000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;electricity;not specified;PC-PHEV;FC;46.462500;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;FC;86.287500;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;petrol (4S);not specified;PC-P-Euro-4;FC;132.750000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;diesel;not specified;PC-D-Euro-3;FC;146.025000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;electricity;not specified;PC-BEV;HC;0.000000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;electricity;not specified;PC-PHEV;HC;0.036750;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;HC;0.052500;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;petrol (4S);not specified;PC-P-Euro-4;HC;0.136500;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;diesel;not specified;PC-D-Euro-3;HC;0.042000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;electricity;not specified;PC-BEV;NOx;0.000000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;electricity;not specified;PC-PHEV;NOx;0.280000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.320000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;petrol (4S);not specified;PC-P-Euro-4;NOx;1.200000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;diesel;not specified;PC-D-Euro-3;NOx;2.400000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;electricity;not specified;PC-BEV;NO2;0.000000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;electricity;not specified;PC-PHEV;NO2;0.048125;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.048125;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;petrol (4S);not specified;PC-P-Euro-4;NO2;0.110000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;diesel;not specified;PC-D-Euro-3;NO2;0.481250;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;electricity;not specified;PC-BEV;PM;0.003600;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;electricity;not specified;PC-PHEV;PM;0.005400;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM;0.007200;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM;0.010200;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;diesel;not specified;PC-D-Euro-3;PM;0.024000;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;electricity;not specified;PC-BEV;PM2_5;0.002325;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;electricity;not specified;PC-PHEV;PM2_5;0.003488;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.004650;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.006587;8.7
+PASSENGER_CAR;URB/Trunk-Nat./50/St+Go;diesel;not specified;PC-D-Euro-3;PM2_5;0.015500;8.7
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;electricity;not specified;PC-BEV;CO;0.000000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;electricity;not specified;PC-PHEV;CO;0.217000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO;0.341000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO;0.744000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;diesel;not specified;PC-D-Euro-3;CO;0.310000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;electricity;not specified;PC-PHEV;CO2_TOTAL;47.250000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;87.750000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;135.000000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;175.500000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;electricity;not specified;PC-BEV;FC;0.000000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;electricity;not specified;PC-PHEV;FC;14.945000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;FC;27.755000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;petrol (4S);not specified;PC-P-Euro-4;FC;42.700000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;diesel;not specified;PC-D-Euro-3;FC;46.970000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;electricity;not specified;PC-BEV;HC;0.000000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;electricity;not specified;PC-PHEV;HC;0.011900;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;HC;0.017000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;petrol (4S);not specified;PC-P-Euro-4;HC;0.044200;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;diesel;not specified;PC-D-Euro-3;HC;0.013600;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;electricity;not specified;PC-BEV;NOx;0.000000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;electricity;not specified;PC-PHEV;NOx;0.091000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.104000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NOx;0.390000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;diesel;not specified;PC-D-Euro-3;NOx;0.780000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;electricity;not specified;PC-BEV;NO2;0.000000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;electricity;not specified;PC-PHEV;NO2;0.015750;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.015750;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;petrol (4S);not specified;PC-P-Euro-4;NO2;0.036000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;diesel;not specified;PC-D-Euro-3;NO2;0.157500;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;electricity;not specified;PC-BEV;PM;0.001140;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;electricity;not specified;PC-PHEV;PM;0.001710;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM;0.002280;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM;0.003230;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;diesel;not specified;PC-D-Euro-3;PM;0.007600;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;electricity;not specified;PC-BEV;PM2_5;0.000750;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;electricity;not specified;PC-PHEV;PM2_5;0.001125;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.001500;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.002125;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Freeflow;diesel;not specified;PC-D-Euro-3;PM2_5;0.005000;65.3
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;electricity;not specified;PC-BEV;CO;0.000000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;electricity;not specified;PC-PHEV;CO;0.283500;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO;0.445500;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO;0.972000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;diesel;not specified;PC-D-Euro-3;CO;0.405000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;electricity;not specified;PC-PHEV;CO2_TOTAL;61.425000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;114.075000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;175.500000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;228.150000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;electricity;not specified;PC-BEV;FC;0.000000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;electricity;not specified;PC-PHEV;FC;19.425000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;petrol/electric;not specified;PC-P-Euro-6d;FC;36.075000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;petrol (4S);not specified;PC-P-Euro-4;FC;55.500000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;diesel;not specified;PC-D-Euro-3;FC;61.050000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;electricity;not specified;PC-BEV;HC;0.000000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;electricity;not specified;PC-PHEV;HC;0.015400;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;petrol/electric;not specified;PC-P-Euro-6d;HC;0.022000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;petrol (4S);not specified;PC-P-Euro-4;HC;0.057200;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;diesel;not specified;PC-D-Euro-3;HC;0.017600;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;electricity;not specified;PC-BEV;NOx;0.000000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;electricity;not specified;PC-PHEV;NOx;0.118300;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.135200;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;petrol (4S);not specified;PC-P-Euro-4;NOx;0.507000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;diesel;not specified;PC-D-Euro-3;NOx;1.014000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;electricity;not specified;PC-BEV;NO2;0.000000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;electricity;not specified;PC-PHEV;NO2;0.020300;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.020300;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;petrol (4S);not specified;PC-P-Euro-4;NO2;0.046400;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;diesel;not specified;PC-D-Euro-3;NO2;0.203000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;electricity;not specified;PC-BEV;PM;0.001500;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;electricity;not specified;PC-PHEV;PM;0.002250;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM;0.003000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM;0.004250;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;diesel;not specified;PC-D-Euro-3;PM;0.010000;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;electricity;not specified;PC-BEV;PM2_5;0.000960;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;electricity;not specified;PC-PHEV;PM2_5;0.001440;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.001920;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.002720;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Heavy;diesel;not specified;PC-D-Euro-3;PM2_5;0.006400;45.0
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;electricity;not specified;PC-BEV;CO;0.000000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;electricity;not specified;PC-PHEV;CO;0.392000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO;0.616000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO;1.344000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;diesel;not specified;PC-D-Euro-3;CO;0.560000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;electricity;not specified;PC-PHEV;CO2_TOTAL;85.050000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;157.950000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;243.000000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;315.900000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;electricity;not specified;PC-BEV;FC;0.000000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;electricity;not specified;PC-PHEV;FC;26.880000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;petrol/electric;not specified;PC-P-Euro-6d;FC;49.920000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;petrol (4S);not specified;PC-P-Euro-4;FC;76.800000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;diesel;not specified;PC-D-Euro-3;FC;84.480000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;electricity;not specified;PC-BEV;HC;0.000000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;electricity;not specified;PC-PHEV;HC;0.021350;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;petrol/electric;not specified;PC-P-Euro-6d;HC;0.030500;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;petrol (4S);not specified;PC-P-Euro-4;HC;0.079300;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;diesel;not specified;PC-D-Euro-3;HC;0.024400;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;electricity;not specified;PC-BEV;NOx;0.000000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;electricity;not specified;PC-PHEV;NOx;0.163800;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.187200;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;petrol (4S);not specified;PC-P-Euro-4;NOx;0.702000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;diesel;not specified;PC-D-Euro-3;NOx;1.404000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;electricity;not specified;PC-BEV;NO2;0.000000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;electricity;not specified;PC-PHEV;NO2;0.028350;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.028350;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;petrol (4S);not specified;PC-P-Euro-4;NO2;0.064800;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;diesel;not specified;PC-D-Euro-3;NO2;0.283500;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;electricity;not specified;PC-BEV;PM;0.002070;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;electricity;not specified;PC-PHEV;PM;0.003105;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM;0.004140;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM;0.005865;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;diesel;not specified;PC-D-Euro-3;PM;0.013800;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;electricity;not specified;PC-BEV;PM2_5;0.001350;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;electricity;not specified;PC-PHEV;PM2_5;0.002025;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.002700;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.003825;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/Satur.;diesel;not specified;PC-D-Euro-3;PM2_5;0.009000;25.5
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;electricity;not specified;PC-BEV;CO;0.000000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;electricity;not specified;PC-PHEV;CO;0.542500;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO;0.852500;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO;1.860000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;diesel;not specified;PC-D-Euro-3;CO;0.775000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;electricity;not specified;PC-BEV;CO2_TOTAL;0.000000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;electricity;not specified;PC-PHEV;CO2_TOTAL;118.125000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;petrol/electric;not specified;PC-P-Euro-6d;CO2_TOTAL;219.375000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;petrol (4S);not specified;PC-P-Euro-4;CO2_TOTAL;337.500000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;diesel;not specified;PC-D-Euro-3;CO2_TOTAL;438.750000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;electricity;not specified;PC-BEV;FC;0.000000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;electricity;not specified;PC-PHEV;FC;37.345000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;petrol/electric;not specified;PC-P-Euro-6d;FC;69.355000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;petrol (4S);not specified;PC-P-Euro-4;FC;106.700000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;diesel;not specified;PC-D-Euro-3;FC;117.370000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;electricity;not specified;PC-BEV;HC;0.000000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;electricity;not specified;PC-PHEV;HC;0.029750;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;petrol/electric;not specified;PC-P-Euro-6d;HC;0.042500;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;petrol (4S);not specified;PC-P-Euro-4;HC;0.110500;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;diesel;not specified;PC-D-Euro-3;HC;0.034000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;electricity;not specified;PC-BEV;NOx;0.000000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;electricity;not specified;PC-PHEV;NOx;0.227500;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NOx;0.260000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;petrol (4S);not specified;PC-P-Euro-4;NOx;0.975000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;diesel;not specified;PC-D-Euro-3;NOx;1.950000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;electricity;not specified;PC-BEV;NO2;0.000000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;electricity;not specified;PC-PHEV;NO2;0.039200;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;petrol/electric;not specified;PC-P-Euro-6d;NO2;0.039200;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;petrol (4S);not specified;PC-P-Euro-4;NO2;0.089600;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;diesel;not specified;PC-D-Euro-3;NO2;0.392000;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;electricity;not specified;PC-BEV;PM;0.002880;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;electricity;not specified;PC-PHEV;PM;0.004320;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM;0.005760;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM;0.008160;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;diesel;not specified;PC-D-Euro-3;PM;0.019200;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;electricity;not specified;PC-BEV;PM2_5;0.001860;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;electricity;not specified;PC-PHEV;PM2_5;0.002790;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;petrol/electric;not specified;PC-P-Euro-6d;PM2_5;0.003720;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;petrol (4S);not specified;PC-P-Euro-4;PM2_5;0.005270;12.0
+PASSENGER_CAR;URB/Trunk-Nat./70/St+Go;diesel;not specified;PC-D-Euro-3;PM2_5;0.012400;12.0
+URBAN_BUS;URB/Distr/50/Freeflow;diesel;not specified;UBus-d-EU3;CO;1.8;47.1
+URBAN_BUS;URB/Distr/50/Freeflow;diesel;not specified;UBus-d-EU3;CO2_TOTAL;750.0;47.1
+URBAN_BUS;URB/Distr/50/Freeflow;diesel;not specified;UBus-d-EU3;FC;237.0;47.1
+URBAN_BUS;URB/Distr/50/Freeflow;diesel;not specified;UBus-d-EU3;HC;0.18;47.1
+URBAN_BUS;URB/Distr/50/Freeflow;diesel;not specified;UBus-d-EU3;NOx;6.5;47.1
+URBAN_BUS;URB/Distr/50/Freeflow;diesel;not specified;UBus-d-EU3;NO2;1.3;47.1
+URBAN_BUS;URB/Distr/50/Freeflow;diesel;not specified;UBus-d-EU3;PM;0.12;47.1
+URBAN_BUS;URB/Distr/50/Freeflow;diesel;not specified;UBus-d-EU3;PM2_5;0.08;47.1
+URBAN_BUS;URB/Distr/50/Heavy;diesel;not specified;UBus-d-EU3;CO;2.5;32.5
+URBAN_BUS;URB/Distr/50/Heavy;diesel;not specified;UBus-d-EU3;CO2_TOTAL;950.0;32.5
+URBAN_BUS;URB/Distr/50/Heavy;diesel;not specified;UBus-d-EU3;FC;300.0;32.5
+URBAN_BUS;URB/Distr/50/Heavy;diesel;not specified;UBus-d-EU3;HC;0.25;32.5
+URBAN_BUS;URB/Distr/50/Heavy;diesel;not specified;UBus-d-EU3;NOx;8.5;32.5
+URBAN_BUS;URB/Distr/50/Heavy;diesel;not specified;UBus-d-EU3;NO2;1.7;32.5
+URBAN_BUS;URB/Distr/50/Heavy;diesel;not specified;UBus-d-EU3;PM;0.16;32.5
+URBAN_BUS;URB/Distr/50/Heavy;diesel;not specified;UBus-d-EU3;PM2_5;0.10;32.5
+URBAN_BUS;URB/Distr/50/Satur.;diesel;not specified;UBus-d-EU3;CO;3.8;18.3
+URBAN_BUS;URB/Distr/50/Satur.;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1280.0;18.3
+URBAN_BUS;URB/Distr/50/Satur.;diesel;not specified;UBus-d-EU3;FC;404.5;18.3
+URBAN_BUS;URB/Distr/50/Satur.;diesel;not specified;UBus-d-EU3;HC;0.38;18.3
+URBAN_BUS;URB/Distr/50/Satur.;diesel;not specified;UBus-d-EU3;NOx;11.5;18.3
+URBAN_BUS;URB/Distr/50/Satur.;diesel;not specified;UBus-d-EU3;NO2;2.3;18.3
+URBAN_BUS;URB/Distr/50/Satur.;diesel;not specified;UBus-d-EU3;PM;0.22;18.3
+URBAN_BUS;URB/Distr/50/Satur.;diesel;not specified;UBus-d-EU3;PM2_5;0.14;18.3
+URBAN_BUS;URB/Distr/50/St+Go;diesel;not specified;UBus-d-EU3;CO;5.5;8.7
+URBAN_BUS;URB/Distr/50/St+Go;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1750.0;8.7
+URBAN_BUS;URB/Distr/50/St+Go;diesel;not specified;UBus-d-EU3;FC;553.0;8.7
+URBAN_BUS;URB/Distr/50/St+Go;diesel;not specified;UBus-d-EU3;HC;0.55;8.7
+URBAN_BUS;URB/Distr/50/St+Go;diesel;not specified;UBus-d-EU3;NOx;16.0;8.7
+URBAN_BUS;URB/Distr/50/St+Go;diesel;not specified;UBus-d-EU3;NO2;3.2;8.7
+URBAN_BUS;URB/Distr/50/St+Go;diesel;not specified;UBus-d-EU3;PM;0.32;8.7
+URBAN_BUS;URB/Distr/50/St+Go;diesel;not specified;UBus-d-EU3;PM2_5;0.21;8.7
+URBAN_BUS;URB/Local/30/Freeflow;diesel;not specified;UBus-d-EU3;CO;2.07;28.4
+URBAN_BUS;URB/Local/30/Freeflow;diesel;not specified;UBus-d-EU3;CO2_TOTAL;862.5;28.4
+URBAN_BUS;URB/Local/30/Freeflow;diesel;not specified;UBus-d-EU3;FC;272.55;28.4
+URBAN_BUS;URB/Local/30/Freeflow;diesel;not specified;UBus-d-EU3;HC;0.207;28.4
+URBAN_BUS;URB/Local/30/Freeflow;diesel;not specified;UBus-d-EU3;NOx;7.475;28.4
+URBAN_BUS;URB/Local/30/Freeflow;diesel;not specified;UBus-d-EU3;NO2;1.495;28.4
+URBAN_BUS;URB/Local/30/Freeflow;diesel;not specified;UBus-d-EU3;PM;0.138;28.4
+URBAN_BUS;URB/Local/30/Freeflow;diesel;not specified;UBus-d-EU3;PM2_5;0.092;28.4
+URBAN_BUS;URB/Local/30/Heavy;diesel;not specified;UBus-d-EU3;CO;2.875;19.6
+URBAN_BUS;URB/Local/30/Heavy;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1092.5;19.6
+URBAN_BUS;URB/Local/30/Heavy;diesel;not specified;UBus-d-EU3;FC;345.0;19.6
+URBAN_BUS;URB/Local/30/Heavy;diesel;not specified;UBus-d-EU3;HC;0.2875;19.6
+URBAN_BUS;URB/Local/30/Heavy;diesel;not specified;UBus-d-EU3;NOx;9.775;19.6
+URBAN_BUS;URB/Local/30/Heavy;diesel;not specified;UBus-d-EU3;NO2;1.955;19.6
+URBAN_BUS;URB/Local/30/Heavy;diesel;not specified;UBus-d-EU3;PM;0.184;19.6
+URBAN_BUS;URB/Local/30/Heavy;diesel;not specified;UBus-d-EU3;PM2_5;0.115;19.6
+URBAN_BUS;URB/Local/30/Satur.;diesel;not specified;UBus-d-EU3;CO;4.37;11.2
+URBAN_BUS;URB/Local/30/Satur.;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1472.0;11.2
+URBAN_BUS;URB/Local/30/Satur.;diesel;not specified;UBus-d-EU3;FC;465.175;11.2
+URBAN_BUS;URB/Local/30/Satur.;diesel;not specified;UBus-d-EU3;HC;0.437;11.2
+URBAN_BUS;URB/Local/30/Satur.;diesel;not specified;UBus-d-EU3;NOx;13.225;11.2
+URBAN_BUS;URB/Local/30/Satur.;diesel;not specified;UBus-d-EU3;NO2;2.645;11.2
+URBAN_BUS;URB/Local/30/Satur.;diesel;not specified;UBus-d-EU3;PM;0.253;11.2
+URBAN_BUS;URB/Local/30/Satur.;diesel;not specified;UBus-d-EU3;PM2_5;0.161;11.2
+URBAN_BUS;URB/Local/30/St+Go;diesel;not specified;UBus-d-EU3;CO;6.325;5.4
+URBAN_BUS;URB/Local/30/St+Go;diesel;not specified;UBus-d-EU3;CO2_TOTAL;2012.5;5.4
+URBAN_BUS;URB/Local/30/St+Go;diesel;not specified;UBus-d-EU3;FC;635.95;5.4
+URBAN_BUS;URB/Local/30/St+Go;diesel;not specified;UBus-d-EU3;HC;0.6325;5.4
+URBAN_BUS;URB/Local/30/St+Go;diesel;not specified;UBus-d-EU3;NOx;18.4;5.4
+URBAN_BUS;URB/Local/30/St+Go;diesel;not specified;UBus-d-EU3;NO2;3.68;5.4
+URBAN_BUS;URB/Local/30/St+Go;diesel;not specified;UBus-d-EU3;PM;0.368;5.4
+URBAN_BUS;URB/Local/30/St+Go;diesel;not specified;UBus-d-EU3;PM2_5;0.242;5.4
+URBAN_BUS;URB/MW-Nat./80/Freeflow;diesel;not specified;UBus-d-EU3;CO;1.5;65.3
+URBAN_BUS;URB/MW-Nat./80/Freeflow;diesel;not specified;UBus-d-EU3;CO2_TOTAL;620.0;65.3
+URBAN_BUS;URB/MW-Nat./80/Freeflow;diesel;not specified;UBus-d-EU3;FC;196.0;65.3
+URBAN_BUS;URB/MW-Nat./80/Freeflow;diesel;not specified;UBus-d-EU3;HC;0.15;65.3
+URBAN_BUS;URB/MW-Nat./80/Freeflow;diesel;not specified;UBus-d-EU3;NOx;5.4;65.3
+URBAN_BUS;URB/MW-Nat./80/Freeflow;diesel;not specified;UBus-d-EU3;NO2;1.08;65.3
+URBAN_BUS;URB/MW-Nat./80/Freeflow;diesel;not specified;UBus-d-EU3;PM;0.1;65.3
+URBAN_BUS;URB/MW-Nat./80/Freeflow;diesel;not specified;UBus-d-EU3;PM2_5;0.066;65.3
+URBAN_BUS;URB/MW-Nat./80/Heavy;diesel;not specified;UBus-d-EU3;CO;2.1;45.0
+URBAN_BUS;URB/MW-Nat./80/Heavy;diesel;not specified;UBus-d-EU3;CO2_TOTAL;790.0;45.0
+URBAN_BUS;URB/MW-Nat./80/Heavy;diesel;not specified;UBus-d-EU3;FC;249.6;45.0
+URBAN_BUS;URB/MW-Nat./80/Heavy;diesel;not specified;UBus-d-EU3;HC;0.21;45.0
+URBAN_BUS;URB/MW-Nat./80/Heavy;diesel;not specified;UBus-d-EU3;NOx;7.1;45.0
+URBAN_BUS;URB/MW-Nat./80/Heavy;diesel;not specified;UBus-d-EU3;NO2;1.42;45.0
+URBAN_BUS;URB/MW-Nat./80/Heavy;diesel;not specified;UBus-d-EU3;PM;0.133;45.0
+URBAN_BUS;URB/MW-Nat./80/Heavy;diesel;not specified;UBus-d-EU3;PM2_5;0.083;45.0
+URBAN_BUS;URB/MW-Nat./80/Satur.;diesel;not specified;UBus-d-EU3;CO;3.2;25.5
+URBAN_BUS;URB/MW-Nat./80/Satur.;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1060.0;25.5
+URBAN_BUS;URB/MW-Nat./80/Satur.;diesel;not specified;UBus-d-EU3;FC;335.0;25.5
+URBAN_BUS;URB/MW-Nat./80/Satur.;diesel;not specified;UBus-d-EU3;HC;0.32;25.5
+URBAN_BUS;URB/MW-Nat./80/Satur.;diesel;not specified;UBus-d-EU3;NOx;9.5;25.5
+URBAN_BUS;URB/MW-Nat./80/Satur.;diesel;not specified;UBus-d-EU3;NO2;1.9;25.5
+URBAN_BUS;URB/MW-Nat./80/Satur.;diesel;not specified;UBus-d-EU3;PM;0.182;25.5
+URBAN_BUS;URB/MW-Nat./80/Satur.;diesel;not specified;UBus-d-EU3;PM2_5;0.116;25.5
+URBAN_BUS;URB/MW-Nat./80/St+Go;diesel;not specified;UBus-d-EU3;CO;4.6;12.0
+URBAN_BUS;URB/MW-Nat./80/St+Go;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1450.0;12.0
+URBAN_BUS;URB/MW-Nat./80/St+Go;diesel;not specified;UBus-d-EU3;FC;458.2;12.0
+URBAN_BUS;URB/MW-Nat./80/St+Go;diesel;not specified;UBus-d-EU3;HC;0.46;12.0
+URBAN_BUS;URB/MW-Nat./80/St+Go;diesel;not specified;UBus-d-EU3;NOx;13.2;12.0
+URBAN_BUS;URB/MW-Nat./80/St+Go;diesel;not specified;UBus-d-EU3;NO2;2.64;12.0
+URBAN_BUS;URB/MW-Nat./80/St+Go;diesel;not specified;UBus-d-EU3;PM;0.264;12.0
+URBAN_BUS;URB/MW-Nat./80/St+Go;diesel;not specified;UBus-d-EU3;PM2_5;0.174;12.0
+URBAN_BUS;URB/Access/30/Freeflow;diesel;not specified;UBus-d-EU3;CO;2.07;28.4
+URBAN_BUS;URB/Access/30/Freeflow;diesel;not specified;UBus-d-EU3;CO2_TOTAL;862.5;28.4
+URBAN_BUS;URB/Access/30/Freeflow;diesel;not specified;UBus-d-EU3;FC;272.55;28.4
+URBAN_BUS;URB/Access/30/Freeflow;diesel;not specified;UBus-d-EU3;HC;0.207;28.4
+URBAN_BUS;URB/Access/30/Freeflow;diesel;not specified;UBus-d-EU3;NOx;7.475;28.4
+URBAN_BUS;URB/Access/30/Freeflow;diesel;not specified;UBus-d-EU3;NO2;1.495;28.4
+URBAN_BUS;URB/Access/30/Freeflow;diesel;not specified;UBus-d-EU3;PM;0.138;28.4
+URBAN_BUS;URB/Access/30/Freeflow;diesel;not specified;UBus-d-EU3;PM2_5;0.092;28.4
+URBAN_BUS;URB/Access/30/Heavy;diesel;not specified;UBus-d-EU3;CO;2.875;19.6
+URBAN_BUS;URB/Access/30/Heavy;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1092.5;19.6
+URBAN_BUS;URB/Access/30/Heavy;diesel;not specified;UBus-d-EU3;FC;345.0;19.6
+URBAN_BUS;URB/Access/30/Heavy;diesel;not specified;UBus-d-EU3;HC;0.2875;19.6
+URBAN_BUS;URB/Access/30/Heavy;diesel;not specified;UBus-d-EU3;NOx;9.775;19.6
+URBAN_BUS;URB/Access/30/Heavy;diesel;not specified;UBus-d-EU3;NO2;1.955;19.6
+URBAN_BUS;URB/Access/30/Heavy;diesel;not specified;UBus-d-EU3;PM;0.184;19.6
+URBAN_BUS;URB/Access/30/Heavy;diesel;not specified;UBus-d-EU3;PM2_5;0.115;19.6
+URBAN_BUS;URB/Access/30/Satur.;diesel;not specified;UBus-d-EU3;CO;4.37;11.2
+URBAN_BUS;URB/Access/30/Satur.;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1472.0;11.2
+URBAN_BUS;URB/Access/30/Satur.;diesel;not specified;UBus-d-EU3;FC;465.175;11.2
+URBAN_BUS;URB/Access/30/Satur.;diesel;not specified;UBus-d-EU3;HC;0.437;11.2
+URBAN_BUS;URB/Access/30/Satur.;diesel;not specified;UBus-d-EU3;NOx;13.225;11.2
+URBAN_BUS;URB/Access/30/Satur.;diesel;not specified;UBus-d-EU3;NO2;2.645;11.2
+URBAN_BUS;URB/Access/30/Satur.;diesel;not specified;UBus-d-EU3;PM;0.253;11.2
+URBAN_BUS;URB/Access/30/Satur.;diesel;not specified;UBus-d-EU3;PM2_5;0.161;11.2
+URBAN_BUS;URB/Access/30/St+Go;diesel;not specified;UBus-d-EU3;CO;6.325;5.4
+URBAN_BUS;URB/Access/30/St+Go;diesel;not specified;UBus-d-EU3;CO2_TOTAL;2012.5;5.4
+URBAN_BUS;URB/Access/30/St+Go;diesel;not specified;UBus-d-EU3;FC;635.95;5.4
+URBAN_BUS;URB/Access/30/St+Go;diesel;not specified;UBus-d-EU3;HC;0.6325;5.4
+URBAN_BUS;URB/Access/30/St+Go;diesel;not specified;UBus-d-EU3;NOx;18.4;5.4
+URBAN_BUS;URB/Access/30/St+Go;diesel;not specified;UBus-d-EU3;NO2;3.68;5.4
+URBAN_BUS;URB/Access/30/St+Go;diesel;not specified;UBus-d-EU3;PM;0.368;5.4
+URBAN_BUS;URB/Access/30/St+Go;diesel;not specified;UBus-d-EU3;PM2_5;0.242;5.4
+URBAN_BUS;URB/Local/50/Freeflow;diesel;not specified;UBus-d-EU3;CO;1.8;47.1
+URBAN_BUS;URB/Local/50/Freeflow;diesel;not specified;UBus-d-EU3;CO2_TOTAL;750.0;47.1
+URBAN_BUS;URB/Local/50/Freeflow;diesel;not specified;UBus-d-EU3;FC;237.0;47.1
+URBAN_BUS;URB/Local/50/Freeflow;diesel;not specified;UBus-d-EU3;HC;0.18;47.1
+URBAN_BUS;URB/Local/50/Freeflow;diesel;not specified;UBus-d-EU3;NOx;6.5;47.1
+URBAN_BUS;URB/Local/50/Freeflow;diesel;not specified;UBus-d-EU3;NO2;1.3;47.1
+URBAN_BUS;URB/Local/50/Freeflow;diesel;not specified;UBus-d-EU3;PM;0.12;47.1
+URBAN_BUS;URB/Local/50/Freeflow;diesel;not specified;UBus-d-EU3;PM2_5;0.08;47.1
+URBAN_BUS;URB/Local/50/Heavy;diesel;not specified;UBus-d-EU3;CO;2.5;32.5
+URBAN_BUS;URB/Local/50/Heavy;diesel;not specified;UBus-d-EU3;CO2_TOTAL;950.0;32.5
+URBAN_BUS;URB/Local/50/Heavy;diesel;not specified;UBus-d-EU3;FC;300.0;32.5
+URBAN_BUS;URB/Local/50/Heavy;diesel;not specified;UBus-d-EU3;HC;0.25;32.5
+URBAN_BUS;URB/Local/50/Heavy;diesel;not specified;UBus-d-EU3;NOx;8.5;32.5
+URBAN_BUS;URB/Local/50/Heavy;diesel;not specified;UBus-d-EU3;NO2;1.7;32.5
+URBAN_BUS;URB/Local/50/Heavy;diesel;not specified;UBus-d-EU3;PM;0.16;32.5
+URBAN_BUS;URB/Local/50/Heavy;diesel;not specified;UBus-d-EU3;PM2_5;0.10;32.5
+URBAN_BUS;URB/Local/50/Satur.;diesel;not specified;UBus-d-EU3;CO;3.8;18.3
+URBAN_BUS;URB/Local/50/Satur.;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1280.0;18.3
+URBAN_BUS;URB/Local/50/Satur.;diesel;not specified;UBus-d-EU3;FC;404.5;18.3
+URBAN_BUS;URB/Local/50/Satur.;diesel;not specified;UBus-d-EU3;HC;0.38;18.3
+URBAN_BUS;URB/Local/50/Satur.;diesel;not specified;UBus-d-EU3;NOx;11.5;18.3
+URBAN_BUS;URB/Local/50/Satur.;diesel;not specified;UBus-d-EU3;NO2;2.3;18.3
+URBAN_BUS;URB/Local/50/Satur.;diesel;not specified;UBus-d-EU3;PM;0.22;18.3
+URBAN_BUS;URB/Local/50/Satur.;diesel;not specified;UBus-d-EU3;PM2_5;0.14;18.3
+URBAN_BUS;URB/Local/50/St+Go;diesel;not specified;UBus-d-EU3;CO;5.5;8.7
+URBAN_BUS;URB/Local/50/St+Go;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1750.0;8.7
+URBAN_BUS;URB/Local/50/St+Go;diesel;not specified;UBus-d-EU3;FC;553.0;8.7
+URBAN_BUS;URB/Local/50/St+Go;diesel;not specified;UBus-d-EU3;HC;0.55;8.7
+URBAN_BUS;URB/Local/50/St+Go;diesel;not specified;UBus-d-EU3;NOx;16.0;8.7
+URBAN_BUS;URB/Local/50/St+Go;diesel;not specified;UBus-d-EU3;NO2;3.2;8.7
+URBAN_BUS;URB/Local/50/St+Go;diesel;not specified;UBus-d-EU3;PM;0.32;8.7
+URBAN_BUS;URB/Local/50/St+Go;diesel;not specified;UBus-d-EU3;PM2_5;0.21;8.7
+URBAN_BUS;URB/Distr/30/Freeflow;diesel;not specified;UBus-d-EU3;CO;2.07;28.4
+URBAN_BUS;URB/Distr/30/Freeflow;diesel;not specified;UBus-d-EU3;CO2_TOTAL;862.5;28.4
+URBAN_BUS;URB/Distr/30/Freeflow;diesel;not specified;UBus-d-EU3;FC;272.55;28.4
+URBAN_BUS;URB/Distr/30/Freeflow;diesel;not specified;UBus-d-EU3;HC;0.207;28.4
+URBAN_BUS;URB/Distr/30/Freeflow;diesel;not specified;UBus-d-EU3;NOx;7.475;28.4
+URBAN_BUS;URB/Distr/30/Freeflow;diesel;not specified;UBus-d-EU3;NO2;1.495;28.4
+URBAN_BUS;URB/Distr/30/Freeflow;diesel;not specified;UBus-d-EU3;PM;0.138;28.4
+URBAN_BUS;URB/Distr/30/Freeflow;diesel;not specified;UBus-d-EU3;PM2_5;0.092;28.4
+URBAN_BUS;URB/Distr/30/Heavy;diesel;not specified;UBus-d-EU3;CO;2.875;19.6
+URBAN_BUS;URB/Distr/30/Heavy;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1092.5;19.6
+URBAN_BUS;URB/Distr/30/Heavy;diesel;not specified;UBus-d-EU3;FC;345.0;19.6
+URBAN_BUS;URB/Distr/30/Heavy;diesel;not specified;UBus-d-EU3;HC;0.2875;19.6
+URBAN_BUS;URB/Distr/30/Heavy;diesel;not specified;UBus-d-EU3;NOx;9.775;19.6
+URBAN_BUS;URB/Distr/30/Heavy;diesel;not specified;UBus-d-EU3;NO2;1.955;19.6
+URBAN_BUS;URB/Distr/30/Heavy;diesel;not specified;UBus-d-EU3;PM;0.184;19.6
+URBAN_BUS;URB/Distr/30/Heavy;diesel;not specified;UBus-d-EU3;PM2_5;0.115;19.6
+URBAN_BUS;URB/Distr/30/Satur.;diesel;not specified;UBus-d-EU3;CO;4.37;11.2
+URBAN_BUS;URB/Distr/30/Satur.;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1472.0;11.2
+URBAN_BUS;URB/Distr/30/Satur.;diesel;not specified;UBus-d-EU3;FC;465.175;11.2
+URBAN_BUS;URB/Distr/30/Satur.;diesel;not specified;UBus-d-EU3;HC;0.437;11.2
+URBAN_BUS;URB/Distr/30/Satur.;diesel;not specified;UBus-d-EU3;NOx;13.225;11.2
+URBAN_BUS;URB/Distr/30/Satur.;diesel;not specified;UBus-d-EU3;NO2;2.645;11.2
+URBAN_BUS;URB/Distr/30/Satur.;diesel;not specified;UBus-d-EU3;PM;0.253;11.2
+URBAN_BUS;URB/Distr/30/Satur.;diesel;not specified;UBus-d-EU3;PM2_5;0.161;11.2
+URBAN_BUS;URB/Distr/30/St+Go;diesel;not specified;UBus-d-EU3;CO;6.325;5.4
+URBAN_BUS;URB/Distr/30/St+Go;diesel;not specified;UBus-d-EU3;CO2_TOTAL;2012.5;5.4
+URBAN_BUS;URB/Distr/30/St+Go;diesel;not specified;UBus-d-EU3;FC;635.95;5.4
+URBAN_BUS;URB/Distr/30/St+Go;diesel;not specified;UBus-d-EU3;HC;0.6325;5.4
+URBAN_BUS;URB/Distr/30/St+Go;diesel;not specified;UBus-d-EU3;NOx;18.4;5.4
+URBAN_BUS;URB/Distr/30/St+Go;diesel;not specified;UBus-d-EU3;NO2;3.68;5.4
+URBAN_BUS;URB/Distr/30/St+Go;diesel;not specified;UBus-d-EU3;PM;0.368;5.4
+URBAN_BUS;URB/Distr/30/St+Go;diesel;not specified;UBus-d-EU3;PM2_5;0.242;5.4
+URBAN_BUS;URB/Trunk-City/50/Freeflow;diesel;not specified;UBus-d-EU3;CO;1.8;47.1
+URBAN_BUS;URB/Trunk-City/50/Freeflow;diesel;not specified;UBus-d-EU3;CO2_TOTAL;750.0;47.1
+URBAN_BUS;URB/Trunk-City/50/Freeflow;diesel;not specified;UBus-d-EU3;FC;237.0;47.1
+URBAN_BUS;URB/Trunk-City/50/Freeflow;diesel;not specified;UBus-d-EU3;HC;0.18;47.1
+URBAN_BUS;URB/Trunk-City/50/Freeflow;diesel;not specified;UBus-d-EU3;NOx;6.5;47.1
+URBAN_BUS;URB/Trunk-City/50/Freeflow;diesel;not specified;UBus-d-EU3;NO2;1.3;47.1
+URBAN_BUS;URB/Trunk-City/50/Freeflow;diesel;not specified;UBus-d-EU3;PM;0.12;47.1
+URBAN_BUS;URB/Trunk-City/50/Freeflow;diesel;not specified;UBus-d-EU3;PM2_5;0.08;47.1
+URBAN_BUS;URB/Trunk-City/50/Heavy;diesel;not specified;UBus-d-EU3;CO;2.5;32.5
+URBAN_BUS;URB/Trunk-City/50/Heavy;diesel;not specified;UBus-d-EU3;CO2_TOTAL;950.0;32.5
+URBAN_BUS;URB/Trunk-City/50/Heavy;diesel;not specified;UBus-d-EU3;FC;300.0;32.5
+URBAN_BUS;URB/Trunk-City/50/Heavy;diesel;not specified;UBus-d-EU3;HC;0.25;32.5
+URBAN_BUS;URB/Trunk-City/50/Heavy;diesel;not specified;UBus-d-EU3;NOx;8.5;32.5
+URBAN_BUS;URB/Trunk-City/50/Heavy;diesel;not specified;UBus-d-EU3;NO2;1.7;32.5
+URBAN_BUS;URB/Trunk-City/50/Heavy;diesel;not specified;UBus-d-EU3;PM;0.16;32.5
+URBAN_BUS;URB/Trunk-City/50/Heavy;diesel;not specified;UBus-d-EU3;PM2_5;0.10;32.5
+URBAN_BUS;URB/Trunk-City/50/Satur.;diesel;not specified;UBus-d-EU3;CO;3.8;18.3
+URBAN_BUS;URB/Trunk-City/50/Satur.;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1280.0;18.3
+URBAN_BUS;URB/Trunk-City/50/Satur.;diesel;not specified;UBus-d-EU3;FC;404.5;18.3
+URBAN_BUS;URB/Trunk-City/50/Satur.;diesel;not specified;UBus-d-EU3;HC;0.38;18.3
+URBAN_BUS;URB/Trunk-City/50/Satur.;diesel;not specified;UBus-d-EU3;NOx;11.5;18.3
+URBAN_BUS;URB/Trunk-City/50/Satur.;diesel;not specified;UBus-d-EU3;NO2;2.3;18.3
+URBAN_BUS;URB/Trunk-City/50/Satur.;diesel;not specified;UBus-d-EU3;PM;0.22;18.3
+URBAN_BUS;URB/Trunk-City/50/Satur.;diesel;not specified;UBus-d-EU3;PM2_5;0.14;18.3
+URBAN_BUS;URB/Trunk-City/50/St+Go;diesel;not specified;UBus-d-EU3;CO;5.5;8.7
+URBAN_BUS;URB/Trunk-City/50/St+Go;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1750.0;8.7
+URBAN_BUS;URB/Trunk-City/50/St+Go;diesel;not specified;UBus-d-EU3;FC;553.0;8.7
+URBAN_BUS;URB/Trunk-City/50/St+Go;diesel;not specified;UBus-d-EU3;HC;0.55;8.7
+URBAN_BUS;URB/Trunk-City/50/St+Go;diesel;not specified;UBus-d-EU3;NOx;16.0;8.7
+URBAN_BUS;URB/Trunk-City/50/St+Go;diesel;not specified;UBus-d-EU3;NO2;3.2;8.7
+URBAN_BUS;URB/Trunk-City/50/St+Go;diesel;not specified;UBus-d-EU3;PM;0.32;8.7
+URBAN_BUS;URB/Trunk-City/50/St+Go;diesel;not specified;UBus-d-EU3;PM2_5;0.21;8.7
+URBAN_BUS;URB/Trunk-City/60/Freeflow;diesel;not specified;UBus-d-EU3;CO;1.5;65.3
+URBAN_BUS;URB/Trunk-City/60/Freeflow;diesel;not specified;UBus-d-EU3;CO2_TOTAL;620.0;65.3
+URBAN_BUS;URB/Trunk-City/60/Freeflow;diesel;not specified;UBus-d-EU3;FC;196.0;65.3
+URBAN_BUS;URB/Trunk-City/60/Freeflow;diesel;not specified;UBus-d-EU3;HC;0.15;65.3
+URBAN_BUS;URB/Trunk-City/60/Freeflow;diesel;not specified;UBus-d-EU3;NOx;5.4;65.3
+URBAN_BUS;URB/Trunk-City/60/Freeflow;diesel;not specified;UBus-d-EU3;NO2;1.08;65.3
+URBAN_BUS;URB/Trunk-City/60/Freeflow;diesel;not specified;UBus-d-EU3;PM;0.1;65.3
+URBAN_BUS;URB/Trunk-City/60/Freeflow;diesel;not specified;UBus-d-EU3;PM2_5;0.066;65.3
+URBAN_BUS;URB/Trunk-City/60/Heavy;diesel;not specified;UBus-d-EU3;CO;2.1;45.0
+URBAN_BUS;URB/Trunk-City/60/Heavy;diesel;not specified;UBus-d-EU3;CO2_TOTAL;790.0;45.0
+URBAN_BUS;URB/Trunk-City/60/Heavy;diesel;not specified;UBus-d-EU3;FC;249.6;45.0
+URBAN_BUS;URB/Trunk-City/60/Heavy;diesel;not specified;UBus-d-EU3;HC;0.21;45.0
+URBAN_BUS;URB/Trunk-City/60/Heavy;diesel;not specified;UBus-d-EU3;NOx;7.1;45.0
+URBAN_BUS;URB/Trunk-City/60/Heavy;diesel;not specified;UBus-d-EU3;NO2;1.42;45.0
+URBAN_BUS;URB/Trunk-City/60/Heavy;diesel;not specified;UBus-d-EU3;PM;0.133;45.0
+URBAN_BUS;URB/Trunk-City/60/Heavy;diesel;not specified;UBus-d-EU3;PM2_5;0.083;45.0
+URBAN_BUS;URB/Trunk-City/60/Satur.;diesel;not specified;UBus-d-EU3;CO;3.2;25.5
+URBAN_BUS;URB/Trunk-City/60/Satur.;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1060.0;25.5
+URBAN_BUS;URB/Trunk-City/60/Satur.;diesel;not specified;UBus-d-EU3;FC;335.0;25.5
+URBAN_BUS;URB/Trunk-City/60/Satur.;diesel;not specified;UBus-d-EU3;HC;0.32;25.5
+URBAN_BUS;URB/Trunk-City/60/Satur.;diesel;not specified;UBus-d-EU3;NOx;9.5;25.5
+URBAN_BUS;URB/Trunk-City/60/Satur.;diesel;not specified;UBus-d-EU3;NO2;1.9;25.5
+URBAN_BUS;URB/Trunk-City/60/Satur.;diesel;not specified;UBus-d-EU3;PM;0.182;25.5
+URBAN_BUS;URB/Trunk-City/60/Satur.;diesel;not specified;UBus-d-EU3;PM2_5;0.116;25.5
+URBAN_BUS;URB/Trunk-City/60/St+Go;diesel;not specified;UBus-d-EU3;CO;4.6;12.0
+URBAN_BUS;URB/Trunk-City/60/St+Go;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1450.0;12.0
+URBAN_BUS;URB/Trunk-City/60/St+Go;diesel;not specified;UBus-d-EU3;FC;458.2;12.0
+URBAN_BUS;URB/Trunk-City/60/St+Go;diesel;not specified;UBus-d-EU3;HC;0.46;12.0
+URBAN_BUS;URB/Trunk-City/60/St+Go;diesel;not specified;UBus-d-EU3;NOx;13.2;12.0
+URBAN_BUS;URB/Trunk-City/60/St+Go;diesel;not specified;UBus-d-EU3;NO2;2.64;12.0
+URBAN_BUS;URB/Trunk-City/60/St+Go;diesel;not specified;UBus-d-EU3;PM;0.264;12.0
+URBAN_BUS;URB/Trunk-City/60/St+Go;diesel;not specified;UBus-d-EU3;PM2_5;0.174;12.0
+URBAN_BUS;URB/MW-Nat./60/Freeflow;diesel;not specified;UBus-d-EU3;CO;1.5;65.3
+URBAN_BUS;URB/MW-Nat./60/Freeflow;diesel;not specified;UBus-d-EU3;CO2_TOTAL;620.0;65.3
+URBAN_BUS;URB/MW-Nat./60/Freeflow;diesel;not specified;UBus-d-EU3;FC;196.0;65.3
+URBAN_BUS;URB/MW-Nat./60/Freeflow;diesel;not specified;UBus-d-EU3;HC;0.15;65.3
+URBAN_BUS;URB/MW-Nat./60/Freeflow;diesel;not specified;UBus-d-EU3;NOx;5.4;65.3
+URBAN_BUS;URB/MW-Nat./60/Freeflow;diesel;not specified;UBus-d-EU3;NO2;1.08;65.3
+URBAN_BUS;URB/MW-Nat./60/Freeflow;diesel;not specified;UBus-d-EU3;PM;0.1;65.3
+URBAN_BUS;URB/MW-Nat./60/Freeflow;diesel;not specified;UBus-d-EU3;PM2_5;0.066;65.3
+URBAN_BUS;URB/MW-Nat./60/Heavy;diesel;not specified;UBus-d-EU3;CO;2.1;45.0
+URBAN_BUS;URB/MW-Nat./60/Heavy;diesel;not specified;UBus-d-EU3;CO2_TOTAL;790.0;45.0
+URBAN_BUS;URB/MW-Nat./60/Heavy;diesel;not specified;UBus-d-EU3;FC;249.6;45.0
+URBAN_BUS;URB/MW-Nat./60/Heavy;diesel;not specified;UBus-d-EU3;HC;0.21;45.0
+URBAN_BUS;URB/MW-Nat./60/Heavy;diesel;not specified;UBus-d-EU3;NOx;7.1;45.0
+URBAN_BUS;URB/MW-Nat./60/Heavy;diesel;not specified;UBus-d-EU3;NO2;1.42;45.0
+URBAN_BUS;URB/MW-Nat./60/Heavy;diesel;not specified;UBus-d-EU3;PM;0.133;45.0
+URBAN_BUS;URB/MW-Nat./60/Heavy;diesel;not specified;UBus-d-EU3;PM2_5;0.083;45.0
+URBAN_BUS;URB/MW-Nat./60/Satur.;diesel;not specified;UBus-d-EU3;CO;3.2;25.5
+URBAN_BUS;URB/MW-Nat./60/Satur.;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1060.0;25.5
+URBAN_BUS;URB/MW-Nat./60/Satur.;diesel;not specified;UBus-d-EU3;FC;335.0;25.5
+URBAN_BUS;URB/MW-Nat./60/Satur.;diesel;not specified;UBus-d-EU3;HC;0.32;25.5
+URBAN_BUS;URB/MW-Nat./60/Satur.;diesel;not specified;UBus-d-EU3;NOx;9.5;25.5
+URBAN_BUS;URB/MW-Nat./60/Satur.;diesel;not specified;UBus-d-EU3;NO2;1.9;25.5
+URBAN_BUS;URB/MW-Nat./60/Satur.;diesel;not specified;UBus-d-EU3;PM;0.182;25.5
+URBAN_BUS;URB/MW-Nat./60/Satur.;diesel;not specified;UBus-d-EU3;PM2_5;0.116;25.5
+URBAN_BUS;URB/MW-Nat./60/St+Go;diesel;not specified;UBus-d-EU3;CO;4.6;12.0
+URBAN_BUS;URB/MW-Nat./60/St+Go;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1450.0;12.0
+URBAN_BUS;URB/MW-Nat./60/St+Go;diesel;not specified;UBus-d-EU3;FC;458.2;12.0
+URBAN_BUS;URB/MW-Nat./60/St+Go;diesel;not specified;UBus-d-EU3;HC;0.46;12.0
+URBAN_BUS;URB/MW-Nat./60/St+Go;diesel;not specified;UBus-d-EU3;NOx;13.2;12.0
+URBAN_BUS;URB/MW-Nat./60/St+Go;diesel;not specified;UBus-d-EU3;NO2;2.64;12.0
+URBAN_BUS;URB/MW-Nat./60/St+Go;diesel;not specified;UBus-d-EU3;PM;0.264;12.0
+URBAN_BUS;URB/MW-Nat./60/St+Go;diesel;not specified;UBus-d-EU3;PM2_5;0.174;12.0
+URBAN_BUS;URB/Trunk-Nat./50/Freeflow;diesel;not specified;UBus-d-EU3;CO;1.8;47.1
+URBAN_BUS;URB/Trunk-Nat./50/Freeflow;diesel;not specified;UBus-d-EU3;CO2_TOTAL;750.0;47.1
+URBAN_BUS;URB/Trunk-Nat./50/Freeflow;diesel;not specified;UBus-d-EU3;FC;237.0;47.1
+URBAN_BUS;URB/Trunk-Nat./50/Freeflow;diesel;not specified;UBus-d-EU3;HC;0.18;47.1
+URBAN_BUS;URB/Trunk-Nat./50/Freeflow;diesel;not specified;UBus-d-EU3;NOx;6.5;47.1
+URBAN_BUS;URB/Trunk-Nat./50/Freeflow;diesel;not specified;UBus-d-EU3;NO2;1.3;47.1
+URBAN_BUS;URB/Trunk-Nat./50/Freeflow;diesel;not specified;UBus-d-EU3;PM;0.12;47.1
+URBAN_BUS;URB/Trunk-Nat./50/Freeflow;diesel;not specified;UBus-d-EU3;PM2_5;0.08;47.1
+URBAN_BUS;URB/Trunk-Nat./50/Heavy;diesel;not specified;UBus-d-EU3;CO;2.5;32.5
+URBAN_BUS;URB/Trunk-Nat./50/Heavy;diesel;not specified;UBus-d-EU3;CO2_TOTAL;950.0;32.5
+URBAN_BUS;URB/Trunk-Nat./50/Heavy;diesel;not specified;UBus-d-EU3;FC;300.0;32.5
+URBAN_BUS;URB/Trunk-Nat./50/Heavy;diesel;not specified;UBus-d-EU3;HC;0.25;32.5
+URBAN_BUS;URB/Trunk-Nat./50/Heavy;diesel;not specified;UBus-d-EU3;NOx;8.5;32.5
+URBAN_BUS;URB/Trunk-Nat./50/Heavy;diesel;not specified;UBus-d-EU3;NO2;1.7;32.5
+URBAN_BUS;URB/Trunk-Nat./50/Heavy;diesel;not specified;UBus-d-EU3;PM;0.16;32.5
+URBAN_BUS;URB/Trunk-Nat./50/Heavy;diesel;not specified;UBus-d-EU3;PM2_5;0.10;32.5
+URBAN_BUS;URB/Trunk-Nat./50/Satur.;diesel;not specified;UBus-d-EU3;CO;3.8;18.3
+URBAN_BUS;URB/Trunk-Nat./50/Satur.;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1280.0;18.3
+URBAN_BUS;URB/Trunk-Nat./50/Satur.;diesel;not specified;UBus-d-EU3;FC;404.5;18.3
+URBAN_BUS;URB/Trunk-Nat./50/Satur.;diesel;not specified;UBus-d-EU3;HC;0.38;18.3
+URBAN_BUS;URB/Trunk-Nat./50/Satur.;diesel;not specified;UBus-d-EU3;NOx;11.5;18.3
+URBAN_BUS;URB/Trunk-Nat./50/Satur.;diesel;not specified;UBus-d-EU3;NO2;2.3;18.3
+URBAN_BUS;URB/Trunk-Nat./50/Satur.;diesel;not specified;UBus-d-EU3;PM;0.22;18.3
+URBAN_BUS;URB/Trunk-Nat./50/Satur.;diesel;not specified;UBus-d-EU3;PM2_5;0.14;18.3
+URBAN_BUS;URB/Trunk-Nat./50/St+Go;diesel;not specified;UBus-d-EU3;CO;5.5;8.7
+URBAN_BUS;URB/Trunk-Nat./50/St+Go;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1750.0;8.7
+URBAN_BUS;URB/Trunk-Nat./50/St+Go;diesel;not specified;UBus-d-EU3;FC;553.0;8.7
+URBAN_BUS;URB/Trunk-Nat./50/St+Go;diesel;not specified;UBus-d-EU3;HC;0.55;8.7
+URBAN_BUS;URB/Trunk-Nat./50/St+Go;diesel;not specified;UBus-d-EU3;NOx;16.0;8.7
+URBAN_BUS;URB/Trunk-Nat./50/St+Go;diesel;not specified;UBus-d-EU3;NO2;3.2;8.7
+URBAN_BUS;URB/Trunk-Nat./50/St+Go;diesel;not specified;UBus-d-EU3;PM;0.32;8.7
+URBAN_BUS;URB/Trunk-Nat./50/St+Go;diesel;not specified;UBus-d-EU3;PM2_5;0.21;8.7
+URBAN_BUS;URB/Trunk-Nat./70/Freeflow;diesel;not specified;UBus-d-EU3;CO;1.5;65.3
+URBAN_BUS;URB/Trunk-Nat./70/Freeflow;diesel;not specified;UBus-d-EU3;CO2_TOTAL;620.0;65.3
+URBAN_BUS;URB/Trunk-Nat./70/Freeflow;diesel;not specified;UBus-d-EU3;FC;196.0;65.3
+URBAN_BUS;URB/Trunk-Nat./70/Freeflow;diesel;not specified;UBus-d-EU3;HC;0.15;65.3
+URBAN_BUS;URB/Trunk-Nat./70/Freeflow;diesel;not specified;UBus-d-EU3;NOx;5.4;65.3
+URBAN_BUS;URB/Trunk-Nat./70/Freeflow;diesel;not specified;UBus-d-EU3;NO2;1.08;65.3
+URBAN_BUS;URB/Trunk-Nat./70/Freeflow;diesel;not specified;UBus-d-EU3;PM;0.1;65.3
+URBAN_BUS;URB/Trunk-Nat./70/Freeflow;diesel;not specified;UBus-d-EU3;PM2_5;0.066;65.3
+URBAN_BUS;URB/Trunk-Nat./70/Heavy;diesel;not specified;UBus-d-EU3;CO;2.1;45.0
+URBAN_BUS;URB/Trunk-Nat./70/Heavy;diesel;not specified;UBus-d-EU3;CO2_TOTAL;790.0;45.0
+URBAN_BUS;URB/Trunk-Nat./70/Heavy;diesel;not specified;UBus-d-EU3;FC;249.6;45.0
+URBAN_BUS;URB/Trunk-Nat./70/Heavy;diesel;not specified;UBus-d-EU3;HC;0.21;45.0
+URBAN_BUS;URB/Trunk-Nat./70/Heavy;diesel;not specified;UBus-d-EU3;NOx;7.1;45.0
+URBAN_BUS;URB/Trunk-Nat./70/Heavy;diesel;not specified;UBus-d-EU3;NO2;1.42;45.0
+URBAN_BUS;URB/Trunk-Nat./70/Heavy;diesel;not specified;UBus-d-EU3;PM;0.133;45.0
+URBAN_BUS;URB/Trunk-Nat./70/Heavy;diesel;not specified;UBus-d-EU3;PM2_5;0.083;45.0
+URBAN_BUS;URB/Trunk-Nat./70/Satur.;diesel;not specified;UBus-d-EU3;CO;3.2;25.5
+URBAN_BUS;URB/Trunk-Nat./70/Satur.;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1060.0;25.5
+URBAN_BUS;URB/Trunk-Nat./70/Satur.;diesel;not specified;UBus-d-EU3;FC;335.0;25.5
+URBAN_BUS;URB/Trunk-Nat./70/Satur.;diesel;not specified;UBus-d-EU3;HC;0.32;25.5
+URBAN_BUS;URB/Trunk-Nat./70/Satur.;diesel;not specified;UBus-d-EU3;NOx;9.5;25.5
+URBAN_BUS;URB/Trunk-Nat./70/Satur.;diesel;not specified;UBus-d-EU3;NO2;1.9;25.5
+URBAN_BUS;URB/Trunk-Nat./70/Satur.;diesel;not specified;UBus-d-EU3;PM;0.182;25.5
+URBAN_BUS;URB/Trunk-Nat./70/Satur.;diesel;not specified;UBus-d-EU3;PM2_5;0.116;25.5
+URBAN_BUS;URB/Trunk-Nat./70/St+Go;diesel;not specified;UBus-d-EU3;CO;4.6;12.0
+URBAN_BUS;URB/Trunk-Nat./70/St+Go;diesel;not specified;UBus-d-EU3;CO2_TOTAL;1450.0;12.0
+URBAN_BUS;URB/Trunk-Nat./70/St+Go;diesel;not specified;UBus-d-EU3;FC;458.2;12.0
+URBAN_BUS;URB/Trunk-Nat./70/St+Go;diesel;not specified;UBus-d-EU3;HC;0.46;12.0
+URBAN_BUS;URB/Trunk-Nat./70/St+Go;diesel;not specified;UBus-d-EU3;NOx;13.2;12.0
+URBAN_BUS;URB/Trunk-Nat./70/St+Go;diesel;not specified;UBus-d-EU3;NO2;2.64;12.0
+URBAN_BUS;URB/Trunk-Nat./70/St+Go;diesel;not specified;UBus-d-EU3;PM;0.264;12.0
+URBAN_BUS;URB/Trunk-Nat./70/St+Go;diesel;not specified;UBus-d-EU3;PM2_5;0.174;12.0

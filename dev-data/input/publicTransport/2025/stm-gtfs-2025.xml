@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE transitSchedule SYSTEM "http://www.matsim.org/files/dtd/transitSchedule_v2.dtd">
+<transitSchedule>
+  <transitStops>
+    <stopFacility id="bus_stop_1" x="-73.581500" y="45.516000" linkRefId="99" name="Bus Stop 1"/>
+    <stopFacility id="bus_stop_2" x="-73.578500" y="45.516000" linkRefId="101" name="Bus Stop 2"/>
+    <stopFacility id="bus_stop_3" x="-73.575500" y="45.516000" linkRefId="103" name="Bus Stop 3"/>
+    <stopFacility id="bus_stop_4" x="-73.572500" y="45.516000" linkRefId="105" name="Bus Stop 4"/>
+    <stopFacility id="bus_stop_5" x="-73.569500" y="45.516000" linkRefId="107" name="Bus Stop 5"/>
+    <stopFacility id="bus_stop_6" x="-73.566500" y="45.516000" linkRefId="109" name="Bus Stop 6"/>
+    <stopFacility id="bus_stop_7" x="-73.563500" y="45.516000" linkRefId="111" name="Bus Stop 7"/>
+    <stopFacility id="bus_stop_8" x="-73.560500" y="45.516000" linkRefId="111" name="Bus Stop 8"/>
+    <stopFacility id="subway_stop_1" x="-73.572500" y="45.502000" linkRefId="147" name="Subway Stop 1"/>
+    <stopFacility id="subway_stop_2" x="-73.572500" y="45.504000" linkRefId="163" name="Subway Stop 2"/>
+    <stopFacility id="subway_stop_3" x="-73.572500" y="45.506000" linkRefId="179" name="Subway Stop 3"/>
+    <stopFacility id="subway_stop_4" x="-73.572500" y="45.508000" linkRefId="195" name="Subway Stop 4"/>
+    <stopFacility id="subway_stop_5" x="-73.572500" y="45.510000" linkRefId="211" name="Subway Stop 5"/>
+    <stopFacility id="subway_stop_6" x="-73.572500" y="45.512000" linkRefId="227" name="Subway Stop 6"/>
+    <stopFacility id="subway_stop_7" x="-73.572500" y="45.514000" linkRefId="243" name="Subway Stop 7"/>
+    <stopFacility id="subway_stop_8" x="-73.572500" y="45.516000" linkRefId="259" name="Subway Stop 8"/>
+    <stopFacility id="subway_stop_9" x="-73.572500" y="45.518000" linkRefId="275" name="Subway Stop 9"/>
+    <stopFacility id="subway_stop_10" x="-73.572500" y="45.520000" linkRefId="275" name="Subway Stop 10"/>
+  </transitStops>
+  <transitLine id="bus_line" name="Bus EW">
+    <transitRoute id="bus_route_1">
+      <transportMode>bus</transportMode>
+      <routeProfile>
+        <stop refId="bus_stop_1" departureOffset="00:00:00"/>
+        <stop refId="bus_stop_2" arrivalOffset="00:03:00" departureOffset="00:03:30"/>
+        <stop refId="bus_stop_3" arrivalOffset="00:06:00" departureOffset="00:06:30"/>
+        <stop refId="bus_stop_4" arrivalOffset="00:09:00" departureOffset="00:09:30"/>
+        <stop refId="bus_stop_5" arrivalOffset="00:12:00" departureOffset="00:12:30"/>
+        <stop refId="bus_stop_6" arrivalOffset="00:15:00" departureOffset="00:15:30"/>
+        <stop refId="bus_stop_7" arrivalOffset="00:18:00" departureOffset="00:18:30"/>
+        <stop refId="bus_stop_8" arrivalOffset="00:21:00"/>
+      </routeProfile>
+      <route>
+        <link refId="99"/>
+        <link refId="101"/>
+        <link refId="103"/>
+        <link refId="105"/>
+        <link refId="107"/>
+        <link refId="109"/>
+        <link refId="111"/>
+      </route>
+      <departures>
+        <departure id="bus_dep_1" departureTime="06:00:00" vehicleRefId="bus_1"/>
+        <departure id="bus_dep_2" departureTime="06:10:00" vehicleRefId="bus_2"/>
+        <departure id="bus_dep_3" departureTime="06:20:00" vehicleRefId="bus_3"/>
+        <departure id="bus_dep_4" departureTime="06:30:00" vehicleRefId="bus_4"/>
+        <departure id="bus_dep_5" departureTime="06:40:00" vehicleRefId="bus_5"/>
+        <departure id="bus_dep_6" departureTime="06:50:00" vehicleRefId="bus_6"/>
+        <departure id="bus_dep_7" departureTime="07:00:00" vehicleRefId="bus_1"/>
+        <departure id="bus_dep_8" departureTime="07:10:00" vehicleRefId="bus_2"/>
+        <departure id="bus_dep_9" departureTime="07:20:00" vehicleRefId="bus_3"/>
+        <departure id="bus_dep_10" departureTime="07:30:00" vehicleRefId="bus_4"/>
+        <departure id="bus_dep_11" departureTime="07:40:00" vehicleRefId="bus_5"/>
+        <departure id="bus_dep_12" departureTime="07:50:00" vehicleRefId="bus_6"/>
+        <departure id="bus_dep_13" departureTime="08:00:00" vehicleRefId="bus_1"/>
+        <departure id="bus_dep_14" departureTime="08:10:00" vehicleRefId="bus_2"/>
+        <departure id="bus_dep_15" departureTime="08:20:00" vehicleRefId="bus_3"/>
+        <departure id="bus_dep_16" departureTime="08:30:00" vehicleRefId="bus_4"/>
+        <departure id="bus_dep_17" departureTime="08:40:00" vehicleRefId="bus_5"/>
+        <departure id="bus_dep_18" departureTime="08:50:00" vehicleRefId="bus_6"/>
+        <departure id="bus_dep_19" departureTime="09:00:00" vehicleRefId="bus_1"/>
+        <departure id="bus_dep_20" departureTime="09:10:00" vehicleRefId="bus_2"/>
+        <departure id="bus_dep_21" departureTime="09:20:00" vehicleRefId="bus_3"/>
+        <departure id="bus_dep_22" departureTime="09:30:00" vehicleRefId="bus_4"/>
+        <departure id="bus_dep_23" departureTime="09:40:00" vehicleRefId="bus_5"/>
+        <departure id="bus_dep_24" departureTime="09:50:00" vehicleRefId="bus_6"/>
+        <departure id="bus_dep_25" departureTime="16:00:00" vehicleRefId="bus_1"/>
+        <departure id="bus_dep_26" departureTime="16:10:00" vehicleRefId="bus_2"/>
+        <departure id="bus_dep_27" departureTime="16:20:00" vehicleRefId="bus_3"/>
+        <departure id="bus_dep_28" departureTime="16:30:00" vehicleRefId="bus_4"/>
+        <departure id="bus_dep_29" departureTime="16:40:00" vehicleRefId="bus_5"/>
+        <departure id="bus_dep_30" departureTime="16:50:00" vehicleRefId="bus_6"/>
+        <departure id="bus_dep_31" departureTime="17:00:00" vehicleRefId="bus_1"/>
+        <departure id="bus_dep_32" departureTime="17:10:00" vehicleRefId="bus_2"/>
+        <departure id="bus_dep_33" departureTime="17:20:00" vehicleRefId="bus_3"/>
+        <departure id="bus_dep_34" departureTime="17:30:00" vehicleRefId="bus_4"/>
+        <departure id="bus_dep_35" departureTime="17:40:00" vehicleRefId="bus_5"/>
+        <departure id="bus_dep_36" departureTime="17:50:00" vehicleRefId="bus_6"/>
+        <departure id="bus_dep_37" departureTime="18:00:00" vehicleRefId="bus_1"/>
+        <departure id="bus_dep_38" departureTime="18:10:00" vehicleRefId="bus_2"/>
+        <departure id="bus_dep_39" departureTime="18:20:00" vehicleRefId="bus_3"/>
+        <departure id="bus_dep_40" departureTime="18:30:00" vehicleRefId="bus_4"/>
+        <departure id="bus_dep_41" departureTime="18:40:00" vehicleRefId="bus_5"/>
+        <departure id="bus_dep_42" departureTime="18:50:00" vehicleRefId="bus_6"/>
+        <departure id="bus_dep_43" departureTime="19:00:00" vehicleRefId="bus_1"/>
+        <departure id="bus_dep_44" departureTime="19:10:00" vehicleRefId="bus_2"/>
+        <departure id="bus_dep_45" departureTime="19:20:00" vehicleRefId="bus_3"/>
+        <departure id="bus_dep_46" departureTime="19:30:00" vehicleRefId="bus_4"/>
+        <departure id="bus_dep_47" departureTime="19:40:00" vehicleRefId="bus_5"/>
+        <departure id="bus_dep_48" departureTime="19:50:00" vehicleRefId="bus_6"/>
+      </departures>
+    </transitRoute>
+  </transitLine>
+  <transitLine id="subway_line" name="Subway NS">
+    <transitRoute id="subway_route_1">
+      <transportMode>subway</transportMode>
+      <routeProfile>
+        <stop refId="subway_stop_1" departureOffset="00:00:00"/>
+        <stop refId="subway_stop_2" arrivalOffset="00:02:00" departureOffset="00:02:30"/>
+        <stop refId="subway_stop_3" arrivalOffset="00:04:00" departureOffset="00:04:30"/>
+        <stop refId="subway_stop_4" arrivalOffset="00:06:00" departureOffset="00:06:30"/>
+        <stop refId="subway_stop_5" arrivalOffset="00:08:00" departureOffset="00:08:30"/>
+        <stop refId="subway_stop_6" arrivalOffset="00:10:00" departureOffset="00:10:30"/>
+        <stop refId="subway_stop_7" arrivalOffset="00:12:00" departureOffset="00:12:30"/>
+        <stop refId="subway_stop_8" arrivalOffset="00:14:00" departureOffset="00:14:30"/>
+        <stop refId="subway_stop_9" arrivalOffset="00:16:00" departureOffset="00:16:30"/>
+        <stop refId="subway_stop_10" arrivalOffset="00:18:00"/>
+      </routeProfile>
+      <route>
+        <link refId="147"/>
+        <link refId="163"/>
+        <link refId="179"/>
+        <link refId="195"/>
+        <link refId="211"/>
+        <link refId="227"/>
+        <link refId="243"/>
+        <link refId="259"/>
+        <link refId="275"/>
+      </route>
+      <departures>
+        <departure id="sub_dep_1" departureTime="06:00:00" vehicleRefId="subway_1"/>
+        <departure id="sub_dep_2" departureTime="06:08:00" vehicleRefId="subway_2"/>
+        <departure id="sub_dep_3" departureTime="06:16:00" vehicleRefId="subway_3"/>
+        <departure id="sub_dep_4" departureTime="06:24:00" vehicleRefId="subway_4"/>
+        <departure id="sub_dep_5" departureTime="06:32:00" vehicleRefId="subway_5"/>
+        <departure id="sub_dep_6" departureTime="06:40:00" vehicleRefId="subway_6"/>
+        <departure id="sub_dep_7" departureTime="06:48:00" vehicleRefId="subway_1"/>
+        <departure id="sub_dep_8" departureTime="06:56:00" vehicleRefId="subway_2"/>
+        <departure id="sub_dep_9" departureTime="07:00:00" vehicleRefId="subway_3"/>
+        <departure id="sub_dep_10" departureTime="07:08:00" vehicleRefId="subway_4"/>
+        <departure id="sub_dep_11" departureTime="07:16:00" vehicleRefId="subway_5"/>
+        <departure id="sub_dep_12" departureTime="07:24:00" vehicleRefId="subway_6"/>
+        <departure id="sub_dep_13" departureTime="07:32:00" vehicleRefId="subway_1"/>
+        <departure id="sub_dep_14" departureTime="07:40:00" vehicleRefId="subway_2"/>
+        <departure id="sub_dep_15" departureTime="07:48:00" vehicleRefId="subway_3"/>
+        <departure id="sub_dep_16" departureTime="07:56:00" vehicleRefId="subway_4"/>
+        <departure id="sub_dep_17" departureTime="08:00:00" vehicleRefId="subway_5"/>
+        <departure id="sub_dep_18" departureTime="08:08:00" vehicleRefId="subway_6"/>
+        <departure id="sub_dep_19" departureTime="08:16:00" vehicleRefId="subway_1"/>
+        <departure id="sub_dep_20" departureTime="08:24:00" vehicleRefId="subway_2"/>
+        <departure id="sub_dep_21" departureTime="08:32:00" vehicleRefId="subway_3"/>
+        <departure id="sub_dep_22" departureTime="08:40:00" vehicleRefId="subway_4"/>
+        <departure id="sub_dep_23" departureTime="08:48:00" vehicleRefId="subway_5"/>
+        <departure id="sub_dep_24" departureTime="08:56:00" vehicleRefId="subway_6"/>
+        <departure id="sub_dep_25" departureTime="09:00:00" vehicleRefId="subway_1"/>
+        <departure id="sub_dep_26" departureTime="09:08:00" vehicleRefId="subway_2"/>
+        <departure id="sub_dep_27" departureTime="09:16:00" vehicleRefId="subway_3"/>
+        <departure id="sub_dep_28" departureTime="09:24:00" vehicleRefId="subway_4"/>
+        <departure id="sub_dep_29" departureTime="09:32:00" vehicleRefId="subway_5"/>
+        <departure id="sub_dep_30" departureTime="09:40:00" vehicleRefId="subway_6"/>
+        <departure id="sub_dep_31" departureTime="09:48:00" vehicleRefId="subway_1"/>
+        <departure id="sub_dep_32" departureTime="09:56:00" vehicleRefId="subway_2"/>
+        <departure id="sub_dep_33" departureTime="16:00:00" vehicleRefId="subway_3"/>
+        <departure id="sub_dep_34" departureTime="16:08:00" vehicleRefId="subway_4"/>
+        <departure id="sub_dep_35" departureTime="16:16:00" vehicleRefId="subway_5"/>
+        <departure id="sub_dep_36" departureTime="16:24:00" vehicleRefId="subway_6"/>
+        <departure id="sub_dep_37" departureTime="16:32:00" vehicleRefId="subway_1"/>
+        <departure id="sub_dep_38" departureTime="16:40:00" vehicleRefId="subway_2"/>
+        <departure id="sub_dep_39" departureTime="16:48:00" vehicleRefId="subway_3"/>
+        <departure id="sub_dep_40" departureTime="16:56:00" vehicleRefId="subway_4"/>
+        <departure id="sub_dep_41" departureTime="17:00:00" vehicleRefId="subway_5"/>
+        <departure id="sub_dep_42" departureTime="17:08:00" vehicleRefId="subway_6"/>
+        <departure id="sub_dep_43" departureTime="17:16:00" vehicleRefId="subway_1"/>
+        <departure id="sub_dep_44" departureTime="17:24:00" vehicleRefId="subway_2"/>
+        <departure id="sub_dep_45" departureTime="17:32:00" vehicleRefId="subway_3"/>
+        <departure id="sub_dep_46" departureTime="17:40:00" vehicleRefId="subway_4"/>
+        <departure id="sub_dep_47" departureTime="17:48:00" vehicleRefId="subway_5"/>
+        <departure id="sub_dep_48" departureTime="17:56:00" vehicleRefId="subway_6"/>
+        <departure id="sub_dep_49" departureTime="18:00:00" vehicleRefId="subway_1"/>
+        <departure id="sub_dep_50" departureTime="18:08:00" vehicleRefId="subway_2"/>
+        <departure id="sub_dep_51" departureTime="18:16:00" vehicleRefId="subway_3"/>
+        <departure id="sub_dep_52" departureTime="18:24:00" vehicleRefId="subway_4"/>
+        <departure id="sub_dep_53" departureTime="18:32:00" vehicleRefId="subway_5"/>
+        <departure id="sub_dep_54" departureTime="18:40:00" vehicleRefId="subway_6"/>
+        <departure id="sub_dep_55" departureTime="18:48:00" vehicleRefId="subway_1"/>
+        <departure id="sub_dep_56" departureTime="18:56:00" vehicleRefId="subway_2"/>
+        <departure id="sub_dep_57" departureTime="19:00:00" vehicleRefId="subway_3"/>
+        <departure id="sub_dep_58" departureTime="19:08:00" vehicleRefId="subway_4"/>
+        <departure id="sub_dep_59" departureTime="19:16:00" vehicleRefId="subway_5"/>
+        <departure id="sub_dep_60" departureTime="19:24:00" vehicleRefId="subway_6"/>
+        <departure id="sub_dep_61" departureTime="19:32:00" vehicleRefId="subway_1"/>
+        <departure id="sub_dep_62" departureTime="19:40:00" vehicleRefId="subway_2"/>
+        <departure id="sub_dep_63" departureTime="19:48:00" vehicleRefId="subway_3"/>
+        <departure id="sub_dep_64" departureTime="19:56:00" vehicleRefId="subway_4"/>
+      </departures>
+    </transitRoute>
+  </transitLine>
+</transitSchedule>
